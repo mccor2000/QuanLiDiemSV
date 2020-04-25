@@ -4,28 +4,39 @@
 QuanLiDiemSV  
   |  
   |---include  
-  |      |---QuanLiDiemSV  
-  |                 |---  
-  |                 |---   
-  |                  ...  
-  |---lib  
-  |     |---  
-  |     |---  
-  |      ...  
-  |  
+  |      |---DSMH 
+  |      |     |--- dsmh.h
+  |      |     |--- dsmh.cpp
+  |      |
+  |      |---DSLTC  
+  |      |     |--- dsltc.h
+  |      |     |--- dsltc.cpp
+  |      |
+  |      |---DSSV
+  |      |     |--- dssv.h
+  |      |     |--- dssv.cpp
+  |      |
+  |      |---DSDK
+  |      |     |--- dsdk.h
+  |      |     |--- dsdk.cpp
+  |      |
+  |      |---templates
+  |
   |---src  
-  |     |---  
-  |     |---  
-  |      ...  
+  |     |--- core  
+  |     |--- UI 
+  |     |--- main.cpp
   |  
   |---tests  
-  |     |---  
-  |  
-  |--- main.cpp  
+  |     |---    
 </pre>
-* include/QuanLiDiemSV/ : khai báo class, template ở đây. (files: *.h) (chỉ khai báo, ko viết method này nọ ở chỗ này)  
-* lib/ : chỗ này là chỗ viết method cho mấy class đấy. (files: *.cpp, *.h)  
-* src/ : chỗ này là source code của project, làm mấy cái module với ui ở chỗ này.  
-* tests/ : tests này nọ, rảnh thì làm, ko thì thoi :v  
-* main.cpp: đây là app của mình.  
- 
+* include/ : class, template nằm ở đây. (files: *.h, *.cpp)   
+* src/ : chỗ này là source code của project, làm mấy cái module với ui ở chỗ này. (*.cpp)
+* tests/ : tests này nọ, rảnh thì làm, ko thì thoi :v 
+ ### 2. Progress 
+- [x] Project structure 
+- [ ] Base classes
+- [ ] Core modules
+- [ ] UI/UX
+- [ ] Build & deploy
+- [ ] A+
