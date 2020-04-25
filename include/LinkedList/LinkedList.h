@@ -19,7 +19,8 @@ class LinkedList{
     public:
         Node<T>* p_head_;
         Node<T>* p_tail_;
-    public:
+
+        
         LinkedList() {
             p_head_ = NULL ;
             p_tail_ = NULL ;
