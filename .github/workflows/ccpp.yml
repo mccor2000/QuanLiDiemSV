@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: make
-      run: make main
+      run: make src/main
     - name: run
-      run: ./main
+      run: ./src/main
