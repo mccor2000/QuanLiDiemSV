@@ -1,0 +1,13 @@
+Dùng setter và getter trong class Node. 
+
+function trong LinkedList:
+   khai báo LinkedList<kiểu dữ liệu>  < tên biến >;
+    ví dụ LinkedList<Student> sv;
+
+    head() -> trả về con trỏ first
+    tail() -> trả về con trỏ last
+
+    push_back(val) -> nạp val vào cuối danh sách.
+    push_front(val) -> nạp val vào đầu danh sách.
+    insert(val, pos) -> nạp val vào sau vị trí pos.
+    remove(pos) -> xoá giá trị ở vị trí pos trong liên kết đơn.
