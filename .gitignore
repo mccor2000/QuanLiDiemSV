@@ -1,3 +1,5 @@
 .src/core/test.cpp
 
 .vscode
+
+./a.out
