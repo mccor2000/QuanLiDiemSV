@@ -1,5 +1,4 @@
 #pragma once
-
 template <typename T>
 class Node{
 private:
@@ -8,9 +7,9 @@ private:
 
 public:
     Node() : next_(NULL){;}
-    void set_data(T val){data_= val};
+    void set_data(T val){data_= val;};
     T get_data() {return data_;}
-    void set_next(Node<T>* next){next_=next};
+    void set_next(Node<T>* next){next_=next;};
     Node<T>* get_next() {return next_;};
 
 };
@@ -38,7 +37,7 @@ class LinkedList{
             }
             else{
                 p_tail_ -> set_next(tmp);
-                p_tail_ = p_tail_ -> get_next()
+                p_tail_ = p_tail_ -> get_next();
             }
         }
         void push_front(T val){
@@ -71,7 +70,7 @@ class LinkedList{
         void remove(int pos){
             if(pos==0){
                 if(p_head_ == NULL){
-                    cout << "Danh sach dang trong\n";
+                    std::cout << "Danh sach dang trong\n";
                 }
                 else{
                     p_head_ = p_head_ -> get_next();
@@ -85,7 +84,7 @@ class LinkedList{
                     ++k;
                 }
                 if(k!=pos){
-                    cout <<"Vi tri nhap vao vuot qua vi tri cuoi cung cua danh sach\n";
+                    std::cout <<"Vi tri nhap vao vuot qua vi tri cuoi cung cua danh sach\n";
                 }
                 else{
                     p->set_next(p->get_next()->get_next());
