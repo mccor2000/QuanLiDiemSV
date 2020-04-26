@@ -1,6 +1,5 @@
 #include<iostream>
-#include "../../include/templates/LinkedList.h"
-#include "../../include/SinhVien/SinhVien.h"
+#include"library.h"
 using namespace std;
 int main(){
     cout << "Programing.....\n";
