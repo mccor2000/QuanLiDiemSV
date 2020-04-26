@@ -23,7 +23,8 @@ QuanLiDiemSV
   |      |---templates
   |
   |---src  
-  |     |--- core  
+  |     |--- core|---core.cpp  
+  |              |---library.h
   |     |--- UI 
   |     |--- main.cpp
   |  
