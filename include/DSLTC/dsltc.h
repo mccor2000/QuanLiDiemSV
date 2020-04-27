@@ -4,8 +4,6 @@
 using namespace std;
 
 const int LOP_MAX = 10000;
-const int SV_MIN = 1;
-const int SV_MAX = 150;
 	
 class LOPTC {
 	public:
@@ -16,6 +14,8 @@ class LOPTC {
 			int hocki;
 			int	nhom;
 			bool huylop;
+			int sv_max;
+			int sv_min;
 		};
 		//--
 		struct List {

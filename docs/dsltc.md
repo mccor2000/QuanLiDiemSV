@@ -1,7 +1,5 @@
 ### gitconst:
  * LOP_MAX -> số lớp tối đa trong ds  
- * SV_MAX -> số sv tối đa trong 1 lớp  
- * SV_MIN -> số sv tối thiểu trong 1 lớp  
 
 ### struct Lop: gồm các thuộc tính của 1 lớp  
   

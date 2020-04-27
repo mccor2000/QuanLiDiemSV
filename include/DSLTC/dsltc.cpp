@@ -1,7 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <string.h>
-#include "LOPTC.h"
+#include "dsltc.h"
 
 using namespace std;
 
@@ -69,6 +69,10 @@ void LOPTC::nhapLop(Lop &lop) {
 	cin>>lop.hocki;
 	cout<<"Nhap nhom: ";
 	cin>>lop.nhom;
+	cout<<"Nhap so luong sv toi da: "; 
+	cin>>lop.sv_max;
+	cout<<"Nhap so luong sv toi thieu: ";
+	cin>>lop.sv_min;
 }
 
 void LOPTC::nhapDS() {
