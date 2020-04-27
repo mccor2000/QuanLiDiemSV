@@ -17,16 +17,25 @@ public:
   
   //** Constructor 
   MonHoc(char* , char*, int, int);
-  
+ 
+  //** Operator overloading
+  bool operator>(MonHoc);
+  bool operator<(MonHoc);
+  bool operator==(MonHoc);
+
   //** Utils
-  int compare_to(MonHoc *);
   int get_balance();
   void update_height();
 
   //** AVL methods
-  void left_rotate();
-  void right_rotate();
-  bool insert_to(MonHoc *);
+  MonHoc * left_rotate(MonHoc *);
+  MonHoc * right_rotate(MonHoc *);
+  
+  MonHoc * insert_node(MonHoc *);
+  MonHoc * remove_node(MonHoc *);
+  MonHoc * search_node(char *);
+
+  void in_order_traversal();
 };
 
 /***************** AVL TREE *******************/
@@ -47,11 +56,8 @@ public:
   void remove(MonHoc *);
   
   // Informational, search
-  MonHoc* search_name(char *);
-  MonHoc* search_code(char *);
+  MonHoc* search(char *);
   
   // Enumeration
-  void pre_oder_traversal();
-  void post_order_traversal();
-  void in_order_traversal();
+  void enumerate();
 };

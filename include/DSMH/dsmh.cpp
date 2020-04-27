@@ -2,7 +2,6 @@
 #include <cstring>
 #include "dsmh.h"
 
-
 /************** AVL node methods ***************/
 MonHoc::MonHoc(char * mamh, char * tenmh, int stclt, int stcth) {
   strcpy(MAMH, mamh);
@@ -14,21 +13,20 @@ MonHoc::MonHoc(char * mamh, char * tenmh, int stclt, int stcth) {
   left = NULL;
   right = NULL;
 }
-
-// Utils
-int MonHoc::compare_to(MonHoc * x) {
-  int max = (strlen(TENMH) > strlen(x->TENMH)) ? strlen(TENMH) : strlen(x->TENMH);
-
-  for (int i = 0; i <= max; i++) {
-    if (TENMH[i] > x->TENMH[i]) {
-      return 1;
-    } else if (TENMH[i] < x->TENMH[i]) {
-      return -1;
-    }
-  }
-  return 0;
+//---- Operators
+bool MonHoc::operator > (MonHoc x) {
+  return (strcmp(MAMH, x.MAMH) > 0);
 }
 
+bool MonHoc::operator < (MonHoc x) {
+  return (strcmp(MAMH, x.MAMH) < 0);
+}
+
+bool MonHoc::operator == (MonHoc x) {
+  return (strcmp(MAMH, x.MAMH) == 0);
+}
+
+//---- Utils
 int MonHoc::get_balance() {
   return left->height - right->height; 
 }
@@ -40,42 +38,86 @@ void MonHoc::update_height() {
     height = 1 + (left->height > right->height ? left->height : right->height);
 }
 
-// AVL tree methods 
-void MonHoc::left_rotate() {
+//---- AVL tree methods 
+MonHoc * MonHoc::left_rotate(MonHoc * node) {
   // Exchange nodes
-  MonHoc *tmp = right;
-  right = tmp->left;
-  tmp->left = this;
+  MonHoc * new_node= node->right;
+  node->right = new_node->left;
+  new_node->left = node;
   
   // Update height
-  update_height();
-  tmp->update_height();
+  node->update_height();
+  new_node->update_height();
+
+  return new_node;
 }
 
-void MonHoc::right_rotate() {
+MonHoc * MonHoc::right_rotate(MonHoc * node) {
   // Exchange nodes
-  MonHoc *tmp = left;
-  left = tmp->right;
-  tmp->right = this;
-  
+  MonHoc * new_node = node->left;
+  node->left = new_node->right;
+  new_node->right = node;
   // Update height
-  update_height();
-  tmp->update_height();
+  node->update_height();
+  new_node->update_height();
+  
+  return new_node;
 }
 
-bool MonHoc::insert_to(MonHoc * node) {
+MonHoc * MonHoc::insert_node(MonHoc * node) {
   if (node == NULL) {
-    node = this;
-    return true;
+    return node;
   } 
 
-  if (compare_to(node) == 1) {
-    return insert_to(node->right);
-  } else if (compare_to(node) == -1) {
-    return insert_to(node->left);
-  } 
-   
-  return false; 
+  if (node > this) {
+    right = insert_node(node);   
+  } else if (node < this) {
+    left = insert_node(node);
+  }  
+  update_height();
+
+  if (get_balance() > 1) {
+    if (node < left) {
+      return right_rotate(this);
+    } else {
+      left = left_rotate(left);
+      return right_rotate(this);
+    } 
+  } else if (get_balance() < -1) {
+    if (node > right) {
+      return left_rotate(this); 
+    } else {
+      right = right_rotate(right);
+      return left_rotate(this);
+    }
+  }
+  return this; 
+}
+
+MonHoc * MonHoc::remove_node(MonHoc * node) {
+
+}
+
+MonHoc * MonHoc::search_node(char * s) {
+  if (this == NULL) 
+    return NULL;
+  
+  if (strcmp(s, TENMH) > 0) 
+    return right->search_node(s);
+  else if (strcmp(s, TENMH) < 0) 
+    return left->search_node(s);
+  else 
+    return this;
+}
+
+void MonHoc::in_order_traversal() {
+  if (left != NULL || right != NULL) {
+    left->in_order_traversal();
+    std::cout << TENMH << std::endl;
+    right->in_order_traversal();
+  } else {
+    std::cout << TENMH << std::endl;
+  }
 }
 
 /************* AVL tree methods ****************/
@@ -85,33 +127,17 @@ DanhSachMonHoc::DanhSachMonHoc() {
 }
 
 void DanhSachMonHoc::insert(MonHoc * x) {
-  // BST insert 
-  x->insert_to(root);
-
-  // 
+  root = root->insert_node(x);
 }
 
-void DanhSachMonHoc::remove(MonHoc *) {
-    
+void DanhSachMonHoc::remove(MonHoc * x) {
+  root = root->remove_node(x);    
 }
 
-MonHoc* DanhSachMonHoc::search_name(char *) {
-
+MonHoc* DanhSachMonHoc::search(char * s) {
+  return root->search_node(s);
 }
 
-MonHoc* DanhSachMonHoc::search_code(char *) {
-
+void DanhSachMonHoc::enumerate() {
+  root->in_order_traversal();
 }
-
-void DanhSachMonHoc::pre_oder_traversal() {
-
-}
-
-void DanhSachMonHoc::post_order_traversal() {
-
-}
-
-void DanhSachMonHoc::in_order_traversal() {
-
-}
-
