@@ -15,10 +15,16 @@ public:
   MonHoc *left;
   MonHoc *right;
   
+  //** Constructor 
+  MonHoc(char* , char*, int, int);
+  
   //** AVL methods
-  int get_balance();
   void left_rotate();
   void right_rotate();
+  
+  //** Utils
+  int get_balance();
+  void update_height();
 };
 
 /***************** AVL TREE *******************/
