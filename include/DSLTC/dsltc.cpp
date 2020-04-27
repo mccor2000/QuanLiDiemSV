@@ -5,45 +5,53 @@
 
 using namespace std;
 
-LOPTC::List LOPTC::getList() {
-	return list;
+Lop* LOPTC::getLop() {
+	return *node ;
 }
 
-void LOPTC::setList(List &tmp) {
-	list = tmp;
+void LOPTC::setLop(Lop* &tmp) {
+	*node = tmp;
+}
+
+int LOPTC::getN() {
+	return n;
+}
+
+void LOPTC::setN(int n_tmp) {
+	n = n_tmp;
 }
 
 void LOPTC::khoiTaoDS() {
-	list.n=0;
-	list.stt=0;
+	n=0;
+	stt=0;
 }
 
 bool LOPTC::isFull() {
-	return list.n == LOP_MAX;
+	return n == LOP_MAX;
 }
 
 bool LOPTC::isEmpty() {
-	return list.n == 0;
+	return n == 0;
 }
 
 void LOPTC::insertOrder(Lop &lop, int pos) {
-	list.n++;
-	list.node[list.n-1] = new Lop;
-	for (int i=list.n-1; i>pos; i--) {
-		list.node[i] = list.node[i-1];
+	n++;
+	for (int i=n-1; i>pos; i--) {
+		node[i] = node[i-1];
 	}
-	*list.node[pos] = lop;
+	node[pos] = new Lop;
+	*node[pos] = lop;
 }
 
 void LOPTC::insertLast(Lop &lop) {
-	list.n++;
-	list.node[list.n-1] = new Lop;
-	*list.node[list.n-1] = lop;
+	n++;
+	node[n-1] = new Lop;
+	*node[n-1] = lop;
 }
 
 int LOPTC::search(int malop_tmp) {
-	for (int i=0; i<list.n; i++) {
-		if (list.node[i]->malop==malop_tmp) {
+	for (int i=0; i<n; i++) {
+		if (node[i]->malop==malop_tmp) {
 			return i;
 		}
 	}
@@ -55,8 +63,8 @@ void LOPTC::thongBao(char* s) {
 }
 
 void LOPTC::nhapLop(Lop &lop) {
-	list.stt++;
-	lop.malop=list.stt;
+	stt++;
+	lop.malop=stt;
 	cout<<"Ma lop: "<<lop.malop<<"\n";
 	cout<<"Nhap ma mon hoc: "; 
 	fflush(stdin);
@@ -69,10 +77,10 @@ void LOPTC::nhapLop(Lop &lop) {
 	cin>>lop.hocki;
 	cout<<"Nhap nhom: ";
 	cin>>lop.nhom;
-	cout<<"Nhap so luong sv toi da: "; 
-	cin>>lop.sv_max;
 	cout<<"Nhap so luong sv toi thieu: ";
 	cin>>lop.sv_min;
+	cout<<"Nhap so luong sv toi da: "; 
+	cin>>lop.sv_max;
 }
 
 void LOPTC::nhapDS() {
@@ -95,8 +103,8 @@ void LOPTC::nhapDS() {
 void LOPTC::xuatDS() {
 	system("cls");
 	cout<<"MALOP\tMAMH\tNIENKHOA\tHOCKI\tNHOM\n";
-	for (int i=0; i<list.n; i++) {
-		cout<<list.node[i]->malop<<"\t"<<list.node[i]->maMH<<"\t"<<list.node[i]->nienkhoa<<"\t\t"<<list.node[i]->hocki<<"\t"<<list.node[i]->nhom<<"\n";
+	for (int i=0; i<n; i++) {
+		cout<<node[i]->malop<<"\t"<<node[i]->maMH<<"\t"<<node[i]->nienkhoa<<"\t\t"<<node[i]->hocki<<"\t"<<node[i]->nhom<<"\n";
 	}
 	getch();
 }
@@ -109,7 +117,7 @@ void LOPTC::themLop(Lop &lop, int pos) {
 	if (pos<0) {
 		insertOrder(lop,0);
 	}
-	else if (pos>list.n) {
+	else if (pos>n) {
 		insertLast(lop);
 	}
 	else {
@@ -127,11 +135,11 @@ void LOPTC::xoaLop(int malop_del) {
 		thongBao("Ma lop khong ton tai");
 		return;
 	}
-	delete list.node[pos];
-	for (int i=pos; i<list.n-1; i++) {
-		list.node[i] = list.node[i+1];
+	delete node[pos];
+	for (int i=pos; i<n-1; i++) {
+		node[i] = node[i+1];
 	}
-	list.n--;
+	n--;
 }
 
 void LOPTC::xoaDS() {
@@ -139,9 +147,9 @@ void LOPTC::xoaDS() {
 		thongBao("Danh sach rong");
 		return;
 	}
-	while (list.n>0) {
-		delete list.node[list.n-1];
-		list.n--;
+	while (n>0) {
+		delete node[n-1];
+		n--;
 	}
 }
 

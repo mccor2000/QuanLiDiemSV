@@ -3,7 +3,7 @@
 
 ### struct Lop: gồm các thuộc tính của 1 lớp  
   
-### struct List:  
+### class LOPTC: DSTT (mảng con trỏ) 
  * n -> số lớp trong ds  
  * stt -> để tăng thuộc tính malop tự động  
  * node -> con trỏ trỏ vào ds các lớp   

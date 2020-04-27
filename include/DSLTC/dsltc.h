@@ -4,32 +4,29 @@
 using namespace std;
 
 const int LOP_MAX = 10000;
-	
+
+struct Lop {
+	int malop;
+	char maMH[10];
+	short nienkhoa;
+	short hocki;
+	short nhom;
+	bool huylop;
+	int sv_max;
+	int sv_min;
+};
+
 class LOPTC {
-	public:
-		struct Lop {
-			int malop;
-			char maMH[10];
-			int nienkhoa;
-			int hocki;
-			int	nhom;
-			bool huylop;
-			int sv_max;
-			int sv_min;
-		};
-		//--
-		struct List {
-			int n;
-			int stt;
-			Lop *node [LOP_MAX];
-		};
-	//--
 	private:
-		List list;
+		int n;
+		int stt;
+		Lop *node[LOP_MAX];
 	//--
 	public:
-		List getList();
-		void setList(List &tmp);
+		Lop* getLop();
+		void setLop(Lop* &lop_tmp);
+		int getN();
+		void setN(int n_tmp);
 		void khoiTaoDS();
 		bool isFull();
 		bool isEmpty();
