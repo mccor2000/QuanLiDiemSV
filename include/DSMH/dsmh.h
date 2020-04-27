@@ -18,13 +18,15 @@ public:
   //** Constructor 
   MonHoc(char* , char*, int, int);
   
+  //** Utils
+  int compare_to(MonHoc *);
+  int get_balance();
+  void update_height();
+
   //** AVL methods
   void left_rotate();
   void right_rotate();
-  
-  //** Utils
-  int get_balance();
-  void update_height();
+  bool insert_to(MonHoc *);
 };
 
 /***************** AVL TREE *******************/
@@ -32,12 +34,12 @@ class DanhSachMonHoc {
 
 public:
   //** Properties
-  int n;
+  int length;
   MonHoc* root;
 
   //** Constructor
-  DanhSachMonHoc(MonHoc *);
-  
+  DanhSachMonHoc();
+ 
   //** Methods
   
   // Modify contents
