@@ -22,7 +22,7 @@ bool MonHoc::operator == (MonHoc x) {
   return (strcmp(MAMH, x.MAMH) == 0);
 }
 /************* AVL NODE *****************/
-Node::Node(MonHoc k) {
+node::node(MonHoc k) {
   key = k;
   height = 1;
   left = NULL;
@@ -36,7 +36,7 @@ DanhSachMonHoc::DanhSachMonHoc() {
 }
 
 //** Utils
-int DanhSachMonHoc::height(Node * n) {
+int DanhSachMonHoc::height(node * n) {
   if (n == NULL) {
     return 0;
   }
@@ -45,9 +45,9 @@ int DanhSachMonHoc::height(Node * n) {
 
 //** Private methods
 
-Node * DanhSachMonHoc::left_rotate(Node * n) {
+node * DanhSachMonHoc::left_rotate(node * n) {
   // Exchange nodes
-  Node * new_n= n->right;
+  node * new_n= n->right;
   n->right = new_n->left;
   new_n->left = n;
   
@@ -57,9 +57,9 @@ Node * DanhSachMonHoc::left_rotate(Node * n) {
   return new_n;
 }
 
-Node * DanhSachMonHoc::right_rotate(Node * n) {
+node * DanhSachMonHoc::right_rotate(node * n) {
   // Exchange nodes
-  Node * new_n = n->left;
+  node * new_n = n->left;
   n->left = new_n->right;
   new_n->right = n;
   // Update height
@@ -69,10 +69,10 @@ Node * DanhSachMonHoc::right_rotate(Node * n) {
   return new_n;
 }
 
-Node * DanhSachMonHoc::insert_node(Node * n, MonHoc x) {
+node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
   if (n == NULL) {
     length += 1;
-    Node * tmp = new Node(x);
+    node * tmp = new node(x);
     return tmp;
   } 
 
@@ -103,7 +103,7 @@ Node * DanhSachMonHoc::insert_node(Node * n, MonHoc x) {
   return n; 
 }
 
-Node * DanhSachMonHoc::remove_node(Node * n, MonHoc x) {
+node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
   if (n == NULL) 
     return NULL;
   if (x < n->key) {
@@ -111,9 +111,9 @@ Node * DanhSachMonHoc::remove_node(Node * n, MonHoc x) {
   } else if (x > n->key) {
     n->right = remove_node(n->right, x);
   } else {
-    Node * r = n->right;
+    node * r = n->right;
     if (n->right == NULL) {
-      Node * l = n->left;
+      node * l = n->left;
       delete(n);
       n = l;
 
@@ -154,7 +154,7 @@ Node * DanhSachMonHoc::remove_node(Node * n, MonHoc x) {
   return n;
 }
 
-Node * DanhSachMonHoc::search_node(Node * n, char * s) {
+node * DanhSachMonHoc::search_node(node * n, char * s) {
   if (n == NULL) 
     return NULL;
   
@@ -166,13 +166,13 @@ Node * DanhSachMonHoc::search_node(Node * n, char * s) {
     return n;
 }
 
-void DanhSachMonHoc::in_order(Node * node) {
-  if (node->left != NULL || node->right != NULL) {
-    in_order(node->left);
-    std::cout << node->key.TENMH << std::endl;
-    in_order(node->right);
+void DanhSachMonHoc::in_order(node * n) {
+  if (n->left != NULL || n->right != NULL) {
+    in_order(n->left);
+    std::cout << n->key.TENMH << std::endl;
+    in_order(n->right);
   } else {
-    std::cout << node->key.TENMH << std::endl;
+    std::cout << n->key.TENMH << std::endl;
   }
 }
 
@@ -185,7 +185,7 @@ void DanhSachMonHoc::remove(MonHoc x) {
   root = remove_node(root, x);    
 }
 
-Node * DanhSachMonHoc::search(char * s) {
+node * DanhSachMonHoc::search(char * s) {
   return search_node(root, s);
 }
 

@@ -19,26 +19,24 @@ public:
 };
 
 /*************** AVL TREE NODE ****************/
-class Node {
-
+class node {
 public:
   //** Props
   MonHoc key;
   int height;
-  Node *left;
-  Node *right;
+  node *left;
+  node *right;
 
   //** Constructor
-  Node(MonHoc);
+  node(MonHoc);
 };
 
 /***************** AVL TREE *******************/
 class DanhSachMonHoc {
-
 public:
   //** Props
   int length;
-  Node * root;
+  node * root;
 
   //** Constructor
   DanhSachMonHoc();
@@ -46,19 +44,19 @@ public:
   //** Public methods
   void insert(MonHoc);
   void remove(MonHoc);
-  Node * search(char *);
+  node * search(char *);
   void enumerate();
 
 private:
   //** Utils
-  int height(Node *);
+  int height(node *);
   //** AVL methods
-  Node * left_rotate(Node *);
-  Node * right_rotate(Node *);
+  node * left_rotate(node *);
+  node * right_rotate(node *);
   
-  Node * insert_node(Node *, MonHoc);
-  Node * remove_node(Node *, MonHoc);
-  Node * search_node(Node *, char *);
+  node * insert_node(node *, MonHoc);
+  node * remove_node(node *, MonHoc);
+  node * search_node(node *, char *);
 
-  void in_order(Node *);
+  void in_order(node *);
 };
