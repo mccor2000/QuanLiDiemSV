@@ -12,8 +12,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
     - name: make
-      run: make src/main
+      run: make 
+    - name: clean
+      run: make clean 
     - name: run
-      run: ./src/main
+      run: ./app
