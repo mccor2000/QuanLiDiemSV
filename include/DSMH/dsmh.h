@@ -1,63 +1,64 @@
 #pragma once
 
-/*************** AVL TREE NODE ****************/
+/****************** MON HOC *******************/ 
 class MonHoc {
-
 public:
-  //** Info properties
+  //** Props
   char MAMH[10];   
-  char TENMH[50]; // Key
+  char TENMH[50];
   int STCLT;
   int STCTH;
-
-  //** AVL tree properties
-  int height;
-  MonHoc *left;
-  MonHoc *right;
   
   //** Constructor 
   MonHoc(char* , char*, int, int);
- 
+  MonHoc() {;} 
   //** Operator overloading
   bool operator>(MonHoc);
   bool operator<(MonHoc);
   bool operator==(MonHoc);
+};
 
-  //** Utils
-  int get_balance();
-  void update_height();
+/*************** AVL TREE NODE ****************/
+class Node {
 
-  //** AVL methods
-  MonHoc * left_rotate(MonHoc *);
-  MonHoc * right_rotate(MonHoc *);
-  
-  MonHoc * insert_node(MonHoc *);
-  MonHoc * remove_node(MonHoc *);
-  MonHoc * search_node(char *);
+public:
+  //** Props
+  MonHoc key;
+  int height;
+  Node *left;
+  Node *right;
 
-  void in_order_traversal();
+  //** Constructor
+  Node(MonHoc);
 };
 
 /***************** AVL TREE *******************/
 class DanhSachMonHoc {
 
 public:
-  //** Properties
+  //** Props
   int length;
-  MonHoc* root;
+  Node * root;
 
   //** Constructor
   DanhSachMonHoc();
  
-  //** Methods
-  
-  // Modify contents
-  void insert(MonHoc *);
-  void remove(MonHoc *);
-  
-  // Informational, search
-  MonHoc* search(char *);
-  
-  // Enumeration
+  //** Public methods
+  void insert(MonHoc);
+  void remove(MonHoc);
+  Node * search(char *);
   void enumerate();
+
+private:
+  //** Utils
+  int height(Node *);
+  //** AVL methods
+  Node * left_rotate(Node *);
+  Node * right_rotate(Node *);
+  
+  Node * insert_node(Node *, MonHoc);
+  Node * remove_node(Node *, MonHoc);
+  Node * search_node(Node *, char *);
+
+  void in_order(Node *);
 };
