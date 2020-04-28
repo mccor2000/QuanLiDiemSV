@@ -95,7 +95,54 @@ MonHoc * MonHoc::insert_node(MonHoc * node) {
 }
 
 MonHoc * MonHoc::remove_node(MonHoc * node) {
+  if (this == NULL) return NULL;
+  if (node < this) {
+    left = left->remove_node(node);
+  } else if (node > this) {
+    right = right->remove_node(node);
+  } else {
+    MonHoc * r = right;
+    if (right == NULL) {
+      MonHoc * l = left;
+      *this = *l;
+      delete l;
 
+    } else if (left == NULL) {
+      *this = *r;
+      delete r;
+    
+    } else {
+      while (r->left != NULL) 
+        r = r->left;
+        strcpy(MAMH, r->MAMH);
+        strcpy(TENMH, r->TENMH);
+        STCLT = r->STCLT;
+        STCTH = r->STCTH;
+        
+        right = right->remove_node(r);
+    }
+  }
+
+  if (this == NULL) return NULL;
+  update_height();
+
+  if (get_balance() > 1) {
+    if (node > left) {
+      return right_rotate(this);
+    } else {
+      left = left_rotate(left);
+      return right_rotate(this);
+    }
+  } else if (get_balance() < -1) {
+    if (node < right) {
+      return left_rotate(this);
+    } else {
+      right = right_rotate(right);
+      return left_rotate(this);
+    }
+  }
+
+  return this;
 }
 
 MonHoc * MonHoc::search_node(char * s) {
