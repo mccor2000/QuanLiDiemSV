@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string.h>
-#include "DangKy.h"
-#include "LinkedList.h"
+#include"../../include/DangKy/DangKy.h"
+#include"../../include/templates/LinkedList.h"
 
 using namespace std;
 
