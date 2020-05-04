@@ -41,3 +41,5 @@ QuanLiDiemSV
 - [ ] UI/UX
 - [ ] Build & deploy
 - [ ] A+
+### 3.Data flow 
+https://www.lucidchart.com/documents/edit/fbb03766-438e-4a12-bc22-8605c1b99ced/0_0
