@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <cstring>
 #include "dsmh.h"
 
