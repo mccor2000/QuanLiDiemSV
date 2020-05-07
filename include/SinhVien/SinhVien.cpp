@@ -29,3 +29,6 @@ Student::Student(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALOP)
     MALOP_ = MALOP;
     std::cout << "DA KHOI TAO 1 SINH VIEN\n"; 
 }
+void Student::info(){
+    std::cout << MASV_ << " " << HO_ <<  " " <<TEN_<< " "<< PHAI_ << " " << SDT_ << " " << MALOP_; 
+}

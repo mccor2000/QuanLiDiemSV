@@ -9,6 +9,7 @@
 #include"../../include/DangKy/DangKy.h"
 #include"../../include/DSMH/dsmh.h"
 #include"../../include/DSLTC/dsltc.h"
+#include"../../include/LopCQ/lopCQ.h"
 
 // Database controllers
 DanhSachMonHoc get_dsmh();
@@ -22,3 +23,4 @@ void set_dssv(LinkedList<Student>);
 
 LinkedList<Register> get_dsdk(char *);
 void set_dsdk(LinkedList<Register>, char *);
+
