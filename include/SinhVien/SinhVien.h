@@ -1,3 +1,6 @@
+#ifndef _SINHVIEN_H
+#define _SINHVIEN_H
+
 class Student{
     private:
         char* MASV_;
@@ -19,3 +22,5 @@ class Student{
         bool get_PHAI();
 
 };
+
+#endif

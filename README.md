@@ -1,6 +1,5 @@
 # QuanLiDiemSV
 ### 1. Project structure
-<pre>
 QuanLiDiemSV  
   |  
   |---include  
@@ -30,7 +29,6 @@ QuanLiDiemSV
   |  
   |---tests  
   |     |---    
-</pre>
 * include/ : class, template nằm ở đây. (files: *.h, *.cpp)   
 * src/ : chỗ này là source code của project, làm mấy cái module với ui ở chỗ này. (*.cpp)
 * tests/ : tests này nọ, rảnh thì làm, ko thì thoi :v 

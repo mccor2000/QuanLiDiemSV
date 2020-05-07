@@ -1,5 +1,11 @@
+#ifndef _DSLTC_H
+#define _DSLTC_H
+
 #include <iostream>
 #include <string.h>
+
+#include"../../include/DangKy/DangKy.h"
+#include"../../include/templates/LinkedList.h"
 
 using namespace std;
 
@@ -14,6 +20,7 @@ struct Lop {
 	bool huylop;
 	int sv_max;
 	int sv_min;
+	LinkedList<Register> dsdk; 
 };
 
 class LOPTC {
@@ -33,7 +40,6 @@ class LOPTC {
 		void insertLast(Lop &lop);
 		void insertOrder(Lop &lop, int pos);
 		int search(int malop_tmp);
-		void nhapDS();
 		void xuatDS();
 		void nhapLop(Lop &lop);
 		void themLop(Lop &lop, int pos);
@@ -41,3 +47,4 @@ class LOPTC {
 		void xoaDS();
 		void thongBao(char* s);
 };
+#endif

@@ -1,3 +1,6 @@
+#ifndef _DANGKY_H
+#define _DANGKY_H
+
 class Register{
     private:
         char* MASV_;
@@ -10,3 +13,5 @@ class Register{
         char* get_MASV();
         short get_DIEM();
 };
+
+#endif

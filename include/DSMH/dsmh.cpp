@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <cstring>
 #include "dsmh.h"
 
@@ -217,6 +218,4 @@ void DanhSachMonHoc::get_from_file(char * file_path) {
   while(f.read((char *)&temp, sizeof(temp))) {
     insert(temp);
   }  
-  
-  f.close();
 }
