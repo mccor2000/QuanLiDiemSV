@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _DSMH_H
+#define _DSMH_H
 /****************** MON HOC *******************/ 
 class MonHoc {
 public:
@@ -60,3 +60,4 @@ private:
 
   void in_order(node *);
 };
+#endif

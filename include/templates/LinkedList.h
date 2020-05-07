@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _LINKEDLIST_H
+#define _LINKEDLIST_H
 template <typename T>
 class Node{
 private:
@@ -93,3 +94,4 @@ class LinkedList{
 
         }
 };
+#endif

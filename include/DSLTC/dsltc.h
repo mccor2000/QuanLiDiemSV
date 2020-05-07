@@ -1,3 +1,6 @@
+#ifndef _DSLTC_H
+#define _DSLTC_H
+
 #include <iostream>
 #include <string.h>
 #include"../../include/DangKy/DangKy.h"
@@ -43,3 +46,4 @@ class LOPTC {
 		void xoaDS();
 		void thongBao(char* s);
 };
+#endif
