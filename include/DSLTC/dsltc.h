@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string.h>
-
+#include <fstream>
 #include"../../include/DangKy/DangKy.h"
 #include"../../include/templates/LinkedList.h"
 
@@ -21,6 +21,8 @@ struct Lop {
 	int sv_max;
 	int sv_min;
 	LinkedList<Register> dsdk; 
+  Lop(int, char *, short, short, short, int, int);
+  Lop() {;}
 };
 
 class LOPTC {
@@ -46,5 +48,7 @@ class LOPTC {
 		void xoaLop(int malop_del);
 		void xoaDS();
 		void thongBao(char* s);
+    void save_to_file(char *);
+    void get_from_file(char *);
 };
 #endif
