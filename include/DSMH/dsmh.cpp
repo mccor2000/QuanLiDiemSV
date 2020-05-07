@@ -1,4 +1,3 @@
-#include <iostream>
 #include <cstring>
 #include "dsmh.h"
 
@@ -75,14 +74,19 @@ node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
     node * tmp = new node(x);
     return tmp;
   } 
+ 
+  if (n->key == x) {
+    return n;
+  }
 
   if (x > n->key) {
-    n->right = insert_node(n->right, x);   
+    n->right = insert_node(n->right, x);
   } else if (x < n->key) {
     n->left = insert_node(n->left, x);
-  } 
+  }
+
   n->height = 1 + std::max(height(n->left), height(n->right));
-  
+
   int bal = height(n->left) - height(n->right);
 
   if (bal > 1) {
@@ -91,10 +95,10 @@ node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
     } else {
       n->left = left_rotate(n->left);
       return right_rotate(n);
-    } 
+    }
   } else if (bal < -1) {
     if (x > n->right->key) {
-      return left_rotate(n); 
+      return left_rotate(n);
     } else {
       n->right = right_rotate(n->right);
       return left_rotate(n);
@@ -167,15 +171,20 @@ node * DanhSachMonHoc::search_node(node * n, char * s) {
 }
 
 void DanhSachMonHoc::in_order(node * n) {
-  if (n->left != NULL || n->right != NULL) {
+  if (n != NULL) {
     in_order(n->left);
     std::cout << n->key.TENMH << std::endl;
     in_order(n->right);
-  } else {
-    std::cout << n->key.TENMH << std::endl;
   }
 }
 
+void DanhSachMonHoc::save_node(node * n, std::ofstream &f) {
+  if (n != NULL) {
+    save_node(n->left, f);
+    f.write((char *)&(n->key), sizeof(MonHoc)); 
+    save_node(n->right, f);
+  }  
+}
 // Public methods
 void DanhSachMonHoc::insert(MonHoc x) {
   root = insert_node(root, x);
@@ -193,3 +202,21 @@ void DanhSachMonHoc::enumerate() {
   in_order(root);
 }
 
+void DanhSachMonHoc::save_to_file(char * file_path) {
+  std::ofstream f;
+  f.open(file_path, std::ios::binary);
+  save_node(root, f);
+  f.close();
+}
+
+void DanhSachMonHoc::get_from_file(char * file_path) {
+  std::ifstream f;
+  f.open(file_path, std::ios::binary);
+
+  MonHoc temp;
+  while(f.read((char *)&temp, sizeof(temp))) {
+    insert(temp);
+  }  
+  
+  f.close();
+}

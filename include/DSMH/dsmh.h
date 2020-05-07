@@ -1,5 +1,6 @@
 #pragma once
-
+#include <fstream>
+#include <iostream>
 /****************** MON HOC *******************/ 
 class MonHoc {
 public:
@@ -46,6 +47,8 @@ public:
   void remove(MonHoc);
   node * search(char *);
   void enumerate();
+  void get_from_file(char *);
+  void save_to_file(char *);
 
 private:
   //** Utils
@@ -57,6 +60,7 @@ private:
   node * insert_node(node *, MonHoc);
   node * remove_node(node *, MonHoc);
   node * search_node(node *, char *);
-
+  
   void in_order(node *);
+  void save_node(node *, std::ofstream &);
 };
