@@ -10,6 +10,17 @@ Lop::Lop(char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min)
   sv_min = min;
 }
 
+Lop::Lop(int ma_lop, char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min) {
+  malop = ma_lop;
+  strcpy(maMH, ma_mh);
+  nienkhoa= nien_khoa;
+  hocki = hoc_ki;
+  nhom = n;
+  huylop = false;
+  sv_max = max;
+  sv_min = min;
+}
+
 Lop* LOPTC::getLop() {
 	return *node ;
 }
