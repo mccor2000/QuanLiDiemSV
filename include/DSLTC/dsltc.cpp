@@ -1,5 +1,4 @@
 #include <iostream>
-#include <conio.h>
 #include <string.h>
 #include "dsltc.h"
 
@@ -9,8 +8,8 @@ Lop* LOPTC::getLop() {
 	return *node ;
 }
 
-void LOPTC::setLop(Lop* &tmp) {
-	*node = tmp;
+void LOPTC::setLop(Lop* &lop_tmp) {
+	*node = lop_tmp;
 }
 
 int LOPTC::getN() {
@@ -83,30 +82,12 @@ void LOPTC::nhapLop(Lop &lop) {
 	cin>>lop.sv_max;
 }
 
-void LOPTC::nhapDS() {
-	if (!isEmpty()) {
-		xoaDS();
-	}
-	khoiTaoDS();
-	char ok='y';
-	Lop lop;
-	while (ok=='y' || ok=='Y') {
-		nhapLop(lop);
-		insertLast(lop);
-		cout<<"Ban co muon tiep tuc? (Y/N)\n";
-		do {
-			ok = getch();
-		} while (ok!='y' && ok!='Y' && ok!='n' && ok!='N');
-	}
-}
-
 void LOPTC::xuatDS() {
 	system("cls");
 	cout<<"MALOP\tMAMH\tNIENKHOA\tHOCKI\tNHOM\n";
 	for (int i=0; i<n; i++) {
 		cout<<node[i]->malop<<"\t"<<node[i]->maMH<<"\t"<<node[i]->nienkhoa<<"\t\t"<<node[i]->hocki<<"\t"<<node[i]->nhom<<"\n";
 	}
-	getch();
 }
 
 void LOPTC::themLop(Lop &lop, int pos) {
@@ -152,7 +133,6 @@ void LOPTC::xoaDS() {
 		n--;
 	}
 }
-
 
 
 
