@@ -106,5 +106,23 @@ class LinkedList{
                 return result;
             }
         }
+       void swap(Node<T>* a, Node<T>* b){
+           Node<Student>* tmp = new Node<T>();
+           tmp->set_data(a->get_data());
+            a->set_data(b->get_data());
+            b->set_data(tmp->get_data());
+       }
+        void sort(){
+            Node<T>* head = p_head_;
+            Node<T>* node = NULL;
+            for(Node<T>* index = head; index->get_next() != NULL ; index=index->get_next()){
+                for(Node<T>* selection = index->get_next(); selection != NULL; selection = selection->get_next()){
+                    if(index->get_data() > selection->get_data()){
+                        swap(index, selection);
+                    }
+                }
+            }
+        }
+
 };
 #endif
