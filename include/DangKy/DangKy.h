@@ -12,6 +12,7 @@ class Register{
 
         char* get_MASV();
         short get_DIEM();
+        void info();
 };
 
 #endif
