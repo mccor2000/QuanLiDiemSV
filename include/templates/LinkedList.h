@@ -93,5 +93,18 @@ class LinkedList{
             }
 
         }
+        int count(){
+            int result=0;
+            if(p_head_==NULL){
+                return result;
+            }
+            else{
+                Node<T>* p = p_head_;
+                while(p->get_next()!=NULL){
+                    result++;
+                }
+                return result;
+            }
+        }
 };
 #endif

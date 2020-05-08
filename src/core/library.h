@@ -10,5 +10,3 @@
 #include"../../include/DSMH/dsmh.h"
 #include"../../include/DSLTC/dsltc.h"
 #include"../../include/LopCQ/lopCQ.h"
-
-
