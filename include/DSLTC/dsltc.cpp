@@ -5,20 +5,9 @@ Lop::Lop(char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min)
   nienkhoa = nien_khoa;
   hocki = hoc_ki;
   nhom = n;
-  huylop = false;
   sv_max = max;
   sv_min = min;
-}
-
-Lop::Lop(int ma_lop, char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min) {
-  malop = ma_lop;
-  strcpy(maMH, ma_mh);
-  nienkhoa= nien_khoa;
-  hocki = hoc_ki;
-  nhom = n;
-  huylop = false;
-  sv_max = max;
-  sv_min = min;
+  huylop = dsdk.count() < sv_min ? true : false;
 }
 
 Lop* LOPTC::getLop() {
@@ -81,6 +70,7 @@ void LOPTC::thongBao(char* s) {
 void LOPTC::nhapLop(Lop &lop) {
 	stt++;
 	lop.malop=stt;
+	lop.huylop = true;
 	cout<<"Ma lop: "<<lop.malop<<"\n";
 	cout<<"Nhap ma mon hoc: "; 
 	fflush(stdin);
