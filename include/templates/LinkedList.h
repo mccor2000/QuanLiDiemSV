@@ -101,16 +101,16 @@ class LinkedList{
             Node<T>* temp = p_head_;
 
             do {
-                f.write((char *)&temp->get_data(), sizeof(T);
+                f.write((char *)&temp->get_data(), sizeof(T));
                 temp = temp->get_next();
-            } while (temp->get_next() != NULL)
+            } while (temp->get_next() != NULL);
 
             f.close(); 
         }
         
         void get_from_file(char * file_path) {
             std::ifstream f;
-            f.open(file_path. std::ios::binary);
+            f.open(file_path, std::ios::binary);
 
             T temp;
 
@@ -120,6 +120,7 @@ class LinkedList{
             }
 
             f.close();
+        }
 
         int count(){
             int result=0;

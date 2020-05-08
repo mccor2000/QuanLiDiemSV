@@ -59,10 +59,6 @@ void Add(){
     char* MALOP="TEST";
     bool PHAI=1;
     
-    Student::Student sv( MASV, HO, TEN, PHAI,  SDT, MALOP);
+    Student sv(MASV, HO, TEN, PHAI, SDT, MALOP);
     SelectedClass.push_back(sv);
-}
-
-int main(){
-    cout << "Module C\n";
 }
