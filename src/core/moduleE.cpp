@@ -1,6 +1,6 @@
 #include "library.h"
 
-void create_mh() {
+void create_mh(DanhSachMonHoc& dsmh) {
   char ma_mh[10];
   char ten_mh[10];
   int stclt;
@@ -12,43 +12,28 @@ void create_mh() {
   std::cout << "Nhap so tin chi ly thuyet: "; std::cin >> stclt;
   std::cout << "Nhap so tin chi thuc hanh: "; std::cin >> stcth;
   
-  // Get data
-  DanhSachMonHoc dsmh;
-  dsmh.get_from_file(DSMH_PATH__);
-  
   // Insert mh
   MonHoc new_mh(ma_mh, ten_mh, stclt, stcth);
   dsmh.insert(new_mh);
-
-  // Save data
-  dsmh.save_to_file(DSMH_PATH__);
 }
 
-void update_mh() {
+void update_mh(DanhSachMonHoc& dsmh) {
   // Get ten_mh
   char ten_mh[50];
   std::cout << "Nhap ten mon hoc can hieu chinh: "; std::cin >> ten_mh;
   
-  // Get mh
-  DanhSachMonHoc dsmh;
-  dsmh.get_from_file(DSMH_PATH__);
   node * temp = dsmh.search(ten_mh);
-  
-  // Delete mh
   dsmh.remove(temp->key);
+  create_mh(dsmh);
 
-  // Create new mh
-  create_mh();
+  dsmh.enumerate();
 }
 
-void delete_mh() {
+void delete_mh(DanhSachMonHoc& dsmh) {
   // Get input
   char ten_mh[50];
   std::cout << "Nhap ten mon hoc can xoa: "; std::cin >> ten_mh;
   
-  // Get mh
-  DanhSachMonHoc dsmh;
-  dsmh.get_from_file(DSMH_PATH__);
   node * temp = dsmh.search(ten_mh);
 
   // Delete mh  

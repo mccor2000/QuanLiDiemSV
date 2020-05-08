@@ -36,3 +36,6 @@ void Add();
 void create_mh();
 void update_mh();
 void delete_mh();
+
+//-- F
+void print_dsmh();

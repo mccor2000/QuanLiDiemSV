@@ -46,10 +46,9 @@ int DanhSachMonHoc::height(node * n) {
 
 node * DanhSachMonHoc::left_rotate(node * n) {
   // Exchange nodes
-  node * new_n= n->right;
+  node * new_n = n->right;
   n->right = new_n->left;
   new_n->left = n;
-  
   // Update height
   n->height = 1 + std::max(height(n->left), height(n->right));
   new_n->height = 1 + std::max(height(new_n->left), height(new_n->right));
@@ -75,10 +74,10 @@ node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
     return tmp;
   } 
 
-  if (x > n->key) {
-    n->right = insert_node(n->right, x);
-  } else if (x < n->key) {
-    n->left = insert_node(n->left, x);
+  if (x < n->key) {
+    n->left= insert_node(n->left, x);
+  } else if (x > n->key) {
+    n->right= insert_node(n->right, x);
   } else {
     return n;
   }
