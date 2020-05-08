@@ -1,8 +1,7 @@
 #include "library.h"
 
 
-void huyLopTC(){
-    LOPTC BASE_DSLTC;
+void huyLopTC(LOPTC& BASE_DSLTC){
     BASE_DSLTC.khoiTaoDS();
     BASE_DSLTC.get_from_file(DSLTC_PATH__);
     for(int i=0;i<BASE_DSLTC.getN();i++){
