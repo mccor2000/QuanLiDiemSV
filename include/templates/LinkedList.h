@@ -93,6 +93,34 @@ class LinkedList{
             }
 
         }
+  
+        void save_to_file(char * file_path) {
+            std::ofstream f;
+            f.open(file_path, std::ios::binary);
+            
+            Node<T>* temp = p_head_;
+
+            do {
+                f.write((char *)&temp->get_data(), sizeof(T);
+                temp = temp->get_next();
+            } while (temp->get_next() != NULL)
+
+            f.close(); 
+        }
+        
+        void get_from_file(char * file_path) {
+            std::ifstream f;
+            f.open(file_path. std::ios::binary);
+
+            T temp;
+
+
+            while (f.read((char *)&temp, sizeof(T))) {
+                push_back(temp);
+            }
+
+            f.close();
+
         int count(){
             int result=0;
             if(p_head_==NULL){

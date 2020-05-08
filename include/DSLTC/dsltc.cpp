@@ -1,8 +1,14 @@
-#include <iostream>
-#include <string.h>
 #include "dsltc.h"
 
-using namespace std;
+Lop::Lop(char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min) {
+  strcpy(maMH, ma_mh);
+  nienkhoa = nien_khoa;
+  hocki = hoc_ki;
+  nhom = n;
+  huylop = false;
+  sv_max = max;
+  sv_min = min;
+}
 
 Lop::Lop(int ma_lop, char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min) {
   malop = ma_lop;
@@ -145,3 +151,22 @@ void LOPTC::xoaDS() {
 	}
 }
 
+void LOPTC::save_to_file(char * file_path) {
+  ofstream f;
+  f.open(file_path, std::ios::binary);
+  for (int i = 0; i < n; i++) {
+    f.write((char *)node[i], sizeof(Lop));  
+  }
+  f.close();
+}
+
+void LOPTC::get_from_file(char * file_path) {
+  ifstream f;
+  f.open(file_path, std::ios::binary);
+  Lop* temp = new Lop(); 
+  
+  while (f.read((char *)temp, sizeof(Lop))) {
+    insertLast(*temp);
+  }
+  f.close();
+}
