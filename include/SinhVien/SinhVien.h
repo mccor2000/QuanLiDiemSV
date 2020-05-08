@@ -21,6 +21,7 @@ class Student{
         char* get_MALOP();
         bool get_PHAI();
         void info();
+        bool operator>(Student);
 };
 
 #endif
