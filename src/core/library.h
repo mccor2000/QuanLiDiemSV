@@ -34,6 +34,5 @@ void Add();
 
 //-- E
 void create_mh();
-void retrieve_mh();
 void update_mh();
 void delete_mh();

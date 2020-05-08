@@ -74,15 +74,13 @@ node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
     node * tmp = new node(x);
     return tmp;
   } 
- 
-  if (n->key == x) {
-    return n;
-  }
 
   if (x > n->key) {
     n->right = insert_node(n->right, x);
   } else if (x < n->key) {
     n->left = insert_node(n->left, x);
+  } else {
+    return n;
   }
 
   n->height = 1 + std::max(height(n->left), height(n->right));
