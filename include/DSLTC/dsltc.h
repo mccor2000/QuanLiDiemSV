@@ -29,6 +29,7 @@ class LOPTC {
 	private:
 		int n;
 		int stt;
+	public:
 		Lop *node[LOP_MAX];
 	//--
 	public:

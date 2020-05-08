@@ -3,7 +3,7 @@ CC=g++
 CFLAG=-c 
 
 all: main dssv dsdk dsltc dsmh
-	$(CC) main.o SinhVien.o DangKy.o dsltc.o dsmh.o -o app
+	$(CC) main.o SinhVien.o DangKy.o dsltc.o dsmh.o -o app ; rm *.o
 
 main: src/main.cpp
 	$(CC) $(CFLAG) src/main.cpp
@@ -20,5 +20,3 @@ dsltc: include/DSLTC/dsltc.cpp
 dsmh: include/DSMH/dsmh.cpp
 	$(CC) $(CFLAG) include/DSMH/dsmh.cpp 
 
-clean: 
-	rm *.o
