@@ -20,7 +20,6 @@ class Student{
         char* get_SDT();
         char* get_MALOP();
         bool get_PHAI();
-        void Put();
         void info();
 };
 
