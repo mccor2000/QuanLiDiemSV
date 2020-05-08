@@ -31,9 +31,15 @@ LinkedList<Student> SelectClass();
 void Add();
 
 //-- D
+void Show_Student(LinkedList<Student> dssv);
 
 //-- E
 void create_mh();
-void retrieve_mh();
 void update_mh();
 void delete_mh();
+
+//-- F
+void print_dsmh();
+
+//-- H
+void huyLopTC(LOPTC& BASE_DSLTC);

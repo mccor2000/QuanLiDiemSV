@@ -11,3 +11,6 @@ char* Register::get_MASV(){
 short  Register::get_DIEM(){
     return DIEM_;
 }
+void Register::info(){
+    std::cout << MASV_ << " " << DIEM_ << '\n';
+}
