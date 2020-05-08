@@ -1,6 +1,5 @@
 #include "library.h"
 
-
 void huyLopTC(LOPTC& BASE_DSLTC){
     for(int i=0;i<BASE_DSLTC.getN();i++){
         Lop LOP;
@@ -11,6 +10,3 @@ void huyLopTC(LOPTC& BASE_DSLTC){
     }
 }
 
-int main(){
-    std::cout << "Module H\n";
-}
