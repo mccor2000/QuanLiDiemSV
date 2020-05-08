@@ -21,7 +21,7 @@ struct Lop {
 	int sv_max;
 	int sv_min;
 	LinkedList<Register> dsdk; 
-  Lop(int, char *, short, short, short, int, int);
+  Lop(char *, short, short, short, int, int);
   Lop() {;}
 };
 
