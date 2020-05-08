@@ -29,3 +29,4 @@
    * list.push_fron(Sinh vien val) adding val phía trước list.
    * list.insert(Sinh vien val, int position) chèn 1 val vào sau vị trí nhập vào.
    * list.remove(int position) xoá 1 node tại vị trí nhập vào.
+   
