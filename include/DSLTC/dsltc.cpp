@@ -4,6 +4,17 @@
 
 using namespace std;
 
+Lop::Lop(int ma_lop, char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min) {
+  malop = ma_lop;
+  strcpy(maMH, ma_mh);
+  nienkhoa= nien_khoa;
+  hocki = hoc_ki;
+  nhom = n;
+  huylop = false;
+  sv_max = max;
+  sv_min = min;
+}
+
 Lop* LOPTC::getLop() {
 	return *node ;
 }
@@ -38,13 +49,13 @@ void LOPTC::insertOrder(Lop &lop, int pos) {
 	for (int i=n-1; i>pos; i--) {
 		node[i] = node[i-1];
 	}
-	node[pos] = new Lop;
+	node[pos] = new Lop();
 	*node[pos] = lop;
 }
 
 void LOPTC::insertLast(Lop &lop) {
 	n++;
-	node[n-1] = new Lop;
+	node[n-1] = new Lop();
 	*node[n-1] = lop;
 }
 
@@ -133,6 +144,4 @@ void LOPTC::xoaDS() {
 		n--;
 	}
 }
-
-
 
