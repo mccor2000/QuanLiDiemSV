@@ -5,9 +5,9 @@ Lop::Lop(char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min)
   nienkhoa = nien_khoa;
   hocki = hoc_ki;
   nhom = n;
-  huylop = false;
   sv_max = max;
   sv_min = min;
+  huylop = dsdk.count() < sv_min ? true : false;
 }
 
 Lop* LOPTC::getLop() {
@@ -66,30 +66,7 @@ int LOPTC::search(int malop_tmp) {
 void LOPTC::thongBao(char* s) {
 	cout<<s;
 }
-
-void LOPTC::nhapLop(Lop &lop) {
-	stt++;
-	lop.malop=stt;
-	cout<<"Ma lop: "<<lop.malop<<"\n";
-	cout<<"Nhap ma mon hoc: "; 
-	fflush(stdin);
-	do {
-		cin.getline(lop.maMH,10);
-	} while (strcmp(lop.maMH,"")==0);
-	cout<<"Nhap nien khoa: ";
-	cin>>lop.nienkhoa;
-	cout<<"Nhap hoc ki: ";
-	cin>>lop.hocki;
-	cout<<"Nhap nhom: ";
-	cin>>lop.nhom;
-	cout<<"Nhap so luong sv toi thieu: ";
-	cin>>lop.sv_min;
-	cout<<"Nhap so luong sv toi da: "; 
-	cin>>lop.sv_max;
-}
-
 void LOPTC::xuatDS() {
-	system("cls");
 	cout<<"MALOP\tMAMH\tNIENKHOA\tHOCKI\tNHOM\n";
 	for (int i=0; i<n; i++) {
 		cout<<node[i]->malop<<"\t"<<node[i]->maMH<<"\t"<<node[i]->nienkhoa<<"\t\t"<<node[i]->hocki<<"\t"<<node[i]->nhom<<"\n";
