@@ -32,3 +32,6 @@ Student::Student(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALOP)
 void Student::info(){
     std::cout << MASV_ << " " << HO_ <<  " " <<TEN_<< " "<< PHAI_ << " " << SDT_ << " " << MALOP_; 
 }
+bool Student::operator > (Student x) {
+  return (TEN_ > x.TEN_);
+}
