@@ -1,6 +1,6 @@
 #include "SinhVien.h"
 #include <iostream>
-
+#include <cstring>
 char* Student::get_MASV(){
     return MASV_; 
 }
@@ -33,5 +33,5 @@ void Student::info(){
     std::cout << MASV_ << " " << HO_ <<  " " <<TEN_<< " "<< PHAI_ << " " << SDT_ << " " << MALOP_; 
 }
 bool Student::operator > (Student x) {
-  return (TEN_ > x.TEN_);
+  return (strcmp(TEN_, x.TEN_) > 0);
 }
