@@ -2,38 +2,30 @@
 ### 1. Project structure
 ```
 QuanLiDiemSV  
-  |  
+  |---database
+  |
+  |---docs
+  |
   |---include  
   |      |---DSMH 
-  |      |     |--- dsmh.h
-  |      |     |--- dsmh.cpp
-  |      |
+  |      |     
   |      |---DSLTC  
-  |      |     |--- dsltc.h
-  |      |     |--- dsltc.cpp
-  |      |
+  |      |     
   |      |---DSSV
-  |      |     |--- dssv.h
-  |      |     |--- dssv.cpp
-  |      |
+  |      |     
   |      |---DSDK
-  |      |     |--- dsdk.h
-  |      |     |--- dsdk.cpp
   |      |
   |      |---templates
   |
   |---src  
-  |     |--- core|---core.cpp  
-  |              |---library.h
-  |     |--- UI 
+  |     |--- core  
+  |     |
+  |     |--- UI
+  |     |  
   |     |--- main.cpp
   |  
-  |---tests  
-  |     |---   
+  |---tests     
   ```
-* include/ : class, template nằm ở đây. (files: *.h, *.cpp)   
-* src/ : chỗ này là source code của project, làm mấy cái module với ui ở chỗ này. (*.cpp)
-* tests/ : tests này nọ, rảnh thì làm, ko thì thoi :v 
  ### 2. Progress 
 - [x] Project structure 
 - [x] Base classes
