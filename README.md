@@ -36,7 +36,7 @@ QuanLiDiemSV
 * tests/ : tests này nọ, rảnh thì làm, ko thì thoi :v 
  ### 2. Progress 
 - [x] Project structure 
-- [ ] Base classes
+- [x] Base classes
 - [ ] Core modules
 - [ ] UI/UX
 - [ ] Build & deploy
