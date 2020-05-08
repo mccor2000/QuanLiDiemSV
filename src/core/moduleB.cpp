@@ -21,3 +21,6 @@ void ModuleB(short nienkhoa, short hocki, short nhom, char maMH[]){
 
 
 }
+int main(){
+    std::cout << "Module B\n";
+}
