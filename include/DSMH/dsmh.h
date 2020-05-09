@@ -12,7 +12,7 @@ public:
   
   //** Constructor 
   MonHoc(char* , char*, int, int);
-  MonHoc() {;} 
+  MonHoc() {;}
   //** Operator overloading
   bool operator>(MonHoc);
   bool operator<(MonHoc);
@@ -45,7 +45,8 @@ public:
   //** Public methods
   void insert(MonHoc);
   void remove(MonHoc);
-  node * search(char *);
+  MonHoc * search_name(char *);
+  MonHoc * search_code(char *);
   void enumerate();
   void get_from_file(char *);
   void save_to_file(char *);
@@ -59,8 +60,9 @@ private:
   
   node * insert_node(node *, MonHoc);
   node * remove_node(node *, MonHoc);
-  node * search_node(node *, char *);
-  
+  MonHoc * search_name_node(node *, char *);
+  MonHoc * search_code_node(node *, char *);
+
   void in_order(node *);
   void save_node(node *, std::ofstream &);
 };

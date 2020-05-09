@@ -155,16 +155,28 @@ node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
   return n;
 }
 
-node * DanhSachMonHoc::search_node(node * n, char * s) {
+MonHoc * DanhSachMonHoc::search_name_node(node * n, char * s) {
   if (n == NULL) 
     return NULL;
   
   if (strcmp(s, n->key.TENMH) > 0) 
-    return search_node(n->right, s);
+    return search_name_node(n->right, s);
   else if (strcmp(s, n->key.TENMH) < 0) 
-    return search_node(n->left, s);
+    return search_name_node(n->left, s);
   else 
-    return n;
+    return &n->key;
+}
+
+MonHoc * DanhSachMonHoc::search_code_node(node * n, char * s) {
+  if (n == NULL) 
+    return NULL;
+    
+  if (strcmp(s, n->key.MAMH) > 0) 
+    return search_code_node(n->right, s);
+  else if (strcmp(s, n->key.MAMH) < 0) 
+    return search_code_node(n->left, s);
+  else 
+    return &n->key;    
 }
 
 void DanhSachMonHoc::in_order(node * n) {
@@ -191,8 +203,12 @@ void DanhSachMonHoc::remove(MonHoc x) {
   root = remove_node(root, x);    
 }
 
-node * DanhSachMonHoc::search(char * s) {
-  return search_node(root, s);
+MonHoc * DanhSachMonHoc::search_name(char * s) {
+  return search_name_node(root, s);
+}
+
+MonHoc * DanhSachMonHoc::search_code(char * s) {
+  return search_code_node(root, s);
 }
 
 void DanhSachMonHoc::enumerate() {
