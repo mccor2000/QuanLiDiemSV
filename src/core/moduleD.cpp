@@ -22,4 +22,5 @@ void Show_Student(LinkedList<lopCQ>& LOPCQ, char* MALOP){
         return;
     }
     std::cout << "Lop khong ton tai\n";
+
 }

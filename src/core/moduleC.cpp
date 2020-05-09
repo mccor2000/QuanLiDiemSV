@@ -16,3 +16,4 @@ void Add(LinkedList<lopCQ>& DSLCQ, char* MaLopCQ){
         node_CQ->get_data().get_DSSV().push_back(sv);
     }
 }
+

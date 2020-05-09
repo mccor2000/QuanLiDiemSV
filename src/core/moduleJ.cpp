@@ -1,6 +1,6 @@
 #include "library.h"
 
-void Show_Score(DanhSachMonHoc& ds, LinkedList<Student>& dssv, LOPTC& dsltc,short nienkhoa, short hocki, short nhom, char tenMH[]){
+void Show_Score(DanhSachMonHoc& ds, DanhSachSinhVien& dssv, LOPTC& dsltc,short nienkhoa, short hocki, short nhom, char tenMH[]){
     MonHoc* mh = new MonHoc();
     mh = ds.search_name(tenMH);
     Lop* LTC;
@@ -13,9 +13,9 @@ void Show_Score(DanhSachMonHoc& ds, LinkedList<Student>& dssv, LOPTC& dsltc,shor
         }
     }
     if(flag){
-    LinkedList<Register> DSDK = LTC->dsdk;
-    Node<Register>* node_DK = DSDK.head();
-    Node<Student>* node_SV = dssv.head();
+    DanhSachSinhVienDK * DSDK = LTC->dsdk;
+    Node<SinhVienDK>* node_DK = DSDK->head();
+    Node<SinhVien>* node_SV = dssv.head();
     while(node_SV->get_next()!= NULL ){
         while(node_DK->get_next() != NULL){
             if(node_DK->get_data().get_MASV() == node_SV->get_data().get_MASV()){
