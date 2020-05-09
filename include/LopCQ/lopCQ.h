@@ -5,13 +5,12 @@
 
 class lopCQ{
         private:
-            char* TenLop_;
+            char* MALOP_;
             LinkedList<Student> DSSV_;
         public:
             lopCQ(){;};
-            lopCQ(char* TenLop, LinkedList<Student> dssv);
-            
-            char* get_TenLop();
+            lopCQ(char* MALOP_, LinkedList<Student> dssv);
+            char* get_MALOP();
             LinkedList<Student> get_DSSV();
 };
 
