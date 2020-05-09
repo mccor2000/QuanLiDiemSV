@@ -1,6 +1,9 @@
 #ifndef _SINHVIEN_H
 #define _SINHVIEN_H
 
+#include <iostream>
+#include <fstream>
+#include <cstring>
 #include "../templates/LinkedList.h"
 
 class SinhVien{
@@ -41,7 +44,6 @@ public:
 
 class DanhSachSinhVien: public LinkedList<SinhVien> {
   public:
-    
     void save_to_file(char *);
     void get_from_file(char *);
 };

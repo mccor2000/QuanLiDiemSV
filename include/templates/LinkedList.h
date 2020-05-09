@@ -2,24 +2,25 @@
 #define _LINKEDLIST_H
 
 template <typename T>
+class Node {
+private:
+    T data_;
+    Node<T>* next_;
+
+public:
+    Node<T>() : next_(NULL){;}
+    void set_data(T val){data_= val;};
+    T get_data() {return data_;}
+    void set_next(Node<T> * next){next_=next;};
+    Node<T> * get_next() {return next_;};
+
+};
+
+template <typename T>
 class LinkedList{
 public:
-    class Node{
-    private:
-        T data_;
-        Node * next_;
-
-    public:
-        Node() : next_(NULL){;}
-        void set_data(T val){data_= val;};
-        T get_data() {return data_;}
-        void set_next(Node * next){next_=next;};
-        Node * get_next() {return next_;};
-
-    };
-
-    Node * p_head_;
-    Node * p_tail_;
+    Node<T> * p_head_;
+    Node<T> * p_tail_;
 
         
     LinkedList() {
@@ -28,11 +29,11 @@ public:
     }
     ~LinkedList() {;};
         
-    Node * head() {return p_head_;}
-    Node * tail() {return p_tail_;}
+    Node<T> * head() {return p_head_;}
+    Node<T> * tail() {return p_tail_;}
         
     void push_back(T val){
-        Node * tmp = new Node();
+        Node<T> * tmp = new Node<T>();
         tmp->set_data(val);
         tmp->set_next(NULL);
     
@@ -46,7 +47,7 @@ public:
     }
 
     void push_front(T val){
-        Node * temp = new Node();
+        Node<T> * temp = new Node<T>();
         temp -> set_data(val);
         temp->set_next(p_head_);
         p_head_ = temp;
@@ -56,7 +57,7 @@ public:
           push_front(val);
       } else {
           int k=1;
-          Node * p = p_head_;
+          Node<T> * p = p_head_;
           while(p!=NULL && k!=pos){
               p = p->get_next();
               ++k;
@@ -64,7 +65,7 @@ public:
   
           if(k!=pos){push_back(val);}
           else{
-            Node * temp = new Node();
+            Node<T> * temp = new Node<T>();
             temp->set_data(val);
             temp->set_next(p->get_next());
             p->set_next(temp);
@@ -82,7 +83,7 @@ public:
           }
         } else {
             int k=1;
-            Node * p = p_head_;
+            Node<T> * p = p_head_;
             while(p->get_next()->get_next()!= NULL && k != pos){
                 p=p->get_next();
                 ++k;
@@ -100,7 +101,7 @@ public:
     int count(){
         int result = 0;
         
-        Node * p = p_head_;
+        Node<T> * p = p_head_;
         while(p != NULL){
           result++;
           p = p->get_next();
@@ -108,19 +109,19 @@ public:
         return result;
     }
         
-    void swap(Node * a, Node * b){
-        Node * tmp = new Node();
+    void swap(Node<T> * a, Node<T> * b){
+        Node<T> * tmp = new Node<T>();
         tmp->set_data(a->get_data());
         a->set_data(b->get_data());
         b->set_data(tmp->get_data());
     }
 
     void sort(){
-        Node * head = p_head_;
-        Node * node = NULL;
+        Node<T> * head = p_head_;
+        Node<T> * node = NULL;
 
-        for(Node * index = head; index->get_next() != NULL ; index=index->get_next()){
-            for(Node * selection = index->get_next(); selection != NULL; selection = selection->get_next()){
+        for(Node<T> * index = head; index->get_next() != NULL ; index=index->get_next()){
+            for(Node<T> * selection = index->get_next(); selection != NULL; selection = selection->get_next()){
                 if(index->get_data() > selection->get_data()){
                   swap(index, selection);
                 }

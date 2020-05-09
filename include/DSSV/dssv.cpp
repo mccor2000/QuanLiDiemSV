@@ -28,23 +28,23 @@ bool SinhVien::get_PHAI(){
 }
 
 void SinhVien::set_MASV(char * masv) {
-    MASV_ = masv;
+    strcpy(MASV_, masv);
 }
 
 void SinhVien::set_HO(char * ho) {
-    HO_ = ho;
+    strcpy(HO_, ho);
 }
 
 void SinhVien::set_TEN(char * ten) {
-    TEN_ = ten;
+    strcpy(TEN_, ten);
 }
 
 void SinhVien::set_SDT(char * sdt) {
-    SDT_ = sdt;
+    strcpy(SDT_, sdt);
 }
 
 void SinhVien::set_MALOP(char * malop) {
-    MALOP_ = malop;
+    strcpy(MALOP_, malop);
 }
 
 void SinhVien::set_PHAI(bool phai) {
@@ -53,12 +53,12 @@ void SinhVien::set_PHAI(bool phai) {
 
 //-- Constructor
 SinhVien::SinhVien(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALOP){
-    MASV_ = MASV;
+    strcpy(MASV_, MASV);
     HO_ = HO;
     TEN_ = TEN;
     PHAI_ = PHAI;
     SDT_ = SDT;
-    MALOP_ = MALOP;
+    strcpy(MALOP_, MALOP);
     std::cout << "DA KHOI TAO 1 SINH VIEN\n"; 
 }
 
@@ -86,7 +86,7 @@ void DanhSachSinhVien::save_to_file(char * file_path) {
   std::ofstream f;
   f.open(file_path, std::ios::binary);
 
-  Node * temp_node = p_head_;
+  Node<SinhVien> * temp_node = p_head_;
 
   do {
       SinhVien temp_sv = temp_node->get_data();

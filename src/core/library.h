@@ -23,13 +23,13 @@ void xoaLop(LOPTC &loptc,int maloptc);
 void hieuChinhLop(LOPTC &loptc, int index);
 
 //-- B
-void in_danh_sach_dang_ki(LOPTC, short, short, short, char *);
+void in_danh_sach_dk(LOPTC, short, short, short, char *);
 
 //-- C
 void them_sv(DanhSachSinhVien&, char *);
 
 //-- D
-void Show_Student(DanhSachSinhVien dssv);
+void in_danh_sach_sv(char *);
 
 //-- E
 void create_mh(DanhSachMonHoc&);

@@ -1,15 +1,21 @@
 #include "library.h"
 
-void Add(DanhSachSinhVien& dssv, char * MaLopCQ){
+void them_sv(DanhSachSinhVien& dssv, char * MaLopCQ){
     std::cout << "Nhap thong tin sinh vien\n";
     
-    char* MASV="TEST"; 
-    char* HO="TEST";
-    char* TEN="TEST";
-    char* SDT="TEST";
-    char* MALOP="TEST";
-    bool PHAI=1;
+    char MASV[15]; 
+    char * HO;
+    char * TEN;
+    char * SDT;
+    bool PHAI;
+
+    std::cout << "Nhap ma sinh vien: "; std::cin >> MASV;
+    std::cout << "Nhap ho: "; std::cin >> HO;
+    std::cout << "Nhap ten: "; std::cin >> TEN;
+    std::cout << "Nhap so dien thoai"; std::cin >> SDT;
+    std::cout << "Nhap gioi tinh: "; std::cin >> PHAI;
     
     SinhVien sv(MASV, HO, TEN, PHAI, SDT, MALOP);
     dssv.push_back(sv);
 }
+
