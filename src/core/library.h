@@ -34,12 +34,13 @@ void Add();
 void Show_Student(LinkedList<Student> dssv);
 
 //-- E
-void create_mh();
-void update_mh();
-void delete_mh();
+void create_mh(DanhSachMonHoc&);
+void update_mh(DanhSachMonHoc&);
+void delete_mh(DanhSachMonHoc&);
 
 //-- F
-void print_dsmh();
+void print_dsmh(DanhSachMonHoc&);
 
 //-- H
 void huyLopTC(LOPTC& BASE_DSLTC);
+

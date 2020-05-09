@@ -36,8 +36,8 @@ public:
 class DanhSachMonHoc {
 public:
   //** Props
-  int length;
-  node * root;
+  int length = 0;
+  node * root = NULL;
 
   //** Constructor
   DanhSachMonHoc();
