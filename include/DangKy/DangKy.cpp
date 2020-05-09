@@ -1,6 +1,6 @@
 #include"DangKy.h"
 #include<iostream>
-Register::Register(char* MASV, short DIEM){
+Register::Register(char* MASV, float DIEM){
     MASV_ = MASV;
     DIEM_ = DIEM;
     std::cout << "DA THEM SINH VIEN VAO DANH SACH LOP\n";
@@ -8,7 +8,7 @@ Register::Register(char* MASV, short DIEM){
 char* Register::get_MASV(){
     return MASV_;
 }
-short  Register::get_DIEM(){
+float  Register::get_DIEM(){
     return DIEM_;
 }
 void Register::info(){
