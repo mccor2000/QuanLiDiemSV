@@ -74,7 +74,7 @@ char* Trim(char *const s){
     return up_low(xoakt(trim(s)));
 }
 
-
+// valid Name
 bool valid_Name(char *const s){
         for(int i=0;i<strlen(s);i++){
                 if(s[i]>=33 && s[i]<=64){
@@ -89,7 +89,12 @@ bool valid_Name(char *const s){
         }
         return 1;
 }
+// round score
 float Round(float score){
         return roundf(score*100)/100;
+}
+// valid Scroe
+bool valid_Num(float score){
+        return score<0?0:1;
 }
 #endif
