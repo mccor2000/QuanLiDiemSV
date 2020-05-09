@@ -1,19 +1,20 @@
 // Core library
 #include <iostream>
 #include <fstream>
+#include <cstring>
+
 // Templates
 #include"../../include/templates/LinkedList.h"
 
 // Base classes
-#include"../../include/SinhVien/SinhVien.h"
-#include"../../include/DangKy/DangKy.h"
+#include"../../include/DSSV/dssv.h"
+#include"../../include/DSDK/dsdk.h"
 #include"../../include/DSMH/dsmh.h"
 #include"../../include/DSLTC/dsltc.h"
-#include"../../include/LopCQ/lopCQ.h"
 
-char DSLTC_PATH__[] = "../../database/dsmh.d";
+char DSLTC_PATH__[] = "../../database/dsltc.d";
 char DSMH_PATH__[] = "../../database/dsmh.d";
-
+char DSSV_PATH__[] = "../../database/dssv.d";
 // Modules
 
 //-- A
@@ -23,15 +24,10 @@ void hieuChinhLop(LOPTC &loptc, int index);
 //-- B
 
 //-- C
-void POST(char* tenLop, LinkedList<Student> dssv);
-void GET_ALL();
-void GET_NAME(char* name);
-void PUT(char* name, lopCQ tmp);
-LinkedList<Student> SelectClass();
 void Add();
 
 //-- D
-void Show_Student(LinkedList<Student> dssv);
+void Show_Student(DanhSachSinhVien dssv);
 
 //-- E
 void create_mh(DanhSachMonHoc&);

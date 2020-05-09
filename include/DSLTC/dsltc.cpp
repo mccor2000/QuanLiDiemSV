@@ -121,9 +121,16 @@ void LOPTC::save_to_file(char * file_path) {
   ofstream f;
   f.open(file_path, std::ios::binary);
   for (int i = 0; i < n; i++) {
+    // Save LopTC
     f.write((char *)node[i], sizeof(Lop));  
+    // Save dsdk
+    char dsdk_path[] = "../../database/";
+    strcat(dsdk_path, (char *)node[i]->malop);
+    node[i]->dsdk.save_to_file(dsdk_path);
   }
   f.close();
+  
+
 }
 
 void LOPTC::get_from_file(char * file_path) {

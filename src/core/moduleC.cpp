@@ -5,7 +5,7 @@ using namespace std;
 
 lopCQ DSLopCQ[MAX];
 short counter=0;
-void POST(char* tenLop, LinkedList<Student> dssv){
+void POST(char* tenLop, DanhSachSinhVien dssv){
     lopCQ(tenLop, dssv);
     counter++;
 }
@@ -35,7 +35,7 @@ void PUT(char* name, lopCQ tmp){
     cout << (find==false)?"Khong tim thay lop\n" : "\n";
 }
 
-LinkedList<Student> SelectClass(){
+DanhSachSinhVien SelectClass(){
     char* name;
     cout << "Nhap vao Lop ban muon them sinh vien : \n";
     cin >> name;
@@ -50,7 +50,7 @@ LinkedList<Student> SelectClass(){
 
 
 void Add(){
-    LinkedList<Student> SelectedClass = SelectClass(); 
+    DanhSachSinhVien SelectedClass = SelectClass(); 
     cout << "Nhap thong tin sinh vien\n";
     char* MASV="TEST"; 
     char* HO="TEST";
@@ -59,6 +59,6 @@ void Add(){
     char* MALOP="TEST";
     bool PHAI=1;
     
-    Student sv(MASV, HO, TEN, PHAI, SDT, MALOP);
+    SinhVien sv(MASV, HO, TEN, PHAI, SDT, MALOP);
     SelectedClass.push_back(sv);
 }
