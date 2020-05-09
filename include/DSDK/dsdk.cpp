@@ -32,16 +32,24 @@ void SinhVienDK::info() {
 
 /**************** DanhSachSinhVienDK ********************/
 
+void DanhSachSinhVienDK::print() {
+  std::cout << "MASV\tDIEM\n";
+  Node * temp = p_head_;
+  
+  while (temp != NULL) {
+    std::cout << temp->get_data().get_MASV() << "\t" << temp->get_data().get_MASV() << "\n";
+    temp = temp->get_next();
+  }
+}
+
 void DanhSachSinhVienDK::save_to_file(char * file_path) {
   std::ofstream f;
   f.open(file_path, std::ios::binary);
 
   Node * temp_node = p_head_;
-
   do {
       SinhVienDK temp_sv = temp_node->get_data();
-      f.write((char *)&temp_sv, sizeof(SinhVienDK));
-      
+      f.write((char *)&temp_sv, sizeof(SinhVienDK));    
       temp_node = temp_node->get_next();
   } while (temp_node->get_next() != NULL);
   
@@ -49,13 +57,14 @@ void DanhSachSinhVienDK::save_to_file(char * file_path) {
 }
 
 void DanhSachSinhVienDK::get_from_file(char * file_path) {
-  
   std::ifstream f;
   f.open(file_path, std::ios::binary);
+  
   SinhVienDK temp;
   while (f.read((char *)&temp, sizeof(SinhVienDK))) {
     push_back(temp);
   }
+  
   f.close();
 }
 

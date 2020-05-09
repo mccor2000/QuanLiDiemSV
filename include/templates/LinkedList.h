@@ -98,17 +98,14 @@ public:
     }
 
     int count(){
-        int result=0;
+        int result = 0;
         
-        if(p_head_==NULL){
-            return result;
-        } else {
-            Node * p = p_head_;
-            while(p->get_next()!=NULL){
-                result++;
-            }
-            return result;
+        Node * p = p_head_;
+        while(p != NULL){
+          result++;
+          p = p->get_next();
         }
+        return result;
     }
         
     void swap(Node * a, Node * b){
@@ -117,17 +114,18 @@ public:
         a->set_data(b->get_data());
         b->set_data(tmp->get_data());
     }
-        void sort(){
-            Node * head = p_head_;
-            Node * node = NULL;
-            for(Node * index = head; index->get_next() != NULL ; index=index->get_next()){
-                for(Node * selection = index->get_next(); selection != NULL; selection = selection->get_next()){
-                    if(index->get_data() > selection->get_data()){
-                        swap(index, selection);
-                    }
+
+    void sort(){
+        Node * head = p_head_;
+        Node * node = NULL;
+
+        for(Node * index = head; index->get_next() != NULL ; index=index->get_next()){
+            for(Node * selection = index->get_next(); selection != NULL; selection = selection->get_next()){
+                if(index->get_data() > selection->get_data()){
+                  swap(index, selection);
                 }
             }
         }
-
+    }
 };
 #endif

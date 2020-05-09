@@ -1,6 +1,9 @@
 #ifndef _DANGKY_H
 #define _DANGKY_H
 
+#include <iostream>
+#include <fstream>
+
 #include "../templates/LinkedList.h"
 
 class SinhVienDK {
@@ -26,6 +29,7 @@ public:
 
 class DanhSachSinhVienDK: public LinkedList<SinhVienDK> {
 public: 
+  void print();
   void save_to_file(char *);
   void get_from_file(char *);
 };

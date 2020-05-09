@@ -7,7 +7,7 @@ Lop::Lop(char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min)
   nhom = n;
   sv_max = max;
   sv_min = min;
-  huylop = dsdk.count() < sv_min ? true : false;
+  huylop = dsdk->count() < sv_min ? true : false;
 }
 
 Lop* LOPTC::getLop() {
@@ -126,11 +126,9 @@ void LOPTC::save_to_file(char * file_path) {
     // Save dsdk
     char dsdk_path[] = "../../database/";
     strcat(dsdk_path, (char *)node[i]->malop);
-    node[i]->dsdk.save_to_file(dsdk_path);
+    node[i]->dsdk->save_to_file(dsdk_path);
   }
   f.close();
-  
-
 }
 
 void LOPTC::get_from_file(char * file_path) {

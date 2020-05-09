@@ -4,8 +4,9 @@
 #include <iostream>
 #include <string.h>
 #include <fstream>
-#include"../../include/DangKy/DangKy.h"
-#include"../../include/templates/LinkedList.h"
+
+#include"../../include/DSDK/dsdk.h"
+
 
 using namespace std;
 
@@ -20,7 +21,7 @@ struct Lop {
 	bool huylop;
 	int sv_max;
 	int sv_min;
-	LinkedList<Register> dsdk; 
+	DanhSachSinhVienDK * dsdk; 
   Lop(char *, short, short, short, int, int);
   Lop() {;}
 };

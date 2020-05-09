@@ -5,16 +5,16 @@
 
 class SinhVien{
 private:
-  char* MASV_;
+  char MASV_[15];
   char* HO_;
   char* TEN_;
   bool PHAI_;
   char* SDT_;
-  char* MALOP_;
+  char MALOP_[15];
 public:
   //** Constructors
   SinhVien(){;};
-  SinhVien(char *, char *, char *, bool, char *,char *);
+  SinhVien(char *, char *, char *, bool, char *, char *);
   
   //** Getters, setters
   char* get_MASV();

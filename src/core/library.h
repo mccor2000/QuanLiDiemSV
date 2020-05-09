@@ -21,10 +21,12 @@ char DSSV_PATH__[] = "../../database/dssv.d";
 void themLop(LOPTC &loptc);
 void xoaLop(LOPTC &loptc,int maloptc);
 void hieuChinhLop(LOPTC &loptc, int index);
+
 //-- B
+void in_danh_sach_dang_ki(LOPTC, short, short, short, char *);
 
 //-- C
-void Add();
+void them_sv(DanhSachSinhVien&, char *);
 
 //-- D
 void Show_Student(DanhSachSinhVien dssv);
@@ -36,6 +38,12 @@ void delete_mh(DanhSachMonHoc&);
 
 //-- F
 void print_dsmh(DanhSachMonHoc&);
+
+//-- G
+SinhVien * timSV(char *, DanhSachSinhVien dssv);
+void xuatSV(SinhVien * SV);
+void locDSLTC(LOPTC &loptc, DanhSachMonHoc &dsmh , short nienkhoa_tmp, short hocki_tmp);
+int dangKyLop(DanhSachSinhVienDK& , SinhVienDK);
 
 //-- H
 void huyLopTC(LOPTC& BASE_DSLTC);
