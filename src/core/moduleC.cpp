@@ -1,14 +1,18 @@
 #include "library.h"
 
-void Add(LinkedList<Student>& dssv, char* MaLopCQ){
-    std::cout << "Nhap thong tin sinh vien\n";
-    char* MASV="TEST"; 
-    char* HO="TEST";
-    char* TEN="TEST";
-    char* SDT="TEST";
-    char* MALOP="TEST";
-    bool PHAI=1;
-    
-    Student sv(MASV, HO, TEN, PHAI, SDT, MALOP);
-    dssv.push_back(sv);
+void Add(LinkedList<lopCQ>& DSLCQ, char* MaLopCQ){
+    Node<lopCQ>* node_CQ = DSLCQ.head();
+    bool flag = false; // finding variable
+    while(node_CQ->get_next() != NULL){
+        if(node_CQ->get_data().get_MALOP() == MaLopCQ){
+            flag=true;
+            break;
+        }
+        node_CQ = node_CQ->get_next();
+    }
+    if(flag){
+        char* ten="test";
+        Student sv(ten,ten,ten,true,ten,ten);
+        node_CQ->get_data().get_DSSV().push_back(sv);
+    }
 }
