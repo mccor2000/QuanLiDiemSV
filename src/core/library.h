@@ -48,3 +48,11 @@ int dangKyLop(DanhSachSinhVienDK& , SinhVienDK);
 //-- H
 void huyLopTC(LOPTC& BASE_DSLTC);
 
+
+//-- I
+Lop* timLop(LOPTC &dsltc, short nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tmp);
+Node<SinhVien>* timSV(LinkedList<SinhVien> &dssv, char* maSV_tmp);
+void xuatDSDK(Lop* lop, LinkedList<SinhVien> &dssv);
+
+//-- J
+void Show_Score(DanhSachMonHoc& ds, DanhSachSinhVien& dssv, LOPTC& dsltc,short nienkhoa, short hocki, short nhom, char tenMH[]);

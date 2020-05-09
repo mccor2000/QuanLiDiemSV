@@ -15,7 +15,7 @@ void them_sv(DanhSachSinhVien& dssv, char * MaLopCQ){
     std::cout << "Nhap so dien thoai"; std::cin >> SDT;
     std::cout << "Nhap gioi tinh: "; std::cin >> PHAI;
     
-    SinhVien sv(MASV, HO, TEN, PHAI, SDT, MALOP);
+    SinhVien sv(MASV, HO, TEN, PHAI, SDT, MaLopCQ);
     dssv.push_back(sv);
 }
 
