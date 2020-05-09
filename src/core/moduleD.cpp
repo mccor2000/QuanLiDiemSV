@@ -11,9 +11,9 @@ void Show_Student(LinkedList<lopCQ>& LOPCQ, char* MALOP){
         node_CQ= node_CQ->get_next();
     }
     if(flag){
-        LinkedList<Student> dssv = node_CQ->get_data().get_DSSV();
+        LinkedList<SinhVien> dssv = node_CQ->get_data().get_DSSV();
         dssv.sort();
-        Node<Student>* node_SV = dssv.head();
+        Node<SinhVien>* node_SV = dssv.head();
         while(node_SV->get_next()!=NULL){
             node_SV->get_data().info();
             std::cout<<'\n';
