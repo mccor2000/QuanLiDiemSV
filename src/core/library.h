@@ -50,3 +50,9 @@ int dangKyLop(LinkedList<Register> &dsdk, Register SV);
 //-- H
 void huyLopTC(LOPTC& BASE_DSLTC);
 
+//-- I
+Lop* timLop(LOPTC &dsltc, short nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tmp);
+Node<Student>* timSV(LinkedList<Student> &dssv, char* maSV_tmp);
+void xuatDSDK(Lop* lop, LinkedList<Student> &dssv);
+
+
