@@ -41,6 +41,12 @@ void delete_mh(DanhSachMonHoc&);
 //-- F
 void print_dsmh(DanhSachMonHoc&);
 
+//-- G
+Node<Student>* timSV(char* maSV_tmp, LinkedList<Student> dssv);
+void xuatSV(Node<Student>* SV);
+void locDSLTC(LOPTC &loptc, DanhSachMonHoc &dsmh , short nienkhoa_tmp, short hocki_tmp);
+int dangKyLop(LinkedList<Register> &dsdk, Register SV);
+
 //-- H
 void huyLopTC(LOPTC& BASE_DSLTC);
 
