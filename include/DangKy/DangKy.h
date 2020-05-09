@@ -4,14 +4,14 @@
 class Register{
     private:
         char* MASV_;
-        short DIEM_;
+        float DIEM_;
     public:
         Register(){;};
-        Register(char* MASV, short DIEM);
+        Register(char* MASV, float DIEM);
         ~Register(){;};
 
         char* get_MASV();
-        short get_DIEM();
+        float get_DIEM();
         void info();
 };
 
