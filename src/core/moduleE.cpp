@@ -18,24 +18,9 @@ void create_mh(DanhSachMonHoc& dsmh) {
 }
 
 void update_mh(DanhSachMonHoc& dsmh) {
-  // Get ten_mh
-  char ten_mh[50];
-  std::cout << "Nhap ten mon hoc can hieu chinh: "; std::cin >> ten_mh;
-  
-  node * temp = dsmh.search(ten_mh);
-  dsmh.remove(temp->key);
-  create_mh(dsmh);
 
-  dsmh.enumerate();
 }
 
 void delete_mh(DanhSachMonHoc& dsmh) {
-  // Get input
-  char ten_mh[50];
-  std::cout << "Nhap ten mon hoc can xoa: "; std::cin >> ten_mh;
   
-  node * temp = dsmh.search(ten_mh);
-
-  // Delete mh  
-  dsmh.remove(temp->key);
 }

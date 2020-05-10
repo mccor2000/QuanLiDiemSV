@@ -32,9 +32,8 @@ class LOPTC {
 		int stt;
 	public:
 		Lop *node[LOP_MAX];
-	//--
-	public:
-		Lop* getLop();
+		
+    Lop* getLop();
 		void setLop(Lop* &lop_tmp);
 		int getN();
 		void setN(int n_tmp);

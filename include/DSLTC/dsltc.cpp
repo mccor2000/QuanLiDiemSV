@@ -7,7 +7,8 @@ Lop::Lop(char * ma_mh, short nien_khoa, short hoc_ki, short n, int max, int min)
   nhom = n;
   sv_max = max;
   sv_min = min;
-  huylop = dsdk->count() < sv_min ? true : false;
+  dsdk = new DanhSachSinhVienDK();
+  huylop = false;
 }
 
 Lop* LOPTC::getLop() {

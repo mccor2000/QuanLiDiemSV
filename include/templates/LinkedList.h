@@ -1,6 +1,8 @@
 #ifndef _LINKEDLIST_H
 #define _LINKEDLIST_H
 
+#include <iostream>
+
 template <typename T>
 class Node {
 private:

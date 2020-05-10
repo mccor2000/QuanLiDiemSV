@@ -4,17 +4,15 @@
 #include <cstring>
 
 // Templates
-#include"../../include/templates/LinkedList.h"
+#include "../../include/templates/LinkedList.h"
 
 // Base classes
-#include"../../include/DSSV/dssv.h"
-#include"../../include/DSDK/dsdk.h"
-#include"../../include/DSMH/dsmh.h"
-#include"../../include/DSLTC/dsltc.h"
+#include "../../include/DSSV/dssv.h"
+#include "../../include/DSDK/dsdk.h"
+#include "../../include/DSMH/dsmh.h"
+#include "../../include/DSLTC/dsltc.h"
+#include "../../include/DSLCQ/dslcq.h"
 
-char DSLTC_PATH__[] = "../../database/dsltc.d";
-char DSMH_PATH__[] = "../../database/dsmh.d";
-char DSSV_PATH__[] = "../../database/dssv.d";
 // Modules
 
 //-- A
@@ -26,10 +24,12 @@ void hieuChinhLop(LOPTC &loptc, int index);
 void in_danh_sach_dk(LOPTC, short, short, short, char *);
 
 //-- C
-void them_sv(DanhSachSinhVien&, char *);
+void them_sv(DanhSachLopCQ, char *);
+void xoa_sv(DanhSachLopCQ, char *);
+void hieu_chinh_sv(DanhSachLopCQ, char *);
 
 //-- D
-void in_danh_sach_sv(char *);
+void in_danh_sach_sv(DanhSachLopCQ, char *);
 
 //-- E
 void create_mh(DanhSachMonHoc&);
