@@ -1,26 +1,12 @@
 #include "library.h"
 
-void Show_Student(LinkedList<lopCQ>& LOPCQ, char* MALOP){
-    Node<lopCQ>* node_CQ = LOPCQ.head();
-    bool flag=false;
-    while(node_CQ->get_next()!=NULL){
-        if(node_CQ->get_data().get_MALOP() == MALOP){
-            flag=true;
-            break;
-        }
-        node_CQ= node_CQ->get_next();
-    }
-    if(flag){
-        LinkedList<SinhVien> dssv = node_CQ->get_data().get_DSSV();
-        dssv.sort();
-        Node<SinhVien>* node_SV = dssv.head();
-        while(node_SV->get_next()!=NULL){
-            node_SV->get_data().info();
-            std::cout<<'\n';
-            node_SV=node_SV->get_next();
-        }
-        return;
-    }
-    std::cout << "Lop khong ton tai\n";
-
+void in_danh_sach_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
+  DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
+  
+  if (dssv == NULL) {
+    std::cout << "Lớp không tồn tại\n";
+    return;
+  }
+  // In danh sach sv
+  // ...
 }

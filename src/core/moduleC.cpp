@@ -1,19 +1,35 @@
 #include "library.h"
 
-void Add(LinkedList<lopCQ>& DSLCQ, char* MaLopCQ){
-    Node<lopCQ>* node_CQ = DSLCQ.head();
-    bool flag = false; // finding variable
-    while(node_CQ->get_next() != NULL){
-        if(node_CQ->get_data().get_MALOP() == MaLopCQ){
-            flag=true;
-            break;
-        }
-        node_CQ = node_CQ->get_next();
-    }
-    if(flag){
-        char* ten="test";
-        SinhVien sv(ten,ten,ten,true,ten,ten);
-        node_CQ->get_data().get_DSSV().push_back(sv);
-    }
+void them_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
+  DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
+  
+  if (dssv == NULL) {
+    std::cout << "Lớp không tồn tại\n";
+    return;
+  }
+  // Nhap sv
+  // ...
+}
+
+void xoa_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
+  DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
+
+  if (dssv == NULL) {
+    std::cout << "Lớp không tồn tại\n";
+    return;
+  }
+  // Xoa sv
+  // ...
+}
+
+void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
+  DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
+
+  if (dssv == NULL) {
+    std::cout << "Lớp không tồn tại\n";
+    return;
+  }
+  // Hieu chinh sv
+  // ...
 }
 
