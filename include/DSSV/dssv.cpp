@@ -83,27 +83,34 @@ bool SinhVien::operator == (SinhVien x) {
 
 /********************** DanhSachSinhVien ***********************/
 void DanhSachSinhVien::save_to_file(char * file_path) {
+  // Open file
   std::ofstream f;
   f.open(file_path, std::ios::binary);
 
+  // Loop through the list and write to file 
   Node<SinhVien> * temp_node = p_head_;
+  while (temp_node != NULL) {
+    SinhVien temp_sv = temp_node->get_data();
+    f.write((char *)&temp_sv, sizeof(SinhVien));
 
-  do {
-      SinhVien temp_sv = temp_node->get_data();
-      f.write((char *)&temp_sv, sizeof(SinhVien));
-      
-      temp_node = temp_node->get_next();
-  } while (temp_node->get_next() != NULL);
-  
+    temp_node = temp_node->get_next();
+  }
+
+  // Close file
   f.close();
 }
 
 void DanhSachSinhVien::get_from_file(char * file_path) {
+  // Open file
   std::ifstream f;
   f.open(file_path, std::ios::binary);
+  
+  // Get data from file and push to the list
   SinhVien temp;
   while (f.read((char *)&temp, sizeof(SinhVien))) {
     push_back(temp);
   }
+
+  // Close the file
   f.close();
 }
