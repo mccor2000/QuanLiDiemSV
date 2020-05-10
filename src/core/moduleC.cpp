@@ -12,7 +12,7 @@ void Add(LinkedList<lopCQ>& DSLCQ, char* MaLopCQ){
     }
     if(flag){
         char* ten="test";
-        Student sv(ten,ten,ten,true,ten,ten);
+        SinhVien sv(ten,ten,ten,true,ten,ten);
         node_CQ->get_data().get_DSSV().push_back(sv);
     }
 }
