@@ -3,12 +3,13 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstring>
 
 #include "../templates/LinkedList.h"
 
 class SinhVienDK {
 private:
-  char* MASV_;
+  char MASV_[15];
   short DIEM_;
 public:
   //** Constructor, destructor
