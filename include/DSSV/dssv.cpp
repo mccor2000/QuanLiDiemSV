@@ -3,23 +3,23 @@
 /************************ SinhVien ****************************/
 
 //-- Getters, Setters
-char* SinhVien::get_MASV(){
+char * SinhVien::get_MASV(){
     return MASV_; 
 }
 
-char* SinhVien::get_HO(){
+char * SinhVien::get_HO(){
     return HO_; 
 }
 
-char* SinhVien::get_TEN(){
+char * SinhVien::get_TEN(){
     return TEN_; 
 }
 
-char* SinhVien::get_SDT(){
+char * SinhVien::get_SDT(){
     return SDT_; 
 }
 
-char* SinhVien::get_MALOP(){
+char * SinhVien::get_MALOP(){
     return MALOP_; 
 }
 
@@ -54,10 +54,10 @@ void SinhVien::set_PHAI(bool phai) {
 //-- Constructor
 SinhVien::SinhVien(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALOP){
     strcpy(MASV_, MASV);
-    HO_ = HO;
-    TEN_ = TEN;
+    strcpy(HO_, HO);
+    strcpy(TEN_, TEN);
     PHAI_ = PHAI;
-    SDT_ = SDT;
+    strcpy(SDT_, SDT);
     strcpy(MALOP_, MALOP);
     std::cout << "DA KHOI TAO 1 SINH VIEN\n"; 
 }

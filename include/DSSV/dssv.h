@@ -4,15 +4,16 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+
 #include "../templates/LinkedList.h"
 
 class SinhVien{
 private:
   char MASV_[15];
-  char* HO_;
-  char* TEN_;
+  char HO_[16];
+  char TEN_[16];
   bool PHAI_;
-  char* SDT_;
+  char SDT_[16];
   char MALOP_[15];
 public:
   //** Constructors
