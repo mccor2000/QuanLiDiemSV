@@ -2,17 +2,15 @@
 ### 1. Project structure
 ```
 QuanLiDiemSV  
-  |---database
-  |
   |---docs
+  |
+  |---database
   |
   |---include  
   |      |---DSMH 
-  |      |     
   |      |---DSLTC  
-  |      |     
-  |      |---DSSV
-  |      |     
+  |      |---DSLCQ     
+  |      |---DSSV    
   |      |---DSDK
   |      |
   |      |---templates
@@ -23,8 +21,8 @@ QuanLiDiemSV
   |     |--- UI
   |     |  
   |     |--- main.cpp
-  |  
-  ```
+```
+  
  ### 2. Progress 
 - [x] Project structure 
 - [x] Base classes
