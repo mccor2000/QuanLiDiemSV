@@ -24,7 +24,6 @@ QuanLiDiemSV
   |     |  
   |     |--- main.cpp
   |  
-  |---tests     
   ```
  ### 2. Progress 
 - [x] Project structure 
