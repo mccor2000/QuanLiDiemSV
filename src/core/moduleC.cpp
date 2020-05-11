@@ -7,8 +7,6 @@ void them_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
     std::cout << "Lop khong ton tai\n";
     return;
   }
-  // Nhap sv
-  // ...
   char var[35] = "TEST";
   SinhVien sv(var,var,var,true,var,var);
   dssv->push_back(sv);
@@ -44,8 +42,6 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
     std::cout << "Lop khong ton tai\n";
     return;
   }
-  // Hieu chinh sv
-  // ...
   std::cout << "Nhap vao MASV ban muon chinh sua\n";
   char MASV[15];
   fgets(MASV,15,stdin);
@@ -115,6 +111,3 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   }
 }
 
-int main(){
-  std::cout << "Hello world\n";
-}
