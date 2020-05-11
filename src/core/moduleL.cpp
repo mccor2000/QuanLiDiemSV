@@ -34,6 +34,3 @@ void core(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP)
     }
 }
 
-int main(){
-    std::cout << "hello world\n";
-}
