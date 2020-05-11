@@ -9,7 +9,7 @@ void them_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   }
   // Nhap sv
   // ...
-  char var[1024] = "TEST";
+  char var[35] = "TEST";
   SinhVien sv(var,var,var,true,var,var);
   dssv->push_back(sv);
 }
@@ -34,7 +34,7 @@ void xoa_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   }
   // Xoa sv
   // ...
-  char MASV[1024] = "TEST";
+  char MASV[15] = "TEST";
   dssv->remove(vitri_sv(dssv,MASV));
 }
 void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
@@ -47,8 +47,8 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   // Hieu chinh sv
   // ...
   std::cout << "Nhap vao MASV ban muon chinh sua\n";
-  char MASV[1024];
-  fgets(MASV,1024,stdin);
+  char MASV[15];
+  fgets(MASV,15,stdin);
   Node<SinhVien>* SV = dssv->head();
   bool flag=false;
 
@@ -69,30 +69,30 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
     {
       // Sua MASV
     case 1:
-      fgets(str,1024,stdin);
+      fgets(str,35,stdin);
       SV->get_data().set_MASV(str);
       break;
       // Sua Ho
     case 2:
-      fgets(str,1024,stdin);
+      fgets(str,35,stdin);
       SV->get_data().set_HO(str);
       
       break;
       // Sua Ten
     case 3:
-      fgets(str,1024,stdin);
+      fgets(str,35,stdin);
       SV->get_data().set_TEN(str);
       
       break;
       //Sua SDT
     case 4:
-      fgets(str,1024,stdin);
+      fgets(str,35,stdin);
       SV->get_data().set_SDT(str);
       
       break;
       // Sua MALOP
     case 5:
-      fgets(str,1024,stdin);
+      fgets(str,35,stdin);
       SV->get_data().set_MALOP(str);
 
       break;
