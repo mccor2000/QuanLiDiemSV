@@ -11,24 +11,14 @@ Lop* timLop(LOPTC &dsltc, short nienkhoa_tmp, short hocki_tmp, short nhom_tmp, c
     return NULL;
 }
 
-//tim SV theo maSV
-Node<SinhVien>* timSV(DanhSachSinhVien &dssv, char* maSV_tmp) {
-    for (Node<SinhVien>* p = dssv.p_head_; p!=NULL; p=p->get_next()) {
-        if (p->get_data().get_MASV()==maSV_tmp) {
-            return p;
-        }
-    }
-    return NULL;
-}
-
 //xuat dsdk lop vua tim duoc
-void xuatDSDK(Lop* lop, DanhSachSinhVien &dssv) {
+void xuatDSDK(Lop* lop, DanhSachLopCQ &dslcq) {
     if (lop==NULL) {
         cout<<"Khong co lop thoa yeu cau";
     }
     else {
         for (Node<SinhVienDK>* p = lop->dsdk->p_head_; p!=NULL; p = p->get_next()) {
-            Node<SinhVien>* sv = timSV(dssv,p->get_data().get_MASV());
+            Node<SinhVien>* sv = timSV(p->get_data().get_MASV(),dslcq);
             cout<<sv->get_data().get_MALOP()<<"\t"<<sv->get_data().get_MASV()<<"\t"<<sv->get_data().get_HO()<<"\t"<<
                 sv->get_data().get_TEN()<<"\t";
             //nhap diem cho SV
@@ -40,3 +30,4 @@ void xuatDSDK(Lop* lop, DanhSachSinhVien &dssv) {
 
     }
 }
+
