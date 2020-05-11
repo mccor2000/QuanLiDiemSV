@@ -4,7 +4,6 @@ using namespace std;
 
 void themLop(LOPTC &loptc) {
     Lop lop;
-    loptc.nhapLop(lop);
     loptc.themLop(lop,loptc.getN());
 }
 
