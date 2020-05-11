@@ -76,7 +76,7 @@ void LOPTC::xuatDS() {
 
 void LOPTC::themLop(Lop &lop, int pos) {
 	if (isFull()) {
-		thongBao("Danh sach day");
+		thongBao((char *)"Danh sach day");
 		return;
 	}
 	if (pos<0) {
@@ -92,12 +92,12 @@ void LOPTC::themLop(Lop &lop, int pos) {
 
 void LOPTC::xoaLop(int malop_del) {
 	if (isEmpty()) {
-		thongBao("Danh sach rong");
+		thongBao((char *)"Danh sach rong");
 		return;
 	}
 	int pos=search(malop_del);
 	if (pos==-1) {
-		thongBao("Ma lop khong ton tai");
+		thongBao((char *)"Ma lop khong ton tai");
 		return;
 	}
 	delete node[pos];
@@ -109,7 +109,7 @@ void LOPTC::xoaLop(int malop_del) {
 
 void LOPTC::xoaDS() {
 	if (isEmpty()) {
-		thongBao("Danh sach rong");
+		thongBao((char *)"Danh sach rong");
 		return;
 	}
 	while (n>0) {
@@ -118,27 +118,35 @@ void LOPTC::xoaDS() {
 	}
 }
 
-void LOPTC::save_to_file(char * file_path) {
+void LOPTC::save() {
+  // Open file
   ofstream f;
-  f.open(file_path, std::ios::binary);
+  f.open(db, std::ios::binary);
+  
+  // Save
   for (int i = 0; i < n; i++) {
     // Save LopTC
     f.write((char *)node[i], sizeof(Lop));  
     // Save dsdk
-    char dsdk_path[] = "../../database/";
-    strcat(dsdk_path, (char *)node[i]->malop);
-    node[i]->dsdk->save_to_file(dsdk_path);
+    node[i]->dsdk->save((char *)node[i]->malop);
   }
+
+  // Close file
   f.close();
 }
 
-void LOPTC::get_from_file(char * file_path) {
+void LOPTC::load() {
+  // Open file
   ifstream f;
-  f.open(file_path, std::ios::binary);
-  Lop* temp = new Lop(); 
+  f.open(db, std::ios::binary);
   
+  // Load
+  Lop* temp = new Lop(); 
   while (f.read((char *)temp, sizeof(Lop))) {
+    temp->dsdk->save((char *)temp->malop);
     insertLast(*temp);
   }
+
+  // Close file 
   f.close();
 }

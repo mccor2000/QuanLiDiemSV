@@ -31,8 +31,8 @@ public:
 class DanhSachSinhVienDK: public LinkedList<SinhVienDK> {
 public: 
   void print();
-  void save_to_file(char *);
-  void get_from_file(char *);
+  void save(char *);
+  void load(char *);
 };
 
 #endif

@@ -24,13 +24,17 @@ struct Lop {
 	DanhSachSinhVienDK * dsdk; 
   Lop(char *, short, short, short, int, int);
   Lop() {;}
+
+  void save();
 };
 
 class LOPTC {
 	private:
 		int n;
 		int stt;
-	public:
+    char db[32] = "../../database/dsltc.d";
+	
+  public:
 		Lop *node[LOP_MAX];
 		
     Lop* getLop();
@@ -49,7 +53,7 @@ class LOPTC {
 		void xoaLop(int malop_del);
 		void xoaDS();
 		void thongBao(char* s);
-    void save_to_file(char *);
-    void get_from_file(char *);
+    void save();
+    void load();
 };
 #endif

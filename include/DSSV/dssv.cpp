@@ -82,10 +82,10 @@ bool SinhVien::operator == (SinhVien x) {
 
 
 /********************** DanhSachSinhVien ***********************/
-void DanhSachSinhVien::save() {
+void DanhSachSinhVien::save(char * ma_lop) {
   // Get path
   char path[64] = "../../database/dssv/";
-  strcat(path, p_head_->get_data().get_MALOP());
+  strcat(path, ma_lop);
   strcat(path, ".d");
 
   // Open file

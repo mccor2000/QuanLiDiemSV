@@ -45,7 +45,7 @@ public:
 
 class DanhSachSinhVien: public LinkedList<SinhVien> {
 public:
-  void save();
+  void save(char *);
   void load(char *);
 };
 

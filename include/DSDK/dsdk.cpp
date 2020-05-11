@@ -42,7 +42,7 @@ void DanhSachSinhVienDK::print() {
   }
 }
 
-void DanhSachSinhVienDK::save_to_file(char * file_path) {
+void DanhSachSinhVienDK::save(char * file_path) {
   // Open file
   std::ofstream f;
   f.open(file_path, std::ios::binary);
@@ -60,7 +60,7 @@ void DanhSachSinhVienDK::save_to_file(char * file_path) {
   f.close();
 }
 
-void DanhSachSinhVienDK::get_from_file(char * file_path) {
+void DanhSachSinhVienDK::load(char * file_path) {
   // Open file
   std::ifstream f;
   f.open(file_path, std::ios::binary);
