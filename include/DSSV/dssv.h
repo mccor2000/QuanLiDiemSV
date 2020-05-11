@@ -44,9 +44,9 @@ public:
 };
 
 class DanhSachSinhVien: public LinkedList<SinhVien> {
-  public:
-    void save_to_file(char *);
-    void get_from_file(char *);
+public:
+  void save();
+  void load(char *);
 };
 
 #endif

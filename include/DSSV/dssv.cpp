@@ -82,10 +82,15 @@ bool SinhVien::operator == (SinhVien x) {
 
 
 /********************** DanhSachSinhVien ***********************/
-void DanhSachSinhVien::save_to_file(char * file_path) {
+void DanhSachSinhVien::save() {
+  // Get path
+  char path[64] = "../../database/dssv/";
+  strcat(path, p_head_->get_data().get_MALOP());
+  strcat(path, ".d");
+
   // Open file
   std::ofstream f;
-  f.open(file_path, std::ios::binary);
+  f.open(path, std::ios::binary);
 
   // Loop through the list and write to file 
   Node<SinhVien> * temp_node = p_head_;
@@ -100,10 +105,15 @@ void DanhSachSinhVien::save_to_file(char * file_path) {
   f.close();
 }
 
-void DanhSachSinhVien::get_from_file(char * file_path) {
+void DanhSachSinhVien::load(char * ma_lop) {
+  // Get path
+  char path[64] = "../../database/dssv/";
+  strcat(path, ma_lop);
+  strcat(path, ".d");
+  
   // Open file
   std::ifstream f;
-  f.open(file_path, std::ios::binary);
+  f.open(path, std::ios::binary);
   
   // Get data from file and push to the list
   SinhVien temp;
