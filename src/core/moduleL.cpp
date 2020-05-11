@@ -17,7 +17,6 @@ void core(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP)
         sv=sv->get_next();
         std::cout << tmp.get_MASV() << " " << tmp.get_HO() << " "<<tmp.get_TEN() << " ";
         while(mh->get_next()!=NULL){
-            std::cout << mh << " ";
             for(int i=0;i<dsltc.getN();i++){
                 Lop* loptc = dsltc.node[i];
                 DanhSachSinhVienDK* dsdk = loptc->dsdk;
