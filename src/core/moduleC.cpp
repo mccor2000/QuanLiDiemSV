@@ -37,7 +37,7 @@ void xoa_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   char MASV[1024] = "TEST";
   dssv->remove(vitri_sv(dssv,MASV));
 }
-void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
+void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop, int& choice) {
   DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
 
   if (dssv == NULL) {
@@ -62,9 +62,7 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   if(flag){
     bool sex;
     char* str;
-    int choice;
     std::cout <<  "Chon thuoc tinh ban muon chinh sua\n";
-    std::cin >>choice;
     switch (choice)
     {
       // Sua MASV
