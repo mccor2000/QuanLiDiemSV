@@ -215,16 +215,16 @@ void DanhSachMonHoc::enumerate() {
   in_order(root);
 }
 
-void DanhSachMonHoc::save_to_file(char * file_path) {
+void DanhSachMonHoc::save() {
   std::ofstream f;
-  f.open(file_path, std::ios::binary);
+  f.open(db, std::ios::binary);
   save_node(root, f);
   f.close();
 }
 
-void DanhSachMonHoc::get_from_file(char * file_path) {
+void DanhSachMonHoc::load() {
   std::ifstream f;
-  f.open(file_path, std::ios::binary);
+  f.open(db, std::ios::binary);
 
   MonHoc temp;
   while(f.read((char *)&temp, sizeof(temp))) {
