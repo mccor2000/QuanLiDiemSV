@@ -64,7 +64,7 @@ SinhVien::SinhVien(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALO
 
 //-- Methods
 void SinhVien::info(){
-    std::cout << MASV_ << " " << HO_ <<  " " <<TEN_<< " "<< PHAI_ << " " << SDT_ << " " << MALOP_; 
+    std::cout << MASV_ << " " << HO_ <<  " " <<TEN_<< " "<< PHAI_ << " " << MALOP_ << " " << SDT_; 
 }
 
 //-- Operator overloading
