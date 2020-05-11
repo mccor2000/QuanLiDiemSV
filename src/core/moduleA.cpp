@@ -2,8 +2,7 @@
 
 using namespace std;
 
-void themLop(LOPTC &loptc) {
-    Lop lop;
+void themLop(LOPTC &loptc, Lop &lop) { 
     loptc.themLop(lop,loptc.getN());
 }
 

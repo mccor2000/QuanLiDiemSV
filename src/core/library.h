@@ -40,7 +40,7 @@ void delete_mh(DanhSachMonHoc&);
 void print_dsmh(DanhSachMonHoc&);
 
 //-- G
-SinhVien * timSV(char *, DanhSachSinhVien dssv);
+Node<SinhVien>* timSV(char *, DanhSachLopCQ &dslcq);
 void xuatSV(SinhVien * SV);
 void locDSLTC(LOPTC &loptc, DanhSachMonHoc &dsmh , short nienkhoa_tmp, short hocki_tmp);
 int dangKyLop(DanhSachSinhVienDK& , SinhVienDK);
@@ -51,7 +51,6 @@ void huyLopTC(LOPTC& BASE_DSLTC);
 
 //-- I
 Lop* timLop(LOPTC &dsltc, short nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tmp);
-Node<SinhVien>* timSV(LinkedList<SinhVien> &dssv, char* maSV_tmp);
 void xuatDSDK(Lop* lop, LinkedList<SinhVien> &dssv);
 
 //-- J
