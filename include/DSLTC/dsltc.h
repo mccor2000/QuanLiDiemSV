@@ -33,7 +33,7 @@ class LOPTC {
 	public:
 		Lop *node[LOP_MAX];
 		
-    		Lop* getLop();
+		Lop* getLop();
 		void setLop(Lop* &lop_tmp);
 		int getN();
 		void setN(int n_tmp);
@@ -49,7 +49,7 @@ class LOPTC {
 		void xoaLop(int malop_del);
 		void xoaDS();
 		void thongBao(char* s);
-    		void save_to_file(char *);
-    		void get_from_file(char *);
-};
+		void save_to_file(char *);
+		void get_from_file(char *);
+	};
 #endif

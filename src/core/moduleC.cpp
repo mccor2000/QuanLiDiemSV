@@ -4,12 +4,12 @@ void them_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
   
   if (dssv == NULL) {
-    std::cout << "Lớp không tồn tại\n";
+    std::cout << "Lop khong ton tai\n";
     return;
   }
   // Nhap sv
   // ...
-  char* var = "TEST";
+  char var[1024] = "TEST";
   SinhVien sv(var,var,var,true,var,var);
   dssv->push_back(sv);
 }
@@ -29,19 +29,19 @@ void xoa_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
 
   if (dssv == NULL) {
-    std::cout << "Lớp không tồn tại\n";
+    std::cout << "Lop khong ton tai\n";
     return;
   }
   // Xoa sv
   // ...
-  char * MASV = "TEST";
+  char MASV[1024] = "TEST";
   dssv->remove(vitri_sv(dssv,MASV));
 }
 void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
 
   if (dssv == NULL) {
-    std::cout << "Lớp không tồn tại\n";
+    std::cout << "Lop khong ton tai\n";
     return;
   }
   // Hieu chinh sv
@@ -61,7 +61,7 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   }
   if(flag){
     bool sex;
-    char str[1024];
+    char* str;
     int choice;
     std::cout <<  "Chon thuoc tinh ban muon chinh sua\n";
     std::cin >>choice;
@@ -111,6 +111,3 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   }
 }
 
-int main(){
-  std::cout << "Module C\n";
-}
