@@ -1,5 +1,8 @@
-#pragma once
+#ifndef _DSMH_H
+#define _DSMH_H
+#include "../templates/LinkedList.h"
 #include <fstream>
+#include <cstring>
 #include <iostream>
 /****************** MON HOC *******************/ 
 class MonHoc {
@@ -48,6 +51,8 @@ public:
   MonHoc * search_name(char *);
   MonHoc * search_code(char *);
   void enumerate();
+  LinkedList<char*> list_mh(node *);
+
   void get_from_file(char *);
   void save_to_file(char *);
 
@@ -66,3 +71,4 @@ private:
   void in_order(node *);
   void save_node(node *, std::ofstream &);
 };
+#endif
