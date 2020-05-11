@@ -1,13 +1,13 @@
 #include "library.h"
 
 //tim SV trong DSSV
-Node<SinhVien>* timSV(char* maSV_tmp, LinkedList<SinhVien> &dssv) {
-    for (Node<SinhVien> *p = dssv.p_head_; p!=NULL; p=p->get_next() ) {
-        SinhVien tmp = p->get_data();
-        if (strcmp(tmp.get_MASV(),maSV_tmp)==0) {
-            return p;
+Node<SinhVien>* timSV(char* maSV_tmp, DanhSachLopCQ &dslcq) {
+    for (Node<LopCQ>* lopcq = dslcq.p_head_; lopcq!=NULL; lopcq = lopcq->get_next())
+        for (Node<SinhVien>* sv = lopcq->get_data().DSSV->p_head_; sv!=NULL; sv = sv->get_next()) {
+            if (strcmp(sv->get_data().get_MASV(),maSV_tmp)==0) {
+                return sv;
+            }
         }
-    }
     return NULL;
 }
 
