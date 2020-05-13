@@ -10,7 +10,7 @@
 class SinhVienDK {
 private:
   char MASV_[15];
-  short DIEM_;
+  float DIEM_;
 public:
   //** Constructor, destructor
   SinhVienDK(){;};
@@ -19,10 +19,10 @@ public:
   
   //** Getters, setters
   char * get_MASV();
-  short get_DIEM();
+  float get_DIEM();
   
   void set_MASV(char *);
-  void set_DIEM(short);
+  void set_DIEM(float);
 
   //** Methods
   void info();
