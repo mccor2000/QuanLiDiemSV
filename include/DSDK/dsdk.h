@@ -14,8 +14,7 @@ private:
 public:
   //** Constructor, destructor
   SinhVienDK(){;};
-  SinhVienDK(char *, short);
-  ~SinhVienDK(){;};
+  SinhVienDK(char *, float);
   
   //** Getters, setters
   char * get_MASV();
