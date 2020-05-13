@@ -34,6 +34,3 @@ void DiemTB(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALO
         std::cout<< score <<'\n';
     }
 }
-int main(){
-    std::cout << "Hello Module K\n";
-}
