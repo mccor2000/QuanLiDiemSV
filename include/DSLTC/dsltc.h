@@ -26,7 +26,7 @@ struct Lop {
 	Lop(char* maMH, char* nienkhoa, short hocki, short nhom, int sv_max, int sv_min);
 	Lop() {;}
 
-  	void save();
+  void save();
 };
 
 class LOPTC {

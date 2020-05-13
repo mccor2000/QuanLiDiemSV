@@ -1,6 +1,6 @@
 #include "dsltc.h"
 
-Lop::Lop(char * ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int min) {
+Lop::Lop(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int min) {
   strcpy(maMH, ma_mh);
   strcpy(nienkhoa,nien_khoa);
   hocki = hoc_ki;
