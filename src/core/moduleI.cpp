@@ -1,10 +1,10 @@
 #include "library.h"
 
 //tim lop theo nienkhoa, hocki, nhom, monhoc
-Lop* timLop(LOPTC &dsltc, short nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tmp) {
+Lop* timLop(LOPTC &dsltc, char* nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tmp) {
     for (int i=0; i<dsltc.getN(); i++) {
         Lop* tmp = dsltc.node[i];
-        if (tmp->nienkhoa==nienkhoa_tmp && tmp->hocki==hocki_tmp && tmp->nhom==nhom_tmp && strcmp(tmp->maMH,maMH_tmp)==0) {
+        if (strcmp(tmp->nienkhoa,nienkhoa_tmp)==0 && tmp->hocki==hocki_tmp && tmp->nhom==nhom_tmp && strcmp(tmp->maMH,maMH_tmp)==0) {
             return tmp;
         }
     }

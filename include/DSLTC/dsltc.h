@@ -15,7 +15,7 @@ const int LOP_MAX = 10000;
 struct Lop {
 	int malop;
 	char maMH[10];
-	char nienkhoa[4];
+	char nienkhoa[10];
 	short hocki;
 	short nhom;
 	bool huylop;
@@ -23,10 +23,10 @@ struct Lop {
 	int sv_min;
 	DanhSachSinhVienDK * dsdk; 
 
-	Lop(char *, char *, short, short, int, int);
+	Lop(char* maMH, char* nienkhoa, short hocki, short nhom, int sv_max, int sv_min);
 	Lop() {;}
 
-  	void save();
+  void save();
 };
 
 class LOPTC {

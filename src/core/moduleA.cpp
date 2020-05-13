@@ -24,9 +24,10 @@ void hieuChinhLop(LOPTC &loptc, int index) {
             }
             //Sua nienkhoa
             case 1: {
-                int tmp;
-                cin>>tmp;
-                loptc.node[index]->nienkhoa = tmp;
+                char tmp[10];
+                cin.ignore();
+                cin.getline(tmp,10);
+                strcpy(loptc.node[index]->nienkhoa,tmp);
                 break;
             }
             //Sua nhom
@@ -34,6 +35,7 @@ void hieuChinhLop(LOPTC &loptc, int index) {
                 int tmp;
                 cin>>tmp;
                 loptc.node[index]->nhom = tmp;
+                break;
             }
             //Sua sv_max
             case 3: {
@@ -50,7 +52,7 @@ void hieuChinhLop(LOPTC &loptc, int index) {
                 break;
             }
             default: {
-                cout<<"Lua chon khong hop le, moi ban nhap lai";
+                cout<<"Lua chon khong hop le, moi ban nhap lai\n";
             }
         }
     } while (!stop);
