@@ -46,7 +46,9 @@ void locDSLTC(LOPTC &loptc, DanhSachMonHoc &dsmh , short nienkhoa_tmp, short hoc
 int dangKyLop(DanhSachSinhVienDK& , SinhVienDK);
 
 //-- H
-void huyLopTC(LOPTC& BASE_DSLTC);
+void DSLopTC_HUY(LOPTC& BASE_DSLTC);
+bool HuyLopTC(LOPTC& BASE_DSLTC,int ma_lop);
+
 
 
 //-- I
@@ -55,3 +57,8 @@ void xuatDSDK(Lop* lop, LinkedList<SinhVien> &dssv);
 
 //-- J
 void Show_Score(DanhSachMonHoc& ds, DanhSachSinhVien& dssv, LOPTC& dsltc,short nienkhoa, short hocki, short nhom, char tenMH[]);
+//-- K 
+void DiemTB(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
+
+// -- L
+void DiemMH(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
