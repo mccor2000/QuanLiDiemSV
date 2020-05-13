@@ -59,12 +59,11 @@ SinhVien::SinhVien(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALO
     PHAI_ = PHAI;
     strcpy(SDT_, SDT);
     strcpy(MALOP_, MALOP);
-    std::cout << "DA KHOI TAO 1 SINH VIEN\n"; 
 }
 
 //-- Methods
 void SinhVien::info(){
-    std::cout << MASV_ << " " << HO_ <<  " " <<TEN_<< " "<< PHAI_ << " " << SDT_ << " " << MALOP_; 
+    std::cout << MASV_ << " " << HO_ <<  " " <<TEN_<< " "<< PHAI_ << " " << MALOP_ << " " << SDT_; 
 }
 
 //-- Operator overloading

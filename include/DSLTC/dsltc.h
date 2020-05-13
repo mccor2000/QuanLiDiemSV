@@ -22,6 +22,7 @@ struct Lop {
 	int sv_max;
 	int sv_min;
 	DanhSachSinhVienDK * dsdk; 
+  
   Lop(char *, short, short, short, int, int);
   Lop() {;}
 

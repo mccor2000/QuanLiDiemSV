@@ -1,4 +1,3 @@
-#include <cstring>
 #include "dsmh.h"
 
 /************** MONHOC ***************/
@@ -186,6 +185,17 @@ void DanhSachMonHoc::in_order(node * n) {
     in_order(n->right);
   }
 }
+
+LinkedList<char*> DanhSachMonHoc::list_mh(node * n){
+  LinkedList<char*> dsmh;
+  if(n != NULL ){
+    in_order(n->left);
+    dsmh.push_back(n->key.TENMH);
+    in_order(n->right);
+  }
+  return dsmh;
+}
+
 
 void DanhSachMonHoc::save_node(node * n, std::ofstream &f) {
   if (n != NULL) {
