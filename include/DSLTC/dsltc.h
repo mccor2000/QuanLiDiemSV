@@ -30,15 +30,16 @@ struct Lop {
 
 class LOPTC {
 	private:
-		int n;
-		int stt;
+		int n = 0;
+		int stt = 0;
     char db[32] = "../../database/dsltc.d";
 	
   public:
 		Lop *node[LOP_MAX];
 		
     Lop* getLop();
-		void setLop(Lop* &lop_tmp);
+		int get_STT();
+    void setLop(Lop* &lop_tmp);
 		int getN();
 		void setN(int n_tmp);
 		void khoiTaoDS();

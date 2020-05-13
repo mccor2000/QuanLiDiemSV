@@ -42,10 +42,15 @@ void DanhSachSinhVienDK::print() {
   }
 }
 
-void DanhSachSinhVienDK::save(char * file_path) {
+void DanhSachSinhVienDK::save(const char * ma_lop) {
+  // Get path
+  char path[64] = "../../database/dsdk/";
+  strcat(path, ma_lop);
+  strcat(path, ".d");
+  
   // Open file
   std::ofstream f;
-  f.open(file_path, std::ios::binary);
+  f.open(path, std::ios::binary);
   
   // Loop through the list and write to file
   Node<SinhVienDK> * temp_node = p_head_;
@@ -60,10 +65,15 @@ void DanhSachSinhVienDK::save(char * file_path) {
   f.close();
 }
 
-void DanhSachSinhVienDK::load(char * file_path) {
+void DanhSachSinhVienDK::load(const char * ma_lop) {
+  // Get path
+  char path[64] = "../../database/dsdk/";
+  strcat(path, ma_lop);
+  strcat(path, ".d");
+  
   // Open file
   std::ifstream f;
-  f.open(file_path, std::ios::binary);
+  f.open(path, std::ios::binary);
   
   // Get data from file and push to the list
   SinhVienDK temp;

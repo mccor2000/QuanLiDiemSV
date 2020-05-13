@@ -15,6 +15,10 @@ Lop* LOPTC::getLop() {
 	return *node ;
 }
 
+int LOPTC::get_STT() {
+  return stt;
+}
+
 void LOPTC::setLop(Lop* &lop_tmp) {
 	*node = lop_tmp;
 }
@@ -47,12 +51,15 @@ void LOPTC::insertOrder(Lop &lop, int pos) {
 	}
 	node[pos] = new Lop();
 	*node[pos] = lop;
+  stt++;
 }
 
 void LOPTC::insertLast(Lop &lop) {
 	n++;
 	node[n-1] = new Lop();
 	*node[n-1] = lop;
+  lop.malop = stt;
+  stt++;
 }
 
 int LOPTC::search(int malop_tmp) {
@@ -128,7 +135,8 @@ void LOPTC::save() {
     // Save LopTC
     f.write((char *)node[i], sizeof(Lop));  
     // Save dsdk
-    node[i]->dsdk->save((char *)node[i]->malop);
+    const char * temp = std::to_string(node[i]->malop).c_str(); 
+    node[i]->dsdk->save(temp);
   }
 
   // Close file
@@ -143,7 +151,8 @@ void LOPTC::load() {
   // Load
   Lop* temp = new Lop(); 
   while (f.read((char *)temp, sizeof(Lop))) {
-    temp->dsdk->save((char *)temp->malop);
+    const char * temp_malop = std::to_string(temp->malop).c_str(); 
+    temp->dsdk->load((char *)temp_malop);
     insertLast(*temp);
   }
 

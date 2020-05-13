@@ -34,6 +34,7 @@ void DanhSachLopCQ::save() {
     f.write((char *)ma_lop, sizeof(char[15]));
     // Save DSSV
     temp->get_data().DSSV->save(ma_lop);
+    temp = temp->get_next();
   }
 
   // Close file
