@@ -11,16 +11,47 @@ void xoaLop(LOPTC &loptc,int maloptc) {
 }
 
 void hieuChinhLop(LOPTC &loptc, int index) {
-    Lop loptmp;
-    loptmp.malop = loptc.node[index]->malop;
-    strcpy(loptmp.maMH,loptc.node[index]->maMH);
-    loptmp.huylop = loptc.node[index]->huylop;
-    loptmp.dsdk = loptc.node[index]->dsdk;
-    cin>>loptmp.nienkhoa;
-    cin>>loptmp.hocki;
-    cin>>loptmp.nhom;
-    cin>>loptmp.sv_max;
-    cin>>loptmp.sv_min;
-    //--
-    *loptc.node[index] = loptmp;
+    int choice;
+    bool stop = false;
+    do {
+        std::cout<<"Chon thuoc tinh ban muon chinh sua (nhap 0 de dung):";
+        std::cin>>choice;
+        switch (choice) {
+            //dung chinh sua
+            case 0: {
+                stop = true;
+                break;
+            }
+            //Sua nienkhoa
+            case 1: {
+                int tmp;
+                cin>>tmp;
+                loptc.node[index]->nienkhoa = tmp;
+                break;
+            }
+            //Sua nhom
+            case 2: {
+                int tmp;
+                cin>>tmp;
+                loptc.node[index]->nhom = tmp;
+            }
+            //Sua sv_max
+            case 3: {
+                int tmp;
+                cin>>tmp;
+                loptc.node[index]->sv_max = tmp;
+                break;
+            }
+            //Sua sv_min
+            case 4: {
+                int tmp;
+                cin>>tmp;
+                loptc.node[index]->sv_min = tmp;
+                break;
+            }
+            default: {
+                cout<<"Lua chon khong hop le, moi ban nhap lai";
+            }
+        }
+    } while (!stop);
 } 
