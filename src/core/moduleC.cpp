@@ -44,7 +44,8 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   }
   std::cout << "Nhap vao MASV ban muon chinh sua\n";
   char MASV[15];
-  fgets(MASV,15,stdin);
+  cin.ignore();
+  cin.getline(MASV,15);
   Node<SinhVien>* SV = dssv->head();
   bool flag=false;
 
@@ -67,30 +68,35 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
         {
           // Sua MASV
         case 1:
-          fgets(str,35,stdin);
+          cin.ignore();
+          cin.getline(str,35);
           SV->get_data().set_MASV(str);
           break;
           // Sua Ho
         case 2:
-          fgets(str,35,stdin);
+          cin.ignore();
+          cin.getline(str,35);
           SV->get_data().set_HO(str);
           
           break;
           // Sua Ten
         case 3:
-          fgets(str,35,stdin);
+          cin.ignore();
+          cin.getline(str,35);
           SV->get_data().set_TEN(str);
           
           break;
           //Sua SDT
         case 4:
-          fgets(str,35,stdin);
+          cin.ignore();
+          cin.getline(str,35);
           SV->get_data().set_SDT(str);
           
           break;
           // Sua MALOP
         case 5:
-          fgets(str,35,stdin);
+          cin.ignore();
+          cin.getline(str,35);
           SV->get_data().set_MALOP(str);
 
           break;

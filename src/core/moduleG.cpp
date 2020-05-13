@@ -22,12 +22,12 @@ void xuatSV(Node<SinhVien>* SV) {
     }
 }
 //loc cac lop theo nien khoa va hoc ki 
-void locDSLTC(LOPTC &loptc, DanhSachMonHoc &dsmh , short nienkhoa_tmp, short hocki_tmp) {
+void locDSLTC(LOPTC &loptc, DanhSachMonHoc &dsmh , char* nienkhoa_tmp, short hocki_tmp) {
 	cout<<"MAMH\tTENMH\tNHOM\tSV_DA_DK\tVI_TRI_TRONG\n";
     for (int i=0; i<loptc.getN(); i++) {
         Lop tmp = *loptc.node[i];
         MonHoc * mh = dsmh.search_code(tmp.maMH);
-        if (tmp.nienkhoa==nienkhoa_tmp && tmp.hocki==hocki_tmp) {
+        if (strcmp(tmp.nienkhoa,nienkhoa_tmp)==0 && tmp.hocki==hocki_tmp) {
 		    cout<<tmp.maMH<<"\t"<<mh->TENMH<<"\t"<<tmp.nhom<<"\t"<<tmp.dsdk->count()<<"\t"<<tmp.sv_max-tmp.dsdk->count()<<"\n";
         }
     }
