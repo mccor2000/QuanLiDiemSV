@@ -2,7 +2,7 @@
 /********************* SinhVienDK ********************/
 
 //-- Constructor
-SinhVienDK::SinhVienDK(char * MASV, short DIEM){
+SinhVienDK::SinhVienDK(char * MASV, float DIEM){
     strcpy(MASV_, MASV);
     DIEM_ = DIEM;
     std::cout << "DA THEM SINH VIEN VAO DANH SACH LOP\n";
@@ -13,7 +13,7 @@ char * SinhVienDK::get_MASV(){
   return MASV_;
 }
 
-short SinhVienDK::get_DIEM(){
+float SinhVienDK::get_DIEM(){
   return DIEM_;
 }
 
@@ -21,7 +21,7 @@ void SinhVienDK::set_MASV(char * masv) {
     strcpy(MASV_, masv);
 }
 
-void SinhVienDK::set_DIEM(short diem) {
+void SinhVienDK::set_DIEM(float diem) {
  DIEM_ = diem;
 }
 
