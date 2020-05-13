@@ -3,25 +3,25 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstring>
 
 #include "../templates/LinkedList.h"
 
 class SinhVienDK {
 private:
-  char* MASV_;
-  short DIEM_;
+  char MASV_[15];
+  float DIEM_;
 public:
   //** Constructor, destructor
   SinhVienDK(){;};
-  SinhVienDK(char *, short);
-  ~SinhVienDK(){;};
+  SinhVienDK(char *, float);
   
   //** Getters, setters
   char * get_MASV();
-  short get_DIEM();
+  float get_DIEM();
   
   void set_MASV(char *);
-  void set_DIEM(short);
+  void set_DIEM(float);
 
   //** Methods
   void info();
@@ -30,8 +30,8 @@ public:
 class DanhSachSinhVienDK: public LinkedList<SinhVienDK> {
 public: 
   void print();
-  void save_to_file(char *);
-  void get_from_file(char *);
+  void save(const char *);
+  void load(const char *);
 };
 
 #endif

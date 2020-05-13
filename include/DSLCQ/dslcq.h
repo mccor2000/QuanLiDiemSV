@@ -14,10 +14,13 @@ public:
 };
 
 class DanhSachLopCQ: public LinkedList<LopCQ> {
+private:
+  char db[32] = "../../database/dslcq.d";
+
 public:
   DanhSachSinhVien * get_dssv(char *);
 
-  void save_to_file(char *);
-  void get_from_file(char *);
+  void save();
+  void load();
 };
 

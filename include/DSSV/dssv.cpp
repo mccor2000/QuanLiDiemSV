@@ -3,23 +3,23 @@
 /************************ SinhVien ****************************/
 
 //-- Getters, Setters
-char* SinhVien::get_MASV(){
+char * SinhVien::get_MASV(){
     return MASV_; 
 }
 
-char* SinhVien::get_HO(){
+char * SinhVien::get_HO(){
     return HO_; 
 }
 
-char* SinhVien::get_TEN(){
+char * SinhVien::get_TEN(){
     return TEN_; 
 }
 
-char* SinhVien::get_SDT(){
+char * SinhVien::get_SDT(){
     return SDT_; 
 }
 
-char* SinhVien::get_MALOP(){
+char * SinhVien::get_MALOP(){
     return MALOP_; 
 }
 
@@ -54,12 +54,11 @@ void SinhVien::set_PHAI(bool phai) {
 //-- Constructor
 SinhVien::SinhVien(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALOP){
     strcpy(MASV_, MASV);
-    HO_ = HO;
-    TEN_ = TEN;
+    strcpy(HO_, HO);
+    strcpy(TEN_, TEN);
     PHAI_ = PHAI;
-    SDT_ = SDT;
+    strcpy(SDT_, SDT);
     strcpy(MALOP_, MALOP);
-    std::cout << "DA KHOI TAO 1 SINH VIEN\n"; 
 }
 
 //-- Methods
@@ -82,28 +81,45 @@ bool SinhVien::operator == (SinhVien x) {
 
 
 /********************** DanhSachSinhVien ***********************/
-void DanhSachSinhVien::save_to_file(char * file_path) {
+void DanhSachSinhVien::save(char * ma_lop) {
+  // Get path
+  char path[64] = "../../database/dssv/";
+  strcat(path, ma_lop);
+  strcat(path, ".d");
+
+  // Open file
   std::ofstream f;
-  f.open(file_path, std::ios::binary);
+  f.open(path, std::ios::binary);
 
+  // Loop through the list and write to file 
   Node<SinhVien> * temp_node = p_head_;
+  while (temp_node != NULL) {
+    SinhVien temp_sv = temp_node->get_data();
+    f.write((char *)&temp_sv, sizeof(SinhVien));
 
-  do {
-      SinhVien temp_sv = temp_node->get_data();
-      f.write((char *)&temp_sv, sizeof(SinhVien));
-      
-      temp_node = temp_node->get_next();
-  } while (temp_node->get_next() != NULL);
-  
+    temp_node = temp_node->get_next();
+  }
+
+  // Close file
   f.close();
 }
 
-void DanhSachSinhVien::get_from_file(char * file_path) {
+void DanhSachSinhVien::load(char * ma_lop) {
+  // Get path
+  char path[64] = "../../database/dssv/";
+  strcat(path, ma_lop);
+  strcat(path, ".d");
+  
+  // Open file
   std::ifstream f;
-  f.open(file_path, std::ios::binary);
+  f.open(path, std::ios::binary);
+  
+  // Get data from file and push to the list
   SinhVien temp;
   while (f.read((char *)&temp, sizeof(SinhVien))) {
     push_back(temp);
   }
+
+  // Close the file
   f.close();
 }

@@ -2,8 +2,8 @@
 /********************* SinhVienDK ********************/
 
 //-- Constructor
-SinhVienDK::SinhVienDK(char* MASV, short DIEM){
-    MASV_ = MASV;
+SinhVienDK::SinhVienDK(char * MASV, float DIEM){
+    strcpy(MASV_, MASV);
     DIEM_ = DIEM;
     std::cout << "DA THEM SINH VIEN VAO DANH SACH LOP\n";
 }
@@ -13,15 +13,15 @@ char * SinhVienDK::get_MASV(){
   return MASV_;
 }
 
-short SinhVienDK::get_DIEM(){
+float SinhVienDK::get_DIEM(){
   return DIEM_;
 }
 
 void SinhVienDK::set_MASV(char * masv) {
-  MASV_ = masv;  
+    strcpy(MASV_, masv);
 }
 
-void SinhVienDK::set_DIEM(short diem) {
+void SinhVienDK::set_DIEM(float diem) {
  DIEM_ = diem;
 }
 
@@ -37,34 +37,51 @@ void DanhSachSinhVienDK::print() {
   Node<SinhVienDK> * temp = p_head_;
   
   while (temp != NULL) {
-    std::cout << temp->get_data().get_MASV() << "\t" << temp->get_data().get_MASV() << "\n";
+    std::cout << temp->get_data().get_MASV() << "\t" << temp->get_data().get_DIEM() << "\n";
     temp = temp->get_next();
   }
 }
 
-void DanhSachSinhVienDK::save_to_file(char * file_path) {
-  std::ofstream f;
-  f.open(file_path, std::ios::binary);
-
-  Node<SinhVienDK> * temp_node = p_head_;
-  do {
-      SinhVienDK temp_sv = temp_node->get_data();
-      f.write((char *)&temp_sv, sizeof(SinhVienDK));    
-      temp_node = temp_node->get_next();
-  } while (temp_node->get_next() != NULL);
+void DanhSachSinhVienDK::save(const char * ma_lop) {
+  // Get path
+  char path[64] = "../../database/dsdk/";
+  strcat(path, ma_lop);
+  strcat(path, ".d");
   
+  // Open file
+  std::ofstream f;
+  f.open(path, std::ios::binary);
+  
+  // Loop through the list and write to file
+  Node<SinhVienDK> * temp_node = p_head_;
+  while (temp_node != NULL) {
+    SinhVienDK temp_sv = temp_node->get_data();
+    f.write((char *)&temp_sv, sizeof(SinhVienDK));    
+
+    temp_node = temp_node->get_next();
+  }
+  
+  // Save file
   f.close();
 }
 
-void DanhSachSinhVienDK::get_from_file(char * file_path) {
-  std::ifstream f;
-  f.open(file_path, std::ios::binary);
+void DanhSachSinhVienDK::load(const char * ma_lop) {
+  // Get path
+  char path[64] = "../../database/dsdk/";
+  strcat(path, ma_lop);
+  strcat(path, ".d");
   
+  // Open file
+  std::ifstream f;
+  f.open(path, std::ios::binary);
+  
+  // Get data from file and push to the list
   SinhVienDK temp;
   while (f.read((char *)&temp, sizeof(SinhVienDK))) {
     push_back(temp);
   }
   
+  // Save file
   f.close();
 }
 

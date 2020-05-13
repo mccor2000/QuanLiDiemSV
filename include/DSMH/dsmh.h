@@ -42,19 +42,23 @@ public:
   int length;
   node * root;
 
+  char db[32] = "../../database/dsmh.d";
+
   //** Constructor
   DanhSachMonHoc();
  
   //** Public methods
   void insert(MonHoc);
   void remove(MonHoc);
+  
   MonHoc * search_name(char *);
   MonHoc * search_code(char *);
+  
   void enumerate();
   LinkedList<char*> list_mh(node *);
-
-  void get_from_file(char *);
-  void save_to_file(char *);
+  
+  void load();
+  void save();
 
 private:
   //** Utils
