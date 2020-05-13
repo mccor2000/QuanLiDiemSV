@@ -15,7 +15,7 @@ const int LOP_MAX = 10000;
 struct Lop {
 	int malop;
 	char maMH[10];
-	short nienkhoa;
+	char nienkhoa[4];
 	short hocki;
 	short nhom;
 	bool huylop;
