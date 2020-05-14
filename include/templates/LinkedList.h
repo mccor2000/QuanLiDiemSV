@@ -77,11 +77,14 @@ public:
     }
      
     void remove(int pos){
+        Node<T>* tmp;
         if(pos==0){
           if(p_head_ == NULL){
               std::cout << "Danh sach dang trong\n";
           } else {
+              tmp = p_head_;
               p_head_ = p_head_ -> get_next();
+              delete tmp;
           }
         } else {
             int k=1;
@@ -94,7 +97,9 @@ public:
             if(k!=pos){
                 std::cout <<"Vi tri nhap vao vuot qua vi tri cuoi cung cua danh sach\n";
             } else {
+                tmp = p;
                 p->set_next(p->get_next()->get_next());
+                delete tmp;
             }
         }
 
