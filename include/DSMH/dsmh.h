@@ -1,9 +1,9 @@
-#ifndef _DSMH_H
-#define _DSMH_H
+#pragma once
+
 #include "../templates/LinkedList.h"
 #include <fstream>
 #include <cstring>
-#include <iostream>
+
 /****************** MON HOC *******************/ 
 class MonHoc {
 public:
@@ -50,13 +50,16 @@ public:
   //** Public methods
   void insert(MonHoc);
   void remove(MonHoc);
-  
+  void update(MonHoc, MonHoc);
+
+  bool is_exist(MonHoc);
+
   MonHoc * search_name(char *);
   MonHoc * search_code(char *);
   
-  void enumerate();
-  LinkedList<char*> list_mh(node *);
+  LinkedList<MonHoc> enumerate(); // Return list of MonHoc
   
+  //** File ops
   void load();
   void save();
 
@@ -69,10 +72,13 @@ private:
   
   node * insert_node(node *, MonHoc);
   node * remove_node(node *, MonHoc);
+  node * update_node(node *, MonHoc, MonHoc);
+
   MonHoc * search_name_node(node *, char *);
   MonHoc * search_code_node(node *, char *);
+  
+  bool check_exist(node *, MonHoc);
 
-  void in_order(node *);
+  void in_order(node *, LinkedList<MonHoc>&);
   void save_node(node *, std::ofstream &);
 };
-#endif

@@ -78,7 +78,9 @@ node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
   } else if (x > n->key) {
     n->right= insert_node(n->right, x);
   } else {
-    return n;
+    length += 1;
+    node * tmp = new node(x);
+    return tmp;
   }
 
   n->height = 1 + std::max(height(n->left), height(n->right));
@@ -115,10 +117,12 @@ node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
     if (n->right == NULL) {
       node * l = n->left;
       delete(n);
+      length--;
       n = l;
 
     } else if (n->left == NULL) {
       delete(n);
+      length--;
       n = r;
     } else {
       while (r->left != NULL) 
@@ -154,6 +158,40 @@ node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
   return n;
 }
 
+node * DanhSachMonHoc::update_node(node * n, MonHoc x, MonHoc new_x) {
+  if (n == NULL) return NULL;
+   
+  if (x < n->key) {
+    n->left= update_node(n->left, x, new_x);
+  } else if (x > n->key) {
+    n->right= update_node(n->right, x, new_x);
+  } else {
+    n->key = new_x;
+    return n;
+  }
+
+  n->height = 1 + std::max(height(n->left), height(n->right));
+
+  int bal = height(n->left) - height(n->right);
+
+  if (bal > 1) {
+    if (new_x < n->left->key) {
+      return right_rotate(n);
+    } else {
+      n->left = left_rotate(n->left);
+      return right_rotate(n);
+    }
+  } else if (bal < -1) {
+    if (new_x > n->right->key) {
+      return left_rotate(n);
+    } else {
+      n->right = right_rotate(n->right);
+      return left_rotate(n);
+    }
+  }
+  return n; 
+}
+
 MonHoc * DanhSachMonHoc::search_name_node(node * n, char * s) {
   if (n == NULL) 
     return NULL;
@@ -178,24 +216,13 @@ MonHoc * DanhSachMonHoc::search_code_node(node * n, char * s) {
     return &n->key;    
 }
 
-void DanhSachMonHoc::in_order(node * n) {
+void DanhSachMonHoc::in_order(node * n, LinkedList<MonHoc>& list_mh) {
   if (n != NULL) {
-    in_order(n->left);
-    std::cout << n->key.TENMH << std::endl;
-    in_order(n->right);
+    in_order(n->left, list_mh);
+    list_mh.push_back(n->key);
+    in_order(n->right, list_mh);
   }
 }
-
-LinkedList<char*> DanhSachMonHoc::list_mh(node * n){
-  LinkedList<char*> dsmh;
-  if(n != NULL ){
-    in_order(n->left);
-    dsmh.push_back(n->key.TENMH);
-    in_order(n->right);
-  }
-  return dsmh;
-}
-
 
 void DanhSachMonHoc::save_node(node * n, std::ofstream &f) {
   if (n != NULL) {
@@ -204,13 +231,34 @@ void DanhSachMonHoc::save_node(node * n, std::ofstream &f) {
     save_node(n->right, f);
   }  
 }
-// Public methods
+
+bool DanhSachMonHoc::check_exist(node * n, MonHoc x) {
+  if (n == NULL) return false;
+
+  if (x > n->key) {
+    return check_exist(n->right, x);  
+  } else if ( x < n->key) {
+    return check_exist(n->left, x);
+  } else {
+    return true;
+  }
+}
+
+//---- Public methods
 void DanhSachMonHoc::insert(MonHoc x) {
   root = insert_node(root, x);
 }
 
 void DanhSachMonHoc::remove(MonHoc x) {
   root = remove_node(root, x);    
+}
+
+void DanhSachMonHoc::update(MonHoc x, MonHoc new_x) {
+  root = update_node(root, x, new_x);
+}
+
+bool DanhSachMonHoc::is_exist(MonHoc x) {
+  return check_exist(root, x);
 }
 
 MonHoc * DanhSachMonHoc::search_name(char * s) {
@@ -221,8 +269,11 @@ MonHoc * DanhSachMonHoc::search_code(char * s) {
   return search_code_node(root, s);
 }
 
-void DanhSachMonHoc::enumerate() {
-  in_order(root);
+LinkedList<MonHoc> DanhSachMonHoc::enumerate() {
+  LinkedList<MonHoc> list_name;
+  in_order(root, list_name);
+
+  return list_name;
 }
 
 void DanhSachMonHoc::save() {
