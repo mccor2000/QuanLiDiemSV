@@ -8,7 +8,7 @@ void in_danh_sach_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
     return;
   }
   Node<SinhVien>* sv = dssv->head();
-  while(sv->get_next()!=NULL){
+  while(sv!=NULL){
     sv->get_data().info();
     std::cout << '\n';
     sv=sv->get_next();
