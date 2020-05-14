@@ -117,10 +117,12 @@ node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
     if (n->right == NULL) {
       node * l = n->left;
       delete(n);
+      length--;
       n = l;
 
     } else if (n->left == NULL) {
       delete(n);
+      length--;
       n = r;
     } else {
       while (r->left != NULL) 
@@ -154,6 +156,40 @@ node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
   }
 
   return n;
+}
+
+node * DanhSachMonHoc::update_node(node * n, MonHoc x, MonHoc new_x) {
+  if (n == NULL) return NULL;
+   
+  if (x < n->key) {
+    n->left= update_node(n->left, x, new_x);
+  } else if (x > n->key) {
+    n->right= update_node(n->right, x, new_x);
+  } else {
+    n->key = new_x;
+    return n;
+  }
+
+  n->height = 1 + std::max(height(n->left), height(n->right));
+
+  int bal = height(n->left) - height(n->right);
+
+  if (bal > 1) {
+    if (new_x < n->left->key) {
+      return right_rotate(n);
+    } else {
+      n->left = left_rotate(n->left);
+      return right_rotate(n);
+    }
+  } else if (bal < -1) {
+    if (new_x > n->right->key) {
+      return left_rotate(n);
+    } else {
+      n->right = right_rotate(n->right);
+      return left_rotate(n);
+    }
+  }
+  return n; 
 }
 
 MonHoc * DanhSachMonHoc::search_name_node(node * n, char * s) {
@@ -215,6 +251,10 @@ void DanhSachMonHoc::insert(MonHoc x) {
 
 void DanhSachMonHoc::remove(MonHoc x) {
   root = remove_node(root, x);    
+}
+
+void DanhSachMonHoc::update(MonHoc x, MonHoc new_x) {
+  root = update_node(root, x, new_x);
 }
 
 bool DanhSachMonHoc::is_exist(MonHoc x) {

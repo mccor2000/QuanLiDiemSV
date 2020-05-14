@@ -50,7 +50,8 @@ public:
   //** Public methods
   void insert(MonHoc);
   void remove(MonHoc);
-  
+  void update(MonHoc, MonHoc);
+
   bool is_exist(MonHoc);
 
   MonHoc * search_name(char *);
@@ -71,7 +72,8 @@ private:
   
   node * insert_node(node *, MonHoc);
   node * remove_node(node *, MonHoc);
-  
+  node * update_node(node *, MonHoc, MonHoc);
+
   MonHoc * search_name_node(node *, char *);
   MonHoc * search_code_node(node *, char *);
   
