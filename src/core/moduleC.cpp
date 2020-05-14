@@ -15,7 +15,7 @@ int vitri_sv(DanhSachSinhVien* DSSV,char* MASV){
   Node<SinhVien>* SV  = DSSV->head();
   int counter = 0;
   bool flag=false;
-  while(SV->get_next()!=NULL){
+  while(SV!=NULL){
     if(SV->get_data().get_MASV() == MASV)
       flag=true;
     counter++;
@@ -49,7 +49,7 @@ void hieu_chinh_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   Node<SinhVien>* SV = dssv->head();
   bool flag=false;
 
-  while(SV->get_next() != NULL){
+  while(SV != NULL){
     if(SV->get_data().get_MASV() == MASV){
       flag=true;
       break;
