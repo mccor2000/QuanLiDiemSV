@@ -99,7 +99,7 @@ public:
             } else {
                 tmp = p;
                 p->set_next(p->get_next()->get_next());
-                delete p;
+                delete tmp;
             }
         }
 
