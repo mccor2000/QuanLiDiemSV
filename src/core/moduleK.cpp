@@ -9,7 +9,7 @@ void DiemTB(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALO
     Node<SinhVien>* sv = dssv->head();
     LinkedList<MonHoc> list_mh = dsmh.enumerate();
     Node<MonHoc> * mh= list_mh.head();
-    while(sv->get_next()!=NULL){
+    while (sv->get_next()!=NULL) {
         float total=0;
         short cnt = 0;
         SinhVien tmp = sv->get_data();

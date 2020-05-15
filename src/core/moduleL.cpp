@@ -1,8 +1,6 @@
 #include "library.h"
 
-
-
-void DiemMH(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP){
+void bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP){
     DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   
     if (dssv == NULL) {
@@ -14,11 +12,10 @@ void DiemMH(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALO
     LinkedList<MonHoc> list_mh = dsmh.enumerate();
 
     Node<MonHoc> * mh = list_mh.head();
-    while(sv->get_next()!=NULL) {
+    while(sv != NULL) {
         
         // Get sv info
         SinhVien tmp = sv->get_data();
-        sv=sv->get_next();
         std::cout << tmp.get_MASV() << " " << tmp.get_HO() << " "<<tmp.get_TEN() << " ";
         
         // Loop through list mh to get diem 
@@ -36,5 +33,6 @@ void DiemMH(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALO
             mh=mh->get_next();
         }
         std::cout << '\n';
+        sv = sv->get_next();
     }
 }
