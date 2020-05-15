@@ -158,40 +158,6 @@ node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
   return n;
 }
 
-node * DanhSachMonHoc::update_node(node * n, MonHoc x, MonHoc new_x) {
-  if (n == NULL) return NULL;
-   
-  if (x < n->key) {
-    n->left= update_node(n->left, x, new_x);
-  } else if (x > n->key) {
-    n->right= update_node(n->right, x, new_x);
-  } else {
-    n->key = new_x;
-    return n;
-  }
-
-  n->height = 1 + std::max(height(n->left), height(n->right));
-
-  int bal = height(n->left) - height(n->right);
-
-  if (bal > 1) {
-    if (new_x < n->left->key) {
-      return right_rotate(n);
-    } else {
-      n->left = left_rotate(n->left);
-      return right_rotate(n);
-    }
-  } else if (bal < -1) {
-    if (new_x > n->right->key) {
-      return left_rotate(n);
-    } else {
-      n->right = right_rotate(n->right);
-      return left_rotate(n);
-    }
-  }
-  return n; 
-}
-
 MonHoc * DanhSachMonHoc::search_name_node(node * n, char * s) {
   if (n == NULL) 
     return NULL;
@@ -216,11 +182,11 @@ MonHoc * DanhSachMonHoc::search_code_node(node * n, char * s) {
     return &n->key;    
 }
 
-void DanhSachMonHoc::in_order(node * n, LinkedList<MonHoc>& list_mh) {
+void DanhSachMonHoc::in_order(node * n, void (*f)(MonHoc)) {
   if (n != NULL) {
-    in_order(n->left, list_mh);
-    list_mh.push_back(n->key);
-    in_order(n->right, list_mh);
+    in_order(n->left, f);
+    f(n->key);
+    in_order(n->right, f);
   }
 }
 
@@ -253,10 +219,6 @@ void DanhSachMonHoc::remove(MonHoc x) {
   root = remove_node(root, x);    
 }
 
-void DanhSachMonHoc::update(MonHoc x, MonHoc new_x) {
-  root = update_node(root, x, new_x);
-}
-
 bool DanhSachMonHoc::is_exist(MonHoc x) {
   return check_exist(root, x);
 }
@@ -269,11 +231,8 @@ MonHoc * DanhSachMonHoc::search_code(char * s) {
   return search_code_node(root, s);
 }
 
-LinkedList<MonHoc> DanhSachMonHoc::enumerate() {
-  LinkedList<MonHoc> list_name;
-  in_order(root, list_name);
-
-  return list_name;
+void DanhSachMonHoc::enumerate(void (*f)(MonHoc)) {
+  in_order(root, f);
 }
 
 void DanhSachMonHoc::save() {

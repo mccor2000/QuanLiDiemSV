@@ -11,7 +11,8 @@ void update_mh(DanhSachMonHoc& dsmh, MonHoc old_mh, MonHoc new_mh) {
   bool check = dsmh.is_exist(old_mh);
 
   if (!check) return;
-  dsmh.update(old_mh, new_mh);  
+  dsmh.remove(old_mh);
+  dsmh.insert(new_mh);
 }
 
 void delete_mh(DanhSachMonHoc& dsmh, MonHoc mh) {

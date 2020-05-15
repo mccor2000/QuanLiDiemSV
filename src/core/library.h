@@ -58,7 +58,7 @@ void xuatDSDK(Lop* lop, LinkedList<SinhVien> &dssv);
 //-- J
 void Show_Score(DanhSachMonHoc& ds, DanhSachSinhVien& dssv, LOPTC& dsltc,short nienkhoa, short hocki, short nhom, char tenMH[]);
 //-- K 
-void DiemTB(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
+void in_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
 
 // -- L
 void bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
