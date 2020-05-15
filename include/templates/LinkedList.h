@@ -80,7 +80,6 @@ public:
         tmp = p_head_;
         p_head_ = p_head_ -> get_next();
         delete tmp;
-        return;
     }
     void remove_tail(){
         Node<T>* node = new Node<T>();
@@ -92,7 +91,6 @@ public:
         tmp=node;
         node->set_next(NULL);
         delete tmp;
-        return;
     }
     void remove(int pos){
         if(pos >= count()){
@@ -103,33 +101,29 @@ public:
               std::cout << "\nDanh sach dang trong\n";
               return;
           }
-        if(pos==0) 
+        if(pos==0){
             remove_head();
-
-        if(pos==count()-1)
-            remove_tail();
-
-
-        //////
-        if(pos>=1 && pos<=count()-2){
-            int pos_tmp=0;
-            Node<T>* node = new Node<T>();
-            Node<T>* tmp = new Node<T>();
-            node = head();
-            while(pos_tmp!=pos){
-                // std::cout<<node->get_data() << "\n";
-                if(pos_tmp==pos-1)
-                    break;
-                node = node->get_next();
-                pos_tmp++;
-            }
-            tmp=node->get_next();
-
-            node->set_next(node->get_next()->get_next());
-            delete tmp;
             return;
         }
-        //////
+
+        if(pos==count()-1){
+            remove_tail();
+            return;
+        }
+        int pos_tmp=0;
+        Node<T>* node = new Node<T>();
+        Node<T>* tmp = new Node<T>();
+        node = head();
+        while(pos_tmp!=pos){
+            if(pos_tmp==pos-1)
+                break;
+            node = node->get_next();
+            pos_tmp++;
+        }
+        tmp=node->get_next();
+        node->set_next(node->get_next()->get_next());
+        delete tmp;
+        return;
     }
 
     int count(){
