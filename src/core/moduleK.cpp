@@ -7,8 +7,8 @@ void DiemTB(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALO
         return;
     }
     Node<SinhVien>* sv = dssv->head();
-    LinkedList<char*> list_mh = dsmh.list_mh(dsmh.root);
-    Node<char*>* mh= list_mh.head();
+    LinkedList<MonHoc> list_mh = dsmh.enumerate();
+    Node<MonHoc> * mh= list_mh.head();
     while(sv->get_next()!=NULL){
         float total=0;
         short cnt = 0;
@@ -21,7 +21,7 @@ void DiemTB(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALO
                 DanhSachSinhVienDK* dsdk = loptc->dsdk;
                 Node<SinhVienDK>* svdk = dsdk->head();
                 while(svdk->get_next()!=NULL){
-                    if(mh->get_data() == loptc->maMH && svdk->get_data().get_MASV() == tmp.get_MASV())
+                    if(mh->get_data().MAMH == loptc->maMH && svdk->get_data().get_MASV() == tmp.get_MASV())
                         {
                             total+= svdk->get_data().get_DIEM();
                             cnt++;
