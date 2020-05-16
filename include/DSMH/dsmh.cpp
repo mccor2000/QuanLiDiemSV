@@ -182,7 +182,7 @@ MonHoc * DanhSachMonHoc::search_code_node(node * n, char * s) {
     return &n->key;    
 }
 
-void DanhSachMonHoc::in_order(node * n, void (*f)(MonHoc)) {
+void DanhSachMonHoc::in_order(node * n, std::function<void(MonHoc)> f) {
   if (n != NULL) {
     in_order(n->left, f);
     f(n->key);
@@ -231,7 +231,7 @@ MonHoc * DanhSachMonHoc::search_code(char * s) {
   return search_code_node(root, s);
 }
 
-void DanhSachMonHoc::enumerate(void (*f)(MonHoc)) {
+void DanhSachMonHoc::enumerate(std::function<void(MonHoc)> f) {
   in_order(root, f);
 }
 

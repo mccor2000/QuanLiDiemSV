@@ -32,9 +32,9 @@ void hieu_chinh_sv(DanhSachLopCQ, char *);
 void in_danh_sach_sv(DanhSachLopCQ, char *);
 
 //-- E
-void create_mh(DanhSachMonHoc&);
-void update_mh(DanhSachMonHoc&);
-void delete_mh(DanhSachMonHoc&);
+void them_mh(DanhSachMonHoc&);
+void hieu_chinh_mh(DanhSachMonHoc&);
+void xoa_mh(DanhSachMonHoc&);
 
 //-- F
 void print_dsmh(DanhSachMonHoc&);
@@ -58,7 +58,7 @@ void xuatDSDK(Lop* lop, LinkedList<SinhVien> &dssv);
 //-- J
 void Show_Score(DanhSachMonHoc& ds, DanhSachSinhVien& dssv, LOPTC& dsltc,short nienkhoa, short hocki, short nhom, char tenMH[]);
 //-- K 
-void in_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
+void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
 
 // -- L
-void bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
+void in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);

@@ -1,17 +1,22 @@
 #include "library.h"
 
-void in_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP){
-    
+void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP){
+  // Get dssv   
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   if(dssv == NULL){
     std::cout << "Lop khong ton tai\n";
     return;
   }
-    
+  
+  // Get list MonHoc
+  LinkedList<MonHoc> list_mh;
+  dsmh.enumerate([list_mh](MonHoc x) mutable { 
+      list_mh.push_back(x); 
+  });
+  
   Node<SinhVien>* sv = dssv->head();
-  dsmh.enumerate(get_mh);
-
   Node<MonHoc> * mh= list_mh.head();
+  
   while (sv->get_next() != NULL) {
     float total = 0;
     short cnt = 0;

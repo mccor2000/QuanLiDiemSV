@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <cstring>
+#include <functional>
 
 /****************** MON HOC *******************/ 
 class MonHoc {
@@ -56,7 +57,7 @@ public:
   MonHoc * search_name(char *);
   MonHoc * search_code(char *);
   
-  void enumerate(void (*)(MonHoc)); 
+  void enumerate(std::function<void(MonHoc)>); 
   
   //** File ops
   void load();
@@ -77,6 +78,6 @@ private:
   
   bool check_exist(node *, MonHoc);
 
-  void in_order(node *, void (*)(MonHoc));
+  void in_order(node *, std::function<void(MonHoc)>);
   void save_node(node *, std::ofstream &);
 };
