@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../templates/LinkedList.h"
 #include <fstream>
 #include <cstring>
+#include <functional>
 
 /****************** MON HOC *******************/ 
 class MonHoc {
@@ -57,7 +57,7 @@ public:
   MonHoc * search_name(char *);
   MonHoc * search_code(char *);
   
-  LinkedList<MonHoc> enumerate(); // Return list of MonHoc
+  void enumerate(std::function<void(MonHoc)>); 
   
   //** File ops
   void load();
@@ -72,13 +72,12 @@ private:
   
   node * insert_node(node *, MonHoc);
   node * remove_node(node *, MonHoc);
-  node * update_node(node *, MonHoc, MonHoc);
 
   MonHoc * search_name_node(node *, char *);
   MonHoc * search_code_node(node *, char *);
   
   bool check_exist(node *, MonHoc);
 
-  void in_order(node *, LinkedList<MonHoc>&);
+  void in_order(node *, std::function<void(MonHoc)>);
   void save_node(node *, std::ofstream &);
 };

@@ -11,10 +11,12 @@ void them_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   SinhVien sv(var,var,var,true,var,var);
   dssv->push_back(sv);
 }
+
 int vitri_sv(DanhSachSinhVien* DSSV,char* MASV){
   Node<SinhVien>* SV  = DSSV->head();
   int counter = 0;
   bool flag=false;
+
   while(SV!=NULL){
     if(SV->get_data().get_MASV() == MASV)
       flag=true;
