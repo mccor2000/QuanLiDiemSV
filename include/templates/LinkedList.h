@@ -75,29 +75,55 @@ public:
 
       }
     }
-     
+    void remove_head(){
+        Node<T>* tmp = new Node<T>();
+        tmp = p_head_;
+        p_head_ = p_head_ -> get_next();
+        delete tmp;
+    }
+    void remove_tail(){
+        Node<T>* node = new Node<T>();
+        node = p_head_;
+        while(node->get_next()->get_next()!=NULL){
+            node = node->get_next();
+        }
+        Node<T>* tmp = new Node<T>();
+        tmp=node;
+        node->set_next(NULL);
+        delete tmp;
+    }
     void remove(int pos){
-        if(pos==0){
-          if(p_head_ == NULL){
-              std::cout << "Danh sach dang trong\n";
-          } else {
-              p_head_ = p_head_ -> get_next();
+        if(pos >= count()){
+            std::cout << "\nVuot qua danh sach\n";
+            return;
+        }
+        if(p_head_ == NULL){
+              std::cout << "\nDanh sach dang trong\n";
+              return;
           }
-        } else {
-            int k=1;
-            Node<T> * p = p_head_;
-            while(p->get_next()->get_next()!= NULL && k != pos){
-                p=p->get_next();
-                ++k;
-            }
-                
-            if(k!=pos){
-                std::cout <<"Vi tri nhap vao vuot qua vi tri cuoi cung cua danh sach\n";
-            } else {
-                p->set_next(p->get_next()->get_next());
-            }
+        if(pos==0){
+            remove_head();
+            return;
         }
 
+        if(pos==count()-1){
+            remove_tail();
+            return;
+        }
+        int pos_tmp=0;
+        Node<T>* node = new Node<T>();
+        Node<T>* tmp = new Node<T>();
+        node = head();
+        while(pos_tmp!=pos){
+            if(pos_tmp==pos-1)
+                break;
+            node = node->get_next();
+            pos_tmp++;
+        }
+        tmp=node->get_next();
+        node->set_next(node->get_next()->get_next());
+        delete tmp;
+        return;
     }
 
     int count(){

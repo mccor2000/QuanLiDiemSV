@@ -97,4 +97,11 @@ float Round(float score){
 bool valid_Num(float score){
         return score<0?0:1;
 }
+char* Upper(char *const str){
+        for(int i=0;i<strlen(str);i++){
+                if(str[i]>=97 && str[i]<=122)
+                        str[i]-=32;
+        }
+        return str;
+}
 #endif

@@ -33,12 +33,15 @@ void locDSLTC(LOPTC &loptc, DanhSachMonHoc &dsmh , char* nienkhoa_tmp, short hoc
     }
 }
 //dang ky lop cho SV
-int dangKyLop(LinkedList<SinhVienDK> &dsdk, SinhVienDK SV) {
-    for (Node<SinhVienDK>* p = dsdk.p_head_; p!=NULL; p = p->get_next()) {
+int dangKyLop(Lop &loptc, SinhVienDK SV) {
+    for (Node<SinhVienDK>* p = loptc.dsdk->p_head_; p!=NULL; p = p->get_next()) {
         if (strcmp(p->get_data().get_MASV(),SV.get_MASV())==0) {
             return 0;
         }
     }
-    dsdk.push_back(SV);
+    loptc.dsdk->push_back(SV);
+    if (loptc.dsdk->count()>=loptc.sv_min) {
+        loptc.huylop = false;
+    }
     return 1;
 }
