@@ -1,8 +1,8 @@
+#include "./core/library.h"
 #include "./ui/ui.h"
 
-
 int main() {
-  /* Initialize ncurses */
+  /* Initialize ncurses mode */
   initscr();
   cbreak();
   noecho();
@@ -12,7 +12,16 @@ int main() {
   getmaxyx(stdscr, rows, cols);
   
 
-  /* Initialize 2 panels contain windows */
+  /* Initialize 2 panels contain windows
+   * -> Menu window includes: 
+   *  + Main menu: Quan ly lop cq, quan ly lop tc,... 
+   *  + CRUD menu: Hieu chinh, them, xoa,...
+   *
+   * -> Display window includes:
+   *  + Tables: Danh sach, bang diem,...
+   *  + Form input: -> Hieu chinh
+   * 
+   * */
   WINDOW * wins[2];
   PANEL * panels[2];
   
@@ -31,17 +40,28 @@ int main() {
   doupdate();
   refresh();
   
-  /* Inital status */
+
+  /* Inital status 
+   * -> Menu window: Main menu
+   * -> Display: App's infos
+   * 
+   * */
+
+  //-- Main menu
   MENU * core_menu = main_menu();
   set_menu_win(core_menu, wins[0]);
   set_menu_sub(core_menu, derwin(wins[0], 0, 0, 1, 1));
   post_menu(core_menu);
   wrefresh(wins[0]);
-  
+  //-- App's infos
   print_in_middle(wins[1], 8, 0, 80, "QUAN LI DIEM SINH VIEN", COLOR_PAIR(1));
   wrefresh(wins[1]);
   
-  /* Core app's functions */
+  /* Core app's functions 
+   * 
+   * Install functionality for menu's options
+   *
+   * */
   int c;
   while((c = wgetch(wins[0])) != KEY_F(1)) {
     switch(c) {
@@ -56,6 +76,5 @@ int main() {
     }
     wrefresh(wins[0]);
   }
-
   endwin();
 }
