@@ -50,7 +50,6 @@ public:
 	void insertOrder(Lop &lop, int pos);
 	int search(int malop_tmp);
 	void xuatDS();
-	void nhapLop(Lop &lop);
 	void themLop(Lop &lop, int pos);
 	void xoaLop(int malop_del);
 	void xoaDS();

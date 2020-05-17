@@ -86,6 +86,7 @@ void LOPTC::themLop(Lop &lop, int pos) {
 		thongBao((char *)"Danh sach day");
 		return;
 	}
+	lop.malop = stt;
 	if (pos<0) {
 		insertOrder(lop,0);
 	}

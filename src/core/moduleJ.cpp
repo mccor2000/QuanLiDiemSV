@@ -16,8 +16,8 @@ void Show_Score(DanhSachMonHoc& ds, DanhSachSinhVien& dssv, LOPTC& dsltc,short n
     DanhSachSinhVienDK * DSDK = LTC->dsdk;
     Node<SinhVienDK>* node_DK = DSDK->head();
     Node<SinhVien>* node_SV = dssv.head();
-    while(node_SV->get_next()!= NULL ){
-        while(node_DK->get_next() != NULL){
+    while(node_SV!= NULL ){
+        while(node_DK!= NULL){
             if(node_DK->get_data().get_MASV() == node_SV->get_data().get_MASV()){
                 std::cout << node_SV->get_data().get_MASV() << " " << node_SV->get_data().get_MALOP() << " "<<node_SV->get_data().get_HO() << " " << node_SV->get_data().get_TEN() << " " << node_DK->get_data().get_DIEM() << "\n";
             }

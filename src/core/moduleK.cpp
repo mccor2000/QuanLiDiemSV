@@ -26,14 +26,14 @@ void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& 
 
     std::cout << tmp.get_MASV() << " " << tmp.get_HO() << " "<<tmp.get_TEN() << " ";
     
-    while(mh->get_next() != NULL) {
+    while(mh != NULL) {
       for(int i=0; i < dsltc.getN(); i++) {
         Lop* loptc = dsltc.node[i];
         if (mh->get_data().MAMH != loptc->maMH) continue;
         
         DanhSachSinhVienDK* dsdk = loptc->dsdk;
         Node<SinhVienDK>* svdk = dsdk->head();
-        while(svdk->get_next()!=NULL){
+        while(svdk != NULL) {
           if(svdk->get_data().get_MASV() == tmp.get_MASV()) {
             total+= svdk->get_data().get_DIEM();
             cnt++;
@@ -45,6 +45,6 @@ void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& 
     }
         
     float score = total/cnt;
-    std::cout<< score <<'\n';
+    std::cout<< score << "\n";
   }
 }
