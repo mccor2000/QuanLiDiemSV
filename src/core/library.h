@@ -24,9 +24,10 @@ void hieuChinhLop(LOPTC &loptc, int index);
 void in_danh_sach_dk(LOPTC, short, short, short, char *);
 
 //-- C
-void them_sv(DanhSachLopCQ, char *);
-void xoa_sv(DanhSachLopCQ, char *);
-void hieu_chinh_sv(DanhSachLopCQ, char *);
+void them_sv(DanhSachLopCQ&, char *,SinhVien&);
+int vitri_sv(DanhSachSinhVien*,char*);
+void xoa_sv(DanhSachLopCQ&, char *, char*);
+void hieu_chinh_sv(DanhSachLopCQ &, char *, char*);
 
 //-- D
 void in_danh_sach_sv(DanhSachLopCQ, char *);

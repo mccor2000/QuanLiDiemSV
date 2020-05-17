@@ -30,22 +30,29 @@ void hieuChinhLop(LOPTC &loptc, int index) {
                 strcpy(loptc.node[index]->nienkhoa,tmp);
                 break;
             }
-            //Sua nhom
+            //Sua hocki
             case 2: {
-                int tmp;
+                short tmp;
+                cin>>tmp;
+                loptc.node[index]->hocki = tmp;
+                break;
+            }
+            //Sua nhom
+            case 3: {
+                short tmp;
                 cin>>tmp;
                 loptc.node[index]->nhom = tmp;
                 break;
             }
             //Sua sv_max
-            case 3: {
+            case 4: {
                 int tmp;
                 cin>>tmp;
                 loptc.node[index]->sv_max = tmp;
                 break;
             }
             //Sua sv_min
-            case 4: {
+            case 5: {
                 int tmp;
                 cin>>tmp;
                 loptc.node[index]->sv_min = tmp;
@@ -57,3 +64,4 @@ void hieuChinhLop(LOPTC &loptc, int index) {
         }
     } while (!stop);
 } 
+
