@@ -21,7 +21,7 @@ int main() {
    *  + Tables: Danh sach, bang diem,...
    *  + Form input: -> Hieu chinh
    * 
-   * */
+   * ****************************************** */
   WINDOW * wins[2];
   PANEL * panels[2];
   
@@ -45,7 +45,7 @@ int main() {
    * -> Menu window: Main menu
    * -> Display: App's infos
    * 
-   * */
+   * ******************************************* */
 
   //-- Menus:
   MENU * MAIN_menu = main_menu();
@@ -63,9 +63,10 @@ int main() {
    * 
    * Install functionality for menu's options
    *
-   * */
+   * ******************************************* */
+  bool is_running = true;
   int c;
-  while((c = wgetch(wins[0])) != KEY_F(1)) {
+  while((c = wgetch(wins[0])) != KEY_F(1) && is_running) {
     switch(c) {
       //-- Navigate between options
       case KEY_DOWN:
@@ -76,18 +77,47 @@ int main() {
         break;
       //-- Pick an option
       case 10:
+        bool back = false;
+        // Thoat
+        if (item_index(current_item(MAIN_menu)) == 5) {
+          unpost_menu(MAIN_menu);
+          free_menu(MAIN_menu);
+          wclear(wins[0]);
+          wclear(wins[1]);
+          clear();
+
+          wrefresh(wins[0]);
+          wrefresh(wins[1]);
+          refresh();
+          endwin();
+          is_running = false;
+          break;
+        }
+        
+        // Quan ly lop tin chi
+        // Quan ly lop chinh quy
+        // Quan ly mon hoc
         unpost_menu(MAIN_menu);
         set_menu_win(CRUD_menu, wins[0]);
         set_menu_sub(CRUD_menu, derwin(wins[0], 0, 0, 1, 1));
         post_menu(CRUD_menu);
         wrefresh(wins[0]);
-        while ((c = wgetch(wins[0])) != KEY_F(1)) {
+        while ((c = wgetch(wins[0])) != KEY_F(1) && !back) {
           switch (c) {
             case KEY_DOWN:
               menu_driver(CRUD_menu, REQ_DOWN_ITEM);
               break;
             case KEY_UP:
               menu_driver(CRUD_menu, REQ_UP_ITEM);
+              break;
+            case 10:
+              if (item_index(current_item(CRUD_menu)) == 3) {
+                unpost_menu(CRUD_menu);
+                post_menu(MAIN_menu);
+                wrefresh(wins[0]);
+                back = true;
+                break;
+              }
               break;
           }
         }

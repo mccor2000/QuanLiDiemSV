@@ -8,3 +8,7 @@ void print_in_middle(WINDOW * win, int starty, int startx, int width, char * str
 
 MENU * main_menu();
 MENU * crud_menu();
+
+FORM * update_ltc_form();
+FORM * update_sv_form();
+FORM * update_mh_form();
