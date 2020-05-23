@@ -57,7 +57,7 @@ Lop* timLop(LOPTC &dsltc, char* nienkhoa_tmp, short hocki_tmp, short nhom_tmp, c
 void xuatDSDK(Lop* lop, DanhSachLopCQ &dslcq);
 
 //-- J
-void Show_Score(DanhSachMonHoc& ds, DanhSachSinhVien& dssv, LOPTC& dsltc,short nienkhoa, short hocki, short nhom, char tenMH[]);
+void Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, LOPTC& dsltc,char* nienkhoa, short hocki, short nhom, char tenMH[]);
 
 //-- K 
 void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
