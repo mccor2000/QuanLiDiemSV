@@ -7,8 +7,9 @@ void GUI::init_scr() {
   cbreak();
   noecho();
   keypad(stdscr, TRUE);
-  init_pair(1, COLOR_RED, COLOR_BLACK);
+  curs_set(0);
 
+  init_pair(1, COLOR_RED, COLOR_BLACK);
   getmaxyx(stdscr, row, column);
 }
 
@@ -75,7 +76,31 @@ MENU * GUI::get_main_menu() {
   return new_menu((ITEM **)items);
 }
 
-void GUI::run_main_menu() {
+MENU * GUI::get_dsmh_table() {
+  char * choices[] = {
+    "Quan ly lop tin chi",
+    "Quan ly lop chinh quy",
+    "Quan ly mon hoc",
+    "Nhap diem",
+    "Dang ki",
+    "Thoat",
+    (char *)NULL,
+  };
+
+  ITEM **items;
+  int n_choices, c;
+	
+	n_choices = ARRAY_SIZE(choices);
+	items = (ITEM **)calloc(n_choices, sizeof(ITEM *));
+
+	for(int i = 0; i < n_choices; ++i) {
+    items[i] = new_item(choices[i], "");
+  }
+
+  return new_menu((ITEM **)items);
+}
+
+void GUI::render_main_menu() {
   wclear(wins[0]);
   unpost_menu(CRUD_menu);
 
@@ -101,16 +126,17 @@ void GUI::run_main_menu() {
         switch (item_index(current_item(MAIN_menu))) {
           case 0:
             unpost_menu(MAIN_menu);
-            run_crud_menu();
+            render_crud_menu();
             break;
           case 1:
             unpost_menu(MAIN_menu);
-            run_crud_menu();
+            render_crud_menu();
             break;
-          case 2:
+          case 2: {
             unpost_menu(MAIN_menu);
-            run_crud_menu();
+            render_dsmh();
             break;
+          }
           case 3:
             break;
           case 4:
@@ -124,7 +150,7 @@ void GUI::run_main_menu() {
   }
 }
 
-void GUI::run_crud_menu() {
+void GUI::render_crud_menu() {
   wclear(wins[0]);
   unpost_menu(MAIN_menu);
 
@@ -156,12 +182,37 @@ void GUI::run_crud_menu() {
             break;
           case 3:
             unpost_menu(CRUD_menu);
-            run_main_menu();
+            render_main_menu();
             break;
         }
         break;
     }
   }
+}
+
+void GUI::render_dsmh() {
+  wclear(wins[1]);
+  Table dsmh(wins[1], 3);
+  dsmh.display();
+  box(wins[1], 0, 0);
+  render_crud_menu(); 
+  wrefresh(wins[1]);
+  refresh();
+}
+
+void GUI::render_dsltc(char ** dsltc) {
+
+}
+
+void GUI::render_dslcq(char ** dslcq) {
+
+}
+
+void GUI::render_dssv(char ** dssv) {
+
+}
+
+void GUI::render_dsdk(char ** dsdk) {
 
 }
 
@@ -186,9 +237,9 @@ void GUI::setup() {
   init_scr();
   MAIN_menu = get_main_menu();
   CRUD_menu = get_crud_menu();
+  DSMH_table = get_dsmh_table();
   init_windows();
 }
-
 
 void GUI::run() {
   wrefresh(wins[0]);
@@ -196,7 +247,7 @@ void GUI::run() {
   refresh();
   
   print_in_middle(8, 0, 80, "QUAN LI DIEM SINH VIEN", COLOR_PAIR(1));
-  run_main_menu();
+  render_main_menu();
 }
 
 void GUI::exit() {
