@@ -86,10 +86,9 @@ void Table::process_input() {
 }
 
 void Table::display() {
-  start_color();
+  // start_color();
   box(current_window, 0, 0);
   display_table();
-  render_data();
   wrefresh(current_window);
 }
 
@@ -136,8 +135,4 @@ void Table::display_table() {
     mvwaddch(current_window, 4, current_xCoord, ACS_PLUS);
   }
   wrefresh(current_window);
-}
-
-void Table::render_data() {
-
 }

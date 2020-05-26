@@ -19,21 +19,11 @@ private:
 
   // Private methods
   void process_input();
-  
   void display_table();
-  void render_data();
 public:
   // Constructor
   Table(WINDOW *, int);
-
-  // Getters 
-  int get_width()           { return width; }
-  int get_height()          { return height; }
-  int get_current_line()    { return current_line; }
-
-  char * get_title()        { return title; }
-  WINDOW * get_window()     { return current_window; }
-
+  Table() {;}
   // Public methods
   bool get_input();
   void display();
