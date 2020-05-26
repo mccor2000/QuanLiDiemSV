@@ -28,8 +28,8 @@ private:
   void render_crud_menu();
   
   void render_dsmh();
-  void render_dsltc(char **);
-  void render_dslcq(char **);
+  void render_dsltc();
+  void render_dslcq();
   void render_dssv(char **);
   void render_dsdk(char **);
 

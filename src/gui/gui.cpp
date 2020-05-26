@@ -126,11 +126,11 @@ void GUI::render_main_menu() {
         switch (item_index(current_item(MAIN_menu))) {
           case 0:
             unpost_menu(MAIN_menu);
-            render_crud_menu();
+            render_dsltc();
             break;
           case 1:
             unpost_menu(MAIN_menu);
-            render_crud_menu();
+            render_dslcq();
             break;
           case 2: {
             unpost_menu(MAIN_menu);
@@ -190,6 +190,26 @@ void GUI::render_crud_menu() {
   }
 }
 
+void GUI::render_dsltc() {
+  wclear(wins[1]);
+  Table dsltc(wins[1], 1);
+  dsltc.display();
+  box(wins[1], 0, 0);
+  render_crud_menu(); 
+  wrefresh(wins[1]);
+  refresh();
+}
+
+void GUI::render_dslcq() {
+  wclear(wins[1]);
+  Table dslcq(wins[1], 2);
+  dslcq.display();
+  box(wins[1], 0, 0);
+  render_crud_menu(); 
+  wrefresh(wins[1]);
+  refresh();
+}
+
 void GUI::render_dsmh() {
   wclear(wins[1]);
   Table dsmh(wins[1], 3);
@@ -198,22 +218,6 @@ void GUI::render_dsmh() {
   render_crud_menu(); 
   wrefresh(wins[1]);
   refresh();
-}
-
-void GUI::render_dsltc(char ** dsltc) {
-
-}
-
-void GUI::render_dslcq(char ** dslcq) {
-
-}
-
-void GUI::render_dssv(char ** dssv) {
-
-}
-
-void GUI::render_dsdk(char ** dsdk) {
-
 }
 
 void GUI::print_in_middle(int starty, int startx, int width, char * string, chtype color) {
