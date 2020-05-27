@@ -51,7 +51,7 @@ void DanhSachSinhVienDK::save(const char * ma_lop) {
   std::ofstream f;
   f.open(path, std::ios::binary);
   
-  // Loop through the list and write to file
+  // Write to file
   Node<SinhVienDK> * temp_node = p_head_;
   while (temp_node != NULL) {
     SinhVienDK temp_sv = temp_node->get_data();
@@ -74,7 +74,7 @@ void DanhSachSinhVienDK::load(const char * ma_lop) {
   std::ifstream f;
   f.open(path, std::ios::binary);
   
-  // Get data from file and push to the list
+  // Read from file 
   SinhVienDK temp;
   while (f.read((char *)&temp, sizeof(SinhVienDK))) {
     push_back(temp);

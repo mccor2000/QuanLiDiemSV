@@ -1,20 +1,19 @@
 #include "./core/library.h"
-#include "./gui/gui.h"
 #include "./gui/table.h"
 #include "./gui/menu.h"
 
 // Chooses's code
-short CHOOSE_QLLTC = 1;
-short CHOOSE_QLLCQ = 2;
-short CHOOSE_QLMH = 3;
-short CHOOSE_NHAP_DIEM = 4;
-short CHOOSE_DANG_KY = 5;
-short CHOOSE_THOAT = 6;
+const short CHOOSE_QLLTC = 1;
+const short CHOOSE_QLLCQ = 2;
+const short CHOOSE_QLMH = 3;
+const short CHOOSE_NHAP_DIEM = 4;
+const short CHOOSE_DANG_KY = 5;
+const short CHOOSE_THOAT = 6;
 
-short CHOOSE_THEM = 7;
-short CHOOSE_CHINH_SUA = 8;
-short CHOOSE_XOA = 9;
-short CHOOSE_QUAY_LAI = 10;
+const short CHOOSE_THEM = 7;
+const short CHOOSE_CHINH_SUA = 8;
+const short CHOOSE_XOA = 9;
+const short CHOOSE_QUAY_LAI = 10;
 
 
 class App {
@@ -27,7 +26,7 @@ private:
   Table current_table;
 
   // Data
-  LOPTC dsltc;
+  DanhSachLopTC dsltc;
   DanhSachLopCQ dslcq;
   DanhSachMonHoc dsmh;
   // DanhSachSinhVien curr_dssv;
@@ -99,27 +98,43 @@ short App::process_menu() {
 
 void App::process_table(short choice) {
   switch (choice) {
-    case 1:
+    case CHOOSE_QLLTC:
       unpost_menu(current_menu.menu);
+      wclear(wins[1]);
+
       current_table = Table(wins[1], 1);
       current_table.display();
       current_menu = Menu(wins[0], 2);
       current_menu.display();
       break;
 
-    case 2:
+    case CHOOSE_QLLCQ:
       unpost_menu(current_menu.menu);
+      wclear(wins[1]);
+      
       current_table = Table(wins[1], 2);
       current_table.display();
       current_menu = Menu(wins[0], 2);
       current_menu.display();
       break;
 
-    case 3:
+    case CHOOSE_QLMH:
       unpost_menu(current_menu.menu);
+      wclear(wins[1]);
+      
       current_table = Table(wins[1], 3);
       current_table.display();
       current_menu = Menu(wins[0], 2);
+      current_menu.display();
+      break;
+
+    case CHOOSE_THOAT:
+      is_running = false;
+      break;
+
+    case CHOOSE_QUAY_LAI:
+      unpost_menu(current_menu.menu);
+      current_menu = Menu(wins[0], 1);
       current_menu.display();
       break;
   }  
@@ -135,9 +150,20 @@ void App::run() {
     short choice = process_menu();
     process_table(choice);
   }
+  exit();
 }
 
+void App::exit() {
+  dsltc.save();
+  dslcq.save();
+  dsmh.save();
 
+  wclear(wins[0]);
+  wclear(wins[1]);
+  clear();
+  free_menu(current_menu.menu);
+  endwin();
+}
 
 int main() {
   App our_app;
