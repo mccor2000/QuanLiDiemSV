@@ -8,10 +8,10 @@ Form::Form(WINDOW * w, int t) {
     case 1:
       // Lop TC
       len = 7;
+      label =  
       fields = new FIELD*[len];
       for (int i = 0; i < len; i++) {
-        fields[i] = new_field(1, 5, i + 2, 32, 0, 0);
-
+        fields[i] = new_field(1, 5, i + 2, 32, 0, 0);   
       }
       break;
     case 2:

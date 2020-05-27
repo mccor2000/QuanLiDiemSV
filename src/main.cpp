@@ -26,7 +26,7 @@ private:
   Table current_table;
 
   // Data
-  LOPTC dsltc;
+  DanhSachLopTC dsltc;
   DanhSachLopCQ dslcq;
   DanhSachMonHoc dsmh;
   // DanhSachSinhVien curr_dssv;
