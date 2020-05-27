@@ -1,8 +1,16 @@
 #pragma once
 
-class Form {
+#include <form.h>
+#include <functional>
+
+class Form: public FORM {
+private:  
   WINDOW * current_window;
-  FORM * form;
-  
+  FIELD ** fields;
   int type;
-}
+  int row, column;
+public:
+  Form(WINDOW *, int);
+  void display();
+  void submit(std::function<void>);
+};
