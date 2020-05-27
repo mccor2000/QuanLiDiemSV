@@ -5,7 +5,6 @@
 SinhVienDK::SinhVienDK(char * MASV, float DIEM){
     strcpy(MASV_, MASV);
     DIEM_ = DIEM;
-    std::cout << "DA THEM SINH VIEN VAO DANH SACH LOP\n";
 }
 
 //-- Getters, setters

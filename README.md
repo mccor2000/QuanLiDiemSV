@@ -26,7 +26,7 @@ QuanLiDiemSV
  ### 2. Progress 
 - [x] Project structure 
 - [x] Base classes
-- [ ] Core modules
+- [x] Core modules
 - [ ] UI/UX
 - [ ] Build & deploy
 - [ ] A+

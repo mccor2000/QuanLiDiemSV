@@ -1,6 +1,6 @@
 #include "dsmh.h"
 
-/************** MONHOC ***************/
+/***************** Class MONHOC ********************/
 MonHoc::MonHoc(char * mamh, char * tenmh, int stclt, int stcth) {
   strcpy(MAMH, mamh);
   strcpy(TENMH, tenmh);
@@ -8,6 +8,9 @@ MonHoc::MonHoc(char * mamh, char * tenmh, int stclt, int stcth) {
   STCTH = stcth;
 }
 
+/* *
+ * Overriding operator >, <, == for class MonHoc
+ */
 bool MonHoc::operator > (MonHoc x) {
   return (strcmp(MAMH, x.MAMH) > 0);
 }
@@ -19,43 +22,56 @@ bool MonHoc::operator < (MonHoc x) {
 bool MonHoc::operator == (MonHoc x) {
   return (strcmp(MAMH, x.MAMH) == 0);
 }
-/************* AVL NODE *****************/
+
+/******************* Class node *********************/
 node::node(MonHoc k) {
   key = k;
   height = 1;
   left = NULL;
   left = NULL;
 }
-/************* AVL TREE *****************/
 
+/************* Class DanhSachMonHoc *****************/
 DanhSachMonHoc::DanhSachMonHoc() {
   length = 0;
   root = NULL;
 }
 
-//** Utils
+//---- Private methods
 int DanhSachMonHoc::height(node * n) {
+  /* * 
+   * -> Return the height of a node 
+   */
   if (n == NULL) {
     return 0;
   }
   return n->height;
 }
 
-//** Private methods
-
 node * DanhSachMonHoc::left_rotate(node * n) {
-  // Exchange nodes
+  /*
+   * Rotate a node to the left 
+   * -> Return new node
+   * */
+
+  // Rotate
   node * new_n = n->right;
   n->right = new_n->left;
   new_n->left = n;
   // Update height
   n->height = 1 + std::max(height(n->left), height(n->right));
   new_n->height = 1 + std::max(height(new_n->left), height(new_n->right));
+  
   return new_n;
 }
 
 node * DanhSachMonHoc::right_rotate(node * n) {
-  // Exchange nodes
+  /*
+   * Rotate a node to the right
+   * -> Return new node
+   * */
+  
+  // Rotate
   node * new_n = n->left;
   n->left = new_n->right;
   new_n->right = n;
@@ -67,26 +83,29 @@ node * DanhSachMonHoc::right_rotate(node * n) {
 }
 
 node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
+  /*
+   * Insert a node
+   * then balance the tree
+   * -> Return new node
+   * */
+
+  // Perform BST insert
   if (n == NULL) {
     length += 1;
     node * tmp = new node(x);
     return tmp;
   } 
-
   if (x < n->key) {
     n->left= insert_node(n->left, x);
   } else if (x > n->key) {
     n->right= insert_node(n->right, x);
-  } else {
-    length += 1;
-    node * tmp = new node(x);
-    return tmp;
-  }
-
+  } 
+  
+  // Update height
   n->height = 1 + std::max(height(n->left), height(n->right));
 
+  // Balance the tree
   int bal = height(n->left) - height(n->right);
-
   if (bal > 1) {
     if (x < n->left->key) {
       return right_rotate(n);
@@ -102,43 +121,51 @@ node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
       return left_rotate(n);
     }
   }
+
   return n; 
 }
 
 node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
-  if (n == NULL) 
-    return NULL;
+  /* *
+   * Remove a node from the tree
+   * -> Return NULL if node is leave
+   * otherwise, balance the tree and return new node
+   */
+
+  // Perform BST remove 
+  if (n == NULL) return NULL;
+
   if (x < n->key) {
     n->left = remove_node(n->left, x);
   } else if (x > n->key) {
     n->right = remove_node(n->right, x);
-  } else {
-    node * r = n->right;
-    if (n->right == NULL) {
-      node * l = n->left;
-      delete(n);
-      length--;
-      n = l;
-
-    } else if (n->left == NULL) {
-      delete(n);
-      length--;
-      n = r;
-    } else {
-      while (r->left != NULL) 
-        r = r->left;
-      
-      n->key = r->key;
-      n->right = remove_node(n->right, r->key);
-    }
   }
 
-  if (n == NULL) 
-    return NULL;
+  node * r = n->right;
+  if (n->right == NULL) {
+    node * l = n->left;
+    delete(n);
+    length--;
+    n = l;
+  } else if (n->left == NULL) {
+    delete(n);
+    length--;
+    n = r;
+  } else {
+    while (r->left != NULL) {
+      r = r->left;
+    }  
+    n->key = r->key;
+    n->right = remove_node(n->right, r->key);
+  }
+
+  if (n == NULL) return NULL;
   
+  // Update height
   n->height = 1 + std::max(height(n->left), height(n->right));
-  int bal = height(n->left) - height(n->right);
   
+  // Balance the tree 
+  int bal = height(n->left) - height(n->right);
   if (bal > 1) {
     if (x < n->left->key) {
       return right_rotate(n);
@@ -159,6 +186,11 @@ node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
 }
 
 MonHoc * DanhSachMonHoc::search_name_node(node * n, char * s) {
+  /* *
+   * Search node by TENMH 
+   * -> return MonHoc
+   */
+
   if (n == NULL) 
     return NULL;
   
@@ -171,6 +203,11 @@ MonHoc * DanhSachMonHoc::search_name_node(node * n, char * s) {
 }
 
 MonHoc * DanhSachMonHoc::search_code_node(node * n, char * s) {
+  /*
+   * Search node by MAMH
+   * -> return MonHoc
+   */
+
   if (n == NULL) 
     return NULL;
     
@@ -183,6 +220,11 @@ MonHoc * DanhSachMonHoc::search_code_node(node * n, char * s) {
 }
 
 void DanhSachMonHoc::in_order(node * n, std::function<void(MonHoc)> f) {
+  /* *
+   * Traverse through the tree and 
+   * pass every single node to function f
+   */
+
   if (n != NULL) {
     in_order(n->left, f);
     f(n->key);
@@ -191,6 +233,10 @@ void DanhSachMonHoc::in_order(node * n, std::function<void(MonHoc)> f) {
 }
 
 void DanhSachMonHoc::save_node(node * n, std::ofstream &f) {
+  /* *
+   * Save key of a node to file 
+   */
+
   if (n != NULL) {
     save_node(n->left, f);
     f.write((char *)&(n->key), sizeof(MonHoc)); 
@@ -199,18 +245,22 @@ void DanhSachMonHoc::save_node(node * n, std::ofstream &f) {
 }
 
 bool DanhSachMonHoc::check_exist(node * n, MonHoc x) {
-  if (n == NULL) return false;
+  /*
+   * -> Return true if node <n> exists 
+   */
 
-  if (x > n->key) {
+  if (n == NULL) return false;
+  if (x > n->key) 
     return check_exist(n->right, x);  
-  } else if ( x < n->key) {
+  else if ( x < n->key) 
     return check_exist(n->left, x);
-  } else {
+  else 
     return true;
-  }
+  
 }
 
 //---- Public methods
+
 void DanhSachMonHoc::insert(MonHoc x) {
   root = insert_node(root, x);
 }

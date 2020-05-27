@@ -4,19 +4,20 @@
 #include <cstring>
 #include <functional>
 
-/****************** MON HOC *******************/ 
+/********** MON HOC as a KEY of a node *********/ 
 class MonHoc {
 public:
-  //** Props
+  // Properties 
   char MAMH[10];   
   char TENMH[50];
   int STCLT;
   int STCTH;
   
-  //** Constructor 
+  // Constructor 
   MonHoc(char* , char*, int, int);
   MonHoc() {;}
-  //** Operator overloading
+
+  // Operator overloading 
   bool operator>(MonHoc);
   bool operator<(MonHoc);
   bool operator==(MonHoc);
@@ -25,29 +26,31 @@ public:
 /*************** AVL TREE NODE ****************/
 class node {
 public:
-  //** Props
+  // Properties 
   MonHoc key;
   int height;
   node *left;
   node *right;
 
-  //** Constructor
+  // Constructor 
   node(MonHoc);
 };
 
 /***************** AVL TREE *******************/
 class DanhSachMonHoc {
 public:
-  //** Props
+  // Properties
   int length;
-  node * root;
-
+  node * root; 
   char db[32] = "../../database/dsmh.d";
 
-  //** Constructor
+  // Constructor
   DanhSachMonHoc();
  
-  //** Public methods
+  /* * 
+   * Public methods contain methods that manipulate the 
+   * list directly and hide the logic under the hood.  
+   */ 
   void insert(MonHoc);
   void remove(MonHoc);
   void update(MonHoc, MonHoc);
@@ -59,14 +62,17 @@ public:
   
   void enumerate(std::function<void(MonHoc)>); 
   
-  //** File ops
+  // File IO
   void load();
   void save();
 
 private:
-  //** Utils
+  /* *
+   * Private methods contain methods that interract with
+   * the AVL tree and being called by public methods.    
+   */
   int height(node *);
-  //** AVL methods
+  
   node * left_rotate(node *);
   node * right_rotate(node *);
   

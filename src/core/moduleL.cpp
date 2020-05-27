@@ -1,6 +1,6 @@
 #include "library.h"
 
-void in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP) {
+void in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP) {
   // Get dssv
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   if (dssv == NULL) {

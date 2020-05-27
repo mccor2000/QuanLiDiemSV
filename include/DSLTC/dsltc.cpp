@@ -1,6 +1,6 @@
 #include "dsltc.h"
 
-Lop::Lop(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int min) {
+LopTC::LopTC(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int min) {
   strcpy(maMH, ma_mh);
   strcpy(nienkhoa,nien_khoa);
   hocki = hoc_ki;
@@ -11,58 +11,58 @@ Lop::Lop(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int min) 
   huylop = false;
 }
 
-Lop* LOPTC::getLop() {
+LopTC* DanhSachLopTC::getLop() {
 	return *node ;
 }
 
-int LOPTC::get_STT() {
+int DanhSachLopTC::get_STT() {
   return stt;
 }
 
-void LOPTC::setLop(Lop* &lop_tmp) {
+void DanhSachLopTC::setLop(LopTC* &lop_tmp) {
 	*node = lop_tmp;
 }
 
-int LOPTC::getN() {
+int DanhSachLopTC::getN() {
 	return n;
 }
 
-void LOPTC::setN(int n_tmp) {
+void DanhSachLopTC::setN(int n_tmp) {
 	n = n_tmp;
 }
 
-void LOPTC::khoiTaoDS() {
+void DanhSachLopTC::khoiTaoDS() {
 	n=0;
 	stt=0;
 }
 
-bool LOPTC::isFull() {
+bool DanhSachLopTC::isFull() {
 	return n == LOP_MAX;
 }
 
-bool LOPTC::isEmpty() {
+bool DanhSachLopTC::isEmpty() {
 	return n == 0;
 }
 
-void LOPTC::insertOrder(Lop &lop, int pos) {
+void DanhSachLopTC::insertOrder(LopTC &lop, int pos) {
 	n++;
 	for (int i=n-1; i>pos; i--) {
 		node[i] = node[i-1];
 	}
-	node[pos] = new Lop();
+	node[pos] = new LopTC();
 	*node[pos] = lop;
   stt++;
 }
 
-void LOPTC::insertLast(Lop &lop) {
+void DanhSachLopTC::insertLast(LopTC &lop) {
 	n++;
-	node[n-1] = new Lop();
+	node[n-1] = new LopTC();
 	*node[n-1] = lop;
   lop.malop = stt;
   stt++;
 }
 
-int LOPTC::search(int malop_tmp) {
+int DanhSachLopTC::search(int malop_tmp) {
 	for (int i=0; i<n; i++) {
 		if (node[i]->malop==malop_tmp) {
 			return i;
@@ -71,17 +71,17 @@ int LOPTC::search(int malop_tmp) {
 	return -1;
 }
 
-void LOPTC::thongBao(char* s) {
+void DanhSachLopTC::thongBao(char* s) {
 	cout<<s;
 }
-void LOPTC::xuatDS() {
+void DanhSachLopTC::xuatDS() {
 	cout<<"MALOP\tMAMH\tNIENKHOA\tHOCKI\tNHOM\n";
 	for (int i=0; i<n; i++) {
 		cout<<node[i]->malop<<"\t"<<node[i]->maMH<<"\t"<<node[i]->nienkhoa<<"\t\t"<<node[i]->hocki<<"\t"<<node[i]->nhom<<"\n";
 	}
 }
 
-void LOPTC::themLop(Lop &lop, int pos) {
+void DanhSachLopTC::themLop(LopTC &lop, int pos) {
 	if (isFull()) {
 		thongBao((char *)"Danh sach day");
 		return;
@@ -98,7 +98,7 @@ void LOPTC::themLop(Lop &lop, int pos) {
 	}
 }
 
-void LOPTC::xoaLop(int malop_del) {
+void DanhSachLopTC::xoaLop(int malop_del) {
 	if (isEmpty()) {
 		thongBao((char *)"Danh sach rong");
 		return;
@@ -115,7 +115,7 @@ void LOPTC::xoaLop(int malop_del) {
 	n--;
 }
 
-void LOPTC::xoaDS() {
+void DanhSachLopTC::xoaDS() {
 	if (isEmpty()) {
 		thongBao((char *)"Danh sach rong");
 		return;
@@ -126,7 +126,7 @@ void LOPTC::xoaDS() {
 	}
 }
 
-void LOPTC::save() {
+void DanhSachLopTC::save() {
   // Open file
   ofstream f;
   f.open(db, std::ios::binary);
@@ -134,7 +134,7 @@ void LOPTC::save() {
   // Save
   for (int i = 0; i < n; i++) {
     // Save LopTC
-    f.write((char *)node[i], sizeof(Lop));  
+    f.write((char *)node[i], sizeof(LopTC));  
     // Save dsdk
     const char * temp = std::to_string(node[i]->malop).c_str(); 
     node[i]->dsdk->save(temp);
@@ -144,14 +144,14 @@ void LOPTC::save() {
   f.close();
 }
 
-void LOPTC::load() {
+void DanhSachLopTC::load() {
   // Open file
   ifstream f;
   f.open(db, std::ios::binary);
   
   // Load
-  Lop* temp = new Lop(); 
-  while (f.read((char *)temp, sizeof(Lop))) {
+  LopTC* temp = new LopTC(); 
+  while (f.read((char *)temp, sizeof(LopTC))) {
     const char * temp_malop = std::to_string(temp->malop).c_str(); 
     temp->dsdk->load((char *)temp_malop);
     insertLast(*temp);
