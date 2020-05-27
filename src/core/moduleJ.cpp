@@ -1,19 +1,19 @@
 #include "library.h"
 
-void Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, LOPTC& dsltc,char* nienkhoa, short hocki, short nhom, char tenMH[]){
+void Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, DanhSachLopTC& dsltc,char* nienkhoa, short hocki, short nhom, char tenMH[]){
     MonHoc* mh = new MonHoc();
     mh = dsmh.search_name(tenMH);
-    Lop* LTC;
+    LopTC* loptc;
     bool flag=0;
     for(int i=0;i<dsltc.getN();i++){
         if(strcmp(dsltc.node[i]->maMH,mh->MAMH)==0){
-            LTC = dsltc.node[i];
+            loptc = dsltc.node[i];
             flag=1;
             break;
         }
     }
     if(flag){
-        DanhSachSinhVienDK * DSDK = LTC->dsdk;
+        DanhSachSinhVienDK * DSDK = loptc->dsdk;
         Node<SinhVienDK>* node_DK = DSDK->head();
         while (node_DK!=NULL) {
             SinhVien sv = timSV(node_DK->get_data().get_MASV(),dslcq)->get_data();

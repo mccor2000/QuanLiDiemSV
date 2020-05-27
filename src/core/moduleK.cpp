@@ -1,6 +1,6 @@
 #include "library.h"
 
-void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP){
+void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP){
   // Get dssv   
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   if(dssv == NULL){
@@ -28,7 +28,7 @@ void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& 
     
     while(mh != NULL) {
       for(int i=0; i < dsltc.getN(); i++) {
-        Lop* loptc = dsltc.node[i];
+        LopTC* loptc = dsltc.node[i];
         if (mh->get_data().MAMH != loptc->maMH) continue;
         
         DanhSachSinhVienDK* dsdk = loptc->dsdk;

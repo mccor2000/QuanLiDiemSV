@@ -2,15 +2,15 @@
 
 using namespace std;
 
-void themLop(LOPTC &loptc, Lop &lop) { 
-    loptc.themLop(lop,loptc.getN());
+void themLop(DanhSachLopTC &dsltc, LopTC &loptc) { 
+    dsltc.themLop(loptc,dsltc.getN());
 }
 
-void xoaLop(LOPTC &loptc,int maloptc) {
-    loptc.xoaLop(maloptc);
+void xoaLop(DanhSachLopTC &dsltc,int maloptc) {
+    dsltc.xoaLop(maloptc);
 }
 
-void hieuChinhLop(LOPTC &loptc, int index) {
+void hieuChinhLop(DanhSachLopTC &dsltc, int index) {
     int choice;
     bool stop = false;
     do {
@@ -27,35 +27,35 @@ void hieuChinhLop(LOPTC &loptc, int index) {
                 char tmp[10];
                 cin.ignore();
                 cin.getline(tmp,10);
-                strcpy(loptc.node[index]->nienkhoa,tmp);
+                strcpy(dsltc.node[index]->nienkhoa,tmp);
                 break;
             }
             //Sua hocki
             case 2: {
                 short tmp;
                 cin>>tmp;
-                loptc.node[index]->hocki = tmp;
+                dsltc.node[index]->hocki = tmp;
                 break;
             }
             //Sua nhom
             case 3: {
                 short tmp;
                 cin>>tmp;
-                loptc.node[index]->nhom = tmp;
+                dsltc.node[index]->nhom = tmp;
                 break;
             }
             //Sua sv_max
             case 4: {
                 int tmp;
                 cin>>tmp;
-                loptc.node[index]->sv_max = tmp;
+                dsltc.node[index]->sv_max = tmp;
                 break;
             }
             //Sua sv_min
             case 5: {
                 int tmp;
                 cin>>tmp;
-                loptc.node[index]->sv_min = tmp;
+                dsltc.node[index]->sv_min = tmp;
                 break;
             }
             default: {

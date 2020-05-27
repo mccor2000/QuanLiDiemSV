@@ -16,12 +16,12 @@
 // Modules
 
 //-- A
-void themLop(LOPTC &loptc, Lop &lop);
-void xoaLop(LOPTC &loptc,int maloptc);
-void hieuChinhLop(LOPTC &loptc, int index);
+void themLop(DanhSachLopTC &dsltc, LopTC &loptc);
+void xoaLop(DanhSachLopTC &dsltc,int maloptc);
+void hieuChinhLop(DanhSachLopTC &dsltc, int index);
 
 //-- B
-void in_danh_sach_dang_ki(LOPTC dsltc, char* nienkhoa, short hocki, short nhom, char * maMH);
+void in_danh_sach_dang_ki(DanhSachLopTC &dsltc, char* nienkhoa, short hocki, short nhom, char * maMH);
 
 //-- C
 void them_sv(DanhSachLopCQ &DSLCQ, char * ma_lop, SinhVien &sv);
@@ -43,24 +43,24 @@ void in_dsmh(DanhSachMonHoc& dsmh);
 //-- G
 Node<SinhVien>* timSV(char* maSV_tmp, DanhSachLopCQ &dslcq);
 void xuatSV(Node<SinhVien>* SV);
-void locDSLTC(LOPTC &loptc, DanhSachMonHoc &dsmh , char* nienkhoa_tmp, short hocki_tmp);
-int dangKyLop(Lop &loptc, SinhVienDK SV);
+void locDSLTC(DanhSachLopTC &dsltc, DanhSachMonHoc &dsmh , char* nienkhoa_tmp, short hocki_tmp);
+int dangKyLop(LopTC &loptc, SinhVienDK SV);
 
 //-- H
-void DSLopTC_HUY(LOPTC& BASE_DSLTC);
-bool HuyLopTC(LOPTC& BASE_DSLTC,int ma_lop);
+void DSLopTC_HUY(DanhSachLopTC& dsltc);
+bool HuyLopTC(DanhSachLopTC& dsltc,int ma_lop);
 
 
 
 //-- I
-Lop* timLop(LOPTC &dsltc, char* nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tmp);
-void xuatDSDK(Lop* lop, DanhSachLopCQ &dslcq);
+LopTC* timLop(DanhSachLopTC &dsltc, char* nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tmp);
+void xuatDSDK(LopTC* loptc, DanhSachLopCQ &dslcq);
 
 //-- J
-void Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, LOPTC& dsltc,char* nienkhoa, short hocki, short nhom, char tenMH[]);
+void Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, DanhSachLopTC& dsltc,char* nienkhoa, short hocki, short nhom, char tenMH[]);
 
 //-- K 
-void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
+void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP);
 
 // -- L
-void in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, LOPTC& dsltc, char* MALOP);
+void in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP);
