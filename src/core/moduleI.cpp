@@ -18,13 +18,12 @@ void xuatDSDK(LopTC* loptc, DanhSachLopCQ &dslcq) {
     }
     else {
         for (Node<SinhVienDK>* p = loptc->dsdk->p_head_; p!=NULL; p = p->get_next()) {
-            Node<SinhVien>* sv = timSV(p->get_data().get_MASV(),dslcq);
-            cout<<sv->get_data().get_MALOP()<<"\t"<<sv->get_data().get_MASV()<<"\t"<<sv->get_data().get_HO()<<"\t"<<
-                sv->get_data().get_TEN()<<"\t";
+            SinhVien * sv = dslcq.search_sv(p->get_data().get_MASV());
+            cout<<sv->get_MALOP()<<"\t"<<sv->get_MASV()<<"\t"<<sv->get_HO()<<"\t"<< sv->get_TEN()<<"\t";
             //nhap diem cho SV
             float diem_tmp;
             cin>>diem_tmp;
-            SinhVienDK svdk(sv->get_data().get_MASV(),diem_tmp);
+            SinhVienDK svdk(sv->get_MASV(),diem_tmp);
             p->set_data(svdk);
         }
 
