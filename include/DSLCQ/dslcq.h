@@ -19,6 +19,7 @@ private:
 
 public:
   DanhSachSinhVien * get_dssv(char *);
+  SinhVien * search_sv(char *);
 
   void save();
   void load();

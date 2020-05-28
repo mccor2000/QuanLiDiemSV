@@ -9,16 +9,24 @@ LopCQ::LopCQ(char * malop) {
 /*********************** DanhSachLopCQ ************************/
 
 DanhSachSinhVien * DanhSachLopCQ::get_dssv(char * malop) {
-  Node<LopCQ> * temp = p_head_;
-  
-  while (temp != NULL && temp->get_data().MALOP != malop) {
-    temp = temp->get_next();
+  Node<LopCQ> * curr_lopcq = p_head_;
+  while (curr_lopcq!= NULL && curr_lopcq->get_data().MALOP != malop) {
+    curr_lopcq = curr_lopcq->get_next();
   }
   
-  if (temp == NULL) 
-    return NULL;
-  
-  return temp->get_data().DSSV;
+  if (curr_lopcq == NULL) return NULL;
+  return curr_lopcq->get_data().DSSV;
+}
+
+SinhVien * DanhSachLopCQ::search_sv(char * ma_sv) {
+  Node<LopCQ> * curr_lopcq = p_head_;
+  SinhVien * res = NULL;
+  while (curr_lopcq != NULL && !res) {
+    // Search for every LopCQ
+    res = curr_lopcq->get_data().DSSV->search_sv(ma_sv);
+    curr_lopcq = curr_lopcq->get_next();
+  }
+  return res;
 }
 
 void DanhSachLopCQ::save() {
@@ -27,16 +35,15 @@ void DanhSachLopCQ::save() {
   f.open(db, std::ios::binary);
   
   // Save  
-  Node<LopCQ> * temp = p_head_;
-  while (temp != NULL) {
+  Node<LopCQ> * curr_lopcq = p_head_;
+  while (curr_lopcq != NULL) {
     // Save MALOP
-    char * ma_lop = temp->get_data().MALOP;
+    char * ma_lop = curr_lopcq->get_data().MALOP;
     f.write((char *)ma_lop, sizeof(char[15]));
     // Save DSSV
-    temp->get_data().DSSV->save(ma_lop);
-    temp = temp->get_next();
+    curr_lopcq->get_data().DSSV->save(ma_lop);
+    curr_lopcq = curr_lopcq->get_next();
   }
-
   // Close file
   f.close();
 }
@@ -47,13 +54,12 @@ void DanhSachLopCQ::load() {
   f.open(db, std::ios::binary);
   
   // Load
-  char temp[15]; 
-  while (f.read((char *)temp, sizeof(char[15]))) {
-    LopCQ lopcq(temp);
-    lopcq.DSSV->load(temp);
-    push_back(lopcq);
+  char curr_malop[15]; 
+  while (f.read((char *)curr_malop, sizeof(char[15]))) {
+    LopCQ curr_lopcq(curr_malop);
+    curr_lopcq.DSSV->load(curr_malop);
+    push_back(curr_lopcq);
   }
-
   // Close file 
   f.close();
 }

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <ncurses.h>
 
 #include "../templates/LinkedList.h"
 
@@ -21,21 +22,21 @@ public:
   SinhVien(char *, char *, char *, bool, char *, char *);
   
   //** Getters, setters
-  char* get_MASV();
-  char* get_HO();
-  char* get_TEN();
-  char* get_SDT();
-  char* get_MALOP();
-  bool get_PHAI();
+  char * get_MASV()              { return MASV_; }
+  char * get_HO()                { return HO_; }
+  char * get_TEN()               { return TEN_; }
+  char * get_SDT()               { return SDT_; }
+  char * get_MALOP()             { return MALOP_; }
+  bool get_PHAI()                { return PHAI_; } 
   
-  void set_MASV(char *);
-  void set_HO(char *);
-  void set_TEN(char *);
-  void set_SDT(char *);
-  void set_MALOP(char *);
-  void set_PHAI(bool);
+  void set_MASV(char * MASV)     { strcpy(MASV_, MASV); }
+  void set_HO(char * HO)         { strcpy(HO_, HO); }   
+  void set_TEN(char * TEN)       { strcpy(TEN_, TEN); }
+  void set_SDT(char * SDT)       { strcpy(SDT_, SDT); }
+  void set_MALOP(char * MALOP)   { strcpy(MALOP_, MALOP); }
+  void set_PHAI(bool PHAI)       { PHAI_ = PHAI; }
 
-  void info();
+  void print_info(WINDOW *);
 
   //** Operator overloading
   bool operator > (SinhVien);
@@ -45,6 +46,7 @@ public:
 
 class DanhSachSinhVien: public LinkedList<SinhVien> {
 public:
+  SinhVien * search_sv(char *);
   void save(char *);
   void load(char *);
 };

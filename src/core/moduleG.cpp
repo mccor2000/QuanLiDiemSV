@@ -1,26 +1,5 @@
 #include "library.h"
 
-//tim SV trong DSSV
-Node<SinhVien>* timSV(char* maSV_tmp, DanhSachLopCQ &dslcq) {
-    for (Node<LopCQ>* lopcq = dslcq.p_head_; lopcq!=NULL; lopcq = lopcq->get_next())
-        for (Node<SinhVien>* sv = lopcq->get_data().DSSV->p_head_; sv!=NULL; sv = sv->get_next()) {
-            if (strcmp(sv->get_data().get_MASV(),maSV_tmp)==0) {
-                return sv;
-            }
-        }
-    return NULL;
-}
-
-//xuat thong tin SV
-void xuatSV(Node<SinhVien>* SV) {
-    if (SV==NULL) {
-        cout<<"Ma SV khong ton tai\n";
-    }
-    else {
-        SV->get_data().info();
-        cout<<"\n";
-    }
-}
 //loc cac lop theo nien khoa va hoc ki 
 void locDSLTC(DanhSachLopTC &dsltc, DanhSachMonHoc &dsmh , char* nienkhoa_tmp, short hocki_tmp) {
 	cout<<"MAMH\tTENMH\tNHOM\tSV_DA_DK\tVI_TRI_TRONG\n";

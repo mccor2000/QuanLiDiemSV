@@ -67,7 +67,7 @@ bool Table::get_input() {
     return false;
   }
 
-  process_input();
+ process_input();
   return true;
 }
 
@@ -86,7 +86,6 @@ void Table::process_input() {
 }
 
 void Table::display() {
-  // start_color();
   box(current_window, 0, 0);
   display_table();
   wrefresh(current_window);

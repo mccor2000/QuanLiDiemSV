@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <ncurses.h>
 
 // Templates
 #include "../../include/templates/LinkedList.h"
