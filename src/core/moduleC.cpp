@@ -1,12 +1,14 @@
 #include "library.h"
 
-void them_sv(DanhSachLopCQ &DSLCQ, char * ma_lop, SinhVien &sv) {
+void them_sv(DanhSachLopCQ &DSLCQ, char * ma_lop, char** data) {
   DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
   
   if (dssv == NULL) {
     std::cout << "Lop khong ton tai\n";
     return;
   }
+  //tao sinh vien
+  SinhVien sv(data[0],data[1],data[2],data[3]=="nam"?0:1,data[4],ma_lop);
   dssv->push_back(sv);
 }
 

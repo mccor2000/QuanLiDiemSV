@@ -17,6 +17,8 @@
 // Modules
 
 //-- A
+short StringToShort(char* st);
+int StringToInt(char* st);
 void themLop(DanhSachLopTC &dsltc, LopTC &loptc);
 void xoaLop(DanhSachLopTC &dsltc,int maloptc);
 void hieuChinhLop(DanhSachLopTC &dsltc, int index);
