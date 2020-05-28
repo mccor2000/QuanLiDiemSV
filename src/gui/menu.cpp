@@ -25,7 +25,7 @@ Menu::Menu(WINDOW * w, int t) {
   char ** items = get_items();
   ITEM **menu_items;
 	
-	menu_items = (ITEM **)calloc(len, sizeof(ITEM *));
+  menu_items = new ITEM*[len];
 	for(int i = 0; i < len; ++i) {
     menu_items[i] = new_item(items[i], "");
   }

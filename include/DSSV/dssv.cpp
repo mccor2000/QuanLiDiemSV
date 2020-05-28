@@ -2,55 +2,6 @@
 
 /************************ SinhVien ****************************/
 
-//-- Getters, Setters
-char * SinhVien::get_MASV(){
-    return MASV_; 
-}
-
-char * SinhVien::get_HO(){
-    return HO_; 
-}
-
-char * SinhVien::get_TEN(){
-    return TEN_; 
-}
-
-char * SinhVien::get_SDT(){
-    return SDT_; 
-}
-
-char * SinhVien::get_MALOP(){
-    return MALOP_; 
-}
-
-bool SinhVien::get_PHAI(){
-    return PHAI_;
-}
-
-void SinhVien::set_MASV(char * masv) {
-    strcpy(MASV_, masv);
-}
-
-void SinhVien::set_HO(char * ho) {
-    strcpy(HO_, ho);
-}
-
-void SinhVien::set_TEN(char * ten) {
-    strcpy(TEN_, ten);
-}
-
-void SinhVien::set_SDT(char * sdt) {
-    strcpy(SDT_, sdt);
-}
-
-void SinhVien::set_MALOP(char * malop) {
-    strcpy(MALOP_, malop);
-}
-
-void SinhVien::set_PHAI(bool phai) {
-    PHAI_ = phai;
-}
-
 //-- Constructor
 SinhVien::SinhVien(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALOP){
     strcpy(MASV_, MASV);
@@ -62,8 +13,13 @@ SinhVien::SinhVien(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALO
 }
 
 //-- Methods
-void SinhVien::info(){
-    std::cout << MASV_ << " " << HO_ <<  " " <<TEN_<< " "<< PHAI_ << " " << MALOP_ << " " << SDT_; 
+void SinhVien::print_info(WINDOW * curr_win){
+  mvwprintw(curr_win, 1, 1, MASV_);
+  mvwprintw(curr_win, 2, 1, HO_);
+  mvwprintw(curr_win, 3, 1, TEN_);
+  mvwprintw(curr_win, 4, 1, (PHAI_) ? "Nam" : "Nu");
+  mvwprintw(curr_win, 5, 1, SDT_);
+  mvwprintw(curr_win, 6, 1, MALOP_);
 }
 
 //-- Operator overloading
@@ -81,6 +37,21 @@ bool SinhVien::operator == (SinhVien x) {
 
 
 /********************** DanhSachSinhVien ***********************/
+SinhVien * DanhSachSinhVien::search_sv(char * ma_sv) {
+  // Find
+  Node<SinhVien> * curr_node = p_head_;
+  SinhVien sv;
+  while(curr_node != NULL &&
+        strcmp(curr_node->get_data().get_MASV(), ma_sv) != 0)
+  { 
+    sv = curr_node->get_data();
+    curr_node = curr_node->get_next();
+  }
+  // Return
+  if (curr_node == NULL) return NULL;
+  return &sv;
+}
+
 void DanhSachSinhVien::save(char * ma_lop) {
   // Get path
   char path[64] = "../../database/dssv/";
@@ -92,14 +63,13 @@ void DanhSachSinhVien::save(char * ma_lop) {
   f.open(path, std::ios::binary);
 
   // Loop through the list and write to file 
-  Node<SinhVien> * temp_node = p_head_;
-  while (temp_node != NULL) {
-    SinhVien temp_sv = temp_node->get_data();
-    f.write((char *)&temp_sv, sizeof(SinhVien));
+  Node<SinhVien> * curr_node= p_head_;
+  while (curr_node != NULL) {
+    SinhVien curr_sv= curr_node->get_data();
+    f.write((char *)&curr_sv, sizeof(SinhVien));
 
-    temp_node = temp_node->get_next();
+    curr_node = curr_node->get_next();
   }
-
   // Close file
   f.close();
 }
@@ -115,11 +85,10 @@ void DanhSachSinhVien::load(char * ma_lop) {
   f.open(path, std::ios::binary);
   
   // Get data from file and push to the list
-  SinhVien temp;
-  while (f.read((char *)&temp, sizeof(SinhVien))) {
-    push_back(temp);
+  SinhVien curr_sv;
+  while (f.read((char *)&curr_sv, sizeof(SinhVien))) {
+    push_back(curr_sv);
   }
-
   // Close the file
   f.close();
 }

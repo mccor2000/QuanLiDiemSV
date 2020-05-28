@@ -16,7 +16,7 @@ void Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, DanhSachLopTC& dsltc
         DanhSachSinhVienDK * DSDK = loptc->dsdk;
         Node<SinhVienDK>* node_DK = DSDK->head();
         while (node_DK!=NULL) {
-            SinhVien sv = timSV(node_DK->get_data().get_MASV(),dslcq)->get_data();
+            SinhVien sv = *dslcq.search_sv(node_DK->get_data().get_MASV());
             cout<<sv.get_MALOP()<<"\t"<<sv.get_MASV()<<"\t"<<sv.get_HO()<<"\t"<<sv.get_TEN()<<"\t"<<
                 node_DK->get_data().get_DIEM()<<"\n";
             node_DK = node_DK->get_next();
