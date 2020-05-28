@@ -41,7 +41,7 @@ void hieu_chinh_mh(DanhSachMonHoc& dsmh, MonHoc old_mh, MonHoc new_mh);
 void xoa_mh(DanhSachMonHoc& dsmh, MonHoc mh);
 
 //-- F
-void in_dsmh(DanhSachMonHoc& dsmh);
+LinkedList<char* []> in_dsmh(DanhSachMonHoc& dsmh);
 
 //-- G
 Node<SinhVien>* timSV(char* maSV_tmp, DanhSachLopCQ &dslcq);
