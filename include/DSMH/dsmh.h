@@ -60,7 +60,7 @@ public:
   MonHoc * search_name(char *);
   MonHoc * search_code(char *);
   
-  void enumerate(std::function<void(MonHoc)>); 
+  void enumerate(std::function<LinkedList<char* []>(MonHoc)>); 
   
   // File IO
   void load();

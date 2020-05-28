@@ -3,6 +3,7 @@
 #include<cstring>
 #include <iostream>
 #include <math.h>
+#include<string>
 
 char *ltrim(char *const s){
         size_t len;
@@ -104,4 +105,8 @@ char* Upper(char *const str){
         }
         return str;
 }
+
+
+
+
 #endif

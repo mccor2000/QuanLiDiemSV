@@ -31,15 +31,15 @@ void SinhVienDK::info() {
 
 /**************** DanhSachSinhVienDK ********************/
 
-void DanhSachSinhVienDK::print() {
-  std::cout << "MASV\tDIEM\n";
-  Node<SinhVienDK> * temp = p_head_;
+// void DanhSachSinhVienDK::print() {
+//   std::cout << "MASV\tDIEM\n";
+//   Node<SinhVienDK> * temp = p_head_;
   
-  while (temp != NULL) {
-    std::cout << temp->get_data().get_MASV() << "\t" << temp->get_data().get_DIEM() << "\n";
-    temp = temp->get_next();
-  }
-}
+//   while (temp != NULL) {
+//     std::cout << temp->get_data().get_MASV() << "\t" << temp->get_data().get_DIEM() << "\n";
+//     temp = temp->get_next();
+//   }
+// }
 
 void DanhSachSinhVienDK::save(const char * ma_lop) {
   // Get path
