@@ -69,13 +69,4 @@ LinkedList<char*> in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& 
 // -- L
 LinkedList<char*> in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP);
 
-char* converting(int x){
-    char* result = "";
-    while(x){
-        char res=char(x%10)+48;
-        char* ans = &res;
-        strcat(result,ans);
-        x/=10;
-    }
-    return result;
-}
+char* converting(int x);

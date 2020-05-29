@@ -10,6 +10,21 @@ short StringToShort(char* st) {
     return s;
 }
 
+
+//code Bao
+char* converting(int x){
+    char* result = "";
+    while(x){
+        char res=char(x%10)+48;
+        char* ans = &res;
+        strcat(result,ans);
+        x/=10;
+    }
+    return result;
+}
+//
+
+
 int StringToInt(char* st) {
     int n=0;
     for (int i=0; i<sizeof(st); i++) {
