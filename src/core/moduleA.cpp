@@ -2,7 +2,25 @@
 
 using namespace std;
 
-void themLop(DanhSachLopTC &dsltc, LopTC &loptc) { 
+short StringToShort(char* st) {
+    short s=0;
+    for (int i=0; i<sizeof(st); i++) {
+        s=s*10+(int(st[i])-48);
+    }
+    return s;
+}
+
+int StringToInt(char* st) {
+    int n=0;
+    for (int i=0; i<sizeof(st); i++) {
+        n=n*10+(int(st[i])-48);
+    }
+    return n;
+}
+
+void themLop(DanhSachLopTC &dsltc, char** data) {
+    //tao lop
+    LopTC loptc(data[0],data[1],StringToShort(data[2]),StringToShort(data[3]),StringToInt(data[4]),StringToInt(data[5]));
     dsltc.themLop(loptc,dsltc.getN());
 }
 
