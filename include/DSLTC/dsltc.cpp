@@ -11,16 +11,16 @@ LopTC::LopTC(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int m
   huylop = true;
 }
 
-LopTC* DanhSachLopTC::getLop() {
-	return *node ;
+LopTC* DanhSachLopTC::getLop(int i) {
+	return node[i] ;
 }
 
 int DanhSachLopTC::get_STT() {
   return stt;
 }
 
-void DanhSachLopTC::setLop(LopTC* &lop_tmp) {
-	*node = lop_tmp;
+void DanhSachLopTC::setLop(LopTC lop_tmp, int i) {
+	*node[i] = lop_tmp;
 }
 
 int DanhSachLopTC::getN() {
