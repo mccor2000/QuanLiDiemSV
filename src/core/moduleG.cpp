@@ -2,8 +2,8 @@
 
 //loc cac lop theo nien khoa va hoc ki 
 
-LinkedList<char* []> locDSLTC(DanhSachLopTC &dsltc, DanhSachMonHoc &dsmh , char* nienkhoa_tmp, short hocki_tmp) {
-    LinkedList<char* []> result;
+LinkedList<char*> locDSLTC(DanhSachLopTC &dsltc, DanhSachMonHoc &dsmh , char* nienkhoa_tmp, short hocki_tmp) {
+    LinkedList<char* > result;
     for (int i=0; i<dsltc.getN(); i++) {
         char* res[6];
         LopTC tmp = *dsltc.node[i];
@@ -14,7 +14,13 @@ LinkedList<char* []> locDSLTC(DanhSachLopTC &dsltc, DanhSachMonHoc &dsmh , char*
             strcpy(converting(tmp.nhom),res[2]);
             strcpy(converting(tmp.dsdk->count()),res[3]);
             strcpy(converting(tmp.sv_max-tmp.dsdk->count()),res[4]);
-            result.push_back(res);
+            char* ans="";
+            strcat(ans,res[0]);
+            for(int i=1;i<5;i++){
+                strcat(ans,"   ");
+                strcat(ans,res[i]);
+            }
+            result.push_back(ans);
         }
     }
     return result;

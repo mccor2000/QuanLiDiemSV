@@ -12,8 +12,8 @@ LopTC* timLop(DanhSachLopTC &dsltc, char* nienkhoa_tmp, short hocki_tmp, short n
 }
 
 //xuat dsdk lop vua tim duoc
-LinkedList<char* []> xuatDSDK(LopTC* loptc, DanhSachLopCQ &dslcq) {
-        LinkedList<char* []> result;
+LinkedList<char*> xuatDSDK(LopTC* loptc, DanhSachLopCQ &dslcq) {
+        LinkedList<char*> result;
     if (loptc==NULL) {
         return result;
     }
@@ -25,7 +25,16 @@ LinkedList<char* []> xuatDSDK(LopTC* loptc, DanhSachLopCQ &dslcq) {
             strcpy(res[1],sv->get_MASV());
             strcpy(res[2],sv->get_HO());
             strcpy(res[3],sv->get_TEN());
-            result.push_back(res);
+            
+            char* ans="";
+            strcat(ans,res[0]);
+            for(int i=1;i<4;i++){
+                strcat(ans,"   ");
+                strcat(ans,res[i]);
+            }
+
+
+            result.push_back(ans);
             }
     return result;
     }
