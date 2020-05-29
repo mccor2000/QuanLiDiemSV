@@ -1,6 +1,7 @@
 #include "library.h"
 
-void Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, DanhSachLopTC& dsltc,char* nienkhoa, short hocki, short nhom, char tenMH[]){
+LinkedList<char* []> Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, DanhSachLopTC& dsltc,char* nienkhoa, short hocki, short nhom, char tenMH[]){
+    LinkedList<char* []> result;
     MonHoc* mh = new MonHoc();
     mh = dsmh.search_name(tenMH);
     LopTC* loptc;
@@ -16,13 +17,16 @@ void Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, DanhSachLopTC& dsltc
         DanhSachSinhVienDK * DSDK = loptc->dsdk;
         Node<SinhVienDK>* node_DK = DSDK->head();
         while (node_DK!=NULL) {
+            char* res[5];
+            char buffer[5];
             SinhVien sv = *dslcq.search_sv(node_DK->get_data().get_MASV());
-            cout<<sv.get_MALOP()<<"\t"<<sv.get_MASV()<<"\t"<<sv.get_HO()<<"\t"<<sv.get_TEN()<<"\t"<<
-                node_DK->get_data().get_DIEM()<<"\n";
+            strcpy(res[0],sv.get_MALOP());
+            strcpy(res[1],sv.get_MASV());
+            strcpy(res[2],sv.get_HO());
+            strcpy(res[3],sv.get_TEN());
+            strcpy(res[4],gcvt(node_DK->get_data().get_DIEM(),3,buffer);
             node_DK = node_DK->get_next();
         }
     }
-    else{
-        std::cout << "Mon hoc khong ton tai\n";
-    }
+    return result;    
 }

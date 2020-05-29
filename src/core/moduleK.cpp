@@ -1,7 +1,8 @@
 #include "library.h"
 
-void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP){
+LinkedList<char* []> in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP){
   // Get dssv   
+  LinkedList<char* []> result;
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   if(dssv == NULL){
     std::cout << "Lop khong ton tai\n";
@@ -23,8 +24,11 @@ void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSac
 
     SinhVien tmp = sv->get_data();
     sv=sv->get_next();
+    char* res[5];
+    strcpy(res[0],tmp.get_MASV());
+    strcpy(res[1],tmp.get_HO());
+    strcpy(res[2],tmp.get_TEN());
 
-    std::cout << tmp.get_MASV() << " " << tmp.get_HO() << " "<<tmp.get_TEN() << " ";
     
     while(mh != NULL) {
       for(int i=0; i < dsltc.getN(); i++) {
@@ -43,8 +47,10 @@ void in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSac
         
       mh = mh->get_next();
     }
-        
+    char buffer[5];
     float score = total/cnt;
-    std::cout<< score << "\n";
+    strcpy(res[4],gcvt(score,3,buffer));
+    result.push_back(res);
   }
+  return result;
 }
