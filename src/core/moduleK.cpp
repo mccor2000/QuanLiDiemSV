@@ -6,7 +6,7 @@ LinkedList<char* []> in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHo
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   if(dssv == NULL){
     std::cout << "Lop khong ton tai\n";
-    return;
+    return result;
   }
   
   // Get list MonHoc

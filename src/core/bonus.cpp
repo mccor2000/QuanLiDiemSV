@@ -6,7 +6,7 @@ LinkedList<char* []> DanhSachLopChinhQuy(DanhSachLopCQ& dslcq){
     while(node != NULL){
         char buffer[30];
         char* res[2];
-        strcmp(node->get_data().MALOP,res[0]);
+        strcpy(node->get_data().MALOP,res[0]);
         res[1]="DSSV";
         result.push_back(res);
         node=node->get_next();
