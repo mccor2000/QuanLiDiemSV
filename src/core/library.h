@@ -72,7 +72,9 @@ LinkedList<char*> in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& ds
 char* converting(int x){
     char* result = "";
     while(x){
-        result+= char((x%10)+48);
+        char res=char(x%10)+48;
+        char* ans = &res;
+        strcat(result,ans);
         x/=10;
     }
     return result;
