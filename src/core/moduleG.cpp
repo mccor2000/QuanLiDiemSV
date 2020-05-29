@@ -1,15 +1,23 @@
 #include "library.h"
 
 //loc cac lop theo nien khoa va hoc ki 
-void locDSLTC(DanhSachLopTC &dsltc, DanhSachMonHoc &dsmh , char* nienkhoa_tmp, short hocki_tmp) {
-	cout<<"MAMH\tTENMH\tNHOM\tSV_DA_DK\tVI_TRI_TRONG\n";
+
+LinkedList<char* []> locDSLTC(DanhSachLopTC &dsltc, DanhSachMonHoc &dsmh , char* nienkhoa_tmp, short hocki_tmp) {
+    LinkedList<char* []> result;
     for (int i=0; i<dsltc.getN(); i++) {
+        char* res[6];
         LopTC tmp = *dsltc.node[i];
         MonHoc * mh = dsmh.search_code(tmp.maMH);
         if (strcmp(tmp.nienkhoa,nienkhoa_tmp)==0 && tmp.hocki==hocki_tmp) {
-		    cout<<tmp.maMH<<"\t"<<mh->TENMH<<"\t"<<tmp.nhom<<"\t"<<tmp.dsdk->count()<<"\t"<<tmp.sv_max-tmp.dsdk->count()<<"\n";
+            strcpy(tmp.maMH,res[0]);
+            strcpy(mh->TENMH,res[1]);
+            strcpy(converting(tmp.nhom),res[2]);
+            strcpy(converting(tmp.dsdk->count()),res[3]);
+            strcpy(converting(tmp.sv_max-tmp.dsdk->count()),res[4]);
+            result.push_back(res);
         }
     }
+    return result;
 }
 //dang ky lop cho SV
 int dangKyLop(LopTC &loptc, SinhVienDK SV) {

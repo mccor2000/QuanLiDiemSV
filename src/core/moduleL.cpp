@@ -1,11 +1,11 @@
 #include "library.h"
 
-void in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP) {
+LinkedList<char* []> in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP) {
   // Get dssv
+  LinkedList<char* []> result;
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   if (dssv == NULL) {
-    std::cout << "Lop khong ton tai\n";
-    return;
+    return result;
   }
   
   // Get list MonHoc
@@ -18,8 +18,11 @@ void in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachL
   Node<MonHoc> * mh = list_mh.head();
   while(sv != NULL) {
     // Get sv info
+    char* res[5];
     SinhVien tmp = sv->get_data();
-    std::cout << tmp.get_MASV() << " " << tmp.get_HO() << " "<<tmp.get_TEN() << " ";
+    strcpy(res[0],tmp.get_MASV());
+    strcpy(res[1],tmp.get_HO());
+    strcpy(res[2],tmp.get_TEN());
         
     // Loop through list mh to get diem 
     while(mh != NULL) {
@@ -29,13 +32,15 @@ void in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachL
           Node<SinhVienDK> * temp_sv = dsltc.node[i]->dsdk->head();
           while(temp_sv != NULL) {
             if (temp_sv->get_data().get_MASV() == sv->get_data().get_MASV()) {
-              std::cout << temp_sv->get_data().get_DIEM() << " ";
+              char buffer[5];
+              strcpy(res[3],gcvt(temp_sv->get_data().get_DIEM(),3,buffer));
             }
           }
       }
       mh=mh->get_next();
     }
-    std::cout << '\n';
+    result.push_back(res);
     sv = sv->get_next();
   }
+  return result;
 }

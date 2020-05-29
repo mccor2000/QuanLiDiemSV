@@ -1,13 +1,16 @@
 #include "library.h"
 
-void DSLopTC_HUY(DanhSachLopTC& dsltc){
+LinkedList<char*> DSLopTC_HUY(DanhSachLopTC& dsltc){
+    LinkedList<char*> result;
+
     for(int i=0;i<dsltc.getN();i++){
         LopTC loptc;
         loptc = *dsltc.node[i];
         if(loptc.huylop){
-            std::cout << dsltc.node[i]->malop;
+            result.push_back(converting(dsltc.node[i]->malop));
         }
     }
+    return result;
 }
 
 bool HuyLopTC(DanhSachLopTC& dsltc,int ma_lop){
