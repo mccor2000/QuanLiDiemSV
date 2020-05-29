@@ -22,8 +22,8 @@ LinkedList<char*> DanhSachLopChinhQuy(DanhSachLopCQ& dslcq);
 short StringToShort(char* st);
 int StringToInt(char* st);
 void themLop(DanhSachLopTC &dsltc, LopTC &loptc);
-void xoaLop(DanhSachLopTC &dsltc,int maloptc);
-void hieuChinhLop(DanhSachLopTC &dsltc, int index);
+void xoaLop(DanhSachLopTC &dsltc,char* maloptc);
+void hieuChinhLop(DanhSachLopTC &dsltc, char** data, char* malop);
 
 //-- B
 LinkedList<char*> in_danh_sach_dang_ki(DanhSachLopTC &dsltc, char* nienkhoa, short hocki, short nhom, char * maMH);
@@ -32,15 +32,15 @@ LinkedList<char*> in_danh_sach_dang_ki(DanhSachLopTC &dsltc, char* nienkhoa, sho
 void them_sv(DanhSachLopCQ &DSLCQ, char * ma_lop, SinhVien &sv);
 int vitri_sv(DanhSachSinhVien* DSSV,char* MASV);
 void xoa_sv(DanhSachLopCQ &DSLCQ, char * ma_lop, char* MASV);
-void hieu_chinh_sv(DanhSachLopCQ &DSLCQ, char * ma_lop, char* MASV);
+void hieu_chinh_sv(DanhSachLopCQ &DSLCQ, char * ma_lopCQ, char* MASV, char** data);
 
 //-- D
 LinkedList<char*> in_danh_sach_sv(DanhSachLopCQ DSLCQ, char * ma_lop);
 
 //-- E
 void them_mh(DanhSachMonHoc& dsmh, MonHoc new_mh);
-void hieu_chinh_mh(DanhSachMonHoc& dsmh, MonHoc old_mh, MonHoc new_mh);
-void xoa_mh(DanhSachMonHoc& dsmh, MonHoc mh);
+void hieu_chinh_mh(DanhSachMonHoc& dsmh, char ** data_old, char ** data_new);
+void xoa_mh(DanhSachMonHoc& dsmh, char ** data);
 
 //-- F
 LinkedList<char*> in_dsmh(DanhSachMonHoc& dsmh);
@@ -55,12 +55,11 @@ int dangKyLop(LopTC &loptc, SinhVienDK SV);
 LinkedList<char*> DSLopTC_HUY(DanhSachLopTC& dsltc);
 bool HuyLopTC(DanhSachLopTC& dsltc,int ma_lop);
 
-
-
 //-- I
 LopTC* timLop(DanhSachLopTC &dsltc, char* nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tmp);
 LinkedList<char*> xuatDSDK(LopTC* loptc, DanhSachLopCQ &dslcq);
 void NhapDiemSV(SinhVienDK& sv, float DIEM );
+
 //-- J
 LinkedList<char*> Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, DanhSachLopTC& dsltc,char* nienkhoa, short hocki, short nhom, char tenMH[]);
 
