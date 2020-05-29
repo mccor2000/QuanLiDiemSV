@@ -22,8 +22,11 @@ private:
   void display_table();
 public:
   // Constructor
-  Table(WINDOW *, int);
+  Table(WINDOW *);
   Table() {;}
+  
+  void set_type(int t)        { type = t; }
+  void set_title(char * t)    { strcpy(title, t); }
   // Public methods
   bool get_input();
   void display();

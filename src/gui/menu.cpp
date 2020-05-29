@@ -13,6 +13,7 @@ char * main_menu_items[] = {
   "Quan ly mon hoc",
   "Nhap diem",
   "Dang ki",
+  "Bang diem "
   "Thoat",
 };
 

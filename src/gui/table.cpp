@@ -35,28 +35,9 @@ char * DSDK_FIELDS[] = {
   "DIEM",
 };
 
-Table::Table(WINDOW * win, int t) {
+Table::Table(WINDOW * win) {
   current_window = win;
   getmaxyx(win, height, width);
-  
-  type = t;
-  switch (type) {
-    case 1:
-      strcpy(title,"DANH SACH LOP TIN CHI");
-      break;
-    case 2:
-      strcpy(title, "DANH SACH LOP CHINH QUY");
-      break;
-    case 3:
-      strcpy(title, "DANH SACH MON HOC");
-      break;
-    case 4:
-      strcpy(title, "DANH SACH SINH VIEN");
-      break;
-    case 5:
-      strcpy(title, "DANH SACH DANG KY");
-      break;
-  }
   current_line = 0;
   input = 0;
 }
