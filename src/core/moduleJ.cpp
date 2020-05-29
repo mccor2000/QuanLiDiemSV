@@ -24,7 +24,7 @@ LinkedList<char*> Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, DanhSac
             strcpy(res[1],sv.get_MASV());
             strcpy(res[2],sv.get_HO());
             strcpy(res[3],sv.get_TEN());
-            strcpy(res[4],gcvt(node_DK->get_data().get_DIEM(),3,buffer);
+            strcpy(res[4],gcvt(node_DK->get_data().get_DIEM(),3,buffer));
             char* ans ="";
             strcat(ans,res[0]);
             for(int i=1;i<5;i++){
