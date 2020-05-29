@@ -1,7 +1,7 @@
 #include "library.h"
 
-void in_danh_sach_dang_ki(DanhSachLopTC &dsltc, char* nienkhoa, short hocki, short nhom, char * maMH) {
-  
+LinkedList<char* []> in_danh_sach_dang_ki(DanhSachLopTC &dsltc, char* nienkhoa, short hocki, short nhom, char * maMH) {
+  LinkedList<char* []> result;
   DanhSachSinhVienDK dsdk; 
   
   for (int i = 0; i < dsltc.getN(); i++) {
@@ -12,5 +12,14 @@ void in_danh_sach_dang_ki(DanhSachLopTC &dsltc, char* nienkhoa, short hocki, sho
       break;
     }
   }
-  dsdk.print();
+  Node<SinhVienDK> * temp = dsdk.head();
+  while(temp != NULL ){
+    char* res[2];
+    char buffer[5];
+    strcpy(res[0],temp->get_data().get_MASV());
+    strcpy(res[1],gcvt(temp->get_data().get_DIEM(),3,buffer));
+    result.push_back(res);
+    temp=temp->get_next();
+  }
+  return result; 
 }
