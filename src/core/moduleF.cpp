@@ -1,6 +1,5 @@
 #include "library.h"
 
-
 char ** get_dsmh_table(DanhSachMonHoc& dsmh, int avg_width) {
   // int length = dsmh.length;
   // char table_data[length][4*avg_width];
@@ -13,7 +12,6 @@ char ** get_dsmh_table(DanhSachMonHoc& dsmh, int avg_width) {
     // table_data[i][3] = x.stcth;
     // i++;
   // });
-
   // return table_data;
 }
 
