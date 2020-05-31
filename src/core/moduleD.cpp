@@ -1,11 +1,11 @@
 #include "library.h"
 
-LinkedList<char* []> in_danh_sach_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
+LinkedList<char*> in_danh_sach_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
   DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
-  LinkedList<char* []> result;
+  LinkedList<char*> result;
   if (dssv == NULL) {
-    char* res[1];
-    strcpy(res[0],"NULL");
+    char* res;
+    strcpy(res,"NULL");
     result.push_back(res);
     return result;
   }
@@ -23,7 +23,13 @@ LinkedList<char* []> in_danh_sach_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
       strcpy(res[3],"NAM");
     }
     strcpy(res[4],sv->get_data().get_SDT());
-    result.push_back(res);
+    char* ans = "";
+    strcat(ans,res[0]);
+    for(int i=1;i<5;i++){
+      strcat(ans,"   ");
+      strcat(ans,res[i]);
+    }
+    result.push_back(ans);
     sv=sv->get_next();
   }
   return result;

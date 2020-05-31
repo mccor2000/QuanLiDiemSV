@@ -1,8 +1,8 @@
 #include "library.h"
 
-LinkedList<char* []> in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP){
+LinkedList<char* > in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP){
   // Get dssv   
-  LinkedList<char* []> result;
+  LinkedList<char* > result;
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   if(dssv == NULL){
     std::cout << "Lop khong ton tai\n";
@@ -50,7 +50,13 @@ LinkedList<char* []> in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHo
     char buffer[5];
     float score = total/cnt;
     strcpy(res[4],gcvt(score,3,buffer));
-    result.push_back(res);
+    char* ans = "";
+    strcat(ans,res[0]);
+    for(int i=1;i<5;i++){
+      strcat(ans,"   ");
+      strcat(ans,res[i]);
+    }
+    result.push_back(ans);
   }
   return result;
 }

@@ -14,6 +14,6 @@ char ** get_dsmh_table(DanhSachMonHoc& dsmh, int avg_width) {
     // i++;
   // });
 
-  return table_data;
+  // return table_data;
 }
 
