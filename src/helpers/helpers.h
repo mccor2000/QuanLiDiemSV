@@ -12,7 +12,7 @@ char* xoakt(char *const s);
 
 char* up_low(char *const s);
 char* Trim(char *const s);
-
+char* converting(int x);
 float Round(float score);
 
 bool is_valid_string(char *const s);

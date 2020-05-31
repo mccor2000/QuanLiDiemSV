@@ -34,8 +34,8 @@ public:
   void display();
   void process_input();
 
-  void render_dsltc(DanhSachLopTC& dsltc);
-  void render_dslcq(DanhSachLopCQ dslcq);
+  void render_dsltc();
+  void render_dslcq(LinkedList<char*> dslcq);
   void render_dsmh(DanhSachMonHoc dsmh);
   void render_dssv(DanhSachSinhVien dssv);
   void render_dsdk(DanhSachSinhVienDK dsdk);
