@@ -3,7 +3,7 @@
 #include<cstring>
 #include <iostream>
 #include <math.h>
-#include    <string>
+#include <string>
 
 char *ltrim(char *const s);
 char *rtrim(char *const s);
