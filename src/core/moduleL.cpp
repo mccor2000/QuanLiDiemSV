@@ -1,8 +1,8 @@
 #include "library.h"
 
-LinkedList<char* []> in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP) {
+LinkedList<char*> in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP) {
   // Get dssv
-  LinkedList<char* []> result;
+  LinkedList<char* > result;
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   if (dssv == NULL) {
     return result;
@@ -39,7 +39,13 @@ LinkedList<char* []> in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc&
       }
       mh=mh->get_next();
     }
-    result.push_back(res);
+    char* ans = "";
+    strcat(ans,res[0]);
+    for(int i=1;i<4;i++){
+      strcat(ans, "  ");
+      strcat(ans,res[i]);
+    }
+    result.push_back(ans);
     sv = sv->get_next();
   }
   return result;

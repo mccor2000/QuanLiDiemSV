@@ -19,4 +19,3 @@ void update_mh(char ** data) {
 void delete_mh(char * ma_mh) {
   MonHoc chosen_one = dsmh.search_code(chosen_one);
   dsmh.remove(chosen_one);
-}
