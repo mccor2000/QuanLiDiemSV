@@ -1,3 +1,5 @@
+#pragma once
+
 // Core library
 #include <iostream>
 #include <fstream>
@@ -5,25 +7,26 @@
 #include <ncurses.h>
 #include <string>
 #include <stdio.h>
-// Templates
-#include "../../include/templates/LinkedList.h"
 
-// Base classes
-#include "../../include/DSSV/dssv.h"
-#include "../../include/DSDK/dsdk.h"
-#include "../../include/DSMH/dsmh.h"
-#include "../../include/DSLTC/dsltc.h"
-#include "../../include/DSLCQ/dslcq.h"
+// Helpers
+#include "../helpers/helpers.h"
+
+// Database 
+#include "./database.h"
+
+extern DanhSachLopTC dsltc;
+extern DanhSachLopCQ dslcq;
+extern DanhSachMonHoc dsmh;
+extern Database database;
 
 // Modules
 // bonus 
 LinkedList<char* []> DanhSachLopChinhQuy(DanhSachLopCQ& dslcq);
+
 //-- A
-short StringToShort(char* st);
-int StringToInt(char* st);
-void themLop(DanhSachLopTC &dsltc, LopTC &loptc);
-void xoaLop(DanhSachLopTC &dsltc,int maloptc);
-void hieuChinhLop(DanhSachLopTC &dsltc, int index);
+void add_loptc(char ** data);
+void delete_loptc(int maloptc);
+void update_loptc(char ** data);
 
 //-- B
 LinkedList<char* []> in_danh_sach_dang_ki(DanhSachLopTC &dsltc, char* nienkhoa, short hocki, short nhom, char * maMH);
@@ -38,12 +41,11 @@ void hieu_chinh_sv(DanhSachLopCQ &DSLCQ, char * ma_lop, char* MASV);
 LinkedList<char* []> in_danh_sach_sv(DanhSachLopCQ DSLCQ, char * ma_lop);
 
 //-- E
-void them_mh(DanhSachMonHoc& dsmh, MonHoc new_mh);
-void hieu_chinh_mh(DanhSachMonHoc& dsmh, MonHoc old_mh, MonHoc new_mh);
-void xoa_mh(DanhSachMonHoc& dsmh, MonHoc mh);
-
+void add_mh(char **);
+void delete_mh(char *);
+void update_mh(char **);
 //-- F
-LinkedList<char* []> in_dsmh(DanhSachMonHoc& dsmh);
+// std::string[4] * get_dsmh_table(DanhSachMonHoc dsmh);
 
 //-- G
 Node<SinhVien>* timSV(char* maSV_tmp, DanhSachLopCQ &dslcq);
@@ -70,11 +72,11 @@ LinkedList<char* []> in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHo
 // -- L
 LinkedList<char* []> in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP);
 
-char* converting(int x){
-    char* result = "";
-    while(x){
-        result+= char((x%10)+48);
-        x/=10;
-    }
-    return result;
-}
+// char* converting(int x){
+    // char* result = "";
+    // while(x){
+        // result+= char((x%10)+48);
+        // x/=10;
+    // }
+    // return result;
+// }

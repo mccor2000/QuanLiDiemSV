@@ -1,22 +1,19 @@
 #include "library.h"
 
 
-LinkedList<char* []> in_dsmh(DanhSachMonHoc& dsmh) {
-  LinkedList<char* []> result;
-  LinkedList<MonHoc> list_mh;
-  dsmh.enumerate([list_mh](MonHoc x) mutable { 
-    list_mh.push_back(x); 
-  });
-  Node<MonHoc>* node= list_mh.head();
-  while(node != NULL){
-    char* res[5];
-    strcpy(res[0],node->get_data().MAMH);
-    strcpy(res[1],node->get_data().TENMH);
-    strcpy(res[2],converting(node->get_data().STCLT));
-    strcpy(res[3],converting(node->get_data().STCTH));
-    result.push_back(res);
-    node  = node->get_next();
-  }
-  return result;  
+char ** get_dsmh_table(DanhSachMonHoc& dsmh, int avg_width) {
+  // int length = dsmh.length;
+  // char table_data[length][4*avg_width];
+
+  // int i = 0;
+  // dsmh.enumerate([&table_data, i](monhoc x) mutable {
+    // table_data[i] = x.mamh;
+    // table_data[i][1] = x.tenmh;
+    // table_data[i][2] = x.stclt;
+    // table_data[i][3] = x.stcth;
+    // i++;
+  // });
+
+  return table_data;
 }
 

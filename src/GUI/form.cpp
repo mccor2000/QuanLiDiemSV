@@ -131,7 +131,7 @@ bool Form::process_input() {
       }
       case 27: 
         cancel = true;
-        break;
+        return false;
 
       default:
 			  form_driver(form, input);

@@ -1,26 +1,22 @@
 #include "library.h"
 
-void them_mh(DanhSachMonHoc& dsmh, char** data) {
-  //tao mon hoc
-  MonHoc mh(data[0],data[1],StringToInt(data[2]),StringToInt(data[3]));
-  
-  bool check = dsmh.is_exist(mh);
+void add_mh(char ** data) {
+  MonHoc new_mh;
+  new_mh.init_from_string(data);
+
+  bool check = dsmh.is_exist(new_mh);
   if (check) return;
-
-  dsmh.insert(mh);
-}
-
-void hieu_chinh_mh(DanhSachMonHoc& dsmh, MonHoc old_mh, MonHoc new_mh) {
-  bool check = dsmh.is_exist(old_mh);
-
-  if (!check) return;
-  dsmh.remove(old_mh);
   dsmh.insert(new_mh);
 }
 
-void xoa_mh(DanhSachMonHoc& dsmh, MonHoc mh) {
-  bool check = dsmh.is_exist(mh);
+void update_mh(char ** data) {
+  MonHoc old_mh = dsmh.search_code(data[0]);
+  dsmh.remove(old_mh);
+  
+  add_mh(data);
+}
 
-  if (!check) return;
-  dsmh.remove(mh);
+void delete_mh(char * ma_mh) {
+  MonHoc chosen_one = dsmh.search_code(chosen_one);
+  dsmh.remove(chosen_one);
 }

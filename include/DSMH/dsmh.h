@@ -1,8 +1,11 @@
 #pragma once
 
+#include <iostream>
 #include <fstream>
 #include <cstring>
 #include <functional>
+
+#include "../../src/helpers/helpers.h"
 
 /********** MON HOC as a KEY of a node *********/ 
 class MonHoc {
@@ -21,6 +24,9 @@ public:
   bool operator>(MonHoc);
   bool operator<(MonHoc);
   bool operator==(MonHoc);
+  
+  // Methods
+  void init_from_string(char **);
 };
 
 /*************** AVL TREE NODE ****************/

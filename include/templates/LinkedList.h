@@ -6,8 +6,8 @@
 template <typename T>
 class Node {
 private:
-    T data_;
     Node<T>* next_;
+    T data_;
 
 public:
     Node<T>() : next_(NULL){;}

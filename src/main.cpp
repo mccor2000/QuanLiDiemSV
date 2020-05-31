@@ -104,7 +104,8 @@ Form App::get_form() {
     case DSLTC: 
       form.set_type(1);
       form.set_len(6);
-      form.set_submit(add_loptc);
+      if (choice == CHOOSE_THEM) form.set_submit(add_loptc);
+      if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_loptc);
       break;
     case DSLCQ:
       form.set_type(2);
@@ -114,7 +115,7 @@ Form App::get_form() {
     case DSMH: 
       form.set_type(3);
       form.set_len(4);
-      form.set_submit(NULL);
+      form.set_submit(add_mh);
       break;
     case DSSV:
       form.set_type(4);
@@ -229,11 +230,8 @@ void App::process_menu() {
 
     case CHOOSE_THEM: {
       render_form();
-      bool is_valid = current_form.process_input();
-      // render_table();
-      wclear(wins[1]);
-      // current_table.display();
-      mvwprintw(wins[1], 1, 1, (char *)dsltc.getN());
+      bool done = current_form.process_input();
+      current_table.display();
       wrefresh(wins[1]);
       break;
     }

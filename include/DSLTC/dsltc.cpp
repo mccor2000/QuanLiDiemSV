@@ -136,8 +136,10 @@ void DanhSachLopTC::save() {
     // Save LopTC
     f.write((char *)node[i], sizeof(LopTC));  
     // Save dsdk
-    const char * temp = std::to_string(node[i]->malop).c_str(); 
-    node[i]->dsdk->save(temp);
+    if (node[i]->dsdk) {
+      const char * temp = std::to_string(node[i]->malop).c_str(); 
+      node[i]->dsdk->save(temp);
+    }
   }
 
   // Close file
