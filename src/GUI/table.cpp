@@ -116,22 +116,37 @@ void Table::display() {
   wrefresh(current_window);
 }
 
-void Table::render_dsltc() {
-  print_dsltc(current_window, average_width, width);
+void Table::render_dsltc(DanhSachLopTC dsltc) {
+  int length = dsltc.getN();  
+  
+  int current_yCoord = 5;
+  for (int i = 0; i < length; i++) {
+    LopTC * curr_loptc = dsltc.node[i];
+    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width) * 0, curr_loptc->maMH);
+    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width) * 1, curr_loptc->nienkhoa);
+    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width) * 2, std::to_string(curr_loptc->hocki).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width) * 3, std::to_string(curr_loptc->nhom).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width) * 4, std::to_string(curr_loptc->sv_min).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width) * 5, std::to_string(curr_loptc->sv_max).c_str());
+
+    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
+    current_yCoord += 2;
+  }
+  wrefresh(current_window);
 }
 
-void Table::render_dslcq(LinkedList<char*> dslcq) {
-  Node<char*> * curr_lcq = dslcq.head();
-    int current_yCoord = 5;
-    if (dslcq.count() != 0)
+void Table::render_dslcq(DanhSachLopCQ dslcq) {
+  int current_yCoord = 5;
+  Node<LopCQ> * curr_node = dslcq.head();
+  while (curr_node != NULL) {
+    LopCQ curr_lopcq = curr_node->get_data();
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_lopcq.MALOP);
+    curr_node = curr_node->get_next();
 
-    while(curr_lcq != NULL){
-      mvwprintw(current_window, current_yCoord, 1 + average_width * 0, curr_lcq->get_data());
-      mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
-      current_yCoord += 2;
-      wrefresh(current_window);
-      curr_lcq = curr_lcq->get_next();
-    }
+    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
+    current_yCoord += 2;
+  }
+  wrefresh(current_window);
 }
 
 void Table::render_dsmh(DanhSachMonHoc dsmh) {
@@ -152,10 +167,35 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
 }
 
 void Table::render_dssv(DanhSachSinhVien dssv) {
-  
+  int current_yCoord = 5;
+  Node<SinhVien> * curr_node = dssv.head();
+  while (curr_node != NULL) {
+    SinhVien curr_sv = curr_node->get_data();
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_sv.get_MASV());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_sv.get_HO());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv.get_TEN());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, (char *)curr_sv.get_PHAI());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, curr_sv.get_SDT());
+    curr_node = curr_node->get_next();
+
+    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
+    current_yCoord += 2;
+  }
+  wrefresh(current_window);
 }
 
 void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
+  int current_yCoord = 5;
+  Node<SinhVienDK> * curr_node = dsdk.head();
+  while (curr_node != NULL) {
+    SinhVienDK curr_svdk = curr_node->get_data();
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_svdk.get_MASV());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_svdk.get_DIEM()).c_str());
+    curr_node = curr_node->get_next();
 
+    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
+    current_yCoord += 2;
+  }
+  wrefresh(current_window);
 }
 

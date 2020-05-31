@@ -180,14 +180,14 @@ void App::process_menu() {
       state = DSLTC;
       render_menu(Menu(wins[0], 2));
       render_table();
-      current_table.render_dsltc();
+      current_table.render_dsltc(dsltc);
       break;
 
     case CHOOSE_QLLCQ:
       state = DSLCQ;
       render_menu(Menu(wins[0], 2));
       render_table();
-      current_table.render_dslcq(DanhSachLopChinhQuy(dslcq));
+      current_table.render_dslcq(dslcq);
       break;
 
     case CHOOSE_QLMH:
@@ -282,18 +282,18 @@ void App::process_input() {
 }
 
 void App::run() {
-  MonHoc new_mh("TOAN", "TOAN", 12, 12);
-  dsmh.insert(new_mh);
-  MonHoc new_mh2("VAN", "VAN", 12, 12);
-  dsmh.insert(new_mh2);
-  MonHoc new_mh3("ANH", "ANH", 12, 12);
-  dsmh.insert(new_mh3);
-  
-  LopCQ new_lcq("d18cn2");
-  dslcq.push_back(new_lcq);
+  // MonHoc new_mh("TOAN", "TOAN", 12, 12);
+  // dsmh.insert(new_mh);
+  // MonHoc new_mh2("VAN", "VAN", 12, 12);
+  // dsmh.insert(new_mh2);
+  // MonHoc new_mh3("ANH", "ANH", 12, 12);
+  // dsmh.insert(new_mh3);
 
-  LopCQ new_lcq2("d19cn2");
-  dslcq.push_back(new_lcq2);
+  // LopCQ new_lcq("d18cn2");
+  // dslcq.push_back(new_lcq);
+
+  // LopCQ new_lcq2("d19cn2");
+  // dslcq.push_back(new_lcq2);
 
   current_menu.display();
   wrefresh(wins[0]);
@@ -310,6 +310,9 @@ void App::exit() {
   wclear(wins[0]);
   wclear(wins[1]);
   clear();
+  dsltc.save();
+  dslcq.save();
+  dsmh.save();
   free_menu(current_menu.menu);
   endwin();
 }
