@@ -1,6 +1,6 @@
 #include "library.h"
 
-LinkedList<char*> in_bang_diem_tong_ket(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP) {
+LinkedList<char*> in_bang_diem_tong_ket(char* MALOP) {
   // Get dssv
   LinkedList<char* > result;
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);

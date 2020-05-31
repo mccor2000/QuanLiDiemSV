@@ -1,19 +1,19 @@
 #include "library.h"
 
-LinkedList<char*> DSLopTC_HUY(DanhSachLopTC& dsltc){
-    LinkedList<char*> result;
+// LinkedList<char*> DSLopTC_HUY(){
+//     LinkedList<char*> result;
 
-    for(int i=0;i<dsltc.getN();i++){
-        LopTC loptc;
-        loptc = *dsltc.node[i];
-        if(loptc.huylop){
-            result.push_back(converting(dsltc.node[i]->malop));
-        }
-    }
-    return result;
-}
+//     for(int i=0;i<dsltc.getN();i++){
+//         LopTC loptc;
+//         loptc = *dsltc.node[i];
+//         if(loptc.huylop){
+//             result.push_back(converting(dsltc.node[i]->malop));
+//         }
+//     }
+//     return result;
+// }
 
-bool HuyLopTC(DanhSachLopTC& dsltc,int ma_lop){
+bool HuyLopTC(int ma_lop){
     for(int i=0;i<dsltc.getN();i++){
         LopTC loptc;
         loptc = *dsltc.node[i];
@@ -24,4 +24,3 @@ bool HuyLopTC(DanhSachLopTC& dsltc,int ma_lop){
     }
     return 0;
 }
-

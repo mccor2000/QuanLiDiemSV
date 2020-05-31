@@ -1,6 +1,6 @@
 #include "library.h"
 
-LinkedList<char*> in_danh_sach_dang_ki(DanhSachLopTC &dsltc, char* nienkhoa, short hocki, short nhom, char * maMH) {
+LinkedList<char*> in_danh_sach_dang_ki(char* nienkhoa, short hocki, short nhom, char * maMH) {
   LinkedList<char*> result;
   DanhSachSinhVienDK dsdk; 
   
