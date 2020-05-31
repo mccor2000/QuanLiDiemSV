@@ -1,5 +1,4 @@
 #include "./helpers.h"
-// valid Name
 
 bool valid_Name(char *const s){
         for(int i=0;i<strlen(s);i++){
