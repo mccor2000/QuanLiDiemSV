@@ -1,7 +1,7 @@
 #include "library.h"
 
-void them_sv(DanhSachLopCQ &DSLCQ, char** data) {
-  DanhSachSinhVien * dssv = DSLCQ.get_dssv(data[5]);
+void them_sv(char** data) {
+  DanhSachSinhVien * dssv = dslcq.get_dssv(data[5]);
   
   if (dssv == NULL) {
     std::cout << "Lop khong ton tai\n";
@@ -24,8 +24,8 @@ int vitri_sv(DanhSachSinhVien* DSSV,char* MASV){
   return -1;
 }
 
-void xoa_sv(DanhSachLopCQ &DSLCQ, char * ma_lop, char* MASV) {
-  DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
+void xoa_sv(char * ma_lop, char* MASV) {
+  DanhSachSinhVien * dssv = dslcq.get_dssv(ma_lop);
 
   if (dssv == NULL) {
     std::cout << "Lop khong ton tai\n";
@@ -34,8 +34,8 @@ void xoa_sv(DanhSachLopCQ &DSLCQ, char * ma_lop, char* MASV) {
   dssv->remove(vitri_sv(dssv,MASV));
 }
 
-void hieu_chinh_sv(DanhSachLopCQ &DSLCQ, char * ma_lopCQ, char* MASV, char** data) {
-  DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lopCQ);
+void hieu_chinh_sv(char * ma_lopCQ, char* MASV, char** data) {
+  DanhSachSinhVien * dssv = dslcq.get_dssv(ma_lopCQ);
 
   if (dssv == NULL) {
     std::cout << "Lop khong ton tai\n";

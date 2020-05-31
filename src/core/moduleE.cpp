@@ -10,13 +10,12 @@ void add_mh(char ** data) {
 }
 
 void update_mh(char ** data) {
-  MonHoc old_mh = dsmh.search_code(data[0]);
+  MonHoc old_mh = *dsmh.search_code(data[0]);
   dsmh.remove(old_mh);
-  
   add_mh(data);
 }
 
 void delete_mh(char * ma_mh) {
-  MonHoc chosen_one = dsmh.search_code(chosen_one);
+  MonHoc chosen_one = *dsmh.search_code(ma_mh);
   dsmh.remove(chosen_one);
 }

@@ -1,10 +1,11 @@
 #include "library.h"
 
-LinkedList<char* > in_bang_diem_trung_binh(DanhSachLopCQ& dslcq, DanhSachMonHoc& dsmh, DanhSachLopTC& dsltc, char* MALOP){
+LinkedList<char* > in_bang_diem_trung_binh(char* MALOP){
   // Get dssv   
   LinkedList<char* > result;
   DanhSachSinhVien * dssv = dslcq.get_dssv(MALOP);
   if(dssv == NULL){
+    std::cout << "Lop khong ton tai\n";
     return result;
   }
   
