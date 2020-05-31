@@ -1,9 +1,4 @@
-#ifndef _HELPER_H
-#define _HELPER_H
-#include<cstring>
-#include <iostream>
-#include <math.h>
-#include<string>
+#include "./helpers.h"
 
 char *ltrim(char *const s){
         size_t len;
@@ -74,39 +69,3 @@ char* up_low(char *const s){
 char* Trim(char *const s){
     return up_low(xoakt(trim(s)));
 }
-
-// valid Name
-bool valid_Name(char *const s){
-        for(int i=0;i<strlen(s);i++){
-                if(s[i]>=33 && s[i]<=64){
-                        return 0;
-                }
-                if(s[i]>=91 && s[i]<=96){
-                        return 0;
-                }
-                if(s[i]>122){
-                        return 0;
-                }
-        }
-        return 1;
-}
-// round score
-float Round(float score){
-        return roundf(score*100)/100;
-}
-// valid Scroe
-bool valid_Num(float score){
-        return score<0?0:1;
-}
-char* Upper(char *const str){
-        for(int i=0;i<strlen(str);i++){
-                if(str[i]>=97 && str[i]<=122)
-                        str[i]-=32;
-        }
-        return str;
-}
-
-
-
-
-#endif
