@@ -1,4 +1,3 @@
-#pragma once
 #ifndef _DSMH_H
 #define _DSMH_H
 #include <iostream>
