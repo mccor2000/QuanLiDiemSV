@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _LIBRARY_H
+#define _LIBRARY_H
 // Core library
 #include <iostream>
 #include <fstream>
@@ -72,3 +72,4 @@ LinkedList<char*> in_bang_diem_trung_binh(char* MALOP);
 LinkedList<char*> in_bang_diem_tong_ket(char* MALOP);
 
 char* converting(int x);
+#endif

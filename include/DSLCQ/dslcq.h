@@ -1,4 +1,6 @@
 #pragma once
+#ifndef _DSLCQ_H
+#define _DSLCQ_H
 
 #include "../templates/LinkedList.h"
 #include "../DSSV/dssv.h"
@@ -25,3 +27,4 @@ public:
   void load();
 };
 
+#endif
