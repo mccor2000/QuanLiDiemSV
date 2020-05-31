@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _FORM_H
+#define _FORM_H
 #include <form.h>
 #include <functional>
 
@@ -26,3 +26,4 @@ public:
   bool process_input();
   void display();
 };
+#endif
