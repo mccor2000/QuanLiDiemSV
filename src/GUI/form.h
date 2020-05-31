@@ -17,11 +17,12 @@ private:
 
 public:
   Form(WINDOW *);
-  
+  Form() {;}
+
   void set_type(int t)                            { type = t; }
   void set_len(int l)                             { len = l; }
   void set_submit(std::function<void(char**)> f)  { submit = f; }
 
-  void process_input();
+  bool process_input();
   void display();
 };

@@ -1,7 +1,6 @@
 #include "./form.h"
 
 char * LOPTC_FORM_LABEL[] = {
-  "Ma lop: ",
   "Ma MH: ",
   "Nien khoa: ",
   "Hoc ki: ",
@@ -88,7 +87,7 @@ void Form::display() {
   wrefresh(current_window);
 }
 
-void Form::process_input() {
+bool Form::process_input() {
   int input;
   bool cancel = false;
   while(!cancel) {
@@ -128,11 +127,11 @@ void Form::process_input() {
         }
 
         submit(form_data);
-        return;
+        return true;
       }
       case 27: 
         cancel = true;
-        break;
+        return false;
 
       default:
 			  form_driver(form, input);

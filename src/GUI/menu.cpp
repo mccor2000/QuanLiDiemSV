@@ -1,5 +1,15 @@
 #include "./menu.h"
 
+char * main_menu_items[] = {
+  "Quan ly lop tin chi",
+  "Quan ly lop chinh quy",
+  "Quan ly mon hoc",
+  "Nhap diem",
+  "Dang ki",
+  "Xem diem",
+  "Thoat",
+};
+
 char * crud_menu_items[] = {
   "Them",
   "Hieu chinh",
@@ -7,20 +17,27 @@ char * crud_menu_items[] = {
   "Quay lai",
 };
 
-char * main_menu_items[] = {
-  "Quan ly lop tin chi",
-  "Quan ly lop chinh quy",
-  "Quan ly mon hoc",
-  "Nhap diem",
-  "Dang ki",
-  "Thoat",
+char * score_board_menu_items[] = {
+  "Bang diem mon hoc",
+  "Bang diem khoa hoc",
+  "Bang diem tong ket",
+  "Quay lai",
 };
 
 Menu::Menu(WINDOW * w, int t) {
   current_window = w;
   type = t;
-  if (t == 1) len = 6;
-  if (t == 2) len = 4;
+  switch (type) {
+    case 1: 
+      len = 8; 
+      break;
+    case 2: 
+      len = 4; 
+      break;
+    case 3:
+      len = 5;
+      break;
+  }
 
   char ** items = get_items();
   ITEM **menu_items;
@@ -33,9 +50,12 @@ Menu::Menu(WINDOW * w, int t) {
 }
 
 char ** Menu::get_items() {
-  if (type == 1) return main_menu_items;
-  if (type == 2) return crud_menu_items;
-  return NULL;
+  switch (type) {
+    case 1: return main_menu_items; 
+    case 2: return crud_menu_items;
+    case 3: return score_board_menu_items;
+    default: return NULL;
+  }
 }
 
 void Menu::display() {
