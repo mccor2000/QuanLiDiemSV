@@ -1,3 +1,5 @@
+#ifndef _HELPERS_H
+#define _HELPERS_H
 #include<cstring>
 #include <iostream>
 #include <math.h>
@@ -22,3 +24,4 @@ char * upper_case_letters(char * const str);
 
 short string_to_short(char * str);
 int string_to_int(char * str);
+#endif

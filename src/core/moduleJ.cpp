@@ -1,6 +1,6 @@
 #include "library.h"
 
-LinkedList<char*> Show_Score(DanhSachMonHoc& dsmh, DanhSachLopCQ &dslcq, DanhSachLopTC& dsltc,char* nienkhoa, short hocki, short nhom, char tenMH[]){
+LinkedList<char*> Show_Score(char* nienkhoa, short hocki, short nhom, char tenMH[]){
     LinkedList<char*> result;
     MonHoc* mh = new MonHoc();
     mh = dsmh.search_name(tenMH);

@@ -1,7 +1,7 @@
 #include "library.h"
 
-LinkedList<char*> in_danh_sach_sv(DanhSachLopCQ DSLCQ, char * ma_lop) {
-  DanhSachSinhVien * dssv = DSLCQ.get_dssv(ma_lop);
+LinkedList<char*> in_danh_sach_sv(char * ma_lop) {
+  DanhSachSinhVien * dssv = dslcq.get_dssv(ma_lop);
   LinkedList<char*> result;
   if (dssv == NULL) {
     char* res;
