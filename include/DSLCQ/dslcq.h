@@ -15,7 +15,7 @@ public:
 
 class DanhSachLopCQ: public LinkedList<LopCQ> {
 private:
-  char db[32] = "../../database/dslcq.d";
+  char db[32] = "../database/dslcq.d";
 
 public:
   DanhSachSinhVien * get_dssv(char *);

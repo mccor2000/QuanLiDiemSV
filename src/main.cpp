@@ -2,11 +2,12 @@
 #include "./GUI/menu.h"
 #include "./GUI/form.h"
 
-#include "./core/library.h"
-
+#include "./core/database.h"
 DanhSachLopTC dsltc;
 DanhSachLopCQ dslcq;
 DanhSachMonHoc dsmh;
+
+#include "./core/library.h"
 
 // Chooses's code
 const short CHOOSE_QLLTC = 1;
@@ -39,10 +40,6 @@ class App {
 private:
   bool is_running;
   short choice, state;
-  // Database
-  DanhSachLopTC dsltc;
-  DanhSachLopCQ dslcq;
-  DanhSachMonHoc dsmh;
 
   // UI
   WINDOW * wins[2];
@@ -181,6 +178,7 @@ void App::process_menu() {
       render_menu(Menu(wins[0], 2));
       render_table();
       current_table.render_dsltc(dsltc);
+      current_table.process_input();
       break;
 
     case CHOOSE_QLLCQ:
@@ -289,11 +287,11 @@ void App::run() {
   // MonHoc new_mh3("ANH", "ANH", 12, 12);
   // dsmh.insert(new_mh3);
 
-  // LopCQ new_lcq("d18cn2");
-  // dslcq.push_back(new_lcq);
+  LopCQ new_lcq("d18cn2");
+  dslcq.push_back(new_lcq);
 
-  // LopCQ new_lcq2("d19cn2");
-  // dslcq.push_back(new_lcq2);
+  LopCQ new_lcq2("d19cn2");
+  dslcq.push_back(new_lcq2);
 
   current_menu.display();
   wrefresh(wins[0]);

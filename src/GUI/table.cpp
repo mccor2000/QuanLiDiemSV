@@ -37,34 +37,55 @@ char * DSDK_FIELDS[] = {
 
 Table::Table(WINDOW * win) {
   current_window = win;
+  update_form = Form(win);
+
   getmaxyx(win, height, width);
   page_size = width - 5;
+ 
   current_line = 0;
-  input = 0;
-}
-
-bool Table::get_input() {
-  input = getch();
-  if (input == KEY_F(1)) {
-    return false;
-  }
-
- process_input();
-  return true;
+  current_index = 0;
 }
 
 void Table::process_input() {
-  int top_char;
-  int bottom_char;
+  int page_top = 5;
+  int page_bottom = page_size - 1;
 
-  switch (input) {
-    case KEY_UP:
-      current_line--;
-      break;
-    case KEY_DOWN:
-      current_line++;
-      break;
+  int input;
+  while (input = wgetch(current_window) != 27) {
+    switch (input) {
+      case KEY_UP:
+        if (current_line > page_top) 
+          current_line--;
+        else
+          current_line = page_top;  
+        break;
+   
+      case KEY_DOWN:
+        if (current_line < page_bottom) 
+          current_line++;
+        else 
+          current_line = page_bottom;
+        break;
+    
+      case 10:
+        char * buffer = get_item_data();
+        char ** form_data;
+        for (int i = 0; i < len; i++) {
+          for (int j = 0; j < 1 + average_width; j++) {
+            form_data[i][j] = buffer[i*len + j];
+          }
+        }
+        update_form.set_buffer(form_data);
+        bool done = update_form.process_input();
+        break;
+    }
   }
+}
+
+char * Table::get_item_data() {
+  char * buffer;
+  int temp = mvwinnstr(current_window, current_line, 1, buffer, width);
+  return buffer;
 }
 
 void Table::display() {
@@ -73,23 +94,27 @@ void Table::display() {
   switch (type) {
     case 1:
       fields = DSLTC_FIELDS;
-      len = 7; 
+      len = 7;
       break;
     case 2:
       fields = DSLCQ_FIELDS;
       len = 2;
+      update_form = Form();
       break;
     case 3:
       fields = DSMH_FIELDS;
       len = 4;
+      update_form = Form();
       break;
     case 4:
       fields = DSSV_FIELDS;
       len = 5;
+      update_form = Form();
       break;
     case 5:
       fields = DSDK_FIELDS;
       len = 2;
+      update_form = Form();
       break;
   }
   
@@ -198,4 +223,5 @@ void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
   }
   wrefresh(current_window);
 }
+
 

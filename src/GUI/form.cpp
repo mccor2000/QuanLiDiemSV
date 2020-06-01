@@ -29,6 +29,11 @@ char * SV_FORM_LABEL[] = {
   "Ma lop: ",
 };
 
+char * SVDK_FORM_LABEL[] = {
+  "Ma SV: ",
+  "Diem: ",
+};
+
 char * NHAP_DIEM_FORM_LABEL[] = {
   "Nien khoa: ",
   "Hoc ki: ",
@@ -139,4 +144,3 @@ bool Form::process_input() {
 	  } 
   }
 }
-

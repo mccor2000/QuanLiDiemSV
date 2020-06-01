@@ -8,11 +8,18 @@
 #include <string>
 #include <stdio.h>
 
+// Templates
+#include "../../include/templates/LinkedList.h"
+
+// Base classes
+#include "../../include/DSSV/dssv.h"
+#include "../../include/DSDK/dsdk.h"
+#include "../../include/DSMH/dsmh.h"
+#include "../../include/DSLTC/dsltc.h"
+#include "../../include/DSLCQ/dslcq.h"
+
 // Helpers
 #include "../helpers/helpers.h"
-
-// Database 
-#include "./database.h"
 
 extern DanhSachLopTC dsltc;
 extern DanhSachLopCQ dslcq;
