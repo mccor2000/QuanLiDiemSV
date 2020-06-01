@@ -2,6 +2,7 @@
 #define _FORM_H
 #include <form.h>
 #include <functional>
+#include "../helpers/helpers.h"
 
 class Form {
 private:  

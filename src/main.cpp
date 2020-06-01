@@ -3,6 +3,7 @@
 #include "./GUI/form.h"
 
 #include "./core/database.h"
+
 DanhSachLopTC dsltc;
 DanhSachLopCQ dslcq;
 DanhSachMonHoc dsmh;
@@ -50,7 +51,8 @@ private:
   
   Form get_form();
   Table get_table();
-    
+  
+  // Private methods
   void render_menu(Menu);
   void render_table();
   void render_form();
@@ -75,9 +77,10 @@ App::App() {
   clear();
   cbreak();
   noecho();
+  curs_set(0);
   keypad(stdscr, TRUE);
   start_color();
-  init_pair(1, COLOR_RED, COLOR_BLACK);
+  // init_pair(1, COLOR_RED, COLOR_BLACK);
   int row, column;
   getmaxyx(stdscr, row, column);
   //-- Menu window
@@ -177,8 +180,9 @@ void App::process_menu() {
       state = DSLTC;
       render_menu(Menu(wins[0], 2));
       render_table();
-      current_table.render_dsltc(dsltc);
-      current_table.process_input();
+      do {
+        current_table.render_dsltc(dsltc);
+      } while (current_table.get_input());
       break;
 
     case CHOOSE_QLLCQ:
@@ -230,6 +234,8 @@ void App::process_menu() {
     case CHOOSE_THEM: {
       render_form();
       bool done = current_form.process_input();
+      if (done) wclear(wins[1]);
+
       current_table.display();
       wrefresh(wins[1]);
       break;
@@ -280,19 +286,6 @@ void App::process_input() {
 }
 
 void App::run() {
-  // MonHoc new_mh("TOAN", "TOAN", 12, 12);
-  // dsmh.insert(new_mh);
-  // MonHoc new_mh2("VAN", "VAN", 12, 12);
-  // dsmh.insert(new_mh2);
-  // MonHoc new_mh3("ANH", "ANH", 12, 12);
-  // dsmh.insert(new_mh3);
-
-  LopCQ new_lcq("d18cn2");
-  dslcq.push_back(new_lcq);
-
-  LopCQ new_lcq2("d19cn2");
-  dslcq.push_back(new_lcq2);
-
   current_menu.display();
   wrefresh(wins[0]);
   wrefresh(wins[1]);
@@ -311,11 +304,11 @@ void App::exit() {
   dsltc.save();
   dslcq.save();
   dsmh.save();
-  free_menu(current_menu.menu);
+  // free_menu(current_menu.menu);
   endwin();
 }
 
 int main() {
   App our_app;
-  our_app.run(); 
+  our_app.run();
 }

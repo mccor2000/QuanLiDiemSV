@@ -2,6 +2,7 @@
 #define _TABLE_H
 #include "../core/library.h"
 #include "./form.h"
+#include "./color.h"
 
 #include <iostream>
 #include <string>
@@ -10,21 +11,38 @@
 
 class Table {
 private:
-  // Properties
-  WINDOW * current_window;
-  Form update_form;
-
-  int width, height;
-  int page_size, len;
-  int average_width;
-  
   int type;
+  int input;
+
+  // Window 
+  WINDOW * current_window;
+  int width;
+  int height;
+  int top_line;
+  int page_size;
+  int current_line;
+  int current_index;
+  
+  // Title
   char title[64];
 
-  int current_index;
-  int current_line; 
+  // Fields
+  int len;
+  int average_width;
   
+  // Popup form
+  Form update_form;
+ 
+  // Colors
+  Color title_color;
+  Color curr_color;
+  Color status_color;
+
+  // Private methods
   char * get_item_data();
+  void draw_column_seperator(int);
+  void process_input();
+
 public:
   // Constructor
   Table(WINDOW *);
@@ -36,7 +54,7 @@ public:
   
   // Public methods
   void display();
-  void process_input();
+  bool get_input();
 
   void render_dsltc(DanhSachLopTC dsltc);
   void render_dslcq(DanhSachLopCQ dslcq);

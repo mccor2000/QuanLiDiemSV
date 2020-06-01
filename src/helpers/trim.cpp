@@ -69,3 +69,20 @@ char* up_low(char *const s){
 char* Trim(char *const s){
     return up_low(xoakt(trim(s)));
 }
+
+char * trim_whitespaces (char * str) {
+	char *end;
+	while(isspace(*str))
+		str++;
+
+	if(*str == 0) return str;
+
+	// trim trailing space
+	end = str + strnlen(str, 128) - 1;
+	while(end > str && isspace(*end))
+		end--;
+
+	// write new null terminator
+	*(end+1) = '\0';
+	return str;
+}

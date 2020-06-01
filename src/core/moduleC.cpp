@@ -1,6 +1,6 @@
 #include "library.h"
 
-void them_sv(char** data) {
+void them_sv(char ** data) {
   DanhSachSinhVien * dssv = dslcq.get_dssv(data[5]);
   
   if (dssv == NULL) {
