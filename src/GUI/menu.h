@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _MENU_H
+#define _MENU_H
 #include <iostream>
 #include <ncurses.h>
 #include <menu.h>
@@ -21,3 +21,4 @@ private:
   void process_input(int);
   char ** get_items();
 };
+#endif

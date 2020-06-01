@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _DSMH_H
+#define _DSMH_H
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -93,3 +93,4 @@ private:
   void in_order(node *, std::function<void(MonHoc)>);
   void save_node(node *, std::ofstream &);
 };
+#endif

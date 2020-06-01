@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _TABLE_H
+#define _TABLE_H
 #include "../core/library.h"
 #include "./form.h"
 
@@ -44,3 +44,4 @@ public:
   void render_dssv(DanhSachSinhVien dssv);
   void render_dsdk(DanhSachSinhVienDK dsdk);
 };
+#endif
