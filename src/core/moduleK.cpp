@@ -11,7 +11,7 @@ LinkedList<char* > in_bang_diem_trung_binh(char* MALOP){
   
   // Get list MonHoc
   LinkedList<MonHoc> list_mh;
-  dsmh.enumerate([list_mh](MonHoc x) mutable { 
+  dsmh.enumerate([&list_mh](MonHoc x) mutable { 
       list_mh.push_back(x); 
   });
   
