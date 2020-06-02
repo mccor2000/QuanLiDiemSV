@@ -32,7 +32,7 @@ bool SinhVien::operator < (SinhVien x) {
 }
 
 bool SinhVien::operator == (SinhVien x) {
-    return (strcmp(TEN_, x.TEN_) == 0);
+    return (strcmp(MASV_, x.MASV_) == 0);
 }
 
 
@@ -50,6 +50,34 @@ SinhVien * DanhSachSinhVien::search_sv(char * ma_sv) {
   // Return
   if (curr_node == NULL) return NULL;
   return &sv;
+}
+
+void DanhSachSinhVien::delete_sv(char * ma_sv) {
+  Node<SinhVien> * curr_node = p_head_;
+  
+  // If head
+  if (curr_node == NULL) return;
+  if (strcmp(curr_node->get_data().get_MASV(), ma_sv) == 0) {
+    p_head_ = curr_node->get_next();
+    delete curr_node;
+    return;
+  }
+
+  do {
+    if (strcmp(curr_node->get_next()->get_data().get_MASV(), ma_sv) == 0) {
+      Node<SinhVien> * temp = curr_node->get_next();
+      if (curr_node->get_next() != p_tail_) {
+        // Normal node
+        curr_node->set_next(curr_node->get_next()->get_next());
+      } else {
+        // If tail
+        p_tail_ = curr_node;
+      }
+      delete temp;
+      return;
+    }
+    curr_node = curr_node->get_next();
+  } while (curr_node != NULL);
 }
 
 void DanhSachSinhVien::save(char * ma_lop) {

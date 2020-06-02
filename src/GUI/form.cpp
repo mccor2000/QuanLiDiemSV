@@ -29,6 +29,11 @@ char * SV_FORM_LABEL[] = {
   "Ma lop: ",
 };
 
+char * SVDK_FORM_LABEL[] = {
+  "Ma SV: ",
+  "Diem: ",
+};
+
 char * NHAP_DIEM_FORM_LABEL[] = {
   "Nien khoa: ",
   "Hoc ki: ",
@@ -123,9 +128,10 @@ bool Form::process_input() {
       case 10: {
         char * form_data[len];
         for (int i = 0; i < len; i++) {
-          form_data[i] = field_buffer(fields[i], 0);
+          form_driver(form, REQ_NEXT_FIELD);
+    	  form_driver(form, REQ_PREV_FIELD);
+  	  form_data[i] = trim_whitespaces(field_buffer(fields[i], 0));
         }
-
         submit(form_data);
         return true;
       }
@@ -134,9 +140,8 @@ bool Form::process_input() {
         return false;
 
       default:
-			  form_driver(form, input);
-			  break;
-	  } 
+	form_driver(form, input);
+	break;
+    } 
   }
 }
-

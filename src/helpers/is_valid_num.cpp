@@ -1,6 +1,6 @@
 #include "./helpers.h"
 
-bool valid_Num(float score){
-        return score<0?0:1;
+bool is_valid_number(float score) {
+    return (score < 0) ? 0 : 1;
 }
 

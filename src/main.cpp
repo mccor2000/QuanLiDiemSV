@@ -2,11 +2,12 @@
 #include "./GUI/menu.h"
 #include "./GUI/form.h"
 
-#include "./core/library.h"
+#include "./core/database.h"
 
 DanhSachLopTC dsltc;
 DanhSachLopCQ dslcq;
 DanhSachMonHoc dsmh;
+
 
 // Chooses's code
 const short CHOOSE_QLLTC = 1;
@@ -39,10 +40,6 @@ class App {
 private:
   bool is_running;
   short choice, state;
-  // Database
-  DanhSachLopTC dsltc;
-  DanhSachLopCQ dslcq;
-  DanhSachMonHoc dsmh;
 
   // UI
   WINDOW * wins[2];
@@ -53,9 +50,11 @@ private:
   
   Form get_form();
   Table get_table();
-    
+  
+  // Private methods
   void render_menu(Menu);
   void render_table();
+  void render_table_data();
   void render_form();
 
   void process_input();
@@ -78,9 +77,10 @@ App::App() {
   clear();
   cbreak();
   noecho();
+  curs_set(0);
   keypad(stdscr, TRUE);
   start_color();
-  init_pair(1, COLOR_RED, COLOR_BLACK);
+  // init_pair(1, COLOR_RED, COLOR_BLACK);
   int row, column;
   getmaxyx(stdscr, row, column);
   //-- Menu window
@@ -110,27 +110,28 @@ Form App::get_form() {
     case DSLCQ:
       form.set_type(2);
       form.set_len(1);
-      form.set_submit(NULL);
+      // if (choice == CHOOSE_THEM) form.set_submit(add_lopcq);
+      // if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_lopcq);
       break;
     case DSMH: 
       form.set_type(3);
       form.set_len(4);
-      form.set_submit(add_mh);
+      if (choice == CHOOSE_THEM) form.set_submit(add_mh);
+      if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_mh);
       break;
     case DSSV:
       form.set_type(4);
       form.set_len(4);
-      form.set_submit(NULL);
+      // if (choice == CHOOSE_THEM) form.set_submit(add_sv);
+      // if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_sv);
       break;
     case NHAP_DIEM:
       form.set_type(5);
       form.set_len(4);
-      form.set_submit(NULL);
       break;
     case DANG_KI:
       form.set_type(6);
       form.set_len(2);
-      form.set_submit(NULL);
       break;
   }
   return form;
@@ -168,6 +169,23 @@ void App::render_table() {
   current_table.display();
 }
 
+void App::render_table_data() {
+  switch (state) {
+    case DSLTC: 
+      current_table.render_dsltc(dsltc);
+      break;
+    case DSLCQ:
+      current_table.render_dslcq(dslcq);
+      break;
+    case DSMH: 
+      current_table.render_dsmh(dsmh);
+      break;
+    case DSSV:
+      // current_table.render_dssv();
+      break;
+  }
+}
+
 void App::render_form() {
   wclear(wins[1]);
   current_form = get_form();
@@ -180,20 +198,27 @@ void App::process_menu() {
       state = DSLTC;
       render_menu(Menu(wins[0], 2));
       render_table();
-      current_table.render_dsltc(dsltc);
+      do {
+        render_table_data();
+      } while (current_table.get_input());
       break;
 
     case CHOOSE_QLLCQ:
       state = DSLCQ;
       render_menu(Menu(wins[0], 2));
       render_table();
+      do {
+        render_table_data();
+      } while (current_table.get_input());
       break;
 
     case CHOOSE_QLMH:
       state = DSMH;
       render_menu(Menu(wins[0], 2));
       render_table();
-      current_table.render_dsmh(dsmh);
+      do {
+        current_table.render_dsmh(dsmh);
+      } while (current_table.get_input());
       break;
     
     case CHOOSE_NHAP_DIEM: {
@@ -231,6 +256,8 @@ void App::process_menu() {
     case CHOOSE_THEM: {
       render_form();
       bool done = current_form.process_input();
+      if (done) wclear(wins[1]);
+
       current_table.display();
       wrefresh(wins[1]);
       break;
@@ -281,13 +308,6 @@ void App::process_input() {
 }
 
 void App::run() {
-  MonHoc new_mh("TOAN", "TOAN", 12, 12);
-  dsmh.insert(new_mh);
-  MonHoc new_mh2("VAN", "VAN", 12, 12);
-  dsmh.insert(new_mh2);
-  MonHoc new_mh3("ANH", "ANH", 12, 12);
-  dsmh.insert(new_mh3);
-  
   current_menu.display();
   wrefresh(wins[0]);
   wrefresh(wins[1]);
@@ -303,11 +323,14 @@ void App::exit() {
   wclear(wins[0]);
   wclear(wins[1]);
   clear();
-  free_menu(current_menu.menu);
+  dsltc.save();
+  dslcq.save();
+  dsmh.save();
+  // free_menu(current_menu.menu);
   endwin();
 }
 
 int main() {
   App our_app;
-  our_app.run(); 
+  our_app.run();
 }

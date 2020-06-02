@@ -8,16 +8,22 @@
 #include <string>
 #include <stdio.h>
 
+// Templates
+#include "../../include/templates/LinkedList.h"
+
+// Base classes
+#include "../../include/DSSV/dssv.h"
+#include "../../include/DSDK/dsdk.h"
+#include "../../include/DSMH/dsmh.h"
+#include "../../include/DSLTC/dsltc.h"
+#include "../../include/DSLCQ/dslcq.h"
+
 // Helpers
 #include "../helpers/helpers.h"
-
-// Database 
-#include "./database.h"
 
 extern DanhSachLopTC dsltc;
 extern DanhSachLopCQ dslcq;
 extern DanhSachMonHoc dsmh;
-extern Database database;
 
 // Modules
 // bonus 
@@ -27,6 +33,7 @@ LinkedList<char*> DanhSachLopChinhQuy();
 void add_loptc(char ** data);
 void delete_loptc(int maloptc);
 void update_loptc(char ** data);
+void print_dsltc(WINDOW *, int, int);
 
 //-- B
 LinkedList<char*> in_danh_sach_dang_ki(char* nienkhoa, short hocki, short nhom, char * maMH);
@@ -44,6 +51,7 @@ LinkedList<char*> in_danh_sach_sv(char * ma_lop);
 void add_mh(char **);
 void delete_mh(char *);
 void update_mh(char **);
+
 //-- F
 // std::string[4] * get_dsmh_table(DanhSachMonHoc dsmh);
 

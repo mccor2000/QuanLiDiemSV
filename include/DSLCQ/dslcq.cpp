@@ -8,6 +8,15 @@ LopCQ::LopCQ(char * malop) {
 
 /*********************** DanhSachLopCQ ************************/
 
+LopCQ DanhSachLopCQ::get_lcq(char * malop) {
+  Node<LopCQ> * curr_lopcq = p_head_;
+  while (curr_lopcq!= NULL && curr_lopcq->get_data().MALOP != malop) {
+    curr_lopcq = curr_lopcq->get_next();
+  }
+  
+  return curr_lopcq->get_data();
+}
+
 DanhSachSinhVien * DanhSachLopCQ::get_dssv(char * malop) {
   Node<LopCQ> * curr_lopcq = p_head_;
   while (curr_lopcq!= NULL && curr_lopcq->get_data().MALOP != malop) {
