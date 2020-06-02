@@ -41,6 +41,7 @@ private:
   // Private methods
   char * get_item_data();
   void draw_column_seperator(int);
+  void draw_column(int, char **);
   void process_input();
 
 public:

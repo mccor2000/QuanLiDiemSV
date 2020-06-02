@@ -8,7 +8,6 @@ DanhSachLopTC dsltc;
 DanhSachLopCQ dslcq;
 DanhSachMonHoc dsmh;
 
-#include "./core/library.h"
 
 // Chooses's code
 const short CHOOSE_QLLTC = 1;
@@ -55,6 +54,7 @@ private:
   // Private methods
   void render_menu(Menu);
   void render_table();
+  void render_table_data();
   void render_form();
 
   void process_input();
@@ -110,27 +110,28 @@ Form App::get_form() {
     case DSLCQ:
       form.set_type(2);
       form.set_len(1);
-      form.set_submit(NULL);
+      // if (choice == CHOOSE_THEM) form.set_submit(add_lopcq);
+      // if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_lopcq);
       break;
     case DSMH: 
       form.set_type(3);
       form.set_len(4);
-      form.set_submit(add_mh);
+      if (choice == CHOOSE_THEM) form.set_submit(add_mh);
+      if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_mh);
       break;
     case DSSV:
       form.set_type(4);
       form.set_len(4);
-      form.set_submit(NULL);
+      // if (choice == CHOOSE_THEM) form.set_submit(add_sv);
+      // if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_sv);
       break;
     case NHAP_DIEM:
       form.set_type(5);
       form.set_len(4);
-      form.set_submit(NULL);
       break;
     case DANG_KI:
       form.set_type(6);
       form.set_len(2);
-      form.set_submit(NULL);
       break;
   }
   return form;
@@ -168,6 +169,23 @@ void App::render_table() {
   current_table.display();
 }
 
+void App::render_table_data() {
+  switch (state) {
+    case DSLTC: 
+      current_table.render_dsltc(dsltc);
+      break;
+    case DSLCQ:
+      current_table.render_dslcq(dslcq);
+      break;
+    case DSMH: 
+      current_table.render_dsmh(dsmh);
+      break;
+    case DSSV:
+      // current_table.render_dssv();
+      break;
+  }
+}
+
 void App::render_form() {
   wclear(wins[1]);
   current_form = get_form();
@@ -181,7 +199,7 @@ void App::process_menu() {
       render_menu(Menu(wins[0], 2));
       render_table();
       do {
-        current_table.render_dsltc(dsltc);
+        render_table_data();
       } while (current_table.get_input());
       break;
 
@@ -189,14 +207,18 @@ void App::process_menu() {
       state = DSLCQ;
       render_menu(Menu(wins[0], 2));
       render_table();
-      current_table.render_dslcq(dslcq);
+      do {
+        render_table_data();
+      } while (current_table.get_input());
       break;
 
     case CHOOSE_QLMH:
       state = DSMH;
       render_menu(Menu(wins[0], 2));
       render_table();
-      current_table.render_dsmh(dsmh);
+      do {
+        current_table.render_dsmh(dsmh);
+      } while (current_table.get_input());
       break;
     
     case CHOOSE_NHAP_DIEM: {

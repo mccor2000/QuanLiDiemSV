@@ -47,6 +47,8 @@ public:
 class DanhSachSinhVien: public LinkedList<SinhVien> {
 public:
   SinhVien * search_sv(char *);
+  void delete_sv(char *);
+  
   void save(char *);
   void load(char *);
 };

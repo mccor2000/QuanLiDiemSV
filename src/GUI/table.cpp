@@ -71,17 +71,35 @@ void Table::process_input() {
 }
 
 // Draw column seperator
-void Table::draw_column_seperator(int yCoord) {
-  int current_xCoord = 0;
-  mvwhline(current_window, yCoord - 1, 1, 0, width - 2);
-  mvwhline(current_window, yCoord + 1, 1, 0, width - 2);
+void Table::draw_column_seperator(int ycoord) {
+  int current_xcoord = 0;
+  mvwhline(current_window, ycoord - 1, 1, 0, width - 2);
+  mvwhline(current_window, ycoord + 1, 1, 0, width - 2);
   for (int i = 0; i < len; i++) {
     if (i > 0) {
-      mvwaddch(current_window, yCoord - 1, current_xCoord, ACS_TTEE);
-      mvwaddch(current_window, yCoord, current_xCoord, ACS_VLINE);
-      mvwaddch(current_window, yCoord + 1, current_xCoord, ACS_PLUS);
+      mvwaddch(current_window, ycoord - 1, current_xcoord, ACS_TTEE);
+      mvwaddch(current_window, ycoord, current_xcoord, ACS_VLINE);
+      mvwaddch(current_window, ycoord + 1, current_xcoord, ACS_PLUS);
     }
-    current_xCoord += average_width + 1;
+    current_xcoord += average_width + 1;
+  }
+  wrefresh(current_window);
+}
+
+
+void Table::draw_column(int ycoord, char ** data) {
+  int current_xcoord = 0;
+  mvwhline(current_window, ycoord - 1, 1, 0, width - 2);
+  mvwhline(current_window, ycoord + 1, 1, 0, width - 2);
+
+  for (int i = 0; i < len; i++) {
+    if (i > 0) {
+      mvwaddch(current_window, ycoord - 1, current_xcoord, ACS_TTEE);
+      mvwaddch(current_window, ycoord, current_xcoord, ACS_VLINE);
+      mvwaddch(current_window, ycoord + 1, current_xcoord, ACS_PLUS);
+    }
+    mvwprintw(current_window, ycoord, current_xcoord + 1, data[i]);
+    current_xcoord += average_width + 1;
   }
   wrefresh(current_window);
 }
@@ -125,7 +143,7 @@ void Table::display() {
   mvwprintw(current_window, 1, (width - strlen(title)) / 2, title);
   
   // Print fields
-  draw_column_seperator(3);
+  draw_column(3, fields);
   wrefresh(current_window);
 }
 
@@ -172,14 +190,21 @@ void Table::render_dsltc(DanhSachLopTC dsltc) {
 // Print DSLCQ
 void Table::render_dslcq(DanhSachLopCQ dslcq) {
   int current_yCoord = 5;
-  
+  int i = 0;
+
   Node<LopCQ> * curr_node = dslcq.head();
   while (curr_node != NULL) {
+    if (i >= page_size) return;
+
+    draw_column_seperator(current_yCoord);
+    if (current_line == i)
+      wattron(current_window, A_BOLD | COLOR_PAIR(1));
+    
     LopCQ curr_lopcq = curr_node->get_data();
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_lopcq.MALOP);
     curr_node = curr_node->get_next();
 
-    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
+    i++;
     current_yCoord += 2;
   }
   wrefresh(current_window);
@@ -192,13 +217,21 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
   int current_yCoord = 5;
   int i = 0;
   dsmh.enumerate([i, current_yCoord, this](MonHoc x) mutable{
+    if (i >= page_size) return;
+
+    draw_column_seperator(current_yCoord);
+    if (current_line == i) 
+      wattron(current_window, A_BOLD | COLOR_PAIR(1));
+
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, x.MAMH);
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, x.TENMH);
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, std::to_string(x.STCLT).c_str());
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, std::to_string(x.STCLT).c_str());
     
+    if (current_line == i) 
+      wattroff(current_window, A_BOLD | COLOR_PAIR(1));
+    
     i++;
-    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
     current_yCoord += 2;
   });
   wrefresh(current_window);

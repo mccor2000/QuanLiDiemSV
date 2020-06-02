@@ -19,9 +19,10 @@ private:
   char db[32] = "../database/dslcq.d";
 
 public:
+  LopCQ get_lcq(char *);
   DanhSachSinhVien * get_dssv(char *);
   SinhVien * search_sv(char *);
-
+  
   void save();
   void load();
 };
