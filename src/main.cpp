@@ -282,7 +282,11 @@ void App::process_menu() {
 
     case CHOOSE_CHINH_SUA: {
       render_form();
-      current_form.process_input();
+      bool done = current_form.process_input();
+      if (done) wclear(wins[1]);
+
+      current_table.display();
+      render_table_data();
       break;
     }
 
