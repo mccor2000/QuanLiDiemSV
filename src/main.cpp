@@ -1,14 +1,27 @@
+/************************************************/
+// Init database
+#include "./database/database.h"
+Database database;
+
+// Core functions 
+#include "./core/library.h"
+
+// GUI
 #include "./GUI/table.h"
 #include "./GUI/menu.h"
 #include "./GUI/form.h"
 
-#include "./core/database.h"
 
 DanhSachLopTC dsltc;
 DanhSachLopCQ dslcq;
 DanhSachMonHoc dsmh;
 
+SinhVien current_sv;
+SinhVienDK current_svdk;
+DanhSachSinhVien current_dssv;
+DanhSachSinhVienDK current_dsdk;
 
+/************************************************/
 // Chooses's code
 const short CHOOSE_QLLTC = 1;
 const short CHOOSE_QLLCQ = 2;
@@ -26,6 +39,7 @@ const short CHOOSE_QUAY_LAI = 11;
 const short CHOOSE_BANG_DIEM_MON_HOC = 12;
 const short CHOOSE_BANG_DIEM_KHOA_HOC = 13;
 const short CHOOSE_BANG_DIEM_TONG_KET = 14;
+
 // App's state
 const short DSLTC = 1;
 const short DSLCQ = 2;
@@ -36,22 +50,23 @@ const short NHAP_DIEM = 6;
 const short DANG_KI = 7;
 const short XEM_DIEM = 8;
 
+/*************************************************/
 class App {
 private:
+  // App state
   bool is_running;
   short choice, state;
 
-  // UI
+  // GUI members variables
   WINDOW * wins[2];
-
   Menu current_menu;
   Table current_table;
   Form current_form;
   
+  // Private methods
   Form get_form();
   Table get_table();
-  
-  // Private methods
+
   void render_menu(Menu);
   void render_table();
   void render_table_data();
@@ -201,6 +216,7 @@ void App::process_menu() {
       do {
         render_table_data();
       } while (current_table.get_input());
+      
       break;
 
     case CHOOSE_QLLCQ:
@@ -259,6 +275,7 @@ void App::process_menu() {
       if (done) wclear(wins[1]);
 
       current_table.display();
+      render_table_data();
       wrefresh(wins[1]);
       break;
     }
@@ -329,7 +346,7 @@ void App::exit() {
   // free_menu(current_menu.menu);
   endwin();
 }
-
+/***************************************************/
 int main() {
   App our_app;
   our_app.run();
