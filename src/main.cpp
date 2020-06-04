@@ -213,16 +213,19 @@ void App::process_menu() {
       state = DSLTC;
       render_menu(Menu(wins[0], 2));
       render_table();
+      
       do {
+        wclear(wins[1]);
+        current_table.display();
         render_table_data();
       } while (current_table.get_input());
-      
       break;
 
     case CHOOSE_QLLCQ:
       state = DSLCQ;
       render_menu(Menu(wins[0], 2));
       render_table();
+      
       do {
         render_table_data();
       } while (current_table.get_input());
@@ -232,6 +235,7 @@ void App::process_menu() {
       state = DSMH;
       render_menu(Menu(wins[0], 2));
       render_table();
+      
       do {
         current_table.render_dsmh(dsmh);
       } while (current_table.get_input());
