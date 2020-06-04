@@ -21,9 +21,8 @@ void moduleI_2(char ** data){
     int counter = 0 ;
     int base = current_dsdk.count();
     while(counter!=base && node!=NULL){
-        float score = atof(data[counter]);
+        float score = atof(data[counter++]);
         node->get_data().set_DIEM(score);
-        counter++;
         node=node->get_next();
     }
 }
