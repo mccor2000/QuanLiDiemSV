@@ -11,35 +11,19 @@ LopTC* timLop(char* nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tm
     return NULL;
 }
 
-//xuat dsdk lop vua tim duoc
-LinkedList<char*> xuatDSDK(LopTC* loptc) {
-        LinkedList<char*> result;
-    if (loptc==NULL) {
-        return result;
-    }
-    else {
-        for (Node<SinhVienDK>* p = loptc->dsdk->p_head_; p!=NULL; p = p->get_next()) {
-            SinhVien * sv = dslcq.search_sv(p->get_data().get_MASV());
-            char* res[5];
-            strcpy(res[0],sv->get_MALOP());
-            strcpy(res[1],sv->get_MASV());
-            strcpy(res[2],sv->get_HO());
-            strcpy(res[3],sv->get_TEN());
-            
-            char* ans="";
-            strcat(ans,res[0]);
-            for(int i=1;i<4;i++){
-                strcat(ans,"   ");
-                strcat(ans,res[i]);
-            }
-
-
-            result.push_back(ans);
-            }
-    return result;
-    }
+void  moduleI_1(char** data){
+    LopTC* curr_class = timLop(data[0],string_to_short(data[1]),string_to_short(data[2]),data[3]);
+    current_dsdk = *curr_class->dsdk;
 }
 
-void NhapDiemSV(SinhVienDK& sv, float DIEM){
-    sv.set_DIEM(DIEM);
+void moduleI_2(char ** data){
+    Node<SinhVienDK>* node = current_dsdk.head();
+    int counter = 0 ;
+    int base = current_dsdk.count();
+    while(counter!=base && node!=NULL){
+        float score = atof(data[counter]);
+        node->get_data().set_DIEM(score);
+        counter++;
+        node=node->get_next();
+    }
 }
