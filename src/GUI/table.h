@@ -32,19 +32,14 @@ private:
   int fields_len;
   int average_width;
   
-  // Popup form
-  Form update_form;
- 
   // Colors
   Color title_color;
   Color curr_color;
   Color status_color;
 
   // Private methods
-  char * get_item_data();
   void draw_column_seperator(int);
   void draw_column(int, char **);
-  void process_input();
 
 public:
   // Constructor
@@ -53,7 +48,6 @@ public:
   
   void set_type(int t)                { type = t; }
   void set_title(char * t)            { strcpy(title, t); }
-  void set_form(Form f)             { update_form = f; }
   
   // Public methods
   void display();
