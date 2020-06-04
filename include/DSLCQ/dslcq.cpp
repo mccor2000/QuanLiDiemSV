@@ -72,3 +72,16 @@ void DanhSachLopCQ::load() {
   // Close file 
   f.close();
 }
+
+LopCQ DanhSachLopCQ::get_by_index(int index){
+  Node<LopCQ>* node = head();
+  LopCQ result;
+  if(index>count()){
+    return result;
+  }
+  while(node!=NULL && index--){
+    node=node->get_next();
+  }
+  result=node->get_data();
+  return result;
+}

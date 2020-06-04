@@ -22,7 +22,7 @@ public:
   LopCQ get_lcq(char *);
   DanhSachSinhVien * get_dssv(char *);
   SinhVien * search_sv(char *);
-  
+  LopCQ get_by_index(int index);
   void save();
   void load();
 };

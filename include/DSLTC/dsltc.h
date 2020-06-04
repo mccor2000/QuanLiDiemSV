@@ -38,7 +38,7 @@ private:
 public:
 	LopTC *node[LOP_MAX];
 		
-    LopTC* getLop(int i);
+    LopTC* getLop(int i); // get by index 
 	int get_STT();
     void setLop(LopTC lop_tmp, int i);
 	int getN();

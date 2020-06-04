@@ -83,4 +83,16 @@ void DanhSachSinhVienDK::load(const char * ma_lop) {
   // Save file
   f.close();
 }
+SinhVienDK DanhSachSinhVienDK::get_by_index(int index){
+  Node<SinhVienDK>* node = head();
+  SinhVienDK result;
+  if(index>count()){
+    return result;
+  }
+  while(node!=NULL && index--){
+    node=node->get_next();
+  }
+  result=node->get_data();
+  return result;
+}
 

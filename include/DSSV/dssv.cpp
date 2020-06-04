@@ -120,3 +120,16 @@ void DanhSachSinhVien::load(char * ma_lop) {
   // Close the file
   f.close();
 }
+
+SinhVien DanhSachSinhVien::get_by_index(int index){
+  Node<SinhVien>* node = head();
+  SinhVien result;
+  if(index>count()){
+    return result;
+  }
+  while(node!=NULL && index--){
+    node=node->get_next();
+  }
+  result=node->get_data();
+  return result;
+}
