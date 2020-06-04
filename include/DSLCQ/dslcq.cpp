@@ -79,7 +79,6 @@ LopCQ DanhSachLopCQ::get_by_index(int index){
   if(index>count()){
     return result;
   }
-  index--;
   while(node!=NULL && index--){
     node=node->get_next();
   }
