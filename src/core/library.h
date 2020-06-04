@@ -60,10 +60,8 @@ void update_mh(char **);
 // std::string[4] * get_dsmh_table(DanhSachMonHoc dsmh);
 
 //-- G
-Node<SinhVien>* timSV(char* maSV_tmp);
-void xuatSV(Node<SinhVien>* SV);
-LinkedList<char*> locDSLTC(char* nienkhoa_tmp, short hocki_tmp);
-int dangKyLop(LopTC &loptc, SinhVienDK SV);
+LinkedList<LopTC>  locDSLTC(char ** form_dangky );
+int dangKyLop(char* data);
 
 //-- H
 LinkedList<char*> DSLopTC_HUY();
