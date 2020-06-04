@@ -260,7 +260,7 @@ void Table::render_dssv(DanhSachSinhVien dssv) {
 
 // Print DSDK
 void Table::render_dsdk(DanhSachSinhVienDK * dsdk) {
-  if (dsdk -> count() == 0) return;
+  // if (dsdk -> count() == 0) return;
   int current_yCoord = 5;
   int i = 1;
   Node<SinhVienDK> * curr_node = dsdk->p_head_;

@@ -32,11 +32,10 @@ extern DanhSachMonHoc dsmh;
 extern SinhVien current_sv;
 extern SinhVienDK current_svdk;
 extern DanhSachSinhVien current_dssv;
-extern DanhSachSinhVienDK current_dsdk;
+extern DanhSachSinhVienDK * current_dsdk;
 // Modules
 // bonus 
-LinkedList<char*> DanhSachLopChinhQuy();
-
+void add_lopcq(char **);
 //-- A
 void add_loptc(char ** data);
 void delete_loptc(int maloptc);

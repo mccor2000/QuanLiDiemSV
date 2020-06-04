@@ -1,20 +1,6 @@
 #include "library.h"
 
-LinkedList<char* > DanhSachLopChinhQuy(DanhSachLopCQ& dslcq){
-    LinkedList<char *> result;
-    Node<LopCQ>* node = dslcq.head();
-
-    char * res;
-    while(node != NULL){
-        strcpy(res, node->get_data().MALOP);
-        strcat(res, (char *)"DSSV");
-        result.push_back(res);
-        node=node->get_next();
-    }
-    return result;
-} 
-
-void create_lopcq(char * data){
-    LopCQ lop(data);
-    dslcq.push_back(lop);
+void add_lopcq(char ** data){
+    LopCQ new_lopcq(data[0]);
+    dslcq.push_back(new_lopcq);
 }

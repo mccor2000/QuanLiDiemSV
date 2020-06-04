@@ -88,10 +88,6 @@ App::App() {
   dslcq.load();
   dsmh.load();
   
-  // current_sv;
-  // current_svdk;
-  // current_dssv;
-  current_dsdk = NULL;
   //-- Main screen
   initscr();
   clear();
@@ -130,7 +126,7 @@ Form App::get_form() {
     case DSLCQ:
       form.set_type(2);
       form.set_len(1);
-      // if (choice == CHOOSE_THEM) form.set_submit(add_lopcq);
+      if (choice == CHOOSE_THEM) form.set_submit(add_lopcq);
       // if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_lopcq);
       break;
     case DSMH: 
