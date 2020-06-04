@@ -17,6 +17,16 @@ void add_sv(char ** data) {
   );
   dssv->push_back(sv);
 }
+void update_sv(char **data){
+  LopCQ lop = dslcq.get_lcq(data[5]);
+  SinhVien* sv = lop.DSSV->search_sv(data[0]);
+  sv->set_HO(data[1]);
+  sv->set_TEN(data[2]);
+  sv->set_PHAI((data[3]=="nam")?0:1);
+  sv->set_SDT(data[4]);
+  sv->set_MALOP(data[5]);
+}
+
 
 // int vitri_sv(DanhSachSinhVien* DSSV,char* MASV){
   // Node<SinhVien>* SV  = DSSV->head();
