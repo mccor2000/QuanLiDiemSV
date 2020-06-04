@@ -25,6 +25,10 @@ extern DanhSachLopTC dsltc;
 extern DanhSachLopCQ dslcq;
 extern DanhSachMonHoc dsmh;
 
+extern SinhVien current_sv;
+extern SinhVienDK current_svdk;
+extern DanhSachSinhVien current_dssv;
+extern DanhSachSinhVienDK current_dsdk;
 // Modules
 // bonus 
 LinkedList<char*> DanhSachLopChinhQuy();

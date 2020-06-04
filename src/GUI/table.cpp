@@ -40,8 +40,9 @@ Table::Table(WINDOW * win) {
   current_window = win;
   getmaxyx(win, height, width);
   
+  length = 0;
   start_index = 0;
-  end_index = start_index + width - 6;
+  end_index = (height - 5) / 2 - 1;
   current_index = 0;
 }
 
@@ -111,7 +112,7 @@ void Table::display() {
   
   // Print title
   mvwprintw(current_window, 1, (width - strlen(title)) / 2, title);
-  
+ 
   // Print fields
   draw_column(3, fields);
   wrefresh(current_window);
@@ -128,6 +129,7 @@ bool Table::get_input() {
         current_index--;
       } else if (start_index > 0) {
         start_index --;
+        end_index --;
         current_index = start_index;  
       }
       break;
@@ -136,6 +138,7 @@ bool Table::get_input() {
       if (current_index < end_index) { 
         current_index ++;
       } else if (end_index < length) {
+        start_index ++;
         end_index ++;
         current_index = end_index;
       }
@@ -152,7 +155,7 @@ void Table::render_dsltc(DanhSachLopTC dsltc) {
   length = dsltc.getN();
   int current_yCoord = 5;
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
-
+  
   for (int i = start_index; i <= end_index; i++) {
     if (i >= length) break;
     
