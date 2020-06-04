@@ -18,16 +18,18 @@ private:
   WINDOW * current_window;
   int width;
   int height;
-  int top_line;
-  int page_size;
-  int current_line;
+  
+  // Display table
+  int length;
+  int start_index;
+  int end_index;
   int current_index;
   
   // Title
   char title[64];
 
   // Fields
-  int len;
+  int fields_len;
   int average_width;
   
   // Popup form
