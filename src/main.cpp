@@ -1,7 +1,7 @@
 /************************************************/
 // Init database
-// #include "./database/database.h"
-// Database database;
+#include "./database/database.h"
+Database database;
 
 // Core functions 
 #include "./core/library.h"
@@ -248,19 +248,19 @@ void App::process_menu() {
     }
 
     case CHOOSE_DANG_KY: {
-      // char ma_sv[15];
-      // SinhVien * sv = NULL;
-      // wclear(wins[1]); 
-      // do {
-      //   mvwprintw(wins[1], 1, 1, "Nhap ma SV: ");
-      //   mvwscanw(wins[1], 1, 12, "%s", ma_sv);
-      //   sv = dslcq.search_sv(ma_sv);
-      //   if (!sv) mvwprintw(wins[1], 2, 1, "Sinh vien khong ton tai!");
-      //   else sv->print_info(wins[1]);
-      // } while (!sv);
-      // state = DANG_KI;
-      // render_form();
-      // current_form.process_input();
+      char ma_sv[15];
+      SinhVien * sv = NULL;
+      wclear(wins[1]); 
+      do {
+        mvwprintw(wins[1], 1, 1, "Nhap ma SV: ");
+        mvwscanw(wins[1], 1, 12, "%s", ma_sv);
+        sv = dslcq.search_sv(ma_sv);
+        if (!sv) mvwprintw(wins[1], 2, 1, "Sinh vien khong ton tai!");
+        else sv->print_info(wins[1]);
+      } while (!sv);
+      state = DANG_KI;
+      render_form();
+      current_form.process_input();
       break;
     }
 
