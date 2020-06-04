@@ -43,7 +43,7 @@ void SinhVienDK::info() {
 
 void DanhSachSinhVienDK::save(const char * ma_lop) {
   // Get path
-  char path[64] = "../../database/dsdk/";
+  char path[64] = "../database/dsdk/";
   strcat(path, ma_lop);
   strcat(path, ".d");
   
@@ -66,7 +66,7 @@ void DanhSachSinhVienDK::save(const char * ma_lop) {
 
 void DanhSachSinhVienDK::load(const char * ma_lop) {
   // Get path
-  char path[64] = "../../database/dsdk/";
+  char path[64] = "../database/dsdk/";
   strcat(path, ma_lop);
   strcat(path, ".d");
   

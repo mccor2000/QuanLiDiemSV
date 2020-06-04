@@ -21,6 +21,10 @@
 // Helpers
 #include "../helpers/helpers.h"
 
+// Database
+#include "../database/database.h"
+extern Database database;
+
 extern DanhSachLopTC dsltc;
 extern DanhSachLopCQ dslcq;
 extern DanhSachMonHoc dsmh;
@@ -33,7 +37,6 @@ LinkedList<char*> DanhSachLopChinhQuy();
 void add_loptc(char ** data);
 void delete_loptc(int maloptc);
 void update_loptc(char ** data);
-void print_dsltc(WINDOW *, int, int);
 
 //-- B
 LinkedList<char*> in_danh_sach_dang_ki(char* nienkhoa, short hocki, short nhom, char * maMH);
