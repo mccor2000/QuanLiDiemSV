@@ -13,3 +13,8 @@ LinkedList<char* > DanhSachLopChinhQuy(DanhSachLopCQ& dslcq){
     }
     return result;
 } 
+
+void create_lopcq(char * data){
+    LopCQ lop(data);
+    dslcq.push_back(lop);
+}
