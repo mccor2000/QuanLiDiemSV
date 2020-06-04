@@ -356,25 +356,6 @@ void App::exit() {
 }
 /***************************************************/
 int main() {
-  // App our_app;
-  // our_app.run();
-  LopTC loptc1("mh1","2019",1,1,10,1);
-  LopTC loptc2("mh2","2019",1,1,20,2);
-  dsltc.themLop(loptc1,0);
-  dsltc.themLop(loptc2,1);
-  MonHoc mh1("mh1","toan",3,3);
-  MonHoc mh2("mh2","ly",4,4);
-  dsmh.insert(mh1);
-  dsmh.insert(mh2);
-
-  
-  char * input[] = {
-    "2019",
-    "1"
-  };
-
-  char** output = locDSLTC(input);
-  // for (int i=0; i<sizeof(output); i++) {
-  //     cout<<output[i]<<"\n";
-  // }
+  App our_app;
+  our_app.run();
 }
