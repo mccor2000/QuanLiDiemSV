@@ -1,7 +1,7 @@
 /************************************************/
 // Init database
-#include "./database/database.h"
-Database database;
+// #include "./database/database.h"
+// Database database;
 
 // Core functions 
 #include "./core/library.h"
@@ -244,19 +244,19 @@ void App::process_menu() {
     }
 
     case CHOOSE_DANG_KY: {
-      char ma_sv[15];
-      SinhVien * sv = NULL;
-      wclear(wins[1]); 
-      do {
-        mvwprintw(wins[1], 1, 1, "Nhap ma SV: ");
-        mvwscanw(wins[1], 1, 12, "%s", ma_sv);
-        sv = dslcq.search_sv(ma_sv);
-        if (!sv) mvwprintw(wins[1], 2, 1, "Sinh vien khong ton tai!");
-        else sv->print_info(wins[1]);
-      } while (!sv);
-      state = DANG_KI;
-      render_form();
-      current_form.process_input();
+      // char ma_sv[15];
+      // SinhVien * sv = NULL;
+      // wclear(wins[1]); 
+      // do {
+      //   mvwprintw(wins[1], 1, 1, "Nhap ma SV: ");
+      //   mvwscanw(wins[1], 1, 12, "%s", ma_sv);
+      //   sv = dslcq.search_sv(ma_sv);
+      //   if (!sv) mvwprintw(wins[1], 2, 1, "Sinh vien khong ton tai!");
+      //   else sv->print_info(wins[1]);
+      // } while (!sv);
+      // state = DANG_KI;
+      // render_form();
+      // current_form.process_input();
       break;
     }
 
@@ -352,6 +352,25 @@ void App::exit() {
 }
 /***************************************************/
 int main() {
-  App our_app;
-  our_app.run();
+  // App our_app;
+  // our_app.run();
+  LopTC loptc1("mh1","2019",1,1,10,1);
+  LopTC loptc2("mh2","2019",1,1,20,2);
+  dsltc.themLop(loptc1,0);
+  dsltc.themLop(loptc2,1);
+  MonHoc mh1("mh1","toan",3,3);
+  MonHoc mh2("mh2","ly",4,4);
+  dsmh.insert(mh1);
+  dsmh.insert(mh2);
+
+  
+  char * input[] = {
+    "2019",
+    "1"
+  };
+
+  char** output = locDSLTC(input);
+  // for (int i=0; i<sizeof(output); i++) {
+  //     cout<<output[i]<<"\n";
+  // }
 }
