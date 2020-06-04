@@ -17,21 +17,16 @@ void add_sv(char ** data) {
   );
   dssv->push_back(sv);
 }
-void update_sv(char **data_old,char **data_new){
-  LopCQ lop = dslcq.get_lcq(data_old[5]);
-  SinhVien* sv = lop.DSSV->search_sv(data_old[0]);
-  sv->set_MASV(data_new[0]);
-  sv->set_HO(data_new[1]);
-  sv->set_TEN(data_new[2]);
-  sv->set_PHAI((data_new[3]=="nam")?0:1);
-  sv->set_SDT(data_new[4]);
-  sv->set_MALOP(data_new[5]);
+void update_sv(char **data){
+  LopCQ lop = dslcq.get_lcq(data[5]);
+  SinhVien* sv = lop.DSSV->search_sv(data[0]);
+  sv->set_HO(data[1]);
+  sv->set_TEN(data[2]);
+  sv->set_PHAI((data[3]=="nam")?0:1);
+  sv->set_SDT(data[4]);
+  sv->set_MALOP(data[5]);
 }
 
-void change_MALOP(char* old, char* update){
-  LopCQ result = dslcq.get_lcq(old);
-  result.MALOP = update;
-}
 
 // int vitri_sv(DanhSachSinhVien* DSSV,char* MASV){
   // Node<SinhVien>* SV  = DSSV->head();
