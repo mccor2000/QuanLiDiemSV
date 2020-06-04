@@ -37,7 +37,6 @@ private:
 	
 public:
 	LopTC *node[LOP_MAX];
-		
   LopTC* get_by_id(int i); // get by index 
 	int get_STT();
   void setLop(LopTC lop_tmp, int i);
@@ -53,7 +52,6 @@ public:
 	void themLop(LopTC &lop, int pos);
 	void xoaLop(int malop_del);
 	void xoaDS();
-	void thongBao(char* s);
 	void save();
 	void load();
 };

@@ -71,19 +71,8 @@ int DanhSachLopTC::search(int malop_tmp) {
 	return -1;
 }
 
-void DanhSachLopTC::thongBao(char* s) {
-	cout<<s;
-}
-void DanhSachLopTC::xuatDS() {
-	cout<<"MALOP\tMAMH\tNIENKHOA\tHOCKI\tNHOM\n";
-	for (int i=0; i<n; i++) {
-		cout<<node[i]->malop<<"\t"<<node[i]->maMH<<"\t"<<node[i]->nienkhoa<<"\t\t"<<node[i]->hocki<<"\t"<<node[i]->nhom<<"\n";
-	}
-}
-
 void DanhSachLopTC::themLop(LopTC &lop, int pos) {
 	if (isFull()) {
-		thongBao((char *)"Danh sach day");
 		return;
 	}
 	lop.malop = stt;
@@ -100,12 +89,10 @@ void DanhSachLopTC::themLop(LopTC &lop, int pos) {
 
 void DanhSachLopTC::xoaLop(int malop_del) {
 	if (isEmpty()) {
-		thongBao((char *)"Danh sach rong");
 		return;
 	}
 	int pos=search(malop_del);
 	if (pos==-1) {
-		thongBao((char *)"Ma lop khong ton tai");
 		return;
 	}
 	delete node[pos];
@@ -117,7 +104,6 @@ void DanhSachLopTC::xoaLop(int malop_del) {
 
 void DanhSachLopTC::xoaDS() {
 	if (isEmpty()) {
-		thongBao((char *)"Danh sach rong");
 		return;
 	}
 	while (n>0) {

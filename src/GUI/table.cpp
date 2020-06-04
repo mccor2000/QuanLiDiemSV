@@ -159,10 +159,6 @@ void Table::render_dsltc(DanhSachLopTC dsltc) {
   length = dsltc.getN();
   int current_yCoord = 5;
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
-
-  mvwprintw(current_window, 1, 1, std::to_string(start_index).c_str());
-  mvwprintw(current_window, 1, 5, std::to_string(current_index).c_str());
-  mvwprintw(current_window, 1, 10, std::to_string(end_index).c_str());
   
   for (int i = start_index; i <= end_index; i++) {
     if (i >= length) break;
