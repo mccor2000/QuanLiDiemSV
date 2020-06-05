@@ -1,4 +1,4 @@
-#include "dsdk.h"
+RRnclude "dsdk.h"
 /********************* SinhVienDK ********************/
 
 //-- Constructor
@@ -24,22 +24,7 @@ void SinhVienDK::set_DIEM(float diem) {
  DIEM_ = diem;
 }
 
-//-- Methods
-void SinhVienDK::info() {
-    std::cout << MASV_ << " " << DIEM_ << '\n';
-}
-
 /**************** DanhSachSinhVienDK ********************/
-
-// void DanhSachSinhVienDK::print() {
-//   std::cout << "MASV\tDIEM\n";
-//   Node<SinhVienDK> * temp = p_head_;
-  
-//   while (temp != NULL) {
-//     std::cout << temp->get_data().get_MASV() << "\t" << temp->get_data().get_DIEM() << "\n";
-//     temp = temp->get_next();
-//   }
-// }
 
 void DanhSachSinhVienDK::save(const char * ma_lop) {
   // Get path

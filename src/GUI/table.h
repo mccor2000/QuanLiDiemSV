@@ -67,6 +67,6 @@ public:
   void render_dslcq(DanhSachLopCQ dslcq);
   void render_dsmh(DanhSachMonHoc dsmh);
   void render_dssv(DanhSachSinhVien dssv);
-  void render_dsdk(DanhSachSinhVienDK * dsdk);
+  void render_dsdk(DanhSachSinhVienDK dsdk);
 };
 #endif

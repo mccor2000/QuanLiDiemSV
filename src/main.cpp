@@ -18,7 +18,7 @@ DanhSachMonHoc dsmh;
 
 SinhVien current_sv;
 SinhVienDK current_svdk;
-DanhSachSinhVien current_dssv;
+DanhSachSinhVien * current_dssv;
 DanhSachSinhVienDK * current_dsdk;
 
 /************************************************/
@@ -205,10 +205,10 @@ void App::render_table_data() {
       current_table.render_dsmh(dsmh);
       break;
     case DSSV:
-      // current_table.render_dssv();
+      current_table.render_dssv(*current_dssv);
       break;
     case DSDK:
-      current_table.render_dsdk(current_dsdk);
+      current_table.render_dsdk(*current_dsdk);
       break;
   }
 }
@@ -225,7 +225,6 @@ void App::process_menu() {
       state = DSLTC;
       render_menu(Menu(wins[0], 2));
       render_table();
-      
       do {
         wclear(wins[1]);
         current_table.display();
@@ -247,10 +246,22 @@ void App::process_menu() {
       state = DSLCQ;
       render_menu(Menu(wins[0], 2));
       render_table();
-      
+
       do {
+        wclear(wins[1]);
+        current_table.display();
         render_table_data();
       } while (current_table.get_input());
+      
+      if (current_table.is_picked) {
+        state = DSSV;
+        current_dssv = dslcq.get_node_by_index(current_table.get_current_index())->get_data().DSSV;
+        do {
+          render_table();
+          render_table_data();
+        } while (current_table.get_input());
+      }
+
       break;
 
     case CHOOSE_QLMH:
@@ -259,7 +270,9 @@ void App::process_menu() {
       render_table();
       
       do {
-        current_table.render_dsmh(dsmh);
+        wclear(wins[1]);
+        current_table.display();
+        render_table_data();
       } while (current_table.get_input());
       break;
     
@@ -380,4 +393,6 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
+  // dslcq.load();
+  // std::cout << dslcq.head()->get_data().MALOP << std::endl;
 }

@@ -49,8 +49,8 @@ public:
   SinhVien * search_sv(char *);
   void delete_sv(char *);
   SinhVien get_by_index(int index);
-  void save(char *);
-  void load(char *);
+  void save(const char *);
+  void load(const char *);
 };
 
 #endif

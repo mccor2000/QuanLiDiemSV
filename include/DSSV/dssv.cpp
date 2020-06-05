@@ -80,9 +80,9 @@ void DanhSachSinhVien::delete_sv(char * ma_sv) {
   } while (curr_node != NULL);
 }
 
-void DanhSachSinhVien::save(char * ma_lop) {
+void DanhSachSinhVien::save(const char * ma_lop) {
   // Get path
-  char path[64] = "../../database/dssv/";
+  char path[64] = "../database/dssv/";
   strcat(path, ma_lop);
   strcat(path, ".d");
 
@@ -102,10 +102,10 @@ void DanhSachSinhVien::save(char * ma_lop) {
   f.close();
 }
 
-void DanhSachSinhVien::load(char * ma_lop) {
+void DanhSachSinhVien::load(const char * ma_lop) {
   // Get path
-  char path[64] = "../../database/dssv/";
-  strcat(path, ma_lop);
+  char path[64] = "../database/dssv/";
+  strcat(path, "d18cqcn");
   strcat(path, ".d");
   
   // Open file
