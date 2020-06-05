@@ -1,4 +1,4 @@
-RRnclude "dsdk.h"
+#include "dsdk.h"
 /********************* SinhVienDK ********************/
 
 //-- Constructor
@@ -26,6 +26,11 @@ void SinhVienDK::set_DIEM(float diem) {
 
 /**************** DanhSachSinhVienDK ********************/
 
+DanhSachSinhVienDK::DanhSachSinhVienDK() {
+  p_head_ = NULL;
+  p_tail_ = NULL;
+}
+
 void DanhSachSinhVienDK::save(const char * ma_lop) {
   // Get path
   char path[64] = "../database/dsdk/";
@@ -37,12 +42,12 @@ void DanhSachSinhVienDK::save(const char * ma_lop) {
   f.open(path, std::ios::binary);
   
   // Write to file
-  Node<SinhVienDK> * temp_node = p_head_;
-  while (temp_node != NULL) {
-    SinhVienDK temp_sv = temp_node->get_data();
-    f.write((char *)&temp_sv, sizeof(SinhVienDK));    
+  Node<SinhVienDK> * current_node = p_head_;
+  while (current_node != NULL) {
+    SinhVienDK current_sv = current_node->get_data();
+    f.write((char *)&current_sv, sizeof(SinhVienDK));
 
-    temp_node = temp_node->get_next();
+    current_node = current_node->get_next();
   }
   
   // Save file

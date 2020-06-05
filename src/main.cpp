@@ -236,7 +236,7 @@ void App::process_menu() {
         current_dsdk = dsltc.get_by_id(current_table.get_current_index())->dsdk;
         do {
           render_table();
-          render_table_data();
+          if (current_dsdk) render_table_data();
         } while (current_table.get_input());
       }
 
@@ -393,6 +393,4 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
-  // dslcq.load();
-  // std::cout << dslcq.head()->get_data().MALOP << std::endl;
 }
