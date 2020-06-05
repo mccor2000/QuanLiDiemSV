@@ -3,7 +3,6 @@
 void add_sv(char ** data) {
   DanhSachSinhVien * dssv = dslcq.get_dssv(data[5]);
   if (dssv == NULL) {
-    std::cout << "Lop khong ton tai\n";
     return;
   }
   //tao sinh vien

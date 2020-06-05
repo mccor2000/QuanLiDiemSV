@@ -42,16 +42,17 @@ void DanhSachLopCQ::save() {
   // Open file
   std::ofstream f;
   f.open(db, std::ios::binary);
-  
+ 
   // Save  
-  Node<LopCQ> * curr_lopcq = p_head_;
-  while (curr_lopcq != NULL) {
+  Node<LopCQ> * current_node = p_head_;
+  while (current_node != NULL) {
+    LopCQ current_lopcq = current_node->get_data();
+    std::string temp(current_lopcq.MALOP);
     // Save MALOP
-    char * ma_lop = curr_lopcq->get_data().MALOP;
-    f.write((char *)ma_lop, sizeof(char[15]));
+    f.write((char *)&current_lopcq, sizeof(LopCQ));
     // Save DSSV
-    curr_lopcq->get_data().DSSV->save(ma_lop);
-    curr_lopcq = curr_lopcq->get_next();
+    current_lopcq.DSSV->save(temp.c_str());
+    current_node = current_node->get_next();
   }
   // Close file
   f.close();
@@ -63,25 +64,24 @@ void DanhSachLopCQ::load() {
   f.open(db, std::ios::binary);
   
   // Load
-  char curr_malop[15]; 
-  while (f.read((char *)curr_malop, sizeof(char[15]))) {
-    LopCQ curr_lopcq(curr_malop);
-    curr_lopcq.DSSV->load(curr_malop);
-    push_back(curr_lopcq);
+  LopCQ * current_lopcq = new LopCQ();
+  while (f.read((char *)current_lopcq, sizeof(LopCQ))) {
+    std::string temp(current_lopcq->MALOP);
+    current_lopcq->DSSV->load(temp.c_str());
+    push_back(*current_lopcq);
   }
   // Close file 
   f.close();
 }
 
-LopCQ DanhSachLopCQ::get_by_index(int index){
-  Node<LopCQ>* node = head();
-  LopCQ result;
-  if(index>count()){
-    return result;
+Node<LopCQ> * DanhSachLopCQ::get_node_by_index(int index) {
+  if (index > count()) return NULL;
+  
+  Node<LopCQ> * current_node = p_head_;
+  int i = 0;
+  while (current_node != NULL && i <= index) {
+    current_node = current_node->get_next();
+    i++;
   }
-  while(node!=NULL && index--){
-    node=node->get_next();
-  }
-  result=node->get_data();
-  return result;
+  return current_node;
 }

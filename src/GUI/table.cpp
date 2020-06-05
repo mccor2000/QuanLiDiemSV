@@ -32,18 +32,22 @@ char * DSSV_FIELDS[] = {
 };
 
 char * DSDK_FIELDS[] = {
-  "MA SV",
+  "STT",
+  "MASV",
+  "HO",
+  "TEN",
   "DIEM",
 };
 
 Table::Table(WINDOW * win) {
   current_window = win;
   getmaxyx(win, height, width);
-  
+
   length = 0;
   start_index = 0;
   end_index = (height - 5) / 2 - 1;
   current_index = 0;
+  is_picked = false;
 }
 
 // Draw column seperator
@@ -61,7 +65,6 @@ void Table::draw_column_seperator(int ycoord) {
   }
   wrefresh(current_window);
 }
-
 
 void Table::draw_column(int ycoord, char ** data) {
   int current_xcoord = 0;
@@ -105,7 +108,7 @@ void Table::display() {
       break;
     case 5:
       fields = DSDK_FIELDS;
-      fields_len = 2;
+      fields_len = 5;
       break;
   }
   average_width = width / fields_len;
@@ -145,8 +148,10 @@ bool Table::get_input() {
       break;
     
     case 10:
+      is_picked = true;
       return false;
   }
+
   return true;
 }
 
@@ -183,55 +188,61 @@ void Table::render_dsltc(DanhSachLopTC dsltc) {
 
 // Print DSLCQ
 void Table::render_dslcq(DanhSachLopCQ dslcq) {
-  length = dslcq.count();
   int current_yCoord = 5;
-
+  init_pair(1, COLOR_BLUE, COLOR_BLACK);
+  
   int i = start_index;
-  Node<LopCQ> * curr_node = dslcq.head();
-  while (curr_node != NULL) {
-    if (i > end_index) return;
-
+  length = dslcq.count();
+  Node<LopCQ> * curr_node = dslcq.get_node_by_index(start_index);
+  
+  while (curr_node != NULL && i < length) {
+    if (i > end_index) break;
+    
     draw_column_seperator(current_yCoord);
-    if (current_index == i)
+    LopCQ curr_lopcq = curr_node->get_data();
+    
+    if (current_index == i) 
       wattron(current_window, A_BOLD | COLOR_PAIR(1));
     
-    LopCQ curr_lopcq = curr_node->get_data();
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_lopcq.MALOP);
-    curr_node = curr_node->get_next();
-
-    i++;
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_lopcq.DSSV->count()).c_str());
+    if (current_index == i)
+      wattroff(current_window, A_BOLD | COLOR_PAIR(1));
+    
     current_yCoord += 2;
+    curr_node = curr_node->get_next();
+    i++;
   }
-
-  wattroff(current_window, A_BOLD | COLOR_PAIR(1));
   wrefresh(current_window);
 }
 
 // Print DSMH
 void Table::render_dsmh(DanhSachMonHoc dsmh) {
-  // int length = dsmh.length;
+  length = dsmh.length;
+  int current_yCoord = 5;
+  int i = 0;
+  init_pair(1, COLOR_BLUE, COLOR_BLACK);
 
-  // int current_yCoord = 5;
-  // int i = 0;
-  // dsmh.enumerate([i, current_yCoord, this](MonHoc x) mutable{
-    // if (i >= page_size) return;
+  dsmh.enumerate([i, current_yCoord, this](MonHoc x) mutable {
+    if (i >= start_index && i <= end_index) {
+      if (i >= length) return;
+      draw_column_seperator(current_yCoord);
+      if (current_index == i)
+        wattron(current_window, A_BOLD | COLOR_PAIR(1));
 
-    // draw_column_seperator(current_yCoord);
-    // if (current_line == i)
-      // wattron(current_window, A_BOLD | COLOR_PAIR(1));
+      mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, x.MAMH);
+      mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, x.TENMH);
+      mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, std::to_string(x.STCLT).c_str());
+      mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, std::to_string(x.STCLT).c_str());
 
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, x.MAMH);
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, x.TENMH);
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, std::to_string(x.STCLT).c_str());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, std::to_string(x.STCLT).c_str());
-
-    // if (current_line == i)
-      // wattroff(current_window, A_BOLD | COLOR_PAIR(1));
-
-    // i++;
-    // current_yCoord += 2;
-  // });
-  // wrefresh(current_window);
+      if (current_index == i)
+        wattroff(current_window, A_BOLD | COLOR_PAIR(1));
+    
+      current_yCoord += 2;
+    }
+    i++;
+  });
+  wrefresh(current_window);
 }
 
 // Print DSSV
@@ -256,18 +267,25 @@ void Table::render_dssv(DanhSachSinhVien dssv) {
 
 // Print DSDK
 void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
-  // int current_yCoord = 5;
+  int current_yCoord = 5;
+  int i = 1;
+  Node<SinhVienDK> * curr_node = dsdk.head();
+  while (curr_node != NULL) {
+    // Get SV info
+    SinhVienDK curr_svdk = curr_node->get_data();
+    SinhVien * curr_sv = dslcq.search_sv(curr_svdk.get_MASV());
 
-  // Node<SinhVienDK> * curr_node = dsdk.head();
-  // while (curr_node != NULL) {
-    // SinhVienDK curr_svdk = curr_node->get_data();
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_svdk.get_MASV());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_svdk.get_DIEM()).c_str());
-    // curr_node = curr_node->get_next();
+    // Print
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, std::to_string(1).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_svdk.get_MASV());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv->get_HO());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, curr_sv->get_TEN());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, std::to_string(curr_svdk.get_DIEM()).c_str());
 
-    // mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
-    // current_yCoord += 2;
-  // }
-  // wrefresh(current_window);
+    curr_node = curr_node->get_next();
+    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
+    current_yCoord += 2;
+  }
+  wrefresh(current_window);
 }
 
