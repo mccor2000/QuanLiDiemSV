@@ -14,11 +14,11 @@ void add_loptc(char ** data) {
 
 void update_loptc(char ** data) {
   int ma_lop_tc = string_to_int(trim_whitespaces(data[0]));
-  database.get_dsltc().xoaLop(ma_lop_tc);
+  dsltc.xoaLop(ma_lop_tc);
   add_loptc(data);
 }
 
 void delete_loptc(int ma_lop_tc) {
-  database.get_dsltc().xoaLop(ma_lop_tc);
+  dsltc.xoaLop(ma_lop_tc);
 }
 
