@@ -11,6 +11,10 @@ LopTC::LopTC(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int m
   huylop = true;
 }
 
+LopTC::LopTC(){
+  dsdk = new DanhSachSinhVienDK();
+}
+
 LopTC* DanhSachLopTC::get_by_id(int i) {
 	return node[i] ;
 }
