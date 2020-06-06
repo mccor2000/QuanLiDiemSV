@@ -7,7 +7,7 @@ LopTC::LopTC(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int m
   nhom = n;
   sv_max = max;
   sv_min = min;
-  dsdk = NULL;
+  dsdk = new DanhSachSinhVienDK();
   huylop = true;
 }
 
