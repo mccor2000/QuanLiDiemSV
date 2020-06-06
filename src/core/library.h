@@ -29,6 +29,8 @@ extern DanhSachLopTC dsltc;
 extern DanhSachLopCQ dslcq;
 extern DanhSachMonHoc dsmh;
 
+extern LopTC * current_loptc;
+
 extern SinhVien current_sv;
 extern SinhVienDK current_svdk;
 extern DanhSachSinhVien * current_dssv;
@@ -73,7 +75,8 @@ bool HuyLopTC(int ma_lop);
 LopTC* timLop(char* nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tmp);
 LinkedList<char*> xuatDSDK(LopTC* loptc);
 void NhapDiemSV(SinhVienDK& sv, float DIEM );
-
+void find_loptc(char **);
+void set_score(char **);
 //-- J
 LinkedList<char*> Show_Score(char* nienkhoa, short hocki, short nhom, char tenMH[]);
 

@@ -61,8 +61,10 @@ char ** Form::get_label() {
     case 4:
       return SV_FORM_LABEL;
     case 5:
-      return NHAP_DIEM_FORM_LABEL;
+      return SVDK_FORM_LABEL;
     case 6:
+      return NHAP_DIEM_FORM_LABEL;
+    case 7:
       return DANG_KY_FORM_LABEL;
     default: 
       return NULL;

@@ -11,9 +11,24 @@ LopTC* timLop(char* nienkhoa_tmp, short hocki_tmp, short nhom_tmp, char* maMH_tm
     return NULL;
 }
 
-void  moduleI_1(char** data){
-    LopTC* curr_class = timLop(data[0],string_to_short(data[1]),string_to_short(data[2]),data[3]);
-    current_dsdk = curr_class->dsdk;
+void find_loptc(char ** data) {
+    for (int i = 0; i < dsltc.getN(); i++) {
+      current_loptc = dsltc.node[i];
+      if (strcmp(current_loptc->nienkhoa, data[0]) == 0,
+          current_loptc->hocki == string_to_short(data[1]),
+          current_loptc->nhom == string_to_short(data[2]),
+          strcmp(current_loptc->maMH, data[3]) == 0
+          )
+      {
+          break;
+      }
+    }
+    current_dsdk = current_loptc->dsdk;
+    // current_dsdk = NULL;
+}
+
+void set_score(char ** data) {
+  // current_svdk.set_DIEM(string_to_float(data[1]));
 }
 
 void moduleI_2(char ** data){

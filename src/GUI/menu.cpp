@@ -8,6 +8,7 @@ char * main_menu_items[] = {
   "Dang ki",
   "Xem diem",
   "Thoat",
+  (char *)NULL,
 };
 
 char * crud_menu_items[] = {
@@ -15,6 +16,7 @@ char * crud_menu_items[] = {
   "Hieu chinh",
   "Xoa",
   "Quay lai",
+  (char *)NULL,
 };
 
 char * score_board_menu_items[] = {
@@ -22,6 +24,7 @@ char * score_board_menu_items[] = {
   "Bang diem khoa hoc",
   "Bang diem tong ket",
   "Quay lai",
+  (char *)NULL,
 };
 
 Menu::Menu(WINDOW * w, int t) {
@@ -32,8 +35,6 @@ Menu::Menu(WINDOW * w, int t) {
       len = 8; 
       break;
     case 2: 
-      len = 4; 
-      break;
     case 3:
       len = 5;
       break;

@@ -39,6 +39,11 @@ char * DSDK_FIELDS[] = {
   "DIEM",
 };
 
+char * DSDK_NHAP_DIEM_FIELDS[] = {
+  "MASV",
+  "DIEM",
+};
+
 Table::Table(WINDOW * win) {
   current_window = win;
   getmaxyx(win, height, width);
@@ -110,6 +115,9 @@ void Table::display() {
       fields = DSDK_FIELDS;
       fields_len = 5;
       break;
+    case 6:
+      fields = DSDK_NHAP_DIEM_FIELDS;
+      fields_len = 2;
   }
   average_width = width / fields_len;
   
@@ -193,22 +201,23 @@ void Table::render_dslcq(DanhSachLopCQ dslcq) {
   
   int i = start_index;
   length = dslcq.count();
+  if (length == 0) return;
+
   Node<LopCQ> * curr_node = dslcq.get_node_by_index(start_index);
-  
   while (curr_node != NULL && i < length) {
     if (i > end_index) break;
-    
+
     draw_column_seperator(current_yCoord);
     LopCQ curr_lopcq = curr_node->get_data();
-    
-    if (current_index == i) 
+
+    if (current_index == i)
       wattron(current_window, A_BOLD | COLOR_PAIR(1));
-    
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_lopcq.MALOP);
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_lopcq.DSSV->count()).c_str());
+
+    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_lopcq.MALOP);
+    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_lopcq.DSSV->count()).c_str());
     if (current_index == i)
       wattroff(current_window, A_BOLD | COLOR_PAIR(1));
-    
+
     current_yCoord += 2;
     curr_node = curr_node->get_next();
     i++;
@@ -289,3 +298,22 @@ void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
   wrefresh(current_window);
 }
 
+void Table::render_dsdk_nhap_diem(DanhSachSinhVienDK dsdk) {
+  int current_yCoord = 5;
+  int i = 1;
+  Node<SinhVienDK> * curr_node = dsdk.head();
+  while (curr_node != NULL) {
+    // Get SV info
+    SinhVienDK curr_svdk = curr_node->get_data();
+    SinhVien * curr_sv = dslcq.search_sv(curr_svdk.get_MASV());
+
+    // Print
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_svdk.get_MASV());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_svdk.get_DIEM()).c_str());
+
+    curr_node = curr_node->get_next();
+    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
+    current_yCoord += 2;
+  }
+  wrefresh(current_window);
+}

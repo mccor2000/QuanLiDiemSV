@@ -37,6 +37,11 @@ bool SinhVien::operator == (SinhVien x) {
 
 
 /********************** DanhSachSinhVien ***********************/
+DanhSachSinhVien::DanhSachSinhVien() {
+  p_head_ = NULL;
+  p_tail_ = NULL;
+}
+
 SinhVien * DanhSachSinhVien::search_sv(char * ma_sv) {
   // Find
   Node<SinhVien> * curr_node = p_head_;
@@ -105,7 +110,7 @@ void DanhSachSinhVien::save(const char * ma_lop) {
 void DanhSachSinhVien::load(const char * ma_lop) {
   // Get path
   char path[64] = "../database/dssv/";
-  strcat(path, "d18cqcn");
+  strcat(path, ma_lop);
   strcat(path, ".d");
   
   // Open file

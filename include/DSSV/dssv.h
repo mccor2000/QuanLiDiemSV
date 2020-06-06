@@ -46,6 +46,8 @@ public:
 
 class DanhSachSinhVien: public LinkedList<SinhVien> {
 public:
+  DanhSachSinhVien();
+
   SinhVien * search_sv(char *);
   void delete_sv(char *);
   SinhVien get_by_index(int index);
