@@ -31,24 +31,11 @@ DanhSachSinhVienDK::DanhSachSinhVienDK() {
   p_tail_ = NULL;
 }
 
-SinhVienDK DanhSachSinhVienDK::get_by_index(int index){
-  Node<SinhVienDK>* node = head();
-  SinhVienDK result;
-  if(index>count()){
-    return result;
-  }
-  while(node!=NULL && index--){
-    node=node->get_next();
-  }
-  result=node->get_data();
-  return result;
-}
-
 void DanhSachSinhVienDK::save(const char * ma_lop) {
   // Get path
   char path[64] = "../database/dsdk/";
   strcat(path, ma_lop);
-  strcat(path, ".d");
+  strcat(path, ".txt");
   // Open file
   std::ofstream f;
   f.open(path, std::ios::out);
