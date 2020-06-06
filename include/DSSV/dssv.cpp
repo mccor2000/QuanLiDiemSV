@@ -105,7 +105,7 @@ void DanhSachSinhVien::save(const char * ma_lop) {
 void DanhSachSinhVien::load(const char * ma_lop) {
   // Get path
   char path[64] = "../database/dssv/";
-  strcat(path, malop);
+  strcat(path, ma_lop);
   strcat(path, ".d");
   
   // Open file

@@ -1,4 +1,4 @@
-RRnclude "dsdk.h"
+#include "dsdk.h"
 /********************* SinhVienDK ********************/
 
 //-- Constructor
@@ -34,13 +34,14 @@ void DanhSachSinhVienDK::save(const char * ma_lop) {
   
   // Open file
   std::ofstream f;
-  f.open(path, std::ios::binary);
+  f.open(path, std::ios::out);
   
-  // Write to file
-  Node<SinhVienDK> * temp_node = p_head_;
+  // Save to file
+  Node<SinhVienDK>  * temp_node = p_head_;
+
   while (temp_node != NULL) {
-    SinhVienDK temp_sv = temp_node->get_data();
-    f.write((char *)&temp_sv, sizeof(SinhVienDK));    
+    f<<temp_node->get_data().get_MASV()<<"\t"
+     <<temp_node->get_data().get_DIEM()<<"\n";
 
     temp_node = temp_node->get_next();
   }
@@ -57,17 +58,20 @@ void DanhSachSinhVienDK::load(const char * ma_lop) {
   
   // Open file
   std::ifstream f;
-  f.open(path, std::ios::binary);
+  f.open(path, std::ios::in);
   
   // Read from file 
-  SinhVienDK temp;
-  while (f.read((char *)&temp, sizeof(SinhVienDK))) {
-    push_back(temp);
+  char ma[15]; //masv
+  int d;       //diem
+  while (f>>ma>>d) {
+    SinhVienDK svdk(ma,d);
+    push_back(svdk); // bug hereeeeeee
   }
-  
-  // Save file
+
+  // Close file
   f.close();
 }
+
 SinhVienDK DanhSachSinhVienDK::get_by_index(int index){
   Node<SinhVienDK>* node = head();
   SinhVienDK result;
