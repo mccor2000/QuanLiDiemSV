@@ -51,14 +51,6 @@ void DanhSachSinhVienDK::save(const char * ma_lop) {
   strcat(path, ".d");
   // Open file
   std::ofstream f;
-<<<<<<< HEAD
-  f.open(path, std::ios::binary);
-  // Write file
-  Node<SinhVienDK> * current_node = p_head_;
-  while (current_node != NULL) {
-    SinhVienDK current_sv = current_node->get_data();
-    f.write((char *)&current_sv, sizeof(SinhVienDK));
-=======
   f.open(path, std::ios::out);
   
   // Save to file
@@ -67,9 +59,8 @@ void DanhSachSinhVienDK::save(const char * ma_lop) {
   while (temp_node != NULL) {
     f<<temp_node->get_data().get_MASV()<<"\t"
      <<temp_node->get_data().get_DIEM()<<"\n";
->>>>>>> 274d1a2201193053cbaa8575136a5941269a95c7
 
-    current_node = current_node->get_next();
+    temp_node = temp_node->get_next();
   }
   // Save file
   f.close();
@@ -79,20 +70,9 @@ void DanhSachSinhVienDK::load(const char * ma_lop) {
   // Get path
   char path[64] = "../database/dsdk/";
   strcat(path, ma_lop);
-  strcat(path, ".d");
+  strcat(path, ".txt");
   // Open file
   std::ifstream f;
-<<<<<<< HEAD
-  f.open(path, std::ios::binary);
-  // Read file 
-  SinhVienDK temp;
-  while (f.read((char *)&temp, sizeof(SinhVienDK))) {
-    push_back(temp);
-  }
-  // Save file
-  f.close();
-}
-=======
   f.open(path, std::ios::in);
   
   // Read from file 
@@ -100,7 +80,7 @@ void DanhSachSinhVienDK::load(const char * ma_lop) {
   int d;       //diem
   while (f>>ma>>d) {
     SinhVienDK svdk(ma,d);
-    push_back(svdk); // bug hereeeeeee
+    push_back(svdk);
   }
 
   // Close file
@@ -119,5 +99,4 @@ SinhVienDK DanhSachSinhVienDK::get_by_index(int index){
   result=node->get_data();
   return result;
 }
->>>>>>> 274d1a2201193053cbaa8575136a5941269a95c7
 

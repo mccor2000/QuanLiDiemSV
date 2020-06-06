@@ -116,17 +116,12 @@ void DanhSachLopTC::xoaDS() {
 void DanhSachLopTC::save() {
   // Open file
   ofstream f;
-<<<<<<< HEAD
-  f.open(db, std::ios::binary);
-  // Save
-=======
   f.open(db, std::ios::out);
   
   // Save STT & N
   f<<stt<<"\t"<<n<<"\n";
 
   // Save dsltc
->>>>>>> 274d1a2201193053cbaa8575136a5941269a95c7
   for (int i = 0; i < n; i++) {
     // Save LopTC
     f<<node[i]->malop<<"\t"

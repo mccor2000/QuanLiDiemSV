@@ -33,7 +33,7 @@ class DanhSachLopTC {
 private:
 	int n = 0;
 	int stt = 1;
-	char db[32] = "../database/dsltc.d";
+	char db[32] = "../database/dsltc.txt";
 	
 public:
 	LopTC *node[LOP_MAX];
