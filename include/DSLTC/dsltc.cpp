@@ -157,7 +157,7 @@ void DanhSachLopTC::load() {
 	   >>node[i]->huylop;
 
 	  const char * temp = std::to_string(node[i]->malop).c_str(); 
-	  *node[i]->dsdk->load(temp);
+	  node[i]->dsdk->load(temp);
   }
 
   // Close file DSLTC
