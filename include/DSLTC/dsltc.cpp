@@ -11,6 +11,10 @@ LopTC::LopTC(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int m
   huylop = true;
 }
 
+LopTC::LopTC(){
+  dsdk = new DanhSachSinhVienDK();
+}
+
 LopTC* DanhSachLopTC::get_by_id(int i) {
 	return node[i] ;
 }
@@ -76,10 +80,7 @@ void DanhSachLopTC::themLop(LopTC &lop, int pos) {
 		return;
 	}
 	lop.malop = stt;
-	if (pos<0) {
-		insertOrder(lop,0);
-	}
-	else if (pos>n) {
+	if (pos>n) {
 		insertLast(lop);
 	}
 	else {
@@ -115,11 +116,27 @@ void DanhSachLopTC::xoaDS() {
 void DanhSachLopTC::save() {
   // Open file
   ofstream f;
+<<<<<<< HEAD
   f.open(db, std::ios::binary);
   // Save
+=======
+  f.open(db, std::ios::out);
+  
+  // Save STT & N
+  f<<stt<<"\t"<<n<<"\n";
+
+  // Save dsltc
+>>>>>>> 274d1a2201193053cbaa8575136a5941269a95c7
   for (int i = 0; i < n; i++) {
     // Save LopTC
-    f.write((char *)node[i], sizeof(LopTC));  
+    f<<node[i]->malop<<"\t"
+	 <<node[i]->maMH<<"\t"
+	 <<node[i]->nienkhoa<<"\t"
+	 <<node[i]->hocki<<"\t"
+	 <<node[i]->nhom<<"\t"
+	 <<node[i]->sv_max<<"\t"
+	 <<node[i]->sv_min<<"\t"
+	 <<node[i]->huylop<<"\n";  
     // Save dsdk
     if (node[i]->dsdk != NULL) {
       const char * temp = std::to_string(node[i]->malop).c_str();
@@ -131,18 +148,26 @@ void DanhSachLopTC::save() {
 }
 
 void DanhSachLopTC::load() {
-  // Open file
+  // Open file DSLTC
   ifstream f;
-  f.open(db, std::ios::binary);
-  
-  // Load
-  LopTC* temp = new LopTC(); 
-  while (f.read((char *)temp, sizeof(LopTC))) {
-    const char * temp_malop = std::to_string(temp->malop).c_str(); 
-    temp->dsdk->load((char *)temp_malop);
-    insertLast(*temp);
+  f.open(db, std::ios::in);
+
+  f>>stt>>n;
+  for (int i=0; i<n; i++) {
+	  node[i] = new LopTC();
+	  f>>node[i]->malop
+	   >>node[i]->maMH
+	   >>node[i]->nienkhoa
+	   >>node[i]->hocki
+	   >>node[i]->nhom
+	   >>node[i]->sv_max
+	   >>node[i]->sv_min
+	   >>node[i]->huylop;
+
+	  const char * temp = std::to_string(node[i]->malop).c_str(); 
+	  node[i]->dsdk->load(temp);
   }
 
-  // Close file 
+  // Close file DSLTC
   f.close();
 }

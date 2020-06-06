@@ -24,7 +24,7 @@ struct LopTC {
 	DanhSachSinhVienDK * dsdk; 
 
 	LopTC(char* maMH, char* nienkhoa, short hocki, short nhom, int sv_max, int sv_min);
-	LopTC() {;}
+	LopTC();
 
   void save();
 };
@@ -32,7 +32,7 @@ struct LopTC {
 class DanhSachLopTC {
 private:
 	int n = 0;
-	int stt = 0;
+	int stt = 1;
 	char db[32] = "../database/dsltc.d";
 	
 public:

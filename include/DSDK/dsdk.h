@@ -32,7 +32,6 @@ public:
   DanhSachSinhVienDK();
 
   SinhVienDK get_by_index(int index);
-  void print();
   void save(const char *);
   void load(const char *);
 };
