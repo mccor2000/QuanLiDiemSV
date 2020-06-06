@@ -47,11 +47,11 @@ void DanhSachLopCQ::save() {
   Node<LopCQ> * current_node = p_head_;
   while (current_node != NULL) {
     LopCQ current_lopcq = current_node->get_data();
-    std::string temp(current_lopcq.MALOP);
+    const char * current_malop = current_node->get_data().MALOP;
     // Save MALOP
     f.write((char *)&current_lopcq, sizeof(LopCQ));
     // Save DSSV
-    current_lopcq.DSSV->save(temp.c_str());
+    current_node->get_data().DSSV->save(current_malop);
     current_node = current_node->get_next();
   }
   // Close file
@@ -64,13 +64,13 @@ void DanhSachLopCQ::load() {
   f.open(db, std::ios::binary);
   
   // Load
-  LopCQ * current_lopcq = new LopCQ();
-  while (f.read((char *)current_lopcq, sizeof(LopCQ))) {
-    std::string temp(current_lopcq->MALOP);
-    current_lopcq->DSSV->load(temp.c_str());
-    push_back(*current_lopcq);
+  LopCQ current_lopcq;
+  while (f.read((char *)&current_lopcq, sizeof(LopCQ))) {
+    const char * current_malop = current_lopcq.MALOP;
+    LopCQ new_lcq((char *)current_malop);
+    new_lcq.DSSV->load(current_malop);
+    push_back(new_lcq);
   }
-  // Close file 
   f.close();
 }
 

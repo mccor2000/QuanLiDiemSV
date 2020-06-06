@@ -68,5 +68,6 @@ public:
   void render_dsmh(DanhSachMonHoc dsmh);
   void render_dssv(DanhSachSinhVien dssv);
   void render_dsdk(DanhSachSinhVienDK dsdk);
+  void render_dsdk_nhap_diem(DanhSachSinhVienDK dsdk);
 };
 #endif

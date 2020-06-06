@@ -16,6 +16,8 @@ DanhSachLopTC dsltc;
 DanhSachLopCQ dslcq;
 DanhSachMonHoc dsmh;
 
+LopTC * current_loptc;
+
 SinhVien current_sv;
 SinhVienDK current_svdk;
 DanhSachSinhVien * current_dssv;
@@ -23,6 +25,8 @@ DanhSachSinhVienDK * current_dsdk;
 
 /************************************************/
 // Chooses's code
+
+// Main menu
 const short CHOOSE_QLLTC = 1;
 const short CHOOSE_QLLCQ = 2;
 const short CHOOSE_QLMH = 3;
@@ -31,11 +35,13 @@ const short CHOOSE_DANG_KY = 5;
 const short CHOOSE_XEM_DIEM = 6;
 const short CHOOSE_THOAT = 7;
 
+// DSLTC, DSLCQ, DSMH menu
 const short CHOOSE_THEM = 8;
 const short CHOOSE_CHINH_SUA = 9;
 const short CHOOSE_XOA = 10;
 const short CHOOSE_QUAY_LAI = 11;
 
+// Score board menu
 const short CHOOSE_BANG_DIEM_MON_HOC = 12;
 const short CHOOSE_BANG_DIEM_KHOA_HOC = 13;
 const short CHOOSE_BANG_DIEM_TONG_KET = 14;
@@ -46,9 +52,10 @@ const short DSLCQ = 2;
 const short DSMH = 3;
 const short DSSV = 4;
 const short DSDK = 5;
-const short NHAP_DIEM = 6;
-const short DANG_KI = 7;
-const short XEM_DIEM = 8;
+const short NHAP_DIEM_1 = 6;
+const short NHAP_DIEM_2 = 7;
+const short DANG_KI = 8;
+const short XEM_DIEM = 9;
 
 /*************************************************/
 class App {
@@ -141,10 +148,15 @@ Form App::get_form() {
       // if (choice == CHOOSE_THEM) form.set_submit(add_sv);
       // if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_sv);
       break;
-    case NHAP_DIEM:
-      form.set_type(5);
+    case NHAP_DIEM_1:
+      form.set_type(6);
       form.set_len(4);
+      form.set_submit(find_loptc);
       break;
+    case NHAP_DIEM_2:
+      form.set_type(5);
+      form.set_len(2);
+      form.set_submit(set_score);
     case DANG_KI:
       form.set_type(6);
       form.set_len(2);
@@ -176,6 +188,14 @@ Table App::get_table() {
     case DSDK:
       table.set_type(5);
       table.set_title("DANH SACH SINH VIEN DANG KY");
+      break;
+    case NHAP_DIEM_2:
+      table.set_type(6);
+      table.set_title("BANG DIEM DANH SACH DANG KY");
+      break;
+    // case XEM_DIEM:
+      // table.set_type(7);
+      // table.set_title("");
       break;
   }
   return table;
@@ -210,6 +230,9 @@ void App::render_table_data() {
     case DSDK:
       current_table.render_dsdk(*current_dsdk);
       break;
+    case NHAP_DIEM_1:
+      current_table.render_dsdk_nhap_diem(*current_dsdk);
+      break;
   }
 }
 
@@ -236,7 +259,7 @@ void App::process_menu() {
         current_dsdk = dsltc.get_by_id(current_table.get_current_index())->dsdk;
         do {
           render_table();
-          render_table_data();
+          if (current_dsdk) render_table_data();
         } while (current_table.get_input());
       }
 
@@ -261,7 +284,6 @@ void App::process_menu() {
           render_table_data();
         } while (current_table.get_input());
       }
-
       break;
 
     case CHOOSE_QLMH:
@@ -277,8 +299,36 @@ void App::process_menu() {
       break;
     
     case CHOOSE_NHAP_DIEM: {
-      state = NHAP_DIEM;
-      render_form(); 
+      state = NHAP_DIEM_1;
+      render_form();
+      
+      // Phase 1: Get LopTC
+      bool is_valid;
+      bool is_exist;
+      do {
+        is_valid = current_form.process_input();
+        is_exist = current_loptc ? true : false;
+      } while (!is_valid || !is_exist);
+      
+      // Phase 2: Nhap diem
+      current_dsdk = current_loptc->dsdk;
+      state = NHAP_DIEM_2;
+      do {
+        render_table();
+        do {
+          wclear(wins[1]);
+          current_table.display();
+          render_table_data();
+        } while (current_table.get_input());
+
+        if (current_table.is_picked) {
+          current_svdk = current_dsdk->get_by_index(current_table.get_current_index());
+          render_form();
+          do {
+            is_valid = current_form.process_input();
+          } while (!is_valid);
+        }
+      } while (current_table.is_picked);
       break;
     }
 
@@ -310,9 +360,12 @@ void App::process_menu() {
 
     case CHOOSE_THEM: {
       render_form();
-      bool done = current_form.process_input();
-      if (done) wclear(wins[1]);
-
+      bool valid;
+      do {
+        valid = current_form.process_input();
+      } while (!valid);
+      
+      wclear(wins[1]);
       current_table.display();
       render_table_data();
       wrefresh(wins[1]);
@@ -393,6 +446,4 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
-  // dslcq.load();
-  // std::cout << dslcq.head()->get_data().MALOP << std::endl;
 }

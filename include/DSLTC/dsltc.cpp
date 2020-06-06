@@ -7,7 +7,7 @@ LopTC::LopTC(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int m
   nhom = n;
   sv_max = max;
   sv_min = min;
-  dsdk = new DanhSachSinhVienDK();
+  dsdk = NULL;
   huylop = true;
 }
 
@@ -116,18 +116,16 @@ void DanhSachLopTC::save() {
   // Open file
   ofstream f;
   f.open(db, std::ios::binary);
-  
   // Save
   for (int i = 0; i < n; i++) {
     // Save LopTC
     f.write((char *)node[i], sizeof(LopTC));  
     // Save dsdk
-    if (node[i]->dsdk) {
-      const char * temp = std::to_string(node[i]->malop).c_str(); 
+    if (node[i]->dsdk != NULL) {
+      const char * temp = std::to_string(node[i]->malop).c_str();
       node[i]->dsdk->save(temp);
     }
   }
-
   // Close file
   f.close();
 }
