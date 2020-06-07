@@ -2,7 +2,11 @@
 
 /************************** LopCQ *****************************/
 LopCQ::LopCQ(char * malop) {
-  MALOP = malop;
+  strcpy(MALOP,malop);
+  DSSV = new DanhSachSinhVien();
+}
+
+LopCQ::LopCQ() {
   DSSV = new DanhSachSinhVien();
 }
 
@@ -47,6 +51,10 @@ void DanhSachLopCQ::save() {
   Node<LopCQ> *curr_node = head();
   while(curr_node!=NULL){
     file<<curr_node->get_data().MALOP << "\n";
+
+    const char* temp = curr_node->get_data().MALOP;
+    curr_node->get_data().DSSV->save(temp);
+    
     curr_node=curr_node->get_next();
   }
   file.close();
@@ -62,8 +70,12 @@ void DanhSachLopCQ::load() {
   while(file>>ma_lop){
     LopCQ curr(ma_lop);
     push_back(curr);
+
+    const char* temp = ma_lop;
+    curr.DSSV->load(temp);
   }
-    file.close();
+
+  file.close();
 }
 
 Node<LopCQ> * DanhSachLopCQ::get_node_by_index(int index) {

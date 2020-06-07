@@ -6,12 +6,12 @@
 
 class LopCQ {
 public:
-  char * MALOP;
+  char MALOP[15];
   DanhSachSinhVien * DSSV;
   
   //** Constructor 
   LopCQ(char *);
-  LopCQ() {;}
+  LopCQ();
 };
 
 class DanhSachLopCQ: public LinkedList<LopCQ> {
