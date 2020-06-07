@@ -249,7 +249,7 @@ void DanhSachMonHoc::save_node(node * n, std::ofstream &f) {
 
   if (n != NULL) {
     save_node(n->left, f);
-    f.write((char *)&(n->key), sizeof(MonHoc)); 
+    f<<n->key.MAMH << "\t" << n->key.TENMH << "\t" << n->key.STCLT << "\t" << n->key.STCTH << "\n"; 
     save_node(n->right, f);
   }  
 }
@@ -297,17 +297,21 @@ void DanhSachMonHoc::enumerate(std::function<void(MonHoc)> f) {
 
 void DanhSachMonHoc::save() {
   std::ofstream f;
-  f.open(db, std::ios::binary);
+  f.open(db, std::ios::out);
   save_node(root, f);
   f.close();
 }
 
 void DanhSachMonHoc::load() {
   std::ifstream f;
-  f.open(db, std::ios::binary);
-
-  MonHoc temp;
-  while(f.read((char *)&temp, sizeof(temp))) {
-    insert(temp);
+  f.open(db, std::ios::in);
+  char code[15];
+  char name[15];
+  int stclt;
+  int stcth;
+  while(f>>code>>name>>stclt>>stcth){
+    MonHoc curr_sub(code,name,stclt, stcth);
+    insert(curr_sub);
   }  
+  f.close();
 }

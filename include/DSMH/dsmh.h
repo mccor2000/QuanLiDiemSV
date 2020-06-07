@@ -48,7 +48,7 @@ public:
   // Properties
   int length;
   node * root; 
-  char db[32] = "../database/dsmh.d";
+  char db[32] = "../database/dsmh.txt";
 
   // Constructor
   DanhSachMonHoc();
