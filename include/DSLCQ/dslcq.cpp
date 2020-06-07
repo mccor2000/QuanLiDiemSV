@@ -2,7 +2,11 @@
 
 /************************** LopCQ *****************************/
 LopCQ::LopCQ(char * malop) {
-  MALOP = malop;
+  strcpy(MALOP,malop);
+  DSSV = new DanhSachSinhVien();
+}
+
+LopCQ::LopCQ() {
   DSSV = new DanhSachSinhVien();
 }
 
@@ -39,39 +43,39 @@ SinhVien * DanhSachLopCQ::search_sv(char * ma_sv) {
 }
 
 void DanhSachLopCQ::save() {
+  char path[64] = "../database/dslcq.txt";
   // Open file
-  std::ofstream f;
-  f.open(db, std::ios::binary);
- 
-  // Save  
-  Node<LopCQ> * current_node = p_head_;
-  while (current_node != NULL) {
-    LopCQ current_lopcq = current_node->get_data();
-    const char * current_malop = current_node->get_data().MALOP;
-    // Save MALOP
-    f.write((char *)&current_lopcq, sizeof(LopCQ));
-    // Save DSSV
-    current_node->get_data().DSSV->save(current_malop);
-    current_node = current_node->get_next();
+  std::ofstream file;
+  file.open(path, std::ios::out);
+
+  Node<LopCQ> *curr_node = head();
+  while(curr_node!=NULL){
+    file<<curr_node->get_data().MALOP << "\n";
+
+    const char* temp = curr_node->get_data().MALOP;
+    curr_node->get_data().DSSV->save(temp);
+    
+    curr_node=curr_node->get_next();
   }
-  // Close file
-  f.close();
+  file.close();
 }
 
 void DanhSachLopCQ::load() {
   // Open file
-  std::ifstream f;
-  f.open(db, std::ios::binary);
-  
-  // Load
-  LopCQ current_lopcq;
-  while (f.read((char *)&current_lopcq, sizeof(LopCQ))) {
-    const char * current_malop = current_lopcq.MALOP;
-    LopCQ new_lcq((char *)current_malop);
-    new_lcq.DSSV->load(current_malop);
-    push_back(new_lcq);
+   char path[64] = "../database/dslcq.txt";
+  // Open file
+  std::ifstream file;
+  file.open(path, std::ios::in);
+  char ma_lop[15];
+  while(file>>ma_lop){
+    LopCQ curr(ma_lop);
+    push_back(curr);
+
+    const char* temp = ma_lop;
+    curr.DSSV->load(temp);
   }
-  f.close();
+
+  file.close();
 }
 
 Node<LopCQ> * DanhSachLopCQ::get_node_by_index(int index) {

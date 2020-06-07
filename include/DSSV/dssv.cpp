@@ -89,18 +89,17 @@ void DanhSachSinhVien::save(const char * ma_lop) {
   // Get path
   char path[64] = "../database/dssv/";
   strcat(path, ma_lop);
-  strcat(path, ".d");
+  strcat(path, ".txt");
 
   // Open file
   std::ofstream f;
-  f.open(path, std::ios::binary);
+  f.open(path, std::ios::out);
 
   // Loop through the list and write to file 
-  Node<SinhVien> * curr_node= p_head_;
+  Node<SinhVien> * curr_node= head();
   while (curr_node != NULL) {
-    SinhVien curr_sv= curr_node->get_data();
-    f.write((char *)&curr_sv, sizeof(SinhVien));
-
+    SinhVien sv = curr_node->get_data();
+    f << sv.get_MASV() << "\t" << sv.get_HO() << "\t" << sv.get_TEN() << "\t" << sv.get_PHAI()  << "\t" << sv.get_SDT()  << "\t" << sv.get_MALOP() <<"\n";
     curr_node = curr_node->get_next();
   }
   // Close file
@@ -111,15 +110,21 @@ void DanhSachSinhVien::load(const char * ma_lop) {
   // Get path
   char path[64] = "../database/dssv/";
   strcat(path, ma_lop);
-  strcat(path, ".d");
+  strcat(path, ".txt");
   
   // Open file
   std::ifstream f;
-  f.open(path, std::ios::binary);
-  
+  f.open(path, std::ios::in);
   // Get data from file and push to the list
-  SinhVien curr_sv;
-  while (f.read((char *)&curr_sv, sizeof(SinhVien))) {
+  char masv[15];
+  char ho[16];
+  char ten[16];
+  char malop[15];
+  bool phai;
+  char sdt[15];
+    
+  while (f>>masv>>ho>>ten>>phai>>sdt>>malop) {
+    SinhVien curr_sv(masv,ho,ten,phai,sdt,malop);
     push_back(curr_sv);
   }
   // Close the file
