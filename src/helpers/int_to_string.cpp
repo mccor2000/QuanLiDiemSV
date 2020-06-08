@@ -1,6 +1,6 @@
 #include "./helpers.h"
 
-char* converting(int x){
+char* int_to_string(int x){
     char* result = "";
     while(x){
         result+= char((x%10)+48);
