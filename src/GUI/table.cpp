@@ -132,7 +132,6 @@ void Table::display() {
 // Get input
 bool Table::get_input() {
   input = getch();
-  if (input == 27) return false;
     
   switch (input) {
     case KEY_UP:
@@ -154,7 +153,11 @@ bool Table::get_input() {
         current_index = end_index;
       }
       break;
-    
+
+    case 27:
+    case KEY_LEFT:
+      return false;
+   
     case 10:
       is_picked = true;
       return false;

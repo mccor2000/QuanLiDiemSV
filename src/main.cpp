@@ -18,7 +18,7 @@ DanhSachMonHoc dsmh;
 
 LopTC * current_loptc;
 
-SinhVien current_sv;
+SinhVien * current_sv;
 SinhVienDK current_svdk;
 DanhSachSinhVien * current_dssv;
 DanhSachSinhVienDK * current_dsdk;
@@ -54,8 +54,9 @@ const short DSSV = 4;
 const short DSDK = 5;
 const short NHAP_DIEM_1 = 6;
 const short NHAP_DIEM_2 = 7;
-const short DANG_KI = 8;
-const short XEM_DIEM = 9;
+const short DANG_KI_1 = 8;
+const short DANG_KI_2 = 9;
+const short XEM_DIEM = 10;
 
 /*************************************************/
 class App {
@@ -157,7 +158,7 @@ Form App::get_form() {
       form.set_type(5);
       form.set_len(2);
       form.set_submit(set_score);
-    case DANG_KI:
+    case DANG_KI_2:
       form.set_type(6);
       form.set_len(2);
       break;
@@ -333,19 +334,25 @@ void App::process_menu() {
     }
 
     case CHOOSE_DANG_KY: {
-      char ma_sv[15];
-      SinhVien * sv = NULL;
-      wclear(wins[1]); 
-      do {
-        mvwprintw(wins[1], 1, 1, "Nhap ma SV: ");
-        mvwscanw(wins[1], 1, 12, "%s", ma_sv);
-        sv = dslcq.search_sv(ma_sv);
-        if (!sv) mvwprintw(wins[1], 2, 1, "Sinh vien khong ton tai!");
-        else sv->print_info(wins[1]);
-      } while (!sv);
-      state = DANG_KI;
+      // Phase 1: Get SV
+      state = DANG_KI_1;
       render_form();
-      current_form.process_input();
+      bool is_valid;
+      bool is_exist;
+      do {
+        is_valid = current_form.process_input();
+        is_exist = current_sv ? true : false;
+      } while (!is_valid || !is_exist);
+      
+      // Phase 2: Dang ki
+      state = DANG_KI_2;
+      if (current_sv) {
+        // print_sv_info(current_sv);
+        render_form();
+        do {
+          is_valid = current_form.process_input();
+        } while (!is_valid);
+      } 
       break;
     }
 

@@ -31,7 +31,7 @@ extern DanhSachMonHoc dsmh;
 
 extern LopTC * current_loptc;
 
-extern SinhVien current_sv;
+extern SinhVien * current_sv;
 extern SinhVienDK current_svdk;
 extern DanhSachSinhVien * current_dssv;
 extern DanhSachSinhVienDK * current_dsdk;

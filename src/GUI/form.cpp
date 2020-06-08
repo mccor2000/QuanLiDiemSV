@@ -29,19 +29,23 @@ char * SV_FORM_LABEL[] = {
   "Ma lop: ",
 };
 
-char * SVDK_FORM_LABEL[] = {
-  "Ma SV: ",
-  "Diem: ",
-};
-
-char * NHAP_DIEM_FORM_LABEL[] = {
+char * NHAP_DIEM_FORM_1_LABEL[] = {
   "Nien khoa: ",
   "Hoc ki: ",
   "Nhom: ",
   "Mon hoc: ",
 };
 
-char * DANG_KY_FORM_LABEL[] = {
+char * NHAP_DIEM_FORM_2_LABEL[] = {
+  "Ma SV: ",
+  "Diem: ",
+};
+
+char * DANG_KY_FORM_1_LABEL[] = {
+  "Ma SV: ",
+};
+
+char * DANG_KY_FORM_2_LABEL[] = {
   "Nien khoa: ",
   "Hoc ki: ",
 };
@@ -61,11 +65,13 @@ char ** Form::get_label() {
     case 4:
       return SV_FORM_LABEL;
     case 5:
-      return SVDK_FORM_LABEL;
+      return NHAP_DIEM_FORM_1_LABEL;
     case 6:
-      return NHAP_DIEM_FORM_LABEL;
+      return NHAP_DIEM_FORM_2_LABEL;
     case 7:
-      return DANG_KY_FORM_LABEL;
+      return DANG_KY_FORM_1_LABEL;
+    case 8:
+      return DANG_KY_FORM_2_LABEL;
     default: 
       return NULL;
   }  
