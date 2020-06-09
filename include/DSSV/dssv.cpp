@@ -99,7 +99,12 @@ void DanhSachSinhVien::save(const char * ma_lop) {
   Node<SinhVien> * curr_node= head();
   while (curr_node != NULL) {
     SinhVien sv = curr_node->get_data();
-    f << sv.get_MASV() << "\t" << sv.get_HO() << "\t" << sv.get_TEN() << "\t" << sv.get_PHAI()  << "\t" << sv.get_SDT()  << "\t" << sv.get_MALOP() <<"\n";
+    f << sv.get_MASV() << "\n" 
+      << sv.get_HO() << "\n" 
+      << sv.get_TEN() << "\t" 
+      << sv.get_PHAI() << "\t" 
+      << sv.get_SDT() << "\t" 
+      << sv.get_MALOP() <<"\n";
     curr_node = curr_node->get_next();
   }
   // Close file
@@ -116,14 +121,24 @@ void DanhSachSinhVien::load(const char * ma_lop) {
   std::ifstream f;
   f.open(path, std::ios::in);
   // Get data from file and push to the list
+  std::string masv_str;
+  std::string ho_str;
   char masv[15];
   char ho[16];
   char ten[16];
   char malop[15];
   bool phai;
-  char sdt[15];
-    
-  while (f>>masv>>ho>>ten>>phai>>sdt>>malop) {
+  char sdt[16];
+  
+  while (getline(f,masv_str)) {
+    getline(f,ho_str);
+    f>>ten>>phai>>sdt>>malop;
+    std::string tmp;
+    getline(f,tmp);
+
+    strcpy(masv,StringToChar(masv_str));
+    strcpy(ho,StringToChar(ho_str));
+
     SinhVien curr_sv(masv,ho,ten,phai,sdt,malop);
     push_back(curr_sv);
   }

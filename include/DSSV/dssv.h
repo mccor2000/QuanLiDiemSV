@@ -7,6 +7,7 @@
 #include <ncurses.h>
 
 #include "../templates/LinkedList.h"
+#include "../../src/helpers/helpers.h"
 
 class SinhVien{
 private:

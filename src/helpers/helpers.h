@@ -6,6 +6,7 @@
 #include <string>
 #include<stdio.h>
 #include <stdlib.h>
+#include <alloca.h>
 
 char *ltrim(char *const s);
 char *rtrim(char *const s);
@@ -28,7 +29,8 @@ int string_to_int(char * str);
 char* int_to_string(int x);
 char* float_to_string(float fnum);
 
-
 double string_to_float(char* str);
+
+char * StringToChar(std::string st);
 
 #endif
