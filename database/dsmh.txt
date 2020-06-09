@@ -1,0 +1,1 @@
+./databaseq.txt	q.txt	895761754	21929

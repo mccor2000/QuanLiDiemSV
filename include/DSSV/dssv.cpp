@@ -12,14 +12,8 @@ SinhVien::SinhVien(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALO
     strcpy(MALOP_, MALOP);
 }
 
-//-- Methods
-void SinhVien::print_info(WINDOW * curr_win){
-  mvwprintw(curr_win, 1, 1, MASV_);
-  mvwprintw(curr_win, 2, 1, HO_);
-  mvwprintw(curr_win, 3, 1, TEN_);
-  mvwprintw(curr_win, 4, 1, (PHAI_) ? "Nam" : "Nu");
-  mvwprintw(curr_win, 5, 1, SDT_);
-  mvwprintw(curr_win, 6, 1, MALOP_);
+SinhVien::SinhVien() {
+  strcpy(MASV_, "");
 }
 
 //-- Operator overloading
@@ -42,20 +36,17 @@ DanhSachSinhVien::DanhSachSinhVien() {
   p_tail_ = NULL;
 }
 
-SinhVien * DanhSachSinhVien::search_sv(char * ma_sv) {
-  // Find
-  Node<SinhVien> * curr_node = p_head_;
-  SinhVien sv;
-  while(curr_node != NULL &&
-        strcmp(curr_node->get_data().get_MASV(), ma_sv) != 0)
-  { 
-    sv = curr_node->get_data();
-    curr_node = curr_node->get_next();
-  }
-  // Return
-  if (curr_node == NULL) return NULL;
-  return &sv;
-}
+// Node<SinhVien> * DanhSachSinhVien::search_sv(char * ma_sv) {
+  // // Find
+  // Node<SinhVien> * curr_node = p_head_;
+  // while(curr_node != NULL &&
+        // strcmp(curr_node->get_data().get_MASV(), ma_sv) != 0)
+  // {
+    // curr_node = curr_node->get_next();
+  // }
+  // // Return
+  // return curr_node;
+// }
 
 void DanhSachSinhVien::delete_sv(char * ma_sv) {
   Node<SinhVien> * curr_node = p_head_;
@@ -131,15 +122,14 @@ void DanhSachSinhVien::load(const char * ma_lop) {
   f.close();
 }
 
-SinhVien DanhSachSinhVien::get_by_index(int index){
-  Node<SinhVien>* node = head();
-  SinhVien result;
-  if(index>count()){
-    return result;
+Node<SinhVien> * DanhSachSinhVien::get_node_by_index(int index){
+  if (index > count()) return NULL;
+
+  Node<SinhVien> * current_node = p_head_;
+  int i = 0;
+  while (current_node != NULL && i < index) {
+    current_node = current_node->get_next();
+    i++;
   }
-  while(node!=NULL && index--){
-    node=node->get_next();
-  }
-  result=node->get_data();
-  return result;
+  return current_node;
 }

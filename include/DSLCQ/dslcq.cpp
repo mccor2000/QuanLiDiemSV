@@ -31,16 +31,18 @@ DanhSachSinhVien * DanhSachLopCQ::get_dssv(char * malop) {
   return curr_lopcq->get_data().DSSV;
 }
 
-SinhVien * DanhSachLopCQ::search_sv(char * ma_sv) {
-  Node<LopCQ> * curr_lopcq = p_head_;
-  SinhVien * res = NULL;
-  while (curr_lopcq != NULL && !res) {
-    // Search for every LopCQ
-    res = curr_lopcq->get_data().DSSV->search_sv(ma_sv);
-    curr_lopcq = curr_lopcq->get_next();
-  }
-  return res;
-}
+// Node<SinhVien> * DanhSachLopCQ::search_sv(char * ma_sv) {
+  // Node<LopCQ> * curr_lopcq = p_head_;
+  // Node<SinhVien> * is_found;
+  // while (!curr_lopcq) {
+    // is_found = curr_lopcq->get_data().DSSV->search_sv(ma_sv);
+    // if (is_found) break;
+
+    // curr_lopcq = curr_lopcq->get_next();
+  // }
+
+  // return is_found;
+// }
 
 void DanhSachLopCQ::save() {
   char path[64] = "../database/dslcq.txt";
@@ -83,7 +85,7 @@ Node<LopCQ> * DanhSachLopCQ::get_node_by_index(int index) {
   
   Node<LopCQ> * current_node = p_head_;
   int i = 0;
-  while (current_node != NULL && i <= index) {
+  while (current_node != NULL && i < index) {
     current_node = current_node->get_next();
     i++;
   }

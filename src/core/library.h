@@ -29,9 +29,12 @@ extern DanhSachLopTC dsltc;
 extern DanhSachLopCQ dslcq;
 extern DanhSachMonHoc dsmh;
 
-extern LopTC * current_loptc;
+extern DanhSachLopTC filtered_dsltc;
 
-extern SinhVien current_sv;
+extern LopTC * current_loptc;
+extern LopCQ current_lopcq;
+
+extern Node<SinhVien> * current_sv;
 extern SinhVienDK current_svdk;
 extern DanhSachSinhVien * current_dssv;
 extern DanhSachSinhVienDK * current_dsdk;
@@ -47,25 +50,19 @@ void update_loptc(char ** data);
 LinkedList<char*> in_danh_sach_dang_ki(char* nienkhoa, short hocki, short nhom, char * maMH);
 
 //-- C
-void them_sv(char * ma_lop, SinhVien &sv);
-int vitri_sv(DanhSachSinhVien* DSSV,char* MASV);
-void xoa_sv(char * ma_lop, char* MASV);
-void hieu_chinh_sv(char * ma_lopCQ, char* MASV, char** data);
-
-//-- D
-LinkedList<char*> in_danh_sach_sv(char * ma_lop);
+void add_sv(char **);
+void update_sv(char **);
+void search_sv(char **);
+void delete_sv(char **);
 
 //-- E
 void add_mh(char **);
 void delete_mh(char *);
 void update_mh(char **);
 
-//-- F
-// std::string[4] * get_dsmh_table(DanhSachMonHoc dsmh);
-
 //-- G
-LinkedList<LopTC>  locDSLTC(char ** form_dangky );
-int dangKyLop(char* data);
+void filter_dsltc(char **);
+void dang_ky(char *);
 
 //-- H
 LinkedList<char*> DSLopTC_HUY();
