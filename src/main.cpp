@@ -3,22 +3,26 @@
 #include "./database/database.h"
 Database database;
 
-// Core functions 
-#include "./core/library.h"
-
 // GUI
 #include "./GUI/table.h"
 #include "./GUI/menu.h"
 #include "./GUI/form.h"
 
+// Core functions 
+#include "./core/library.h"
+
+// Printing
+#include "./print/print.h"
 
 DanhSachLopTC dsltc;
 DanhSachLopCQ dslcq;
 DanhSachMonHoc dsmh;
 
+DanhSachLopTC filtered_dsltc;
 LopTC * current_loptc;
+LopCQ current_lopcq;
 
-SinhVien * current_sv;
+Node<SinhVien> * current_sv;
 SinhVienDK current_svdk;
 DanhSachSinhVien * current_dssv;
 DanhSachSinhVienDK * current_dsdk;
@@ -101,7 +105,6 @@ App::App() {
   clear();
   cbreak();
   noecho();
-  curs_set(0);
   keypad(stdscr, TRUE);
   start_color();
   // init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -135,7 +138,6 @@ Form App::get_form() {
       form.set_type(2);
       form.set_len(1);
       if (choice == CHOOSE_THEM) form.set_submit(add_lopcq);
-      // if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_lopcq);
       break;
     case DSMH: 
       form.set_type(3);
@@ -145,22 +147,28 @@ Form App::get_form() {
       break;
     case DSSV:
       form.set_type(4);
-      form.set_len(4);
-      // if (choice == CHOOSE_THEM) form.set_submit(add_sv);
-      // if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_sv);
+      form.set_len(5);
+      if (choice == CHOOSE_THEM) form.set_submit(add_sv);
+      if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_sv);
       break;
     case NHAP_DIEM_1:
-      form.set_type(6);
+      form.set_type(5);
       form.set_len(4);
       form.set_submit(find_loptc);
       break;
     case NHAP_DIEM_2:
-      form.set_type(5);
-      form.set_len(2);
-      form.set_submit(set_score);
-    case DANG_KI_2:
       form.set_type(6);
       form.set_len(2);
+      form.set_submit(set_score);
+    case DANG_KI_1:
+      form.set_type(7);
+      form.set_len(1);
+      form.set_submit(search_sv);
+      break;
+    case DANG_KI_2:
+      form.set_type(8);
+      form.set_len(2);
+      form.set_submit(filter_dsltc);
       break;
   }
   return form;
@@ -279,6 +287,7 @@ void App::process_menu() {
       
       if (current_table.is_picked) {
         state = DSSV;
+        current_lopcq = dslcq.get_node_by_index(current_table.get_current_index())->get_data();
         current_dssv = dslcq.get_node_by_index(current_table.get_current_index())->get_data().DSSV;
         do {
           render_table();
@@ -334,25 +343,44 @@ void App::process_menu() {
     }
 
     case CHOOSE_DANG_KY: {
-      // Phase 1: Get SV
+      int row, column;
+      getmaxyx(wins[1], row, column);
+
+      // Phase 1: Nhap MASV
       state = DANG_KI_1;
+      current_sv = new Node<SinhVien>;
       render_form();
       bool is_valid;
-      bool is_exist;
       do {
         is_valid = current_form.process_input();
-        is_exist = current_sv ? true : false;
-      } while (!is_valid || !is_exist);
+      } while (!is_valid);
       
-      // Phase 2: Dang ki
+      if (strcmp(current_sv->get_data().get_MASV(), "") == 0) {
+        mvwprintw(wins[1], 3, 1, "Sinh vien khong ton tai");
+        wrefresh(wins[1]);
+        break;
+      }
+      // Phase 2: Loc LopTC
       state = DANG_KI_2;
-      if (current_sv) {
-        // print_sv_info(current_sv);
-        render_form();
-        do {
-          is_valid = current_form.process_input();
-        } while (!is_valid);
-      } 
+      render_form();
+      print_sv_info(wins[1], row/2, 2, current_sv->get_data());
+      wrefresh(wins[1]);
+      do {
+        is_valid = current_form.process_input();
+      } while (!is_valid);
+
+      // Phase 3: Chon LopTC
+      state = DSLTC;
+      render_menu(Menu(wins[0], 2));
+      render_table();
+      do {
+        wclear(wins[1]);
+        current_table.display();
+        current_table.render_dsltc(filtered_dsltc);
+        mvwprintw(wins[1], 1, 1, std::to_string(filtered_dsltc.getN()).c_str());
+        wrefresh(wins[1]);
+      } while (current_table.get_input());
+
       break;
     }
 

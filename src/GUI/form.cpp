@@ -26,7 +26,6 @@ char * SV_FORM_LABEL[] = {
   "Ten: ",
   "Gioi tinh: ",
   "SDT: ",
-  "Ma lop: ",
 };
 
 char * NHAP_DIEM_FORM_1_LABEL[] = {
@@ -140,6 +139,7 @@ bool Form::process_input() {
       	  form_driver(form, REQ_PREV_FIELD);
       	  form_data[i] = trim_whitespaces(field_buffer(fields[i], 0));
         }
+        // validate(form_data);
         submit(form_data);
         return true;
       }
@@ -148,8 +148,8 @@ bool Form::process_input() {
         return false;
 
       default:
-	form_driver(form, input);
-	break;
+	      form_driver(form, input);
+	      break;
     } 
   }
 }

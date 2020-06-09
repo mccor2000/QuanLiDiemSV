@@ -15,7 +15,6 @@ public:
     T get_data() {return data_;}
     void set_next(Node<T> * next){next_=next;};
     Node<T> * get_next() {return next_;};
-
 };
 
 template <typename T>

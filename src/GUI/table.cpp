@@ -216,8 +216,8 @@ void Table::render_dslcq(DanhSachLopCQ dslcq) {
     if (current_index == i)
       wattron(current_window, A_BOLD | COLOR_PAIR(1));
 
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_lopcq.MALOP);
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_lopcq.DSSV->count()).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_lopcq.MALOP);
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_lopcq.DSSV->count()).c_str());
     if (current_index == i)
       wattroff(current_window, A_BOLD | COLOR_PAIR(1));
 
@@ -236,8 +236,9 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
 
   dsmh.enumerate([i, current_yCoord, this](MonHoc x) mutable {
+    
+    if (i > length - start_index) return;
     if (i >= start_index && i <= end_index) {
-      if (i >= length) return;
       draw_column_seperator(current_yCoord);
       if (current_index == i)
         wattron(current_window, A_BOLD | COLOR_PAIR(1));
@@ -253,70 +254,88 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
       current_yCoord += 2;
     }
     i++;
+    mvwprintw(current_window, 1, 1, std::to_string(current_yCoord).c_str());
+    mvwprintw(current_window, 1, 3, std::to_string(start_index).c_str());  
+    mvwprintw(current_window, 1, 5, std::to_string(i).c_str());  
+    mvwprintw(current_window, 1, 7, std::to_string(end_index).c_str());  
+    mvwprintw(current_window, 1, 10, std::to_string(length).c_str());  
   });
   wrefresh(current_window);
 }
 
 // Print DSSV
 void Table::render_dssv(DanhSachSinhVien dssv) {
+  int current_yCoord = 5;
+  init_pair(1, COLOR_BLUE, COLOR_BLACK);
+  
+  int i = start_index;
+  length = dssv.count();
+  if (length == 0) return;
+
+  Node<SinhVien> * curr_sv= dssv.get_node_by_index(start_index);
+  while (curr_sv != NULL && i < length) {
+    if (i > end_index) break;
+
+    draw_column_seperator(current_yCoord);
+
+    if (current_index == i)
+      wattron(current_window, A_BOLD | COLOR_PAIR(1));
+
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_sv->get_data().get_MASV());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_sv->get_data().get_HO());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv->get_data().get_TEN());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, curr_sv->get_data().get_PHAI() ? "Nam" : "Nu");
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, curr_sv->get_data().get_SDT());
+    
+    if (current_index == i)
+      wattroff(current_window, A_BOLD | COLOR_PAIR(1));
+
+    current_yCoord += 2;
+    curr_sv = curr_sv->get_next();
+    i++;
+  }
+  wrefresh(current_window);
+}
+
+// Print DSDK
+void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
   // int current_yCoord = 5;
-
-  // Node<SinhVien> * curr_node = dssv.head();
+  // int i = 1;
+  // Node<SinhVienDK> * curr_node = dsdk.head();
   // while (curr_node != NULL) {
-    // SinhVien curr_sv = curr_node->get_data();
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_sv.get_MASV());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_sv.get_HO());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv.get_TEN());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, (char *)curr_sv.get_PHAI());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, curr_sv.get_SDT());
-    // curr_node = curr_node->get_next();
+    // // Get SV info
+    // SinhVienDK curr_svdk = curr_node->get_data();
+    // Node<SinhVien> * curr_sv = dslcq.search_sv(curr_svdk.get_MASV());
 
+    // // Print
+    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, std::to_string(1).c_str());
+    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_svdk.get_MASV());
+    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv->get_data().get_HO());
+    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, curr_sv->get_data().get_TEN());
+    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, std::to_string(curr_svdk.get_DIEM()).c_str());
+
+    // curr_node = curr_node->get_next();
     // mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
     // current_yCoord += 2;
   // }
   // wrefresh(current_window);
 }
 
-// Print DSDK
-void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
-  int current_yCoord = 5;
-  int i = 1;
-  Node<SinhVienDK> * curr_node = dsdk.head();
-  while (curr_node != NULL) {
-    // Get SV info
-    SinhVienDK curr_svdk = curr_node->get_data();
-    SinhVien * curr_sv = dslcq.search_sv(curr_svdk.get_MASV());
-
-    // Print
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, std::to_string(1).c_str());
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_svdk.get_MASV());
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv->get_HO());
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, curr_sv->get_TEN());
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, std::to_string(curr_svdk.get_DIEM()).c_str());
-
-    curr_node = curr_node->get_next();
-    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
-    current_yCoord += 2;
-  }
-  wrefresh(current_window);
-}
-
 void Table::render_dsdk_nhap_diem(DanhSachSinhVienDK dsdk) {
-  int current_yCoord = 5;
-  int i = 1;
-  Node<SinhVienDK> * curr_node = dsdk.head();
-  while (curr_node != NULL) {
-    // Get SV info
-    SinhVienDK curr_svdk = curr_node->get_data();
-    SinhVien * curr_sv = dslcq.search_sv(curr_svdk.get_MASV());
+  // int current_yCoord = 5;
+  // int i = 1;
+  // Node<SinhVienDK> * curr_node = dsdk.head();
+  // while (curr_node != NULL) {
+    // // Get SV info
+    // SinhVienDK curr_svdk = curr_node->get_data();
 
-    // Print
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_svdk.get_MASV());
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_svdk.get_DIEM()).c_str());
+    // // Print
+    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_svdk.get_MASV());
+    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_svdk.get_DIEM()).c_str());
 
-    curr_node = curr_node->get_next();
-    mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
-    current_yCoord += 2;
-  }
-  wrefresh(current_window);
+    // curr_node = curr_node->get_next();
+    // mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
+    // current_yCoord += 2;
+  // }
+  // wrefresh(current_window);
 }
