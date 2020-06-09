@@ -377,9 +377,16 @@ void App::process_menu() {
         wclear(wins[1]);
         current_table.display();
         current_table.render_dsltc(filtered_dsltc);
-        mvwprintw(wins[1], 1, 1, std::to_string(filtered_dsltc.getN()).c_str());
-        wrefresh(wins[1]);
       } while (current_table.get_input());
+      
+      if (current_table.is_picked) {
+        current_dsdk = dsltc.get_by_id(current_table.get_current_index())->dsdk;
+        dang_ky(current_sv->get_data().get_MASV());
+        
+        wclear(wins[1]); 
+        mvwprintw(wins[1], 1, 2, "Dang ki thanh cong!");
+        wrefresh(wins[1]);
+      }
 
       break;
     }

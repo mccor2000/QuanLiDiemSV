@@ -12,18 +12,6 @@ void filter_dsltc(char ** data) {
 
 //dang ky lop cho SV
 void dang_ky(char * data) {
-    // int malop = string_to_int(data);
-    // LopTC loptc = *dsltc.node[dsltc.search(malop)];
-    // for (Node<SinhVienDK>* p = loptc.dsdk->p_head_; p!=NULL; p = p->get_next()) {
-        // if (strcmp(p->get_data().get_MASV(),current_sv.get_MASV())==0) {
-            // return 0;
-        // }
-    // }
-    // SinhVienDK svdk(current_sv.get_MASV(),0);
-    // loptc.dsdk->push_back(svdk);
-    // if (loptc.dsdk->count()>=loptc.sv_min) {
-        // loptc.huylop = false;
-    // }
-    // return 1;
+    current_dsdk->push_back(SinhVienDK(data));
     return;
 }
