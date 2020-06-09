@@ -240,7 +240,7 @@ void App::render_table_data() {
       current_table.render_dsdk(*current_dsdk);
       break;
     case NHAP_DIEM_1:
-      current_table.render_dsdk_nhap_diem(*current_dsdk);
+      current_table.render_dsdk(*current_dsdk);
       break;
   }
 }
