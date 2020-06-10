@@ -1,31 +1,42 @@
 #include "library.h"
 
 void add_sv(char ** data) {
-  DanhSachSinhVien * dssv = dslcq.get_dssv(data[5]);
-  if (dssv == NULL) {
-    return;
-  }
-  //tao sinh vien
+  // Tao sinh vien
   SinhVien sv(
       data[0],
       data[1],
       data[2],
       data[3] == "nam" ? 0 : 1, 
       data[4],
-      data[5]
+      current_lopcq.MALOP
   );
-  dssv->push_back(sv);
-}
-void update_sv(char **data){
-  LopCQ lop = dslcq.get_lcq(data[5]);
-  SinhVien* sv = lop.DSSV->search_sv(data[0]);
-  sv->set_HO(data[1]);
-  sv->set_TEN(data[2]);
-  sv->set_PHAI((data[3]=="nam")?0:1);
-  sv->set_SDT(data[4]);
-  sv->set_MALOP(data[5]);
+
+  current_dssv->push_back(sv);
 }
 
+void update_sv(char ** data) {
+  current_sv->get_data().set_MASV(data[0]);
+  current_sv->get_data().set_HO(data[1]);
+  current_sv->get_data().set_TEN(data[2]);
+  current_sv->get_data().set_PHAI((data[3]=="nam")?0:1);
+  current_sv->get_data().set_SDT(data[4]);
+}
+
+void search_sv(char ** data) {
+  Node<LopCQ> * curr_lopcq = dslcq.head();
+
+  while (curr_lopcq != NULL) {
+    Node<SinhVien> * temp_sv = curr_lopcq->get_data().DSSV->head();
+    while(temp_sv != NULL) {
+      if (strcmp(temp_sv->get_data().get_MASV(), data[0]) == 0) {
+        current_sv->set_data(temp_sv->get_data());
+        return;
+      }
+      temp_sv = temp_sv->get_next();
+    } 
+    curr_lopcq = curr_lopcq->get_next();
+  }
+}
 
 // int vitri_sv(DanhSachSinhVien* DSSV,char* MASV){
   // Node<SinhVien>* SV  = DSSV->head();

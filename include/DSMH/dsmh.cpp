@@ -308,6 +308,7 @@ void DanhSachMonHoc::save() {
 void DanhSachMonHoc::load() {
   std::ifstream f;
   f.open(db, std::ios::in);
+
   std::string code_str;
   std::string name_str;
   int stclt;
@@ -321,5 +322,6 @@ void DanhSachMonHoc::load() {
     MonHoc curr_sub((char*) code_str.c_str(), (char*) name_str.c_str(),stclt, stcth);
     insert(curr_sub);
   }  
+
   f.close();
 }
