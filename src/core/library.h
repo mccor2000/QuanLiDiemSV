@@ -83,5 +83,4 @@ LinkedList<char*> in_bang_diem_trung_binh(char* MALOP);
 // -- L
 LinkedList<char*> in_bang_diem_tong_ket(char* MALOP);
 
-char* converting(int x);
 #endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _VALIDATOR_H
+#define _VALIDATOR_H
+#include "../helpers.h"
 
 class Validator {
 public:
@@ -13,3 +15,5 @@ public:
   bool validate_dang_ki_1(char **);
   bool validate_dang_ki_2(char **);
 };
+
+#endif
