@@ -420,12 +420,16 @@ void App::process_menu() {
     }
 
     case CHOOSE_CHINH_SUA: {
-      render_form();
-      bool done = current_form.process_input();
-      if (done) wclear(wins[1]);
-
-      current_table.display();
-      render_table_data();
+      render_table();
+      do {
+        if (current_table.is_picked) {
+          render_form();
+          bool done = current_form.process_input();
+        }
+        wclear(wins[1]);
+        current_table.display();
+        render_table_data();
+      } while (current_table.get_input());
       break;
     }
 

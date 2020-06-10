@@ -336,7 +336,6 @@ void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
     curr_node = curr_node->get_next();
     i++;
   }
-  mvwprintw(current_window, 1, 1, std::to_string(current_index).c_str());
   wrefresh(current_window);
 }
 
