@@ -17,7 +17,7 @@ LinkedList<char*> in_danh_sach_sv(char * ma_lop) {
     strcpy(res[1],sv->get_data().get_HO());
     strcpy( res[2],sv->get_data().get_TEN());
     if(sv->get_data().get_PHAI()){
-      strcpy(res[3],"Nu");
+      strcpy(res[3],"NU");
     }    
     else{
       strcpy(res[3],"NAM");

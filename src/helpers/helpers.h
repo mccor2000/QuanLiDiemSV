@@ -30,4 +30,7 @@ char* float_to_string(float fnum);
 
 double string_to_float(char* str);
 
+bool is_string(char* str);
+bool is_number(char* str);
+bool is_float(char* str);
 #endif
