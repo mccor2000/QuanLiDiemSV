@@ -1,3 +1,6 @@
-n18dccn212	tran	thang	1	012345	D18CQCN02
-n18dccn212	duong	bao	1	01234	D18CQCN02
-n18dccn111	Le	Hau	1	012345	D18CQCN02
+N18dccn212
+Tran
+Minh Thang
+1
+1234
+D18CQCN02

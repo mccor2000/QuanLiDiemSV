@@ -36,7 +36,7 @@ DanhSachSinhVien::DanhSachSinhVien() {
   p_tail_ = NULL;
 }
 
-SinhVien DanhSachSinhVien::get_sv(char * ma_sv) {
+Node<SinhVien> DanhSachSinhVien::get_sv(char * ma_sv) {
   // Find
   Node<SinhVien> * curr_node = p_head_;
   while(curr_node != NULL &&
@@ -45,7 +45,7 @@ SinhVien DanhSachSinhVien::get_sv(char * ma_sv) {
     curr_node = curr_node->get_next();
   }
   // Return
-  return curr_node->get_data();
+  return curr_node;
 }
 
 void DanhSachSinhVien::delete_sv(char * ma_sv) {
