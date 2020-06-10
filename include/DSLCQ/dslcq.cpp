@@ -34,7 +34,7 @@ DanhSachSinhVien * DanhSachLopCQ::get_dssv(char * malop) {
 SinhVien DanhSachLopCQ::get_sv(char * ma_sv) {
   Node<LopCQ> * curr_lopcq = p_head_;
   SinhVien found;
-  while (!curr_lopcq && strcmp(found.get_MASV(), "") == 0) {
+  while (!curr_lopcq || strcmp(found.get_MASV(), "") == 0) {
     found = curr_lopcq->get_data().DSSV->get_sv(ma_sv);
     curr_lopcq = curr_lopcq->get_next();
   }
