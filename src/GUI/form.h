@@ -2,6 +2,7 @@
 #define _FORM_H
 #include <form.h>
 #include <functional>
+#include "../database/database.h"
 #include "../helpers/helpers.h"
 
 class Form {
@@ -24,7 +25,13 @@ public:
   void set_type(int t)                            { type = t; }
   void set_len(int l)                             { len = l; }
   void set_submit(std::function<void(char**)> f)  { submit = f; }
-  void set_buffer(char ** b)                      { buffer = b; }
+
+
+  void set_buffer_loptc(LopTC);
+  void set_buffer_lopcq(LopCQ);
+  void set_buffer_mh(MonHoc);
+  void set_buffer_sv(SinhVien);
+
   bool process_input();
   void display();
 };

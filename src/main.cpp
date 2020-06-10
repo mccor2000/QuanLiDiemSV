@@ -20,7 +20,9 @@ DanhSachMonHoc dsmh;
 
 DanhSachLopTC filtered_dsltc;
 LopTC * current_loptc;
+
 LopCQ current_lopcq;
+MonHoc current_mh;
 
 Node<SinhVien> * current_sv;
 Node<SinhVienDK> * current_svdk;
@@ -68,6 +70,7 @@ private:
   // App state
   bool is_running;
   short choice, state;
+  int input;
 
   // GUI members variables
   WINDOW * wins[2];
@@ -83,6 +86,9 @@ private:
   void render_table();
   void render_table_data();
   void render_form();
+  
+  void set_picked_item();
+  void set_buffer();
 
   void process_input();
   void process_menu();
@@ -137,7 +143,7 @@ Form App::get_form() {
     case DSLCQ:
       form.set_type(2);
       form.set_len(1);
-      if (choice == CHOOSE_THEM) form.set_submit(add_lopcq);
+      form.set_submit(add_lopcq);
       break;
     case DSMH: 
       form.set_type(3);
@@ -241,6 +247,37 @@ void App::render_table_data() {
       break;
     case NHAP_DIEM_1:
       current_table.render_dsdk(*current_dsdk);
+      break;
+  }
+}
+
+void App::set_picked_item() {
+  switch (state) {
+    case DSLTC:
+      current_loptc = dsltc.get_by_id(current_table.get_current_index());
+      break;
+    case DSLCQ:
+      current_lopcq = dslcq.get_node_by_index(current_table.get_current_index())->get_data();
+      break;
+    case DSMH:
+      // current_mh =
+      break;
+    case DSSV:
+      current_sv = current_dssv->get_node_by_index(current_table.get_current_index());
+      break;
+  }
+}
+
+void App::set_buffer() {
+  switch (state) {
+    case DSLTC: 
+      current_form.set_buffer_loptc(*current_loptc);
+      break;
+    case DSMH: 
+      current_form.set_buffer_mh(current_mh);
+      break;
+    case DSSV:
+      current_form.set_buffer_sv(current_sv->get_data());
       break;
   }
 }
@@ -422,14 +459,19 @@ void App::process_menu() {
     case CHOOSE_CHINH_SUA: {
       render_table();
       do {
-        if (current_table.is_picked) {
-          render_form();
-          bool done = current_form.process_input();
-        }
         wclear(wins[1]);
         current_table.display();
         render_table_data();
       } while (current_table.get_input());
+      if (current_table.is_picked) {
+        set_picked_item();
+        render_form();
+        set_buffer();
+        bool done = current_form.process_input();
+        wclear(wins[1]);
+        if (done) mvwprintw(wins[1], 1, 1, "Chinh sua thanh cong");
+        wrefresh(wins[1]);
+      }
       break;
     }
 
@@ -445,7 +487,6 @@ void App::process_menu() {
 }
 
 void App::process_input() {
-  int input;
   while(input = wgetch(wins[0])) {
     switch (input) {
       case KEY_UP:

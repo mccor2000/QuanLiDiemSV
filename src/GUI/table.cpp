@@ -286,7 +286,7 @@ void Table::render_dssv(DanhSachSinhVien dssv) {
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_sv->get_data().get_MASV());
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_sv->get_data().get_HO());
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv->get_data().get_TEN());
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, curr_sv->get_data().get_PHAI() ? "Nam" : "Nu");
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, curr_sv->get_data().get_PHAI() == 1 ? "NAM" : "NU");
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, curr_sv->get_data().get_SDT());
     
     if (current_index == i)

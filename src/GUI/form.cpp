@@ -153,3 +153,31 @@ bool Form::process_input() {
     } 
   }
 }
+
+void Form::set_buffer_loptc(LopTC curr_loptc) {
+  set_field_buffer(fields[0], 0, curr_loptc.maMH);
+  set_field_buffer(fields[1], 0, curr_loptc.nienkhoa);
+  set_field_buffer(fields[2], 0, std::to_string(curr_loptc.hocki).c_str());
+  set_field_buffer(fields[3], 0, std::to_string(curr_loptc.nhom).c_str());
+  set_field_buffer(fields[4], 0, std::to_string(curr_loptc.sv_min).c_str());
+  set_field_buffer(fields[5], 0, std::to_string(curr_loptc.sv_max).c_str());
+}
+
+void Form::set_buffer_lopcq(LopCQ curr_lopcq) {
+  set_field_buffer(fields[0], 0, curr_lopcq.MALOP);
+}
+
+void Form::set_buffer_mh(MonHoc curr_mh) {
+  set_field_buffer(fields[0], 0, curr_mh.MAMH);
+  set_field_buffer(fields[1], 0, curr_mh.TENMH);
+  set_field_buffer(fields[2], 0, std::to_string(curr_mh.STCLT).c_str());
+  set_field_buffer(fields[3], 0, std::to_string(curr_mh.STCTH).c_str());
+}
+
+void Form::set_buffer_sv(SinhVien curr_sv) {
+  set_field_buffer(fields[0], 0, curr_sv.get_MASV());
+  set_field_buffer(fields[1], 0, curr_sv.get_HO());
+  set_field_buffer(fields[2], 0, curr_sv.get_TEN());
+  set_field_buffer(fields[3], 0, curr_sv.get_PHAI() == 1 ? "NAM" : "NU");
+  set_field_buffer(fields[4], 0, curr_sv.get_SDT());
+}
