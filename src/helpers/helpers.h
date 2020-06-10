@@ -28,7 +28,6 @@ int string_to_int(char * str);
 char* int_to_string(int x);
 char* float_to_string(float fnum);
 
-
 double string_to_float(char* str);
 
 bool is_string(char* str);

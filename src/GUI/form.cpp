@@ -137,7 +137,7 @@ bool Form::process_input() {
         for (int i = 0; i < len; i++) {
           form_driver(form, REQ_NEXT_FIELD);
       	  form_driver(form, REQ_PREV_FIELD);
-      	  form_data[i] = trim_whitespaces(field_buffer(fields[i], 0));
+      	  form_data[i] = Trim(field_buffer(fields[i], 0));
         }
         // validate(form_data);
         submit(form_data);
