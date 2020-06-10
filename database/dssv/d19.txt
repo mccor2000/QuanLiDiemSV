@@ -1,2 +1,0 @@
-n2	Duong	Bao	1	114	d19
-n3	Tran	Thang	0	115	d19

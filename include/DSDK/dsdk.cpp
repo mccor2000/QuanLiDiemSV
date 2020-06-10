@@ -7,6 +7,11 @@ SinhVienDK::SinhVienDK(char * MASV, float DIEM){
     DIEM_ = DIEM;
 }
 
+SinhVienDK::SinhVienDK(char * MASV) {
+    strcpy(MASV_, MASV);
+    DIEM_ = 0;
+}
+
 //-- Getters, setters
 char * SinhVienDK::get_MASV(){
   return MASV_;

@@ -19,7 +19,7 @@ private:
   char MALOP_[15];
 public:
   //** Constructors
-  SinhVien(){;};
+  SinhVien();
   SinhVien(char *, char *, char *, bool, char *, char *);
   
   //** Getters, setters
@@ -37,8 +37,6 @@ public:
   void set_MALOP(char * MALOP)   { strcpy(MALOP_, MALOP); }
   void set_PHAI(bool PHAI)       { PHAI_ = PHAI; }
 
-  void print_info(WINDOW *);
-
   //** Operator overloading
   bool operator > (SinhVien);
   bool operator < (SinhVien);
@@ -49,8 +47,9 @@ class DanhSachSinhVien: public LinkedList<SinhVien> {
 public:
   DanhSachSinhVien();
 
-  SinhVien * search_sv(char *);
   void delete_sv(char *);
+  
+  Node<SinhVien> * get_node_by_index(int index);
   SinhVien get_by_index(int index);
   void save(const char *);
   void load(const char *);

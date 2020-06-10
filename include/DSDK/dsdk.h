@@ -14,6 +14,7 @@ private:
 public:
   //** Constructor, destructor
   SinhVienDK(){;};
+  SinhVienDK(char *);
   SinhVienDK(char *, float);
   
   //** Getters, setters
