@@ -35,7 +35,7 @@ extern LopTC * current_loptc;
 extern LopCQ current_lopcq;
 
 extern Node<SinhVien> * current_sv;
-extern SinhVienDK current_svdk;
+extern Node<SinhVienDK> * current_svdk;
 extern DanhSachSinhVien * current_dssv;
 extern DanhSachSinhVienDK * current_dsdk;
 // Modules

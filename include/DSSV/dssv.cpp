@@ -36,17 +36,17 @@ DanhSachSinhVien::DanhSachSinhVien() {
   p_tail_ = NULL;
 }
 
-// Node<SinhVien> * DanhSachSinhVien::search_sv(char * ma_sv) {
-  // // Find
-  // Node<SinhVien> * curr_node = p_head_;
-  // while(curr_node != NULL &&
-        // strcmp(curr_node->get_data().get_MASV(), ma_sv) != 0)
-  // {
-    // curr_node = curr_node->get_next();
-  // }
-  // // Return
-  // return curr_node;
-// }
+SinhVien DanhSachSinhVien::get_sv(char * ma_sv) {
+  // Find
+  Node<SinhVien> * curr_node = p_head_;
+  while(curr_node != NULL &&
+        strcmp(curr_node->get_data().get_MASV(), ma_sv) != 0)
+  {
+    curr_node = curr_node->get_next();
+  }
+  // Return
+  return curr_node->get_data();
+}
 
 void DanhSachSinhVien::delete_sv(char * ma_sv) {
   Node<SinhVien> * curr_node = p_head_;

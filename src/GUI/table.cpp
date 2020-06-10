@@ -145,6 +145,7 @@ bool Table::get_input() {
       break;
    
     case KEY_DOWN:
+      if (current_index >= length - 1) break;
       if (current_index < end_index) { 
         current_index ++;
       } else if (end_index < length) {
@@ -218,6 +219,7 @@ void Table::render_dslcq(DanhSachLopCQ dslcq) {
 
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_lopcq.MALOP);
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_lopcq.DSSV->count()).c_str());
+
     if (current_index == i)
       wattroff(current_window, A_BOLD | COLOR_PAIR(1));
 
@@ -289,7 +291,7 @@ void Table::render_dssv(DanhSachSinhVien dssv) {
     
     if (current_index == i)
       wattroff(current_window, A_BOLD | COLOR_PAIR(1));
-
+    
     current_yCoord += 2;
     curr_sv = curr_sv->get_next();
     i++;
@@ -299,43 +301,42 @@ void Table::render_dssv(DanhSachSinhVien dssv) {
 
 // Print DSDK
 void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
-  // int current_yCoord = 5;
-  // int i = 1;
-  // Node<SinhVienDK> * curr_node = dsdk.head();
-  // while (curr_node != NULL) {
-    // // Get SV info
-    // SinhVienDK curr_svdk = curr_node->get_data();
-    // Node<SinhVien> * curr_sv = dslcq.search_sv(curr_svdk.get_MASV());
+  int current_yCoord = 5;
+  init_pair(1, COLOR_BLUE, COLOR_BLACK);
+  
+  int i = start_index;
+  length = dsdk.count();
+  if (length == 0) return;
 
-    // // Print
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, std::to_string(1).c_str());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_svdk.get_MASV());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv->get_data().get_HO());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, curr_sv->get_data().get_TEN());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, std::to_string(curr_svdk.get_DIEM()).c_str());
+  Node<SinhVienDK> * curr_node = dsdk.get_node_by_index(start_index);
+  while (curr_node != NULL && i < length) {
+    if (i > end_index) break;
 
-    // curr_node = curr_node->get_next();
-    // mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
-    // current_yCoord += 2;
-  // }
-  // wrefresh(current_window);
+
+    // Get SV info
+    SinhVienDK curr_svdk = curr_node->get_data();
+    SinhVien curr_sv = dslcq.get_sv(curr_svdk.get_MASV());
+
+    // Print info
+    draw_column_seperator(current_yCoord);
+
+    if (current_index == i)
+      wattron(current_window, A_BOLD | COLOR_PAIR(1));
+
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, std::to_string(i).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_svdk.get_MASV());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv.get_HO());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, curr_sv.get_TEN());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, std::to_string(curr_svdk.get_DIEM()).c_str());
+
+    if (current_index == i)
+      wattroff(current_window, A_BOLD | COLOR_PAIR(1));
+
+    current_yCoord += 2;
+    curr_node = curr_node->get_next();
+    i++;
+  }
+  mvwprintw(current_window, 1, 1, std::to_string(current_index).c_str());
+  wrefresh(current_window);
 }
 
-void Table::render_dsdk_nhap_diem(DanhSachSinhVienDK dsdk) {
-  // int current_yCoord = 5;
-  // int i = 1;
-  // Node<SinhVienDK> * curr_node = dsdk.head();
-  // while (curr_node != NULL) {
-    // // Get SV info
-    // SinhVienDK curr_svdk = curr_node->get_data();
-
-    // // Print
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, curr_svdk.get_MASV());
-    // mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, std::to_string(curr_svdk.get_DIEM()).c_str());
-
-    // curr_node = curr_node->get_next();
-    // mvwhline(current_window, current_yCoord + 1, 1, 0, width - 2);
-    // current_yCoord += 2;
-  // }
-  // wrefresh(current_window);
-}

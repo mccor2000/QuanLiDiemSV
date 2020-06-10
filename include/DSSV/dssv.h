@@ -47,9 +47,11 @@ public:
   DanhSachSinhVien();
 
   void delete_sv(char *);
+  SinhVien get_sv(char *);  
   
   Node<SinhVien> * get_node_by_index(int index);
   SinhVien get_by_index(int index);
+
   void save(const char *);
   void load(const char *);
 };

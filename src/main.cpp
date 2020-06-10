@@ -23,7 +23,7 @@ LopTC * current_loptc;
 LopCQ current_lopcq;
 
 Node<SinhVien> * current_sv;
-SinhVienDK current_svdk;
+Node<SinhVienDK> * current_svdk;
 DanhSachSinhVien * current_dssv;
 DanhSachSinhVienDK * current_dsdk;
 
@@ -240,7 +240,7 @@ void App::render_table_data() {
       current_table.render_dsdk(*current_dsdk);
       break;
     case NHAP_DIEM_1:
-      current_table.render_dsdk_nhap_diem(*current_dsdk);
+      current_table.render_dsdk(*current_dsdk);
       break;
   }
 }
@@ -266,9 +266,11 @@ void App::process_menu() {
       if (current_table.is_picked) {
         state = DSDK;
         current_dsdk = dsltc.get_by_id(current_table.get_current_index())->dsdk;
+        render_table();
         do {
-          render_table();
-          if (current_dsdk) render_table_data();
+          wclear(wins[1]);
+          current_table.display();
+          render_table_data();
         } while (current_table.get_input());
       }
 
@@ -289,8 +291,10 @@ void App::process_menu() {
         state = DSSV;
         current_lopcq = dslcq.get_node_by_index(current_table.get_current_index())->get_data();
         current_dssv = dslcq.get_node_by_index(current_table.get_current_index())->get_data().DSSV;
+        render_table();
         do {
-          render_table();
+          wclear(wins[1]);
+          current_table.display();
           render_table_data();
         } while (current_table.get_input());
       }
@@ -332,7 +336,7 @@ void App::process_menu() {
         } while (current_table.get_input());
 
         if (current_table.is_picked) {
-          current_svdk = current_dsdk->get_by_index(current_table.get_current_index());
+          current_svdk = current_dsdk->get_node_by_index(current_table.get_current_index());
           render_form();
           do {
             is_valid = current_form.process_input();
@@ -360,6 +364,7 @@ void App::process_menu() {
         wrefresh(wins[1]);
         break;
       }
+
       // Phase 2: Loc LopTC
       state = DANG_KI_2;
       render_form();
@@ -484,6 +489,7 @@ void App::exit() {
   free_menu(current_menu.menu);
   endwin();
 }
+
 /***************************************************/
 int main() {
   App our_app;
