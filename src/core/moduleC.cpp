@@ -1,24 +1,29 @@
 #include "library.h"
 
 void add_sv(char ** data) {
+  strcpy(data[0],upper_case_letters(data[0]));
+  strcpy(data[3],upper_case_letters(data[3]));
+  strcpy(current_lopcq.MALOP,upper_case_letters(current_lopcq.MALOP));
   // Tao sinh vien
   SinhVien sv(
       data[0],
       data[1],
       data[2],
-      data[3] == "nam" ? 0 : 1, 
+      strcmp(data[3],"NAM")==0 ? 0 : 1, 
       data[4],
       current_lopcq.MALOP
   );
-
   current_dssv->push_back(sv);
 }
 
 void update_sv(char ** data) {
+  strcpy(data[0],upper_case_letters(data[0]));
+  strcpy(data[3],upper_case_letters(data[3]));
+  strcpy(current_lopcq.MALOP,upper_case_letters(current_lopcq.MALOP));
   current_sv->get_data().set_MASV(data[0]);
   current_sv->get_data().set_HO(data[1]);
   current_sv->get_data().set_TEN(data[2]);
-  current_sv->get_data().set_PHAI((data[3]=="nam")?0:1);
+  current_sv->get_data().set_PHAI(strcmp(data[3],"NAM")==0?0:1);
   current_sv->get_data().set_SDT(data[4]);
 }
 

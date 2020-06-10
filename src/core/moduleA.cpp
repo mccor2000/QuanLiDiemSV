@@ -1,6 +1,8 @@
 #include "library.h"
 
 void add_loptc(char ** data) {
+  strcpy(data[0],upper_case_letters(data[0]));
+  strcpy(data[1],upper_case_letters(data[1]));
     LopTC loptc(
         data[0],
         data[1],
@@ -13,7 +15,7 @@ void add_loptc(char ** data) {
 }
 
 void update_loptc(char ** data) {
-  int ma_lop_tc = string_to_int(trim_whitespaces(data[0]));
+  int ma_lop_tc = string_to_int(data[0]);
   dsltc.xoaLop(ma_lop_tc);
   add_loptc(data);
 }
