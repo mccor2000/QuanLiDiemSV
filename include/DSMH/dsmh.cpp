@@ -310,8 +310,6 @@ void DanhSachMonHoc::load() {
   f.open(db, std::ios::in);
   std::string code_str;
   std::string name_str;
-  char code[15];
-  char name[15];
   int stclt;
   int stcth;
   while(getline(f,code_str)){
@@ -320,10 +318,7 @@ void DanhSachMonHoc::load() {
     std::string tmp;
     getline(f,tmp);
 
-    strcpy(code,StringToChar(code_str));
-    strcpy(name,StringToChar(name_str));
-
-    MonHoc curr_sub(code,name,stclt, stcth);
+    MonHoc curr_sub((char*) code_str.c_str(), (char*) name_str.c_str(),stclt, stcth);
     insert(curr_sub);
   }  
   f.close();

@@ -123,8 +123,6 @@ void DanhSachSinhVien::load(const char * ma_lop) {
   // Get data from file and push to the list
   std::string masv_str;
   std::string ho_str;
-  char masv[15];
-  char ho[16];
   char ten[16];
   char malop[15];
   bool phai;
@@ -136,10 +134,7 @@ void DanhSachSinhVien::load(const char * ma_lop) {
     std::string tmp;
     getline(f,tmp);
 
-    strcpy(masv,StringToChar(masv_str));
-    strcpy(ho,StringToChar(ho_str));
-
-    SinhVien curr_sv(masv,ho,ten,phai,sdt,malop);
+    SinhVien curr_sv((char*) masv_str.c_str(),(char*) ho_str.c_str(),ten,phai,sdt,malop);
     push_back(curr_sv);
   }
   // Close the file
