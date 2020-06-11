@@ -17,14 +17,16 @@ private:
   DanhSachLopCQ dslcq;
   DanhSachMonHoc dsmh;
 
-  LopTC curr_loptc;
-  LopCQ curr_lopcq;
-  MonHoc curr_mh;
+  DanhSachLopTC filtered_dsltc;
 
-  SinhVien curr_sv;
-  SinhVienDK curr_svdk;
-  DanhSachSinhVien curr_dssv;
-  DanhSachSinhVienDK curr_dsdk;
+  LopTC * current_loptc;
+  Node<LopCQ> * current_lopcq;
+  MonHoc * current_mh;
+
+  Node<SinhVien> * current_sv;
+  Node<SinhVienDK> * current_svdk;
+  DanhSachSinhVien * current_dssv;
+  DanhSachSinhVienDK * current_dsdk;
 public:
   // Constructor
   Database() {
@@ -34,28 +36,30 @@ public:
   }
 
   // Getters
-  DanhSachLopTC get_dsltc()                   { return dsltc; }
-  DanhSachLopCQ get_dslcq()                   { return dslcq; }
-  DanhSachMonHoc get_dsmh()                   { return dsmh; }
+  DanhSachLopTC get_dsltc()                          { return dsltc; }
+  DanhSachLopCQ get_dslcq()                          { return dslcq; }
+  DanhSachMonHoc get_dsmh()                          { return dsmh; }
   
-  LopTC get_curr_loptc()                      { return curr_loptc; }
-  LopCQ get_curr_lopcq()                      { return curr_lopcq; }
-  MonHoc get_curr_mh()                         { return curr_mh; }
+  DanhSachLopTC get_filtered_dsltc()                 { return filtered_dsltc; }
+
+  LopTC * get_current_loptc()                        { return current_loptc; }
+  Node<LopCQ> * get_current_lopcq()                  { return current_lopcq; }
+  MonHoc * get_current_mh()                          { return current_mh; }
     
-  SinhVien get_curr_sv()                      { return curr_sv; }      
-  SinhVienDK get_curr_svdk()                  { return curr_svdk; }      
-  DanhSachSinhVien get_curr_dssv()            { return curr_dssv; }      
-  DanhSachSinhVienDK get_curr_dsdk()          { return curr_dsdk; } 
+  Node<SinhVien> * get_current_sv()                  { return current_sv; }      
+  Node<SinhVienDK> * get_current_svdk()              { return current_svdk; }      
+  DanhSachSinhVien * get_current_dssv()              { return current_dssv; }      
+  DanhSachSinhVienDK * get_current_dsdk()            { return current_dsdk; } 
 
   // Setters
-  void set_curr_loptc(LopTC x)                { curr_loptc = x; }
-  void set_curr_lopcq(LopCQ x)                { curr_lopcq = x; }
-  void set_curr_mh(MonHoc x)                  { curr_mh = x; }
+  void set_current_loptc(LopTC * x)                  { current_loptc = x; }
+  void set_current_lopcq(Node<LopCQ> * x)            { current_lopcq = x; }
+  void set_current_mh(MonHoc * x)                    { current_mh = x; }
   
-  void set_curr_sv(SinhVien x)                { curr_sv = x; }
-  void set_curr_svdk(SinhVienDK x)            { curr_svdk = x; }
-  void set_curr_dssv(DanhSachSinhVien x)      { curr_dssv = x; }
-  void set_curr_dsdk(DanhSachSinhVienDK x)    { curr_dsdk = x; }
+  void set_current_sv(Node<SinhVien> * x)            { current_sv = x; }
+  void set_current_svdk(Node<SinhVienDK> * x)        { current_svdk = x; }
+  void set_current_dssv(DanhSachSinhVien * x)        { current_dssv = x; }
+  void set_current_dsdk(DanhSachSinhVienDK * x)      { current_dsdk = x; }
 };
 
 #endif

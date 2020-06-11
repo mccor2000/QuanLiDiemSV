@@ -315,7 +315,7 @@ void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
 
     // Get SV info
     SinhVienDK curr_svdk = curr_node->get_data();
-    SinhVien curr_sv = dslcq.get_sv(curr_svdk.get_MASV());
+    SinhVien curr_sv = database.get_dslcq().get_sv(curr_svdk.get_MASV());
 
     // Print info
     draw_column_seperator(current_yCoord);

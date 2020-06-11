@@ -9,19 +9,19 @@ void add_loptc(char ** data) {
         string_to_int(data[4]),
         string_to_int(data[5])
     );
-    dsltc.themLop(loptc, dsltc.getN());
+    database.get_dsltc().themLop(loptc, database.get_dsltc().getN());
 }
 
 void update_loptc(char ** data) {
-  strcpy(current_loptc->maMH, upper_case_letters(data[1]));
-  strcpy(current_loptc->nienkhoa, data[2]);
-  current_loptc->hocki = string_to_short(data[3]);
-  current_loptc->nhom= string_to_short(data[4]);
-  current_loptc->sv_min = string_to_int(data[5]);
-  current_loptc->sv_max = string_to_int(data[6]);
+  strcpy(database.get_current_loptc()->maMH, upper_case_letters(data[1]));
+  strcpy(database.get_current_loptc()->nienkhoa, data[2]);
+  database.get_current_loptc()->hocki = string_to_short(data[3]);
+  database.get_current_loptc()->nhom= string_to_short(data[4]);
+  database.get_current_loptc()->sv_min = string_to_int(data[5]);
+  database.get_current_loptc()->sv_max = string_to_int(data[6]);
 }
 
 void delete_loptc(int ma_lop_tc) {
-  dsltc.xoaLop(ma_lop_tc);
+  database.get_dsltc().xoaLop(ma_lop_tc);
 }
 

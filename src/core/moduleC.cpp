@@ -8,27 +8,27 @@ void add_sv(char ** data) {
       upper_case_letters(data[2]),
       strcmp(upper_case_letters(data[3]), "NAM") == 0 ? 1 : 0, 
       data[4],
-      current_lopcq.MALOP
+      database.get_current_lopcq()->get_data().MALOP
   );
-  current_dssv->push_back(sv);
+  database.get_current_dssv()->push_back(sv);
 }
 
 void update_sv(char ** data) {
-  current_sv->get_data().set_MASV(upper_case_letters(data[0]));
-  current_sv->get_data().set_HO(upper_case_letters(data[1]));
-  current_sv->get_data().set_TEN(upper_case_letters(data[2]));
-  current_sv->get_data().set_PHAI(strcmp(upper_case_letters(data[3]), "NAM") == 0 ? 1 : 0);
-  current_sv->get_data().set_SDT(upper_case_letters(data[4]));
+  database.get_current_sv()->get_data().set_MASV(upper_case_letters(data[0]));
+  database.get_current_sv()->get_data().set_HO(upper_case_letters(data[1]));
+  database.get_current_sv()->get_data().set_TEN(upper_case_letters(data[2]));
+  database.get_current_sv()->get_data().set_PHAI(strcmp(upper_case_letters(data[3]), "NAM") == 0 ? 1 : 0);
+  database.get_current_sv()->get_data().set_SDT(upper_case_letters(data[4]));
 }
 
 void search_sv(char ** data) {
-  Node<LopCQ> * curr_lopcq = dslcq.head();
+  Node<LopCQ> * curr_lopcq = database.get_dslcq().head();
 
   while (curr_lopcq != NULL) {
     Node<SinhVien> * temp_sv = curr_lopcq->get_data().DSSV->head();
     while(temp_sv != NULL) {
       if (strcmp(upper_case_letters(temp_sv->get_data().get_MASV()), upper_case_letters(data[0])) == 0) {
-        current_sv->set_data(temp_sv->get_data());
+        database.set_current_sv(temp_sv);
         return;
       }
       temp_sv = temp_sv->get_next();

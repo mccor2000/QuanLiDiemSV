@@ -3,31 +3,17 @@
 #include "./database/database.h"
 Database database;
 
+// Core functions 
+#include "./core/library.h"
+
 // GUI
 #include "./GUI/table.h"
 #include "./GUI/menu.h"
 #include "./GUI/form.h"
 
-// Core functions 
-#include "./core/library.h"
-
 // Printing
 #include "./print/print.h"
 
-DanhSachLopTC dsltc;
-DanhSachLopCQ dslcq;
-DanhSachMonHoc dsmh;
-
-DanhSachLopTC filtered_dsltc;
-LopTC * current_loptc;
-
-LopCQ current_lopcq;
-MonHoc current_mh;
-
-Node<SinhVien> * current_sv;
-Node<SinhVienDK> * current_svdk;
-DanhSachSinhVien * current_dssv;
-DanhSachSinhVienDK * current_dsdk;
 
 /************************************************/
 // Chooses's code
@@ -102,10 +88,11 @@ public:
 
 App::App() {
   is_running = true;
-  dsltc.load();
-  dslcq.load();
-  dsmh.load();
-  
+  // dsltc.load();
+  // dslcq.load();
+  // dsmh.load();
+  // database.load();
+
   //-- Main screen
   initscr();
   clear();
@@ -231,22 +218,22 @@ void App::render_table() {
 void App::render_table_data() {
   switch (state) {
     case DSLTC: 
-      current_table.render_dsltc(dsltc);
+      current_table.render_dsltc(database.get_dsltc());
       break;
     case DSLCQ:
-      current_table.render_dslcq(dslcq);
+      current_table.render_dslcq(database.get_dslcq());
       break;
     case DSMH: 
-      current_table.render_dsmh(dsmh);
+      current_table.render_dsmh(database.get_dsmh());
       break;
     case DSSV:
-      current_table.render_dssv(*current_dssv);
+      current_table.render_dssv(*database.get_current_dssv());
       break;
     case DSDK:
-      current_table.render_dsdk(*current_dsdk);
+      current_table.render_dsdk(*database.get_current_dsdk());
       break;
     case NHAP_DIEM_1:
-      current_table.render_dsdk(*current_dsdk);
+      current_table.render_dsdk(*database.get_current_dsdk());
       break;
   }
 }
@@ -254,16 +241,16 @@ void App::render_table_data() {
 void App::set_picked_item() {
   switch (state) {
     case DSLTC:
-      current_loptc = dsltc.get_by_id(current_table.get_current_index());
+      database.set_current_loptc(database.get_dsltc().get_by_id(current_table.get_current_index()));
       break;
     case DSLCQ:
-      current_lopcq = dslcq.get_node_by_index(current_table.get_current_index())->get_data();
+      database.set_current_lopcq(database.get_dslcq().get_node_by_index(current_table.get_current_index()));
       break;
     case DSMH:
       // current_mh =
       break;
     case DSSV:
-      current_sv = current_dssv->get_node_by_index(current_table.get_current_index());
+      database.set_current_sv(database.get_current_dssv()->get_node_by_index(current_table.get_current_index()));
       break;
   }
 }
@@ -271,13 +258,13 @@ void App::set_picked_item() {
 void App::set_buffer() {
   switch (state) {
     case DSLTC: 
-      current_form.set_buffer_loptc(*current_loptc);
+      current_form.set_buffer_loptc(*database.get_current_loptc());
       break;
     case DSMH: 
-      current_form.set_buffer_mh(current_mh);
+      current_form.set_buffer_mh(*database.get_current_mh());
       break;
     case DSSV:
-      current_form.set_buffer_sv(current_sv->get_data());
+      current_form.set_buffer_sv(database.get_current_sv()->get_data());
       break;
   }
 }
@@ -302,7 +289,7 @@ void App::process_menu() {
 
       if (current_table.is_picked) {
         state = DSDK;
-        current_dsdk = dsltc.get_by_id(current_table.get_current_index())->dsdk;
+        database.set_current_dsdk(database.get_dsltc().get_by_id(current_table.get_current_index())->dsdk);
         render_table();
         do {
           wclear(wins[1]);
@@ -326,8 +313,8 @@ void App::process_menu() {
       
       if (current_table.is_picked) {
         state = DSSV;
-        current_lopcq = dslcq.get_node_by_index(current_table.get_current_index())->get_data();
-        current_dssv = dslcq.get_node_by_index(current_table.get_current_index())->get_data().DSSV;
+        database.set_current_lopcq(database.get_dslcq().get_node_by_index(current_table.get_current_index()));
+        database.set_current_dssv(database.get_current_lopcq()->get_data().DSSV);
         render_table();
         do {
           wclear(wins[1]);
@@ -356,13 +343,14 @@ void App::process_menu() {
       // Phase 1: Get LopTC
       bool is_valid;
       bool is_exist;
+      database.set_current_loptc(NULL);
       do {
         is_valid = current_form.process_input();
-        is_exist = current_loptc ? true : false;
+        is_exist = database.get_current_loptc() ? true : false;
       } while (!is_valid || !is_exist);
       
       // Phase 2: Nhap diem
-      current_dsdk = current_loptc->dsdk;
+      database.set_current_dsdk(database.get_current_loptc()->dsdk);
       state = NHAP_DIEM_2;
       do {
         render_table();
@@ -373,7 +361,7 @@ void App::process_menu() {
         } while (current_table.get_input());
 
         if (current_table.is_picked) {
-          current_svdk = current_dsdk->get_node_by_index(current_table.get_current_index());
+          database.set_current_svdk(database.get_current_dsdk()->get_node_by_index(current_table.get_current_index()));
           render_form();
           do {
             is_valid = current_form.process_input();
@@ -389,14 +377,15 @@ void App::process_menu() {
 
       // Phase 1: Nhap MASV
       state = DANG_KI_1;
-      current_sv = new Node<SinhVien>;
+      database.set_current_sv(new Node<SinhVien>);
+
       render_form();
       bool is_valid;
       do {
         is_valid = current_form.process_input();
       } while (!is_valid);
       
-      if (strcmp(current_sv->get_data().get_MASV(), "") == 0) {
+      if (strcmp(database.get_current_sv()->get_data().get_MASV(), "") == 0) {
         mvwprintw(wins[1], 3, 1, "Sinh vien khong ton tai");
         wrefresh(wins[1]);
         break;
@@ -405,7 +394,7 @@ void App::process_menu() {
       // Phase 2: Loc LopTC
       state = DANG_KI_2;
       render_form();
-      print_sv_info(wins[1], row/2, 2, current_sv->get_data());
+      print_sv_info(wins[1], row/2, 2, database.get_current_sv()->get_data());
       wrefresh(wins[1]);
       do {
         is_valid = current_form.process_input();
@@ -418,12 +407,12 @@ void App::process_menu() {
       do {
         wclear(wins[1]);
         current_table.display();
-        current_table.render_dsltc(filtered_dsltc);
+        current_table.render_dsltc(database.get_filtered_dsltc());
       } while (current_table.get_input());
       
       if (current_table.is_picked) {
-        current_dsdk = dsltc.get_by_id(current_table.get_current_index())->dsdk;
-        dang_ky(current_sv->get_data().get_MASV());
+        database.set_current_dsdk(database.get_filtered_dsltc().get_by_id(current_table.get_current_index())->dsdk);
+        dang_ky(database.get_current_sv()->get_data().get_MASV());
         
         wclear(wins[1]); 
         mvwprintw(wins[1], 1, 2, "Dang ki thanh cong!");
@@ -528,9 +517,9 @@ void App::exit() {
   wclear(wins[0]);
   wclear(wins[1]);
   clear();
-  dsltc.save();
-  dslcq.save();
-  dsmh.save();
+  database.get_dsltc().save();
+  database.get_dslcq().save();
+  database.get_dsmh().save();
   free_menu(current_menu.menu);
   endwin();
 }
