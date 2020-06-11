@@ -23,13 +23,12 @@ void Database::set_current_lopcq(int index) {
 void Database::set_current_lopcq(char * ma_lopcq) {}
 
 void Database::set_current_mh(int index) {
-  int i = 0;
+  int i = -1;
   dsmh.enumerate([&i, index, this](MonHoc x) {
-    if (i == index) {
-      this->current_mh = x;
-      return;
-    }
     i++;
+    if (i == index) {
+      this->set_current_mh(x);
+    } 
   });
 }
 

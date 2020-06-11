@@ -525,10 +525,4 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
-  // LopTC loptc("TRR", "2018", 2, 3, 40, 80);
-  // DanhSachLopTC dsltc;
-  // dsltc.load();
-
-  // dsltc.themLop(loptc, dsltc.getN());
-  // dsltc.save();
 }
