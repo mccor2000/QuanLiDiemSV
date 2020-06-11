@@ -1,4 +1,4 @@
-#include "library.h"
+#include "core.h"
 
 void add_lopcq(char ** data){
     LopCQ new_lopcq(data[0]);
