@@ -1,7 +1,9 @@
 #ifndef _TABLE_H
 #define _TABLE_H
 
-#include "../core/library.h"
+#include "../database/database.h"
+extern Database database;
+
 #include "./form.h"
 #include "./color.h"
 
