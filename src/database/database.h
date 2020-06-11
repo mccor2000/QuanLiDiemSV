@@ -17,7 +17,7 @@ private:
 
   LopTC * current_loptc;
   Node<LopCQ> * current_lopcq;
-  MonHoc * current_mh;
+  MonHoc current_mh;
 
   Node<SinhVien> * current_sv;
   Node<SinhVienDK> * current_svdk;
@@ -40,7 +40,7 @@ public:
 
   LopTC * get_current_loptc()                        { return current_loptc; }
   Node<LopCQ> * get_current_lopcq()                  { return current_lopcq; }
-  MonHoc * get_current_mh()                          { return current_mh; }
+  MonHoc get_current_mh()                            { return current_mh; }
     
   Node<SinhVien> * get_current_sv()                  { return current_sv; }      
   Node<SinhVienDK> * get_current_svdk()              { return current_svdk; }      
@@ -60,7 +60,7 @@ public:
   void set_current_lopcq(char * ma_lopcq);
 
   //-- Current MONHOC
-  void set_current_mh(MonHoc * x)                    { current_mh = x; }
+  void set_current_mh(MonHoc x)                      { current_mh = x; }
   void set_current_mh(int index);
 
   //-- Current SINHVIEN

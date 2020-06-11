@@ -258,7 +258,7 @@ void App::set_buffer() {
       current_form.set_buffer_loptc(*database.get_current_loptc());
       break;
     case DSMH: 
-      current_form.set_buffer_mh(*database.get_current_mh());
+      current_form.set_buffer_mh(database.get_current_mh());
       break;
     case DSSV:
       current_form.set_buffer_sv(database.get_current_sv()->get_data());

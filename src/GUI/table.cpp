@@ -238,8 +238,7 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
 
   dsmh.enumerate([&i, &current_yCoord, this](MonHoc x) mutable {
-    
-    if (i > length - start_index) return;
+    if (i > length) return;
     if (i >= start_index && i <= end_index) {
       draw_column_seperator(current_yCoord);
       if (current_index == i)
@@ -257,6 +256,7 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
     }
     i++;
   });
+  
   wrefresh(current_window);
 }
 
