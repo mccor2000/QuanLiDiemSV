@@ -1,15 +1,16 @@
 #pragma once
-
-// Templates
-#include "../../include/templates/LinkedList.h"
-
-// Base classes
-#include "../../include/DSSV/dssv.h"
-#include "../../include/DSDK/dsdk.h"
-#include "../../include/DSMH/dsmh.h"
-#include "../../include/DSLTC/dsltc.h"
-#include "../../include/DSLCQ/dslcq.h"
-
 #include "ncurses.h"
 
+#include "../database/database.h"
+extern Database database;
+
+void print_dsltc(WINDOW *, DanhSachLopTC);
+void print_dslcq(WINDOW *, DanhSachLopCQ);
+void print_dsmh(WINDOW *, DanhSachMonHoc);
+void print_dssv(WINDOW *, DanhSachSinhVien);
+void print_dsdk(WINDOW *, DanhSachSinhVienDK);
+
 void print_sv_info(WINDOW *, int, int, SinhVien);
+
+void print_bang_diem_TBKH(WINDOW *);
+void print_bang_diem_TK(WINDOW *);
