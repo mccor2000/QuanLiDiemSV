@@ -1,4 +1,4 @@
-#include "library.h"
+#include "core.h"
 
 void find_loptc(char ** data) {
     DanhSachLopTC temp_dsltc = database.get_dsltc();
