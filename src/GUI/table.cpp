@@ -1,47 +1,47 @@
 #include "./table.h"
 
 char * DSLTC_FIELDS[] = { 
-  "Ma LOP",
-  "MA MH",
-  "NIEN KHOA",
-  "HOC KI",
-  "NHOM",
-  "SO SV MIN",
-  "SO SV MAX",
-  "HUY",
+  (char *)"Ma LOP",
+  (char *)"MA MH",
+  (char *)"NIEN KHOA",
+  (char *)"HOC KI",
+  (char *)"NHOM",
+  (char *)"SO SV MIN",
+  (char *)"SO SV MAX",
+  (char *)"HUY",
 };
 
 char * DSLCQ_FIELDS[] = {
-  "MA LOP",
-  "SO SV"
+  (char *)"MA LOP",
+  (char *)"SO SV"
 };
 
 char * DSMH_FIELDS[] = {
-  "MA MH",
-  "TEN MH",
-  "STCLT",
-  "STCTH",
+  (char *)"MA MH",
+  (char *)"TEN MH",
+  (char *)"STCLT",
+  (char *)"STCTH",
 };
 
 char * DSSV_FIELDS[] = {
-  "MA SV",
-  "HO",
-  "TEN",
-  "GIOI TINH",
-  "SDT",
+  (char *)"MA SV",
+  (char *)"HO",
+  (char *)"TEN",
+  (char *)"GIOI TINH",
+  (char *)"SDT",
 };
 
 char * DSDK_FIELDS[] = {
-  "STT",
-  "MASV",
-  "HO",
-  "TEN",
-  "DIEM",
+  (char *)"STT",
+  (char *)"MASV",
+  (char *)"HO",
+  (char *)"TEN",
+  (char *)"DIEM",
 };
 
 char * DSDK_NHAP_DIEM_FIELDS[] = {
-  "MASV",
-  "DIEM",
+  (char *)"MASV",
+  (char *)"DIEM",
 };
 
 Table::Table(WINDOW * win) {
@@ -312,10 +312,11 @@ void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
   while (curr_node != NULL && i < length) {
     if (i > end_index) break;
 
-
     // Get SV info
     SinhVienDK curr_svdk = curr_node->get_data();
-    SinhVien curr_sv = database.get_dslcq().get_sv(curr_svdk.get_MASV());
+  
+    database.set_current_sv(curr_svdk.get_MASV());
+    SinhVien curr_sv = database.get_current_sv()->get_data();
 
     // Print info
     draw_column_seperator(current_yCoord);

@@ -1,52 +1,52 @@
 #include "./form.h"
 
 char * LOPTC_FORM_LABEL[] = {
-  "Ma MH: ",
-  "Nien khoa: ",
-  "Hoc ki: ",
-  "Nhom: ",
-  "Min SV: ",
-  "Max SV: ",
+  (char *)"Ma MH: ",
+  (char *)"Nien khoa: ",
+  (char *)"Hoc ki: ",
+  (char *)"Nhom: ",
+  (char *)"Min SV: ",
+  (char *)"Max SV: ",
 };
 
 char * LOPCQ_FORM_LABLE[] = {
-  "Ma lop: ",
+  (char *)"Ma lop: ",
 };
 
 char * MONHOC_FORM_LABEL[] = {
-  "Ma MH: ",
-  "Ten MH: ",
-  "STCLT: ",
-  "STCTH: ",
+  (char *)"Ma MH: ",
+  (char *)"Ten MH: ",
+  (char *)"STCLT: ",
+  (char *)"STCTH: ",
 };
 
 char * SV_FORM_LABEL[] = {
-  "Ma SV: ",
-  "Ho: ",
-  "Ten: ",
-  "Gioi tinh: ",
-  "SDT: ",
+  (char *)"Ma SV: ",
+  (char *)"Ho: ",
+  (char *)"Ten: ",
+  (char *)"Gioi tinh: ",
+  (char *)"SDT: ",
 };
 
 char * NHAP_DIEM_FORM_1_LABEL[] = {
-  "Nien khoa: ",
-  "Hoc ki: ",
-  "Nhom: ",
-  "Mon hoc: ",
+  (char *)"Nien khoa: ",
+  (char *)"Hoc ki: ",
+  (char *)"Nhom: ",
+  (char *)"Mon hoc: ",
 };
 
 char * NHAP_DIEM_FORM_2_LABEL[] = {
-  "Ma SV: ",
-  "Diem: ",
+  (char *)"Ma SV: ",
+  (char *)"Diem: ",
 };
 
 char * DANG_KY_FORM_1_LABEL[] = {
-  "Ma SV: ",
+  (char *)"Ma SV: ",
 };
 
 char * DANG_KY_FORM_2_LABEL[] = {
-  "Nien khoa: ",
-  "Hoc ki: ",
+  (char *)"Nien khoa: ",
+  (char *)"Hoc ki: ",
 };
 
 Form::Form(WINDOW * w) {

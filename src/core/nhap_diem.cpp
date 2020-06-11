@@ -1,7 +1,7 @@
 #include "core.h"
 
 void find_loptc(char ** data) {
-    DanhSachLopTC temp_dsltc = database.get_dsltc();
+    DanhSachLopTC temp_dsltc = database.dsltc;
     for (int i = 0; i < temp_dsltc.getN(); i++) {
       database.set_current_loptc(temp_dsltc.node[i]);
       LopTC * temp_loptc = database.get_current_loptc();

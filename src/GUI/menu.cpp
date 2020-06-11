@@ -1,29 +1,29 @@
 #include "./menu.h"
 
 char * main_menu_items[] = {
-  "Quan ly lop tin chi",
-  "Quan ly lop chinh quy",
-  "Quan ly mon hoc",
-  "Nhap diem",
-  "Dang ki",
-  "Xem diem",
-  "Thoat",
+  (char *)"Quan ly lop tin chi",
+  (char *)"Quan ly lop chinh quy",
+  (char *)"Quan ly mon hoc",
+  (char *)"Nhap diem",
+  (char *)"Dang ki",
+  (char *)"Xem diem",
+  (char *)"Thoat",
   (char *)NULL,
 };
 
 char * crud_menu_items[] = {
-  "Them",
-  "Hieu chinh",
-  "Xoa",
-  "Quay lai",
+  (char *)"Them",
+  (char *)"Hieu chinh",
+  (char *)"Xoa",
+  (char *)"Quay lai",
   (char *)NULL,
 };
 
 char * score_board_menu_items[] = {
-  "Bang diem mon hoc",
-  "Bang diem khoa hoc",
-  "Bang diem tong ket",
-  "Quay lai",
+  (char *)"Bang diem mon hoc",
+  (char *)"Bang diem khoa hoc",
+  (char *)"Bang diem tong ket",
+  (char *)"Quay lai",
   (char *)NULL,
 };
 

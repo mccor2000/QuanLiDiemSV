@@ -129,8 +129,8 @@ void DanhSachLopTC::save() {
 	 <<node[i]->nienkhoa<<"\t"
 	 <<node[i]->hocki<<"\t"
 	 <<node[i]->nhom<<"\t"
-	 <<node[i]->sv_max<<"\t"
 	 <<node[i]->sv_min<<"\t"
+	 <<node[i]->sv_max<<"\t"
 	 <<node[i]->huylop<<"\n";  
     // Save dsdk
     if (node[i]->dsdk != NULL) {
@@ -155,8 +155,8 @@ void DanhSachLopTC::load() {
 	   >>node[i]->nienkhoa
 	   >>node[i]->hocki
 	   >>node[i]->nhom
-	   >>node[i]->sv_max
 	   >>node[i]->sv_min
+	   >>node[i]->sv_max
 	   >>node[i]->huylop;
 
 	  const char * temp = std::to_string(node[i]->malop).c_str(); 
