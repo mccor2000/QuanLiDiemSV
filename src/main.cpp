@@ -4,7 +4,7 @@
 Database database;
 
 // Core functions 
-#include "./core/library.h"
+#include "./core/core.h"
 
 // GUI
 #include "./GUI/table.h"
