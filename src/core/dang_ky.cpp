@@ -1,4 +1,4 @@
-#include "library.h"
+#include "core.h"
 
 //loc cac lop theo nien khoa va hoc ki
 void filter_dsltc(char ** data) {
