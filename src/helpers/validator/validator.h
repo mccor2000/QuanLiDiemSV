@@ -14,6 +14,7 @@ public:
   bool validate_nhap_diem_2(char **);
   bool validate_dang_ki_1(char **);
   bool validate_dang_ki_2(char **);
+  bool validate_empty(char **);
 };
 
 #endif

@@ -15,15 +15,28 @@ bool validate_mh(char** data){
 bool validate_sv(char** data){
     return is_string(data[0]) && is_string(data[1]) && is_string(data[2]) && is_string(data[3]) && is_number(data[4]);
 }
+
 bool validate_nhap_diem_1(char** data){
     return is_string(data[0]) && is_number(data[1]) && is_number(data[2]) && is_number(data[3]);
 }
+
 bool validate_nhap_diem_2(char** data){
     return is_string(data[0]) && is_float(data[1]);
 }
+
 bool validate_dang_ki_1(char** data){
     return is_string(data[0]);
 }
+
 bool validate_dang_ki_2(char** data){
     return is_string(data[0]) && is_number(data[1]);
+}
+
+bool validate_empty(char** data) {
+    for (int i=0; i<sizeof(data)/sizeof(data[0]); i++) {
+        if (sizeof(data[0])==0) {
+            return false;
+        }
+    }
+    return true;
 }
