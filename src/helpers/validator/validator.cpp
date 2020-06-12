@@ -12,7 +12,7 @@ bool is_empty_data(char** data, int size) {
 
 bool validate_ltc(char** data){
     if (is_empty_data(data,6)) return false;
-    return is_number(data[2]) && is_number(data[3]) && is_number(data[4]) && is_number(data[5]);
+    return is_string(data[0]) && is_string(data[1]) && is_number(data[2]) && is_number(data[3]) && is_number(data[4]) && is_number(data[5]);
 }
 
 bool validate_lcq(char** data){
