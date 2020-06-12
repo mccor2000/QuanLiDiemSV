@@ -24,9 +24,6 @@ public:
   bool operator>(MonHoc);
   bool operator<(MonHoc);
   bool operator==(MonHoc);
-  
-  // Methods
-  void init_from_string(char **);
 };
 
 /*************** AVL TREE NODE ****************/

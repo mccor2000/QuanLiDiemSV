@@ -1,6 +1,6 @@
 #include "dsltc.h"
 
-LopTC::LopTC(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int max, int min) {
+LopTC::LopTC(char* ma_mh, char* nien_khoa, short hoc_ki, short n, int min, int max) {
   strcpy(maMH, ma_mh);
   strcpy(nienkhoa,nien_khoa);
   hocki = hoc_ki;

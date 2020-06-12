@@ -237,9 +237,8 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
   int i = 0;
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
 
-  dsmh.enumerate([i, current_yCoord, this](MonHoc x) mutable {
-    
-    if (i > length - start_index) return;
+  dsmh.enumerate([&i, &current_yCoord, this](MonHoc x) mutable {
+    if (i > length) return;
     if (i >= start_index && i <= end_index) {
       draw_column_seperator(current_yCoord);
       if (current_index == i)
@@ -256,12 +255,8 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
       current_yCoord += 2;
     }
     i++;
-    mvwprintw(current_window, 1, 1, std::to_string(current_yCoord).c_str());
-    mvwprintw(current_window, 1, 3, std::to_string(start_index).c_str());  
-    mvwprintw(current_window, 1, 5, std::to_string(i).c_str());  
-    mvwprintw(current_window, 1, 7, std::to_string(end_index).c_str());  
-    mvwprintw(current_window, 1, 10, std::to_string(length).c_str());  
   });
+  
   wrefresh(current_window);
 }
 

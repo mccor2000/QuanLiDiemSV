@@ -77,7 +77,11 @@ private:
   
   void set_picked_item();
   void set_buffer();
-
+  
+  void process_add();
+  void process_update();
+  void process_delete();
+  
   void process_input();
   void process_menu();
   void process_form(FORM *);
@@ -269,10 +273,27 @@ void App::set_buffer() {
       current_form.set_buffer_loptc(*database.get_current_loptc());
       break;
     case DSMH: 
-      current_form.set_buffer_mh(*database.get_current_mh());
+      current_form.set_buffer_mh(database.get_current_mh());
       break;
     case DSSV:
       current_form.set_buffer_sv(database.get_current_sv()->get_data());
+      break;
+  }
+}
+
+void process_delete() {
+  switch (state) {
+    case DSLTC: 
+      delete_loptc(); 
+      break;
+    case DSMH: 
+      delete_mh();
+      break;
+    case DSDK:
+      delete_svdk(current_table.get_current_index());
+      break;
+    case DSSV:
+      delete_sv(current_table.get_current_index());
       break;
   }
 }
@@ -473,6 +494,21 @@ void App::process_menu() {
     }
 
     case CHOOSE_XOA:
+      render_table();
+      do {
+        wclear(wins[1]);
+        current_table.display();
+        render_table_data();
+      } while (current_table.get_input());
+
+      if (current_table.is_picked) {
+        set_picked_item();
+        process_delete(); 
+
+        wclear(wins[1]);
+        mvwprintw(wins[1], 1, 1, "Chinh sua thanh cong");
+        wrefresh(wins[1]);
+      }
       break;
 
     case CHOOSE_QUAY_LAI:
@@ -536,10 +572,4 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
-  // LopTC loptc("TRR", "2018", 2, 3, 40, 80);
-  // DanhSachLopTC dsltc;
-  // dsltc.load();
-
-  // dsltc.themLop(loptc, dsltc.getN());
-  // dsltc.save();
 }
