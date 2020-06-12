@@ -49,7 +49,7 @@ int DanhSachMonHoc::height(node * n) {
 }
 
 node * DanhSachMonHoc::left_rotate(node * n) {
-  /*
+  /* *
    * Rotate a node to the left 
    * -> Return new node
    * */
@@ -66,7 +66,7 @@ node * DanhSachMonHoc::left_rotate(node * n) {
 }
 
 node * DanhSachMonHoc::right_rotate(node * n) {
-  /*
+  /* *
    * Rotate a node to the right
    * -> Return new node
    * */
@@ -83,7 +83,7 @@ node * DanhSachMonHoc::right_rotate(node * n) {
 }
 
 node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
-  /*
+  /* * 
    * Insert a node
    * then balance the tree
    * -> Return new node
@@ -92,13 +92,14 @@ node * DanhSachMonHoc::insert_node(node * n, MonHoc x) {
   // Perform BST insert
   if (n == NULL) {
     length += 1;
-    node * tmp = new node(x);
-    return tmp;
+    return new node(x); 
   } 
   if (x < n->key) {
     n->left= insert_node(n->left, x);
   } else if (x > n->key) {
     n->right= insert_node(n->right, x);
+  } else {
+    return new node(x);
   } 
   
   // Update height
@@ -131,59 +132,133 @@ node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
    * -> Return NULL if node is leave
    * otherwise, balance the tree and return new node
    */
-
-  // Perform BST remove 
-  if (n == NULL) return NULL;
-
-  if (x < n->key) {
-    n->left = remove_node(n->left, x);
-  } else if (x > n->key) {
-    n->right = remove_node(n->right, x);
-  }
-
-  node * r = n->right;
-  if (n->right == NULL) {
-    node * l = n->left;
-    delete(n);
-    length--;
-    n = l;
-  } else if (n->left == NULL) {
-    delete(n);
-    length--;
-    n = r;
-  } else {
-    while (r->left != NULL) {
-      r = r->left;
+  // STEP 1: PERFORM STANDARD BST DELETE  
+    if (n == NULL)  
+        return n;  
+  
+    if (x < n->key)  
+        n->left = remove_node(n->left, x);  
+  
+    // If the key to be deleted is greater  
+    // than the root's key, then it lies  
+    // in right subtree  
+    else if(x > n->key )  
+        n->right = remove_node(n->right, x);  
+  
+    else
+    {  
+        // node with only one child or no child  
+        if( (n->left == NULL) || 
+            (n->right == NULL) )  
+        {  
+             node * temp = n->left ?  
+                         n->left :  
+                         n->right;  
+  
+            // No child case  
+            if (temp == NULL)  
+            {  
+                temp = n;  
+                n = NULL;  
+            }  
+            else // One child case  
+            *n = *temp; // Copy the contents of  
+                           // the non-empty child  
+            free(temp);  
+        }  
+        else
+        {   
+            node * temp = n->right;
+            while (temp->left != NULL) {
+              temp = temp->left;
+            }
+  
+            n->key = temp->key;  
+            n->right = remove_node(n->right, temp->key);  
+        }  
     }  
-    n->key = r->key;
-    n->right = remove_node(n->right, r->key);
-  }
-
-  if (n == NULL) return NULL;
   
-  // Update height
-  n->height = 1 + std::max(height(n->left), height(n->right));
+    if (n == NULL)  
+    return n;  
   
-  // Balance the tree 
-  int bal = height(n->left) - height(n->right);
-  if (bal > 1) {
-    if (x < n->left->key) {
-      return right_rotate(n);
-    } else {
-      n->left = left_rotate(n->left);
-      return right_rotate(n);
-    } 
-  } else if (bal < -1) {
-    if (x > n->right->key) {
-      return left_rotate(n); 
-    } else {
-      n->right = right_rotate(n->right);
-      return left_rotate(n);
-    }
-  }
+    // Update height
+    n->height = 1 + std::max(height(n->left), height(n->right));
+  
+    int balance = height(n->left) - height(n->right); 
+    // Left Left Case  
+    if (balance > 1 && height(n->left->left) - height(n->left->right) >= 0)  
+        return right_rotate(n);  
+  
+    // Left Right Case  
+    if (balance > 1 &&  height(n->left->left) - height(n->left->right) < 0)  
+    {  
+        n->left = left_rotate(n->left);  
+        return right_rotate(n);  
+    }  
+  
+    // Right Right Case  
+    if (balance < -1 && height(n->right->left) - height(n->right->right) <= 0)  
+        return left_rotate(n);  
+  
+    // Right Left Case  
+    if (balance < -1 && height(n->right->left) - height(n->right->right) > 0)  
+    {   n->right = right_rotate(n->right);  
+        return left_rotate(n);  
+    }  
+  
+    return n;  
+}  
 
-  return n;
-}
+  // // Perform BST remove
+  // if (n == NULL) return NULL;
+
+  // if (x < n->key) {
+    // n->left = remove_node(n->left, x);
+  // } else if (x > n->key) {
+    // n->right = remove_node(n->right, x);
+  // } else {
+    // node * right = n->right;
+    // if (n->right == NULL) {
+      // node * left = n->left;
+      // delete(n);
+      // length--;
+      // n = left;
+    // } else if (n->left == NULL) {
+      // delete(n);
+      // length--;
+      // n = right;
+    // } else {
+      // while (right->left != NULL) {
+        // right = right->left;
+      // }
+      // n->key = right->key;
+      // n->right = remove_node(n->right, right->key);
+    // }
+  // }
+
+  // if (n == NULL) return NULL;
+
+
+  // // Balance the tree
+  // int bal = height(n->left) - height(n->right);
+  // if (bal > 1) {
+    // if (x < n->left->key) {
+      // return right_rotate(n);
+    // } else {
+      // n->left = left_rotate(n->left);
+      // return right_rotate(n);
+    // }
+  // } else if (bal < -1) {
+    // if (x > n->right->key) {
+      // return left_rotate(n);
+    // } else {
+      // n->right = right_rotate(n->right);
+      // return left_rotate(n);
+    // }
+  // }
+
+  // return n;
+
 
 MonHoc * DanhSachMonHoc::search_name_node(node * n, char * s) {
   /* *
@@ -210,13 +285,13 @@ MonHoc * DanhSachMonHoc::search_code_node(node * n, char * s) {
 
   if (n == NULL) 
     return NULL;
-    
+  
   if (strcmp(s, n->key.MAMH) > 0) 
-    return search_code_node(n->right, s);
+    return search_name_node(n->right, s);
   else if (strcmp(s, n->key.MAMH) < 0) 
-    return search_code_node(n->left, s);
+    return search_name_node(n->left, s);
   else 
-    return &n->key;    
+    return &n->key;
 }
 
 void DanhSachMonHoc::in_order(node * n, std::function<void(MonHoc)> f) {
