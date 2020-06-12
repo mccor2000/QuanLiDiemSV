@@ -13,6 +13,8 @@ private:
 
   int type, len;
   std::function<void(char **)> submit;
+  std::function<bool(char **)> validate;
+
   char ** buffer;
 
   int row, column;
@@ -25,7 +27,7 @@ public:
   void set_type(int t)                            { type = t; }
   void set_len(int l)                             { len = l; }
   void set_submit(std::function<void(char**)> f)  { submit = f; }
-
+  void set_validate(std::function<bool(char**)> f)  { validate = f; }
 
   void set_buffer_loptc(LopTC);
   void set_buffer_lopcq(LopCQ);

@@ -138,8 +138,7 @@ bool Form::process_input() {
       	  form_driver(form, REQ_PREV_FIELD);
       	  form_data[i] = Trim(field_buffer(fields[i], 0));
         }
-        // validate(form_data);
-        submit(form_data);
+        if(validate(form_data)) submit(form_data);
         return true;
       }
       case 27: 

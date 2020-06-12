@@ -3,6 +3,8 @@
 #include "./database/database.h"
 Database database;
 
+#include "./helpers/validator/validator.h"
+
 // Core functions 
 #include "./core/core.h"
 
@@ -127,43 +129,51 @@ Form App::get_form() {
       form.set_len(6);
       if (choice == CHOOSE_THEM) form.set_submit(add_loptc);
       if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_loptc);
+      form.set_validate(validate_ltc);
       break;
     case DSLCQ:
       form.set_type(2);
       form.set_len(1);
       form.set_submit(add_lopcq);
+      form.set_validate(validate_lcq);
       break;
     case DSMH: 
       form.set_type(3);
       form.set_len(4);
       if (choice == CHOOSE_THEM) form.set_submit(add_mh);
       if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_mh);
+      form.set_validate(validate_mh);
       break;
     case DSSV:
       form.set_type(4);
       form.set_len(5);
       if (choice == CHOOSE_THEM) form.set_submit(add_sv);
       if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_sv);
+      form.set_validate(validate_sv);
       break;
     case NHAP_DIEM_1:
       form.set_type(5);
       form.set_len(4);
       form.set_submit(find_loptc);
+      form.set_validate(validate_nhap_diem_1);
       break;
     case NHAP_DIEM_2:
       form.set_type(6);
       form.set_len(1);
       form.set_submit(set_score);
+      form.set_validate(validate_nhap_diem_2);
       break;
     case DANG_KI_1:
       form.set_type(7);
       form.set_len(1);
       form.set_submit(search_sv);
+      form.set_validate(validate_dang_ki_1);
       break;
     case DANG_KI_2:
       form.set_type(8);
       form.set_len(2);
       form.set_submit(filter_dsltc);
+      form.set_validate(validate_dang_ki_2);
       break;
   }
   return form;
