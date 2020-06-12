@@ -13,10 +13,6 @@
 
 class Database {
 private:
-  DanhSachLopTC dsltc;
-  DanhSachLopCQ dslcq;
-  DanhSachMonHoc dsmh;
-
   DanhSachLopTC filtered_dsltc;
 
   LopTC * current_loptc;
@@ -28,6 +24,10 @@ private:
   DanhSachSinhVien * current_dssv;
   DanhSachSinhVienDK * current_dsdk;
 public:
+  DanhSachLopTC dsltc;
+  DanhSachLopCQ dslcq;
+  DanhSachMonHoc dsmh;
+  
   // Constructor
   Database() {
     dsltc.load();
@@ -36,10 +36,6 @@ public:
   }
 
   // Getters
-  DanhSachLopTC get_dsltc()                          { return dsltc; }
-  DanhSachLopCQ get_dslcq()                          { return dslcq; }
-  DanhSachMonHoc get_dsmh()                          { return dsmh; }
-  
   DanhSachLopTC get_filtered_dsltc()                 { return filtered_dsltc; }
 
   LopTC * get_current_loptc()                        { return current_loptc; }
@@ -52,13 +48,34 @@ public:
   DanhSachSinhVienDK * get_current_dsdk()            { return current_dsdk; } 
 
   // Setters
-  void set_current_loptc(LopTC * x)                  { current_loptc = x; }
-  void set_current_lopcq(Node<LopCQ> * x)            { current_lopcq = x; }
-  void set_current_mh(MonHoc * x)                    { current_mh = x; }
   
+  //-- Current LOPTC
+  void set_current_loptc(LopTC * x)                  { current_loptc = x; }
+  void set_current_loptc(int index);
+  void set_current_loptc(char * ma_loptc);
+
+  //-- Current LOPCQ
+  void set_current_lopcq(Node<LopCQ> * x)            { current_lopcq = x; }
+  void set_current_lopcq(int index);
+  void set_current_lopcq(char * ma_lopcq);
+
+  //-- Current MONHOC
+  void set_current_mh(MonHoc * x)                    { current_mh = x; }
+  void set_current_mh(int index);
+
+  //-- Current SINHVIEN
   void set_current_sv(Node<SinhVien> * x)            { current_sv = x; }
+  void set_current_sv(int index);
+  void set_current_sv(char * ma_sv);
+
+  //-- Current SINHVIENDK
   void set_current_svdk(Node<SinhVienDK> * x)        { current_svdk = x; }
+  void set_current_svdk(int index);
+  
+  //-- Current DSSV
   void set_current_dssv(DanhSachSinhVien * x)        { current_dssv = x; }
+
+  //-- Current DSDK
   void set_current_dsdk(DanhSachSinhVienDK * x)      { current_dsdk = x; }
 };
 

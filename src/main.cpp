@@ -88,10 +88,6 @@ public:
 
 App::App() {
   is_running = true;
-  // dsltc.load();
-  // dslcq.load();
-  // dsmh.load();
-  // database.load();
 
   //-- Main screen
   initscr();
@@ -100,9 +96,10 @@ App::App() {
   noecho();
   keypad(stdscr, TRUE);
   start_color();
-  // init_pair(1, COLOR_RED, COLOR_BLACK);
+  
   int row, column;
   getmaxyx(stdscr, row, column);
+
   //-- Menu window
   wins[0] = newwin(row, (int)column/4, 0, 0);
   keypad(wins[0], TRUE);
@@ -173,27 +170,27 @@ Table App::get_table() {
   switch (state) {
     case DSLTC:
       table.set_type(1);
-      table.set_title("DANH SACH LOP TIN CHI");
+      table.set_title((char *)"DANH SACH LOP TIN CHI");
       break;
     case DSLCQ:
       table.set_type(2);
-      table.set_title("DANH SACH LOP CHINH QUY");
+      table.set_title((char *)"DANH SACH LOP CHINH QUY");
       break;
     case DSMH:
       table.set_type(3);
-      table.set_title("DANH SACH MON HOC");
+      table.set_title((char *)"DANH SACH MON HOC");
       break;
     case DSSV:
       table.set_type(4);
-      table.set_title("DANH SACH SINH VIEN");
+      table.set_title((char *)"DANH SACH SINH VIEN");
       break;
     case DSDK:
       table.set_type(5);
-      table.set_title("DANH SACH SINH VIEN DANG KY");
+      table.set_title((char *)"DANH SACH SINH VIEN DANG KY");
       break;
     case NHAP_DIEM_2:
       table.set_type(6);
-      table.set_title("BANG DIEM DANH SACH DANG KY");
+      table.set_title((char *)"BANG DIEM DANH SACH DANG KY");
       break;
     // case XEM_DIEM:
       // table.set_type(7);
@@ -218,13 +215,13 @@ void App::render_table() {
 void App::render_table_data() {
   switch (state) {
     case DSLTC: 
-      current_table.render_dsltc(database.get_dsltc());
+      current_table.render_dsltc(database.dsltc);
       break;
     case DSLCQ:
-      current_table.render_dslcq(database.get_dslcq());
+      current_table.render_dslcq(database.dslcq);
       break;
     case DSMH: 
-      current_table.render_dsmh(database.get_dsmh());
+      current_table.render_dsmh(database.dsmh);
       break;
     case DSSV:
       current_table.render_dssv(*database.get_current_dssv());
@@ -241,16 +238,16 @@ void App::render_table_data() {
 void App::set_picked_item() {
   switch (state) {
     case DSLTC:
-      database.set_current_loptc(database.get_dsltc().get_by_id(current_table.get_current_index()));
+      database.set_current_loptc(current_table.get_current_index());
       break;
     case DSLCQ:
-      database.set_current_lopcq(database.get_dslcq().get_node_by_index(current_table.get_current_index()));
+      database.set_current_lopcq(current_table.get_current_index());
       break;
     case DSMH:
-      // current_mh =
+      database.set_current_mh(current_table.get_current_index());
       break;
     case DSSV:
-      database.set_current_sv(database.get_current_dssv()->get_node_by_index(current_table.get_current_index()));
+      database.set_current_sv(current_table.get_current_index());
       break;
   }
 }
@@ -288,8 +285,8 @@ void App::process_menu() {
       } while (current_table.get_input());
 
       if (current_table.is_picked) {
+        set_picked_item();
         state = DSDK;
-        database.set_current_dsdk(database.get_dsltc().get_by_id(current_table.get_current_index())->dsdk);
         render_table();
         do {
           wclear(wins[1]);
@@ -312,9 +309,8 @@ void App::process_menu() {
       } while (current_table.get_input());
       
       if (current_table.is_picked) {
+        set_picked_item();
         state = DSSV;
-        database.set_current_lopcq(database.get_dslcq().get_node_by_index(current_table.get_current_index()));
-        database.set_current_dssv(database.get_current_lopcq()->get_data().DSSV);
         render_table();
         do {
           wclear(wins[1]);
@@ -343,7 +339,7 @@ void App::process_menu() {
       // Phase 1: Get LopTC
       bool is_valid;
       bool is_exist;
-      database.set_current_loptc(NULL);
+      database.set_current_loptc((LopTC *)NULL);
       do {
         is_valid = current_form.process_input();
         is_exist = database.get_current_loptc() ? true : false;
@@ -452,6 +448,7 @@ void App::process_menu() {
         current_table.display();
         render_table_data();
       } while (current_table.get_input());
+
       if (current_table.is_picked) {
         set_picked_item();
         render_form();
@@ -517,9 +514,9 @@ void App::exit() {
   wclear(wins[0]);
   wclear(wins[1]);
   clear();
-  database.get_dsltc().save();
-  database.get_dslcq().save();
-  database.get_dsmh().save();
+  database.dsltc.save();
+  database.dslcq.save();
+  database.dsmh.save();
   free_menu(current_menu.menu);
   endwin();
 }
@@ -528,4 +525,10 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
+  // LopTC loptc("TRR", "2018", 2, 3, 40, 80);
+  // DanhSachLopTC dsltc;
+  // dsltc.load();
+
+  // dsltc.themLop(loptc, dsltc.getN());
+  // dsltc.save();
 }
