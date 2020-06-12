@@ -36,7 +36,6 @@ char * NHAP_DIEM_FORM_1_LABEL[] = {
 };
 
 char * NHAP_DIEM_FORM_2_LABEL[] = {
-  (char *)"Ma SV: ",
   (char *)"Diem: ",
 };
 
@@ -180,4 +179,8 @@ void Form::set_buffer_sv(SinhVien curr_sv) {
   set_field_buffer(fields[2], 0, curr_sv.get_TEN());
   set_field_buffer(fields[3], 0, curr_sv.get_PHAI() == 1 ? "NAM" : "NU");
   set_field_buffer(fields[4], 0, curr_sv.get_SDT());
+}
+
+void Form::set_buffer_svdk(SinhVienDK curr_svdk) {
+  set_field_buffer(fields[0], 0, curr_svdk.get_MASV());
 }

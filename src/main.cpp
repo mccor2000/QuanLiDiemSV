@@ -152,8 +152,9 @@ Form App::get_form() {
       break;
     case NHAP_DIEM_2:
       form.set_type(6);
-      form.set_len(2);
+      form.set_len(1);
       form.set_submit(set_score);
+      break;
     case DANG_KI_1:
       form.set_type(7);
       form.set_len(1);
@@ -193,12 +194,8 @@ Table App::get_table() {
       table.set_title((char *)"DANH SACH SINH VIEN DANG KY");
       break;
     case NHAP_DIEM_2:
-      table.set_type(6);
+      table.set_type(5);
       table.set_title((char *)"BANG DIEM DANH SACH DANG KY");
-      break;
-    // case XEM_DIEM:
-      // table.set_type(7);
-      // table.set_title("");
       break;
   }
   return table;
@@ -231,9 +228,7 @@ void App::render_table_data() {
       current_table.render_dssv(*database.get_current_dssv());
       break;
     case DSDK:
-      current_table.render_dsdk(*database.get_current_dsdk());
-      break;
-    case NHAP_DIEM_1:
+    case NHAP_DIEM_2:
       current_table.render_dsdk(*database.get_current_dsdk());
       break;
   }
@@ -253,6 +248,9 @@ void App::set_picked_item() {
     case DSSV:
       database.set_current_sv(current_table.get_current_index());
       break;
+    case DSDK:
+    case NHAP_DIEM_2:
+      database.set_current_svdk(current_table.get_current_index());
   }
 }
 
@@ -359,32 +357,34 @@ void App::process_menu() {
       
       // Phase 1: Get LopTC
       bool is_valid;
-      bool is_exist;
-      database.set_current_loptc((LopTC *)NULL);
+      database.set_current_dsdk(NULL);
       do {
         is_valid = current_form.process_input();
-        is_exist = database.get_current_loptc() ? true : false;
-      } while (!is_valid || !is_exist);
+      } while (!is_valid);
       
       // Phase 2: Nhap diem
-      database.set_current_dsdk(database.get_current_loptc()->dsdk);
       state = NHAP_DIEM_2;
-      do {
-        render_table();
+      if (database.get_current_dsdk() != NULL) {
         do {
-          wclear(wins[1]);
-          current_table.display();
-          render_table_data();
-        } while (current_table.get_input());
-
-        if (current_table.is_picked) {
-          database.set_current_svdk(database.get_current_dsdk()->get_node_by_index(current_table.get_current_index()));
-          render_form();
+          render_table();
           do {
-            is_valid = current_form.process_input();
-          } while (!is_valid);
-        }
-      } while (current_table.is_picked);
+            wclear(wins[1]);
+            current_table.display();
+            render_table_data();
+          } while (current_table.get_input());
+
+          if (current_table.is_picked) {
+            set_picked_item();
+            render_form();
+            do {
+              is_valid = current_form.process_input();
+            } while (!is_valid);
+          }
+        } while (current_table.is_picked);
+      } else {
+        mvwprintw(wins[1], 7, 1, "Lop khong ton tai. ");
+        wrefresh(wins[1]);
+      }
       break;
     }
 
@@ -562,17 +562,9 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
-  // database.dsmh.enumerate([](MonHoc x) {
-    // std::cout << x.TENMH << std::endl;
-  // });
+  // database.set_current_dsdk(NULL);
+  // char * data[] = { "2018", "2", "4", "CTDL" };
 
-  // database.set_current_mh(2);
-  // std::cout << database.get_current_mh().TENMH << endl;
-
-  // delete_mh();
-  // database.dsmh.enumerate([](MonHoc x) {
-    // std::cout << x.TENMH << std::endl;
-  // });
-
-  // database.dsmh.save();
+  // find_loptc(data);
+  // std::cout << database.get_current_dsdk()->count() << std::endl;
 }

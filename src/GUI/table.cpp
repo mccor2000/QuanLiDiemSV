@@ -39,11 +39,6 @@ char * DSDK_FIELDS[] = {
   (char *)"DIEM",
 };
 
-char * DSDK_NHAP_DIEM_FIELDS[] = {
-  (char *)"MASV",
-  (char *)"DIEM",
-};
-
 Table::Table(WINDOW * win) {
   current_window = win;
   getmaxyx(win, height, width);
@@ -115,9 +110,6 @@ void Table::display() {
       fields = DSDK_FIELDS;
       fields_len = 5;
       break;
-    case 6:
-      fields = DSDK_NHAP_DIEM_FIELDS;
-      fields_len = 2;
   }
   average_width = width / fields_len;
   
@@ -323,7 +315,7 @@ void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, curr_svdk.get_MASV());
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, curr_sv.get_HO());
     mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, curr_sv.get_TEN());
-    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, std::to_string(curr_svdk.get_DIEM()).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*4, (curr_svdk.get_DIEM() == 0) ? "" : std::to_string(curr_svdk.get_DIEM()).c_str());
 
     if (current_index == i)
       wattroff(current_window, A_BOLD | COLOR_PAIR(1));
@@ -334,4 +326,3 @@ void Table::render_dsdk(DanhSachSinhVienDK dsdk) {
   }
   wrefresh(current_window);
 }
-
