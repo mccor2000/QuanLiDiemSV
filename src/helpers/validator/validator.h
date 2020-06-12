@@ -1,20 +1,12 @@
-#ifndef _VALIDATOR_H
-#define _VALIDATOR_H
 #include "../helpers.h"
 
-class Validator {
-public:
-  Validator() {;}
-
-  bool validate_ltc(char **);
-  bool validate_lcq(char **);
-  bool validate_mh(char **);
-  bool validate_sv(char **);
-  bool validate_nhap_diem_1(char **);
-  bool validate_nhap_diem_2(char **);
-  bool validate_dang_ki_1(char **);
-  bool validate_dang_ki_2(char **);
-  bool validate_empty(char **);
-};
-
-#endif
+bool is_empty_data(char** data,int size);
+bool validate_ltc(char** data);
+bool validate_lcq(char** data);
+bool validate_mh(char** data);
+bool validate_sv(char** data);
+bool validate_nhap_diem_1(char** data);
+bool validate_nhap_diem_2(char** data);
+bool validate_dang_ki_1(char** data);
+bool validate_dang_ki_2(char** data);
+bool validate_empty(char** data);

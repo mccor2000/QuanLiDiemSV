@@ -3,6 +3,8 @@
 #include "./database/database.h"
 Database database;
 
+#include "./helpers/validator/validator.h"
+
 // Core functions 
 #include "./core/core.h"
 
@@ -123,6 +125,7 @@ Form App::get_form() {
       form.set_len(6);
       if (choice == CHOOSE_THEM) form.set_submit(add_loptc);
       if (choice == CHOOSE_CHINH_SUA) form.set_submit(update_loptc);
+      form.set_validate(validate_ltc);
       break;
     case DSLCQ:
       form.set_type(2);
