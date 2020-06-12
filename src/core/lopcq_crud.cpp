@@ -45,3 +45,7 @@ void search_sv(char ** data) {
     curr_lopcq = curr_lopcq->get_next();
   }
 }
+
+void delete_sv(int index) {
+  database.get_current_dssv().remove(index);
+}

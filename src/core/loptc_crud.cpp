@@ -21,10 +21,13 @@ void update_loptc(char ** data) {
   database.get_current_loptc()->sv_max = string_to_int(data[5]);
 }
 
-void delete_loptc(int ma_lop_tc) {
-  database.dsltc.xoaLop(ma_lop_tc);
+void delete_loptc() {
+  database.dsltc.xoaLop(data.get_current_loptc().malop);
 }
 
+void delete_svdk(int index) {
+  database.get_current_loptc()->dsdk->remove(index);
+}
 // LinkedList<char*> DSLopTC_HUY(){
 //     LinkedList<char*> result;
 

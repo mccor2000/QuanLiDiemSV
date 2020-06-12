@@ -18,21 +18,23 @@ extern Database database;
 
 // LOPTC__CRUD
 void add_loptc(char ** data);
-void delete_loptc(int maloptc);
 void update_loptc(char ** data);
+void delete_loptc();
+void detele_svdk();
 
 //-- LOPCQ__CRUD
 void add_lopcq(char **);
 
+
 void add_sv(char **);
 void update_sv(char **);
 void search_sv(char **);
-void delete_sv(char **);
+void delete_sv(int index);
 
 //-- MONHOC__CRUD 
 void add_mh(char **);
-void delete_mh(char *);
 void update_mh(char **);
+void delete_mh();
 
 //-- 
 void filter_dsltc(char **);
