@@ -270,7 +270,7 @@ void App::set_buffer() {
   }
 }
 
-void process_delete() {
+void App::process_delete() {
   switch (state) {
     case DSLTC: 
       delete_loptc(); 
