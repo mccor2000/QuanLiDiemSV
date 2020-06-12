@@ -270,7 +270,7 @@ void App::set_buffer() {
   }
 }
 
-void process_delete() {
+void App::process_delete() {
   switch (state) {
     case DSLTC: 
       delete_loptc(); 
@@ -495,7 +495,7 @@ void App::process_menu() {
         process_delete(); 
 
         wclear(wins[1]);
-        mvwprintw(wins[1], 1, 1, "Chinh sua thanh cong");
+        mvwprintw(wins[1], 1, 1, "Xoa thanh cong");
         wrefresh(wins[1]);
       }
       break;
@@ -561,4 +561,17 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
+  // database.dsmh.enumerate([](MonHoc x) {
+    // std::cout << x.TENMH << std::endl;
+  // });
+
+  // database.set_current_mh(2);
+  // std::cout << database.get_current_mh().TENMH << endl;
+
+  // delete_mh();
+  // database.dsmh.enumerate([](MonHoc x) {
+    // std::cout << x.TENMH << std::endl;
+  // });
+
+  // database.dsmh.save();
 }

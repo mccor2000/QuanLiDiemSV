@@ -47,5 +47,5 @@ void search_sv(char ** data) {
 }
 
 void delete_sv(int index) {
-  database.get_current_dssv().remove(index);
+  database.get_current_dssv()->remove(index);
 }

@@ -20,7 +20,7 @@ extern Database database;
 void add_loptc(char ** data);
 void update_loptc(char ** data);
 void delete_loptc();
-void detele_svdk();
+void delete_svdk(int index);
 
 //-- LOPCQ__CRUD
 void add_lopcq(char **);

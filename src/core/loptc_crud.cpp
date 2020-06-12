@@ -22,7 +22,7 @@ void update_loptc(char ** data) {
 }
 
 void delete_loptc() {
-  database.dsltc.xoaLop(data.get_current_loptc().malop);
+  database.dsltc.xoaLop(database.get_current_loptc()->malop);
 }
 
 void delete_svdk(int index) {
