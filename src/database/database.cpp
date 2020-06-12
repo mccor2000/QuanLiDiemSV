@@ -22,7 +22,15 @@ void Database::set_current_lopcq(int index) {
 
 void Database::set_current_lopcq(char * ma_lopcq) {}
 
-void Database::set_current_mh(int index) {}
+void Database::set_current_mh(int index) {
+  int i = -1;
+  dsmh.enumerate([&i, index, this](MonHoc x) {
+    i++;
+    if (i == index) {
+      this->set_current_mh(x);
+    } 
+  });
+}
 
 void Database::set_current_sv(int index) {
   if (index > current_dssv->count()) {

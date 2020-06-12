@@ -12,25 +12,15 @@ MonHoc::MonHoc(char * mamh, char * tenmh, int stclt, int stcth) {
  * Overriding operator >, <, == for class MonHoc
  */
 bool MonHoc::operator > (MonHoc x) {
-  return (strcmp(MAMH, x.MAMH) > 0);
+  return (strcmp(TENMH, x.TENMH) > 0);
 }
 
 bool MonHoc::operator < (MonHoc x) {
-  return (strcmp(MAMH, x.MAMH) < 0);
+  return (strcmp(TENMH, x.TENMH) < 0);
 }
 
 bool MonHoc::operator == (MonHoc x) {
-  return (strcmp(MAMH, x.MAMH) == 0);
-}
-
-/* *
- * Public methods
- */
-void MonHoc::init_from_string(char ** data) {
-  strcpy(MAMH, data[0]);
-  strcpy(TENMH, data[1]);
-  STCLT = string_to_int(data[2]);
-  STCTH = string_to_int(data[3]);
+  return (strcmp(TENMH, x.TENMH) == 0);
 }
 
 /******************* Class node *********************/
