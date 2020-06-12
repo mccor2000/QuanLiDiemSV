@@ -13,8 +13,6 @@
 
 class Database {
 private:
-  DanhSachLopTC filtered_dsltc;
-
   LopTC * current_loptc;
   Node<LopCQ> * current_lopcq;
   MonHoc current_mh;
@@ -28,6 +26,7 @@ public:
   DanhSachLopCQ dslcq;
   DanhSachMonHoc dsmh;
   
+  DanhSachLopTC filtered_dsltc;
   // Constructor
   Database() {
     dsltc.load();
@@ -36,8 +35,6 @@ public:
   }
 
   // Getters
-  DanhSachLopTC get_filtered_dsltc()                 { return filtered_dsltc; }
-
   LopTC * get_current_loptc()                        { return current_loptc; }
   Node<LopCQ> * get_current_lopcq()                  { return current_lopcq; }
   MonHoc get_current_mh()                            { return current_mh; }

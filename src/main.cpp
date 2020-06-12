@@ -435,15 +435,16 @@ void App::process_menu() {
       do {
         wclear(wins[1]);
         current_table.display();
-        current_table.render_dsltc(database.get_filtered_dsltc());
+        current_table.render_dsltc(database.filtered_dsltc);
       } while (current_table.get_input());
       
       if (current_table.is_picked) {
-        database.set_current_dsdk(database.get_filtered_dsltc().get_by_id(current_table.get_current_index())->dsdk);
-        dang_ky(database.get_current_sv()->get_data().get_MASV());
+        database.set_current_dsdk(database.filtered_dsltc.get_by_id(current_table.get_current_index())->dsdk);
+        bool success = dang_ky(database.get_current_sv()->get_data().get_MASV());
         
         wclear(wins[1]); 
-        mvwprintw(wins[1], 1, 2, "Dang ki thanh cong!");
+        if (success) mvwprintw(wins[1], 1, 2, "Dang ki thanh cong!");
+        else mvwprintw(wins[1], 1, 2, "Dang ki khong thanh cong!");
         wrefresh(wins[1]);
       }
 

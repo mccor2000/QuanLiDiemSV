@@ -38,7 +38,7 @@ void delete_mh();
 
 //-- 
 void filter_dsltc(char **);
-void dang_ky(char *);
+bool dang_ky(char *);
 
 //-- H
 // LinkedList<char*> DSLopTC_HUY();
