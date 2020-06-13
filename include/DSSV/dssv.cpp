@@ -123,11 +123,10 @@ void DanhSachSinhVien::load(const char * ma_lop) {
     getline(f,ho_str);
     getline(f,ten);
     f >> phai;
-    getline(f,sdt);
-    getline(f,malop);
-
     std::string tmp;
     getline(f,tmp);
+    getline(f,sdt);
+    getline(f,malop);
 
     SinhVien curr_sv((char*) masv_str.c_str(),(char*) ho_str.c_str(),(char*) ten.c_str(),phai,(char*)sdt.c_str(),(char*)malop.c_str());
     push_back(curr_sv);
