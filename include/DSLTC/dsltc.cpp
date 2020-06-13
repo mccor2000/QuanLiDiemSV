@@ -79,6 +79,11 @@ void DanhSachLopTC::themLop(LopTC &lop, int pos) {
 	if (isFull()) {
 		return;
 	}
+	for (int i=0; i<n; i++) {
+		if (node[i]->nhom==lop.nhom) {
+			return;
+		}
+	}
 	lop.malop = stt;
 	if (pos>n) {
 		insertLast(lop);
