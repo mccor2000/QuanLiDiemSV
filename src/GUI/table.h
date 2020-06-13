@@ -46,6 +46,7 @@ public:
   int current_index;
 
   bool is_picked;
+  bool is_exist;
 
   // Constructor
   Table(WINDOW *);
@@ -62,7 +63,7 @@ public:
 
   // Public methods
   void display();
-  bool get_input();
+  short get_input();
 
   void render_dsltc(DanhSachLopTC dsltc);
   void render_dslcq(DanhSachLopCQ dslcq);

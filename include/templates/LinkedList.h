@@ -32,7 +32,16 @@ public:
         
     Node<T> * head() {return p_head_;}
     Node<T> * tail() {return p_tail_;}
-        
+    
+    bool is_exist(T val) {
+        Node<T> * tmp = p_head_;
+        while (tmp != NULL) {
+            if (tmp->get_data() == val) 
+                return true;
+        }
+        return false;
+    }
+
     void push_back(T val){
         Node<T> * tmp = new Node<T>();
         tmp->set_data(val);
@@ -46,7 +55,7 @@ public:
             p_tail_ = p_tail_ -> get_next();
         }
     }
-
+    
     void push_front(T val){
         Node<T> * temp = new Node<T>();
         temp -> set_data(val);

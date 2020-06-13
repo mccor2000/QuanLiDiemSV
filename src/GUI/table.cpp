@@ -48,6 +48,7 @@ Table::Table(WINDOW * win) {
   end_index = (height - 5) / 2 - 1;
   current_index = 0;
   is_picked = false;
+  is_exist = false;
 }
 
 // Draw column seperator
@@ -122,7 +123,7 @@ void Table::display() {
 }
 
 // Get input
-bool Table::get_input() {
+short Table::get_input() {
   input = getch();
     
   switch (input) {
@@ -149,15 +150,17 @@ bool Table::get_input() {
 
     case 10:
       is_picked = true;
-      break;
+      return 1;
+
+    case KEY_LEFT:
+      return 2;
 
     case 27:
-      return false;
-    case KEY_LEFT:
-      return false;
+      is_exist = true;
+      return 3;
   }
 
-  return true;
+  return 0;
 }
 
 // Print DSLTC

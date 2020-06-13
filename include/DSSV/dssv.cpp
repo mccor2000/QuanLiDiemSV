@@ -10,10 +10,12 @@ SinhVien::SinhVien(char* MASV,char* HO,char* TEN,bool PHAI, char* SDT,char* MALO
     PHAI_ = PHAI;
     strcpy(SDT_, SDT);
     strcpy(MALOP_, MALOP);
+    DS_LOPTC = new LinkedList<int>;
 }
 
 SinhVien::SinhVien() {
   strcpy(MASV_, "");
+  DS_LOPTC = new LinkedList<int>;
 }
 
 //-- Operator overloading
@@ -87,7 +89,7 @@ void DanhSachSinhVien::save(const char * ma_lop) {
   f.open(path, std::ios::out);
 
   // Loop through the list and write to file 
-  Node<SinhVien> * curr_node= head();
+  Node<SinhVien> * curr_node = head();
   while (curr_node != NULL) {
     SinhVien sv = curr_node->get_data();
     f << sv.get_MASV() << "\n" 
@@ -96,6 +98,14 @@ void DanhSachSinhVien::save(const char * ma_lop) {
       << sv.get_PHAI() << "\n" 
       << sv.get_SDT() << "\n" 
       << sv.get_MALOP() <<"\n";
+
+    f << sv.DS_LOPTC->count() << "\n";
+    Node<int> * curr_ma_ltc = sv.DS_LOPTC->head();
+    while (curr_ma_ltc != NULL) {
+      f << curr_ma_ltc->get_data() << "\t";
+      curr_ma_ltc = curr_ma_ltc->get_next();
+    }
+    f << "\n";
     curr_node = curr_node->get_next();
   }
   // Close file
@@ -123,13 +133,22 @@ void DanhSachSinhVien::load(const char * ma_lop) {
     getline(f,ho_str);
     getline(f,ten);
     f >> phai;
-    getline(f,sdt);
-    getline(f,malop);
-
     std::string tmp;
     getline(f,tmp);
-
+    getline(f,sdt);
+    getline(f,malop);
+    
     SinhVien curr_sv((char*) masv_str.c_str(),(char*) ho_str.c_str(),(char*) ten.c_str(),phai,(char*)sdt.c_str(),(char*)malop.c_str());
+    
+    int num_of_loptc;
+    f >> num_of_loptc;
+    getline(f,tmp);
+    for (int i = 0; i < num_of_loptc; i++) {
+      int curr_ma_ltc;
+      f >> curr_ma_ltc;
+      curr_sv.DS_LOPTC->push_back(curr_ma_ltc); 
+    }
+    getline(f,tmp);
     push_back(curr_sv);
   }
   // Close the file

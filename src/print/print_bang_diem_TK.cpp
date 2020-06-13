@@ -8,6 +8,14 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
   Node<SinhVien> * current_sv = current_dssv->p_head_;
   while (current_sv != NULL) {
     // ......
+    Node<int> * curr_malop = current_sv->get_data().DS_LOPTC->p_head_;
+    while (curr_malop != NULL) {
+      LopTC * curr_ltc = database.dsltc.node[database.dsltc.search(curr_malop->get_data())];
+      if (!list_ma_mh.is_exist(curr_ltc->maMH))
+        list_ma_mh.push_back(curr_ltc->maMH);
+      
+      curr_malop = curr_malop->get_next();
+    }
     current_sv = current_sv->get_next();
   }
   
