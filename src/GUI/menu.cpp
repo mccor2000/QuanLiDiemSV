@@ -20,7 +20,6 @@ char * crud_menu_items[] = {
 };
 
 char * score_board_menu_items[] = {
-  (char *)"Bang diem mon hoc",
   (char *)"Bang diem khoa hoc",
   (char *)"Bang diem tong ket",
   (char *)"Quay lai",
@@ -34,9 +33,11 @@ Menu::Menu(WINDOW * w, int t) {
     case 1: 
       len = 8; 
       break;
-    case 2: 
-    case 3:
+    case 2:
       len = 5;
+      break;
+    case 3:
+      len = 4;
       break;
   }
 

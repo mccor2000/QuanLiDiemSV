@@ -34,9 +34,8 @@ const short CHOOSE_XOA = 10;
 const short CHOOSE_QUAY_LAI = 11;
 
 // Score board menu
-const short CHOOSE_BANG_DIEM_MON_HOC = 12;
-const short CHOOSE_BANG_DIEM_KHOA_HOC = 13;
-const short CHOOSE_BANG_DIEM_TONG_KET = 14;
+const short CHOOSE_BANG_DIEM_KHOA_HOC = 12;
+const short CHOOSE_BANG_DIEM_TONG_KET = 13;
 
 // App's state
 const short DSLTC = 1;
@@ -55,7 +54,7 @@ class App {
 private:
   // App state
   bool is_running;
-  short choice, state;
+  short choice, prev_state, state;
   int input;
 
   // GUI members variables
@@ -527,7 +526,8 @@ void App::process_input() {
             choice = item_index(current_item(current_menu.menu)) + 8;
             return;
           case 3:
-            choice = item_index(current_item(current_menu.menu)) + 12;
+            if (item_index(current_item(current_menu.menu)) == 2) choice = 11;
+            else choice = item_index(current_item(current_menu.menu)) + 12;
             break;
         }
         return;
