@@ -22,12 +22,6 @@ private:
   int width;
   int height;
 
-  // Display table
-  int length;
-  int start_index;
-  int end_index;
-  int current_index;
-
   // Title
   char title[64];
 
@@ -45,6 +39,12 @@ private:
   void draw_column(int, char **);
 
 public:
+  // Display table
+  int length;
+  int start_index;
+  int end_index;
+  int current_index;
+
   bool is_picked;
 
   // Constructor
@@ -53,11 +53,13 @@ public:
   
   // Getters, setters
   int get_current_index()             { return current_index; }
-  
-  void set_is_picked(bool x)          { is_picked = x; }
+  int get_width()                     { return width; } 
+  int get_height()                    { return height; } 
+  char * get_title()                  { return title; }
+
   void set_type(int t)                { type = t; }
   void set_title(char * t)            { strcpy(title, t); }
-  
+
   // Public methods
   void display();
   bool get_input();

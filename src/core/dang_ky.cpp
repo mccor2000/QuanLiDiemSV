@@ -20,5 +20,6 @@ bool dang_ky(char * data) {
   }
 
   database.get_current_dsdk()->push_back(SinhVienDK(data));
+  database.get_current_sv()->get_data().DS_LOPTC->push_back(database.get_current_loptc()->malop);
   return true;
 }

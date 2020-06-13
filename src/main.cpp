@@ -174,6 +174,11 @@ Form App::get_form() {
       form.set_submit(filter_dsltc);
       form.set_validate(validate_dang_ki_2);
       break;
+    case XEM_DIEM:
+      form.set_type(9);
+      form.set_len(1);
+      form.set_submit(find_lopcq);
+      break;
   }
   return form;
 }
@@ -204,6 +209,9 @@ Table App::get_table() {
     case NHAP_DIEM_2:
       table.set_type(5);
       table.set_title((char *)"BANG DIEM DANH SACH DANG KY");
+      break;
+    case XEM_DIEM:
+      table.set_title((char *)"BANG DIEM TONG KET LOP CHINH QUY");
       break;
   }
   return table;
@@ -462,10 +470,35 @@ void App::process_menu() {
       break;
     }
 
-    case CHOOSE_XEM_DIEM: 
-      state = XEM_DIEM;
-      render_menu(Menu(wins[0], 3));
+    case CHOOSE_XEM_DIEM: { 
+      state = DSLCQ;
+      render_menu(Menu(wins[0], 2));
+      render_table();
+
+      do {
+        wclear(wins[1]);
+        current_table.display();
+        render_table_data();
+
+        if (current_table.is_picked) {
+          set_picked_item();
+          state = XEM_DIEM;
+          current_table = get_table();
+          do {
+            wclear(wins[1]);
+            print_bang_diem_TK(wins[1], current_table);
+          } while (current_table.get_input());
+          
+          state = DSLCQ;
+          wclear(wins[1]);
+          current_table.set_type(2);
+          current_table.set_title((char *)"DANH SACH LOP CHINH QUY");
+          current_table.display();
+          render_table_data();
+        }
+      } while (current_table.get_input());
       break;
+    }
 
     case CHOOSE_THOAT:
       is_running = false;
