@@ -56,7 +56,7 @@ class App {
 private:
   // App state
   bool is_running;
-  short choice, prev_state, state;
+  short choice, state;
   int input;
 
   // GUI members variables
@@ -179,7 +179,6 @@ Form App::get_form() {
 }
 
 Table App::get_table() {
-  wclear(wins[1]);
   Table table(wins[1]);
   switch (state) {
     case DSLTC:
@@ -310,19 +309,25 @@ void App::process_menu() {
         wclear(wins[1]);
         current_table.display();
         render_table_data();
-      } while (current_table.get_input());
 
-      if (current_table.is_picked) {
-        set_picked_item();
-        state = DSDK;
-        render_table();
-        do {
+        if (current_table.is_picked) {
+          set_picked_item();
+          state = DSDK;
+          render_table();
+          do {
+            wclear(wins[1]);
+            current_table.display();
+            render_table_data();
+          } while (current_table.get_input());
+          
+          state = DSLTC;
           wclear(wins[1]);
+          current_table.set_type(1);
+          current_table.set_title((char *)"DANH SACH LOP TIN CHI");
           current_table.display();
           render_table_data();
-        } while (current_table.get_input());
-      }
-
+        }
+      } while (current_table.get_input());
       break;
 
     case CHOOSE_QLLCQ:
@@ -334,18 +339,26 @@ void App::process_menu() {
         wclear(wins[1]);
         current_table.display();
         render_table_data();
-      } while (current_table.get_input());
-      
-      if (current_table.is_picked) {
-        set_picked_item();
-        state = DSSV;
-        render_table();
-        do {
+
+        if (current_table.is_picked) {
+          set_picked_item();
+          state = DSSV;
+          render_table();
+          do {
+            wclear(wins[1]);
+            current_table.display();
+            render_table_data();
+          } while (current_table.get_input());
+          
+          state = DSLCQ;
           wclear(wins[1]);
+          current_table.set_type(2);
+          current_table.set_title((char *)"DANH SACH LOP CHINH QUY");
           current_table.display();
           render_table_data();
-        } while (current_table.get_input());
-      }
+        }
+      } while (current_table.get_input());
+      
       break;
 
     case CHOOSE_QLMH:
@@ -420,7 +433,7 @@ void App::process_menu() {
       // Phase 2: Loc LopTC
       state = DANG_KI_2;
       render_form();
-      print_sv_info(wins[1], 3, 1, database.get_current_sv()->get_data());
+      print_sv_info(wins[1], 1, 5, database.get_current_sv()->get_data());
       wrefresh(wins[1]);
       do {
         is_valid = current_form.process_input();
@@ -526,6 +539,9 @@ void App::process_input() {
         break;  
       case KEY_DOWN:
         menu_driver(current_menu.menu, REQ_DOWN_ITEM);
+        break;
+      case KEY_RIGHT:
+        current_table.get_input();
         break;
       case 10:
         switch (current_menu.type) {

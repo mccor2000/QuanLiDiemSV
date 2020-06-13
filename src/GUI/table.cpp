@@ -147,12 +147,13 @@ bool Table::get_input() {
       }
       break;
 
-    case 27:
-    case KEY_LEFT:
-      return false;
-   
     case 10:
       is_picked = true;
+      break;
+
+    case 27:
+      return false;
+    case KEY_LEFT:
       return false;
   }
 
