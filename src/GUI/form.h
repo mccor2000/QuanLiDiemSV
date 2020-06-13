@@ -33,6 +33,7 @@ public:
   void set_buffer_lopcq(LopCQ);
   void set_buffer_mh(MonHoc);
   void set_buffer_sv(SinhVien);
+  void set_buffer_svdk(SinhVienDK);
 
   bool process_input();
   void display();

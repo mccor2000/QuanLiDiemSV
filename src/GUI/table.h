@@ -21,9 +21,6 @@ private:
   WINDOW * current_window;
   int width;
   int height;
-  
-  // Update form
-  Form update_form;
 
   // Display table
   int length;
