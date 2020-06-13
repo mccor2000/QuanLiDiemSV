@@ -422,7 +422,7 @@ void App::process_menu() {
       // Phase 2: Loc LopTC
       state = DANG_KI_2;
       render_form();
-      print_sv_info(wins[1], row/2, 2, database.get_current_sv()->get_data());
+      print_sv_info(wins[1], 3, 1, database.get_current_sv()->get_data());
       wrefresh(wins[1]);
       do {
         is_valid = current_form.process_input();
