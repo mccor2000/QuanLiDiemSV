@@ -156,7 +156,6 @@ short Table::get_input() {
       return 2;
 
     case 27:
-      is_exist = true;
       return 3;
   }
 
@@ -169,27 +168,32 @@ void Table::render_dsltc(DanhSachLopTC dsltc) {
   int current_yCoord = 5;
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
   
-  for (int i = start_index; i <= end_index; i++) {
+  int current_id = 0;
+  for (int i = start_index; i < length; i++) {
     if (i >= length) break;
     
     // Print column
-    draw_column_seperator(current_yCoord);
-    if (current_index == i) 
-      wattron(current_window, A_BOLD | COLOR_PAIR(1));
-    
     LopTC * curr_loptc = dsltc.node[i];
-    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*0, std::to_string(curr_loptc->malop).c_str());
-    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*1, curr_loptc->maMH);
-    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*2, curr_loptc->nienkhoa);
-    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*3, std::to_string(curr_loptc->hocki).c_str());
-    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*4, std::to_string(curr_loptc->nhom).c_str());
-    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*5, std::to_string(curr_loptc->sv_min).c_str());
-    mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*6, std::to_string(curr_loptc->sv_max).c_str());
-
-    if (current_index == i) 
-      wattroff(current_window, A_BOLD | COLOR_PAIR(1));
     
-    current_yCoord += 2;
+    
+    if (curr_loptc != NULL ) {
+      draw_column_seperator(current_yCoord);
+      if (current_index == i) 
+        wattron(current_window, A_BOLD | COLOR_PAIR(1));
+      
+      mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*0, std::to_string(curr_loptc->malop).c_str());
+      mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*1, curr_loptc->maMH);
+      mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*2, curr_loptc->nienkhoa);
+      mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*3, std::to_string(curr_loptc->hocki).c_str());
+      mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*4, std::to_string(curr_loptc->nhom).c_str());
+      mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*5, std::to_string(curr_loptc->sv_min).c_str());
+      mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*6, std::to_string(curr_loptc->sv_max).c_str());
+
+      if (current_index == i) 
+        wattroff(current_window, A_BOLD | COLOR_PAIR(1));
+      
+      current_yCoord += 2;
+    }
   }
   wrefresh(current_window);
 }
@@ -243,7 +247,7 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
       mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, x.MAMH);
       mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, x.TENMH);
       mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, std::to_string(x.STCLT).c_str());
-      mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, std::to_string(x.STCLT).c_str());
+      mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, std::to_string(x.STCTH).c_str());
 
       if (current_index == i)
         wattroff(current_window, A_BOLD | COLOR_PAIR(1));

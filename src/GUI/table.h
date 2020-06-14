@@ -66,6 +66,7 @@ public:
   short get_input();
 
   void render_dsltc(DanhSachLopTC dsltc);
+  void render_filtered_dsltc(DanhSachLopTC dsltc, char ** filter_data);
   void render_dslcq(DanhSachLopCQ dslcq);
   void render_dsmh(DanhSachMonHoc dsmh);
   void render_dssv(DanhSachSinhVien dssv);

@@ -29,16 +29,30 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
   mvwhline(current_window, 2, 1, 0, current_table.get_width() - 2);
   
   // Print fields
-  int average_width = current_table.get_width() / (list_ma_mh.count() + 1);
+  int average_width = current_table.get_width() / (list_ma_mh.count() + 4);
+  char * static_fields[] = {
+    "STT",
+    "MA SV",
+    "HO TEN",
+  };
+  for (int i = 0; i < 3; i++) {
+    mvwprintw(current_window, 3, current_xcoord + 1, static_fields[i]);
+    current_xcoord += average_width + 1;
+
+    mvwaddch(current_window, 2, current_xcoord, ACS_TTEE);
+    mvwaddch(current_window, 3, current_xcoord, ACS_VLINE);
+    mvwaddch(current_window, 4, current_xcoord, ACS_PLUS);
+  }
+
   Node<char *> * current_ma_mh = list_ma_mh.p_head_;
   while (current_ma_mh != NULL) {
+    mvwprintw(current_window, 3, current_xcoord + 1, current_ma_mh->get_data());
+    current_xcoord += average_width + 1;
+
     mvwaddch(current_window, 2, current_xcoord, ACS_TTEE);
     mvwaddch(current_window, 3, current_xcoord, ACS_VLINE);
     mvwaddch(current_window, 4, current_xcoord, ACS_PLUS);
 
-    mvwprintw(current_window, 3, current_xcoord + 1, current_ma_mh->get_data());
-    
-    current_xcoord += average_width + 1;
     current_ma_mh = current_ma_mh->get_next();
   }
   mvwprintw(current_window, 3, current_xcoord + 1, "Diem TB");

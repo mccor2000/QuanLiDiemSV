@@ -503,18 +503,17 @@ void App::process_menu() {
       do {
         wclear(wins[1]);
         current_table.display();
-        current_table.render_dsltc(*database.filtered_dsltc);
+        current_table.render_dsltc(database.filtered_dsltc);
         pick = current_table.get_input();
         switch (pick) {
           case 1: {
-            database.set_current_loptc(database.filtered_dsltc->get_by_id(current_table.get_current_index()));
+            database.set_current_loptc(database.filtered_dsltc.get_by_id(current_table.get_current_index()));
             database.set_current_dsdk(database.get_current_loptc()->dsdk);
             bool success = dang_ky(database.get_current_sv()->get_data().get_MASV());
             
             wclear(wins[1]); 
             if (success) mvwprintw(wins[1], 1, 2, "Dang ki thanh cong!");
             else mvwprintw(wins[1], 1, 2, "Dang ki khong thanh cong!");
-            mvwprintw(wins[1], 2, 2, std::to_string(database.get_current_sv()->get_data().DS_LOPTC->count()).c_str());
             wrefresh(wins[1]);
             break;
           }
@@ -592,42 +591,65 @@ void App::process_menu() {
 
     case CHOOSE_CHINH_SUA: {
       render_table();
+      short pick;
       do {
-        if (current_table.is_exist) return;
         wclear(wins[1]);
         current_table.display();
         render_table_data();
-      } while (current_table.get_input());
+        pick = current_table.get_input();
 
-      if (current_table.is_picked) {
-        set_picked_item();
-        render_form();
-        set_buffer();
-        bool done = current_form.process_input();
-        wclear(wins[1]);
-        if (done) mvwprintw(wins[1], 1, 1, "Chinh sua thanh cong");
-        wrefresh(wins[1]);
-      }
+        switch (pick) {
+          case 1: {
+            // Picked
+            set_picked_item();
+            render_form();
+            set_buffer();
+            bool success = current_form.process_input();
+            if (!success) {
+              mvwprintw(wins[1], 1, 1, "Chinh sua khong thanh cong");
+              return;
+            }
+            pick = 0;
+            break;
+          }
+          case 2:
+            // Back
+          case 3:
+            // Exit
+            return;
+        }
+      } while (pick == 0);
       break;
     }
 
     case CHOOSE_XOA:
       render_table();
+      short pick;
       do {
-        if (current_table.is_exist) return;
         wclear(wins[1]);
         current_table.display();
         render_table_data();
-      } while (current_table.get_input());
+        pick = current_table.get_input();
 
-      if (current_table.is_picked) {
-        set_picked_item();
-        process_delete(); 
+        switch (pick) {
+          case 1:
+            // Picked
+            set_picked_item();
+            process_delete(); 
+            
+            wclear(wins[1]);
+            mvwprintw(wins[1], 1, 1, "Xoa thanh cong");
+            wrefresh(wins[1]);
+            pick = 0;
+            break;
 
-        wclear(wins[1]);
-        mvwprintw(wins[1], 1, 1, "Xoa thanh cong");
-        wrefresh(wins[1]);
-      }
+          case 2:
+            // Back
+          case 3:
+            // Exit
+            return;
+        }
+      } while (pick == 0);
       break;
 
     case CHOOSE_QUAY_LAI:
