@@ -47,8 +47,6 @@ Table::Table(WINDOW * win) {
   start_index = 0;
   end_index = (height - 5) / 2 - 1;
   current_index = 0;
-  is_picked = false;
-  is_exist = false;
 }
 
 // Draw column seperator
@@ -149,7 +147,6 @@ short Table::get_input() {
       break;
 
     case 10:
-      is_picked = true;
       return 1;
 
     case KEY_LEFT:
@@ -178,7 +175,7 @@ void Table::render_dsltc(DanhSachLopTC dsltc) {
     
     if (curr_loptc != NULL ) {
       draw_column_seperator(current_yCoord);
-      if (current_index == i) 
+      if (current_index == current_id) 
         wattron(current_window, A_BOLD | COLOR_PAIR(1));
       
       mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*0, std::to_string(curr_loptc->malop).c_str());
@@ -189,10 +186,11 @@ void Table::render_dsltc(DanhSachLopTC dsltc) {
       mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*5, std::to_string(curr_loptc->sv_min).c_str());
       mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*6, std::to_string(curr_loptc->sv_max).c_str());
 
-      if (current_index == i) 
+      if (current_index == current_id) 
         wattroff(current_window, A_BOLD | COLOR_PAIR(1));
       
       current_yCoord += 2;
+      current_id++;
     }
   }
   wrefresh(current_window);

@@ -61,6 +61,7 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
   // Print data
   int current_ycoord = 5;
   while (current_sv != NULL) {
+    
 
     current_ycoord += 2;
     current_sv = current_sv->get_next();

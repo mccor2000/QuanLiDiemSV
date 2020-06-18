@@ -45,9 +45,6 @@ public:
   int end_index;
   int current_index;
 
-  bool is_picked;
-  bool is_exist;
-
   // Constructor
   Table(WINDOW *);
   Table() {;}
@@ -66,11 +63,9 @@ public:
   short get_input();
 
   void render_dsltc(DanhSachLopTC dsltc);
-  void render_filtered_dsltc(DanhSachLopTC dsltc, char ** filter_data);
   void render_dslcq(DanhSachLopCQ dslcq);
   void render_dsmh(DanhSachMonHoc dsmh);
   void render_dssv(DanhSachSinhVien dssv);
   void render_dsdk(DanhSachSinhVienDK dsdk);
-  void render_dsdk_nhap_diem(DanhSachSinhVienDK dsdk);
 };
 #endif
