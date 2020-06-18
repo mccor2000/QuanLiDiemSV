@@ -58,13 +58,64 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
   mvwprintw(current_window, 3, current_xcoord + 1, "Diem TB");
   mvwhline(current_window, 4, 1, 0, current_table.get_width() - 2);
   
-  // Print data
+  /******************** Print data ******************/
   int current_ycoord = 5;
+  current_sv = current_dssv->head(); // make pointer to the head_node of current_DSSV because in loop to get list_mh the current sv had been changed
   while (current_sv != NULL) {
-    
+    SinhVien process_sv = current_sv->get_data();
 
+    /**** render Code , Name , Family *****/
+
+                    // \\ 
+    /**** ___________________________ ****/
+
+    Node<int> *  process_LTC_code = process_sv.DS_LOPTC->head();
+    float process_avg = 0; // the avg score.
+    // Loop in DSLTC   
+    while(process_LTC_code != NULL){
+      // get LOPTC by code
+      LopTC * process = database.dsltc.
+                                    get_by_id(database.dsltc.
+                                                      search(process_LTC_code->get_data()));
+      DanhSachSinhVienDK * process_ds = process->dsdk;
+      Node<char *> * mh = list_ma_mh.head();
+      bool find_mh=0; // Did process SV register each Subject in list_ma_mh which rendered on the title
+      while(mh != NULL && !find_mh){
+        if(strcmp(mh->get_data(), process->maMH) == 0)
+          find_mh=1;
+        mh = mh->get_next();
+      }
+      if(find_mh){
+        Node<SinhVienDK> * tmp_svdk = process_ds->head();
+        // Loop in DSDK which belong LTC to get score of SV in this LTC.
+        while(tmp_svdk!=NULL){
+          if(tmp_svdk->get_data().get_MASV() == process_sv.get_MASV()){
+            
+            /**** render the Score ( subject by subject) *****/
+
+                    // \\ 
+
+            /**** ___________________________ ****/
+            
+            process_avg+=tmp_svdk->get_data().get_DIEM();
+            break; // end loop when found SV.
+          }
+          tmp_svdk = tmp_svdk->get_next();
+        }        
+        process_LTC_code = process_LTC_code ->get_next();
+      }
+      else{
+        // do something
+        current_ycoord += 2; // go through out of the field.
+      }
+      /**** render the AVG Score *****/
+
+                    // \\ 
+
+      /**** ___________________________ ****/
     current_ycoord += 2;
     current_sv = current_sv->get_next();
+    }
   }
   wrefresh(current_window);
 }
