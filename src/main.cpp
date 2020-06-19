@@ -71,7 +71,6 @@ private:
 
   void render_menu(Menu);
   void render_table();
-  void render_table_data();
   void render_form();
   
   void set_picked_item();
@@ -187,31 +186,32 @@ Table App::get_table() {
   Table table(wins[1]);
   switch (state) {
     case DSLTC:
-      table.set_type(1);
-      table.set_title((char *)"DANH SACH LOP TIN CHI");
+      strcpy(table.title, "DANH SACH LOP TIN CHI");
+      table.length = database.dsltc.getN();
       break;
     case DSLCQ:
-      table.set_type(2);
-      table.set_title((char *)"DANH SACH LOP CHINH QUY");
+      strcpy(table.title, "DANH SACH LOP CHINH QUY");
+      table.length = database.dslcq.count();
       break;
     case DSMH:
-      table.set_type(3);
-      table.set_title((char *)"DANH SACH MON HOC");
+      strcpy(table.title, "DANH SACH MON HOC");
+      table.length = database.dsmh.length;
       break;
     case DSSV:
-      table.set_type(4);
-      table.set_title((char *)"DANH SACH SINH VIEN");
+      strcpy(table.title, "DANH SACH SINH VIEN");
+      table.length = database.get_current_dssv()->count();
       break;
     case DSDK:
-      table.set_type(5);
-      table.set_title((char *)"DANH SACH SINH VIEN DANG KY");
+      strcpy(table.title, "DANH SACH SINH VIEN DANG KY");
+      table.length = database.get_current_dsdk()->count();
       break;
     case NHAP_DIEM_2:
-      table.set_type(5);
-      table.set_title((char *)"BANG DIEM DANH SACH DANG KY");
+      strcpy(table.title, "BANG DIEM DANH SACH DANG KY");
+      table.length = database.get_current_dsdk()->count();
       break;
     case XEM_DIEM:
-      table.set_title((char *)"BANG DIEM TONG KET LOP CHINH QUY");
+      strcpy(table.title, "BANG DIEM TONG KET LOP CHINH QUY");
+      table.length = database.get_current_dssv()->count();
       break;
   }
   return table;
@@ -225,27 +225,32 @@ void App::render_menu(Menu new_menu) {
 
 void App::render_table() {
   wclear(wins[1]);
-  current_table = get_table();
-  current_table.display();
-}
-
-void App::render_table_data() {
   switch (state) {
     case DSLTC: 
-      current_table.render_dsltc(database.dsltc);
+      print_dsltc(wins[1], current_table);
       break;
     case DSLCQ:
-      current_table.render_dslcq(database.dslcq);
+      print_dslcq(wins[1], current_table);
       break;
     case DSMH: 
-      current_table.render_dsmh(database.dsmh);
+      print_dsmh(wins[1], current_table);
       break;
     case DSSV:
-      current_table.render_dssv(*database.get_current_dssv());
+      print_dssv(wins[1], current_table);
       break;
     case DSDK:
+      print_dsdk(wins[1], current_table);
+      break;
     case NHAP_DIEM_2:
-      current_table.render_dsdk(*database.get_current_dsdk());
+      print_dsdk(wins[1], current_table);
+      break;
+    case DANG_KI_2:
+      print_filtered_dsltc(wins[1], current_table);
+      break;
+    case XEM_DIEM:
+      print_bang_diem_TK(wins[1], current_table);
+      break;
+    default:
       break;
   }
 }
@@ -253,20 +258,29 @@ void App::render_table_data() {
 void App::set_picked_item() {
   switch (state) {
     case DSLTC:
-      database.set_current_loptc(current_table.get_current_index());
+      database.set_current_loptc(current_table.current_index);
       break;
     case DSLCQ:
-      database.set_current_lopcq(current_table.get_current_index());
+      database.set_current_lopcq(current_table.current_index);
       break;
     case DSMH:
-      database.set_current_mh(current_table.get_current_index());
+      database.set_current_mh(current_table.current_index);
       break;
     case DSSV:
-      database.set_current_sv(current_table.get_current_index());
+      database.set_current_sv(current_table.current_index);
       break;
     case DSDK:
+      database.set_current_svdk(current_table.current_index);
+      break;
+    case NHAP_DIEM_1:
     case NHAP_DIEM_2:
-      database.set_current_svdk(current_table.get_current_index());
+      database.set_current_svdk(current_table.current_index);
+      break;
+    case DANG_KI_1:
+    case DANG_KI_2:
+      database.set_current_loptc(database.filtered_dsltc->get_by_id(current_table.current_index));
+      break;
+    default:
       break;
   }
 }
@@ -294,10 +308,10 @@ void App::process_delete() {
       delete_mh();
       break;
     case DSDK:
-      delete_svdk(current_table.get_current_index());
+      delete_svdk(current_table.current_index);
       break;
     case DSSV:
-      delete_sv(current_table.get_current_index());
+      delete_sv(current_table.current_index);
       break;
   }
 }
@@ -313,12 +327,10 @@ void App::process_menu() {
     case CHOOSE_QLLTC: {
       state = DSLTC;
       render_menu(Menu(wins[0], 2));
-      render_table();
       short pick;
+      current_table = get_table();
       do {
-        wclear(wins[1]);
-        current_table.display();
-        render_table_data();
+        render_table();
         pick = current_table.get_input();
         
         switch (pick) {
@@ -326,11 +338,9 @@ void App::process_menu() {
             // Picked
             set_picked_item();
             state = DSDK;
-            render_table();
+            current_table = get_table();
             do {
-              wclear(wins[1]);
-              current_table.display();
-              render_table_data();
+              render_table();
               pick = current_table.get_input();
               switch (pick) {
                 case 1:
@@ -342,10 +352,8 @@ void App::process_menu() {
             } while (pick == 0);
             state = DSLTC;
             pick = 0;
-            current_table.set_type(1);
-            current_table.set_title((char *)"DANH SACH LOP TIN CHI");
+            current_table = get_table();
             break;
-
           case 2:
             // Back
           case 3:
@@ -358,13 +366,10 @@ void App::process_menu() {
     case CHOOSE_QLLCQ: {
       state = DSLCQ;
       render_menu(Menu(wins[0], 2));
-      render_table();
       short pick;
-
+      current_table = get_table();
       do {
-        wclear(wins[1]);
-        current_table.display();
-        render_table_data();
+        render_table();
         pick = current_table.get_input();
 
         switch (pick) {
@@ -372,11 +377,9 @@ void App::process_menu() {
             // Picked
             set_picked_item();
             state = DSSV;
-            render_table();
+            current_table = get_table();
             do {
-              wclear(wins[1]);
-              current_table.display();
-              render_table_data();
+              render_table();
               pick = current_table.get_input();
               switch (pick) {
                 case 1:
@@ -388,10 +391,8 @@ void App::process_menu() {
             } while (pick == 0);
             state = DSLCQ;
             pick = 0;
-            current_table.set_type(2);
-            current_table.set_title((char *)"DANH SACH LOP CHINH QUY");
+            current_table = get_table();
             break;
-
           case 2:
             // Back
           case 3:
@@ -399,18 +400,15 @@ void App::process_menu() {
             return;
         }
       } while (pick == 0);
-      
       break;
     }
     case CHOOSE_QLMH: {
       state = DSMH;
       render_menu(Menu(wins[0], 2));
-      render_table();
       short pick; 
+      current_table = get_table();
       do {
-        wclear(wins[1]);
-        current_table.display();
-        render_table_data();
+        render_table();
         pick = current_table.get_input();
 
         switch (pick) {
@@ -440,11 +438,9 @@ void App::process_menu() {
       short pick; 
       if (database.get_current_dsdk() != NULL) {
         do {
-          render_table();
+          current_table = get_table();
           do {
-            wclear(wins[1]);
-            current_table.display();
-            render_table_data();
+            render_table();
             pick = current_table.get_input();
             switch (pick) {
               case 1:
@@ -502,14 +498,11 @@ void App::process_menu() {
       render_table();
       short pick;
       do {
-        wclear(wins[1]);
-        current_table.display();
-        current_table.render_dsltc(*database.filtered_dsltc);
+        render_table();
         pick = current_table.get_input();
         switch (pick) {
           case 1: {
-            database.set_current_loptc(database.filtered_dsltc->get_by_id(current_table.get_current_index()));
-            database.set_current_dsdk(database.get_current_loptc()->dsdk);
+            set_picked_item();
             bool success = dang_ky(database.get_current_sv()->get_data().get_MASV());
             
             wclear(wins[1]); 
@@ -529,13 +522,10 @@ void App::process_menu() {
     case CHOOSE_XEM_DIEM: { 
       state = DSLCQ;
       render_menu(Menu(wins[0], 2));
-      render_table();
       short pick;
-
+      current_table = get_table();
       do {
-        wclear(wins[1]);
-        current_table.display();
-        render_table_data();
+        render_table();
         pick = current_table.get_input();
 
         switch (pick) {
@@ -544,7 +534,6 @@ void App::process_menu() {
             set_picked_item();
             state = XEM_DIEM;
             current_table = get_table();
-            current_table.length = database.get_current_dssv()->count();
             do {
               wclear(wins[1]);
               print_bang_diem_TK(wins[1], current_table);
@@ -561,8 +550,7 @@ void App::process_menu() {
             } while (pick == 0);
             state = DSLCQ;
             pick = 0;
-            current_table.set_type(2);
-            current_table.set_title((char *)"DANH SACH LOP CHINH QUY");
+            current_table = get_table();
             break;
 
           case 2:
@@ -586,20 +574,15 @@ void App::process_menu() {
         valid = current_form.process_input();
       } while (!valid);
       
-      wclear(wins[1]);
-      current_table.display();
-      render_table_data();
+      render_table();
       wrefresh(wins[1]);
       break;
     }
 
     case CHOOSE_CHINH_SUA: {
-      render_table();
       short pick;
       do {
-        wclear(wins[1]);
-        current_table.display();
-        render_table_data();
+        render_table();
         pick = current_table.get_input();
 
         switch (pick) {
@@ -626,13 +609,10 @@ void App::process_menu() {
       break;
     }
 
-    case CHOOSE_XOA:
-      render_table();
+    case CHOOSE_XOA: {
       short pick;
       do {
-        wclear(wins[1]);
-        current_table.display();
-        render_table_data();
+        render_table();
         pick = current_table.get_input();
 
         switch (pick) {
@@ -655,7 +635,7 @@ void App::process_menu() {
         }
       } while (pick == 0);
       break;
-
+    }
     case CHOOSE_QUAY_LAI:
       unpost_menu(current_menu.menu);
       current_menu = Menu(wins[0], 1);

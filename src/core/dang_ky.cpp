@@ -12,6 +12,7 @@ void filter_dsltc(char ** data) {
 
 //dang ky lop cho SV
 bool dang_ky(char * data) {
+  database.set_current_dsdk(database.get_current_loptc()->dsdk);
   Node<SinhVienDK> * curr_node = database.get_current_dsdk()->p_head_;
   while (curr_node != NULL) {
     if (strcmp(curr_node->get_data().get_MASV(), data) == 0) return false;

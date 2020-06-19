@@ -13,8 +13,9 @@ extern Database database;
 #include <cstring>
 
 class Table {
-private:
+public:
   int type;
+  int input;
 
   // Window 
   WINDOW * current_window;
@@ -27,18 +28,7 @@ private:
   // Fields
   int fields_len;
   int average_width;
-  
-  // Colors
-  Color title_color;
-  Color curr_color;
-  Color status_color;
 
-  // Private methods
-  void draw_column_seperator(int);
-  void draw_column(int, char **);
-
-public:
-  int input;
   // Display table
   int length;
   int start_index;
@@ -49,23 +39,10 @@ public:
   Table(WINDOW *);
   Table() {;}
   
-  // Getters, setters
-  int get_current_index()             { return current_index; }
-  int get_width()                     { return width; } 
-  int get_height()                    { return height; } 
-  char * get_title()                  { return title; }
-
-  void set_type(int t)                { type = t; }
-  void set_title(char * t)            { strcpy(title, t); }
-
   // Public methods
-  void display();
   short get_input();
 
-  void render_dsltc(DanhSachLopTC dsltc);
-  void render_dslcq(DanhSachLopCQ dslcq);
-  void render_dsmh(DanhSachMonHoc dsmh);
-  void render_dssv(DanhSachSinhVien dssv);
-  void render_dsdk(DanhSachSinhVienDK dsdk);
+  void draw_column_seperator(int);
+  void draw_column(int, char **);
 };
 #endif

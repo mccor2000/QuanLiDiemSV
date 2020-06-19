@@ -24,8 +24,8 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
   /*************** Print title, fields ******************/
   box(current_window, 0, 0);
   // Print title
-  mvwprintw(current_window, 1, (current_table.get_width() - strlen(current_table.get_title())) / 2, current_table.get_title());
-  mvwhline(current_window, 2, 1, 0, current_table.get_width() - 2);
+  mvwprintw(current_window, 1, (current_table.width - strlen(current_table.title)) / 2, current_table.title);
+  mvwhline(current_window, 2, 1, 0, current_table.width - 2);
   
   // Print STT, MA SV, HO TEN
   mvwprintw(current_window, 3, 1, "STT");
@@ -45,7 +45,7 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
 
   // Print MA MON HOC
   int current_xcoord = 58;
-  int average_width = (current_table.get_width() - 58) / (list_ma_mh.count() + 1);
+  int average_width = (current_table.width - 58) / (list_ma_mh.count() + 1);
   Node<char *> * current_ma_mh = list_ma_mh.p_head_;
   while (current_ma_mh != NULL) {
     mvwprintw(current_window, 3, current_xcoord + 1, current_ma_mh->get_data());
@@ -58,7 +58,7 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
     current_ma_mh = current_ma_mh->get_next();
   }
   mvwprintw(current_window, 3, current_xcoord + 1, "Diem TB");
-  mvwhline(current_window, 4, 1, 0, current_table.get_width() - 2);
+  mvwhline(current_window, 4, 1, 0, current_table.width - 2);
   
 
   /****************** Print data *******************/
@@ -145,7 +145,7 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
       wattroff(current_window, A_BOLD | COLOR_PAIR(1));
 
     // Next
-    mvwhline(current_window, current_ycoord + 1, 1, 0, current_table.get_width() - 2);
+    mvwhline(current_window, current_ycoord + 1, 1, 0, current_table.width - 2);
     i++;
     current_ycoord += 2;
     current_sv = current_sv->get_next();
