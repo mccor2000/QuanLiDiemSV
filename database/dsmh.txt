@@ -1,12 +1,9 @@
 Ctdl
 Cau Truc Du Lieu
-2	3
+1	1
 Trr
 Toan Roi Rac 1
-10	5
+1	1
 Trr2
 Toan Roi Rac 2
-1	1
-Trr3
-Toan Roi Rac 3
 1	1
