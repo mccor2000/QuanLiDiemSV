@@ -26,7 +26,7 @@ public:
   DanhSachLopCQ dslcq;
   DanhSachMonHoc dsmh;
   
-  DanhSachLopTC filtered_dsltc;
+  DanhSachLopTC * filtered_dsltc;
   // Constructor
   Database() {
     dsltc.load();

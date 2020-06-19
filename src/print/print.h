@@ -1,6 +1,7 @@
 #pragma once
 #include "ncurses.h"
 #include "../GUI/table.h"
+#include "../helpers/helpers.h"
 
 #include "../database/database.h"
 extern Database database;

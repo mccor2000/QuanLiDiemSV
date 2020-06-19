@@ -2,12 +2,10 @@
 
 //loc cac lop theo nien khoa va hoc ki
 void filter_dsltc(char ** data) {
-  database.filtered_dsltc.load();
+  database.filtered_dsltc = new DanhSachLopTC;
   for (int i = 0; i < database.dsltc.getN(); i++) {
     if (strcmp(database.dsltc.node[i]->nienkhoa, data[0]) == 0 && database.dsltc.node[i]->hocki == string_to_short(data[1])) {
-      database.filtered_dsltc.node[i] = database.dsltc.node[i];
-    } else {
-      database.filtered_dsltc.node[i] = NULL;
+      database.filtered_dsltc->insertSpecial(database.dsltc.node[i]);
     }
   }
 }
@@ -21,8 +19,8 @@ bool dang_ky(char * data) {
   }
 
   database.get_current_dsdk()->push_back(SinhVienDK(data));
-  database.set_current_sv(data);
 
+  database.set_current_sv(data);
   int ma_lop = database.get_current_loptc()->malop;
   database.get_current_sv()->get_data().DS_LOPTC->push_back(ma_lop);
   return true;

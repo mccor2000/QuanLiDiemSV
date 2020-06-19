@@ -267,6 +267,7 @@ void App::set_picked_item() {
     case DSDK:
     case NHAP_DIEM_2:
       database.set_current_svdk(current_table.get_current_index());
+      break;
   }
 }
 
@@ -503,11 +504,11 @@ void App::process_menu() {
       do {
         wclear(wins[1]);
         current_table.display();
-        current_table.render_dsltc(database.filtered_dsltc);
+        current_table.render_dsltc(*database.filtered_dsltc);
         pick = current_table.get_input();
         switch (pick) {
           case 1: {
-            database.set_current_loptc(database.filtered_dsltc.get_by_id(current_table.get_current_index()));
+            database.set_current_loptc(database.filtered_dsltc->get_by_id(current_table.get_current_index()));
             database.set_current_dsdk(database.get_current_loptc()->dsdk);
             bool success = dang_ky(database.get_current_sv()->get_data().get_MASV());
             
