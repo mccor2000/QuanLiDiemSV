@@ -47,7 +47,6 @@ Table::Table(WINDOW * win) {
   start_index = 0;
   end_index = (height - 5) / 2 - 1;
   current_index = 0;
-  is_picked = false;
 }
 
 // Draw column seperator
@@ -122,9 +121,8 @@ void Table::display() {
 }
 
 // Get input
-bool Table::get_input() {
+short Table::get_input() {
   input = getch();
-    
   switch (input) {
     case KEY_UP:
       if (current_index > start_index) {
@@ -147,16 +145,17 @@ bool Table::get_input() {
       }
       break;
 
-    case 27:
-    case KEY_LEFT:
-      return false;
-   
     case 10:
-      is_picked = true;
-      return false;
+      return 1;
+
+    case KEY_LEFT:
+      return 2;
+
+    case 27:
+      return 3;
   }
 
-  return true;
+  return 0;
 }
 
 // Print DSLTC
@@ -169,11 +168,12 @@ void Table::render_dsltc(DanhSachLopTC dsltc) {
     if (i >= length) break;
     
     // Print column
+    LopTC * curr_loptc = dsltc.node[i];
+    
     draw_column_seperator(current_yCoord);
     if (current_index == i) 
       wattron(current_window, A_BOLD | COLOR_PAIR(1));
     
-    LopTC * curr_loptc = dsltc.node[i];
     mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*0, std::to_string(curr_loptc->malop).c_str());
     mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*1, curr_loptc->maMH);
     mvwprintw(current_window, current_yCoord, 1 + (1 + average_width)*2, curr_loptc->nienkhoa);
@@ -239,7 +239,7 @@ void Table::render_dsmh(DanhSachMonHoc dsmh) {
       mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*0, x.MAMH);
       mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*1, x.TENMH);
       mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*2, std::to_string(x.STCLT).c_str());
-      mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, std::to_string(x.STCLT).c_str());
+      mvwprintw(current_window, current_yCoord, 1 + (average_width + 1)*3, std::to_string(x.STCTH).c_str());
 
       if (current_index == i)
         wattroff(current_window, A_BOLD | COLOR_PAIR(1));

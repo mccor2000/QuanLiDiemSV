@@ -16,7 +16,10 @@ private:
   bool PHAI_;
   char SDT_[16];
   char MALOP_[15];
+
 public:
+  LinkedList<int> * DS_LOPTC;
+  
   //** Constructors
   SinhVien();
   SinhVien(char *, char *, char *, bool, char *, char *);

@@ -1,8 +1,12 @@
 #include "core.h"
 
-void add_lopcq(char ** data){
+void add_lopcq(char ** data) {
     LopCQ new_lopcq(data[0]);
     database.dslcq.push_back(new_lopcq);
+}
+
+void find_lopcq(char ** data) {
+  database.set_current_lopcq(upper_case_letters(data[0]));
 }
 
 void add_sv(char ** data) {

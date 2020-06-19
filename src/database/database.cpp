@@ -20,7 +20,19 @@ void Database::set_current_lopcq(int index) {
   current_dssv = current_lopcq->get_data().DSSV;
 }
 
-void Database::set_current_lopcq(char * ma_lopcq) {}
+void Database::set_current_lopcq(char * ma_lopcq) {
+  current_lopcq = NULL;
+    
+  Node<LopCQ> * curr_node = dslcq.p_head_;
+  while (curr_node != NULL) {
+    if (strcmp(curr_node->get_data().MALOP, ma_lopcq) == 0) {
+      current_lopcq = curr_node;
+      current_dssv = current_lopcq->get_data().DSSV;
+      break;
+    }
+    curr_node = curr_node->get_next();
+  }
+}
 
 void Database::set_current_mh(int index) {
   int i = -1;

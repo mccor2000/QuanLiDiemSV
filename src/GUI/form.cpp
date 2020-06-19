@@ -48,6 +48,10 @@ char * DANG_KY_FORM_2_LABEL[] = {
   (char *)"Hoc ki: ",
 };
 
+char * XEM_DIEM_FORM_LABLE[] = {
+  (char *)"Ma lop: ",
+};
+
 Form::Form(WINDOW * w) {
   current_window = w;
 }
@@ -70,6 +74,8 @@ char ** Form::get_label() {
       return DANG_KY_FORM_1_LABEL;
     case 8:
       return DANG_KY_FORM_2_LABEL;
+    case 9:
+      return XEM_DIEM_FORM_LABLE;
     default: 
       return NULL;
   }  
@@ -138,7 +144,8 @@ bool Form::process_input() {
       	  form_driver(form, REQ_PREV_FIELD);
       	  form_data[i] = Trim(field_buffer(fields[i], 0));
         }
-        if(validate(form_data)) submit(form_data);
+        // if(validate(form_data)) submit(form_data);
+        submit(form_data);
         return true;
       }
       case 27: 
