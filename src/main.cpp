@@ -544,6 +544,7 @@ void App::process_menu() {
             set_picked_item();
             state = XEM_DIEM;
             current_table = get_table();
+            current_table.length = database.get_current_dssv()->count();
             do {
               wclear(wins[1]);
               print_bang_diem_TK(wins[1], current_table);
@@ -551,6 +552,8 @@ void App::process_menu() {
               switch (pick) {
                 case 1:
                   pick = 0;
+                  break;
+                case 2:
                   break;
                 case 3:
                   return;

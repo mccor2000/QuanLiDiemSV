@@ -123,7 +123,6 @@ void Table::display() {
 // Get input
 short Table::get_input() {
   input = getch();
-    
   switch (input) {
     case KEY_UP:
       if (current_index > start_index) {

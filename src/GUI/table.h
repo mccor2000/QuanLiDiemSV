@@ -15,7 +15,6 @@ extern Database database;
 class Table {
 private:
   int type;
-  int input;
 
   // Window 
   WINDOW * current_window;
@@ -39,6 +38,7 @@ private:
   void draw_column(int, char **);
 
 public:
+  int input;
   // Display table
   int length;
   int start_index;

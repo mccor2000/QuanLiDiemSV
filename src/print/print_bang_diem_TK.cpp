@@ -63,13 +63,20 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
 
   /****************** Print data *******************/
   int current_ycoord = 5;
-  int stt = 1;
-  current_sv = current_dssv->head(); 
+  init_pair(1, COLOR_BLUE, COLOR_BLACK);
+  
+  int i = current_table.start_index;
+
+  current_sv = current_dssv->get_node_by_index(i);
   while (current_sv != NULL) {
+    if (i > current_table.end_index) break;
     SinhVien current_sv_data = current_sv->get_data();
     
+    if (current_table.current_index == i)
+      wattron(current_window, A_BOLD | COLOR_PAIR(1));
+
     // Print STT, MA SV, HO TEN
-    mvwprintw(current_window, current_ycoord, 1, std::to_string(stt++).c_str());
+    mvwprintw(current_window, current_ycoord, 1, std::to_string(i + 1).c_str());
     mvwaddch(current_window, current_ycoord - 1, 5, ACS_TTEE);
     mvwaddch(current_window, current_ycoord, 5, ACS_VLINE);
     mvwaddch(current_window, current_ycoord + 1, 5, ACS_PLUS);
@@ -134,10 +141,15 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
     average_score_str.resize(4);
     mvwprintw(current_window, current_ycoord, 59 + average_width * list_ma_mh.count(), average_score_str.c_str());
     
+    if (current_table.current_index == i)
+      wattroff(current_window, A_BOLD | COLOR_PAIR(1));
+
     // Next
     mvwhline(current_window, current_ycoord + 1, 1, 0, current_table.get_width() - 2);
+    i++;
     current_ycoord += 2;
     current_sv = current_sv->get_next();
   }
+
   wrefresh(current_window);
 }

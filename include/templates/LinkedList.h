@@ -38,6 +38,7 @@ public:
         while (tmp != NULL) {
             if (tmp->get_data() == val) 
                 return true;
+            tmp = tmp->get_next();
         }
         return false;
     }
