@@ -178,6 +178,8 @@ Form App::get_form() {
       form.set_len(1);
       form.set_submit(find_lopcq);
       break;
+    default:
+      break;
   }
   return form;
 }
@@ -212,6 +214,8 @@ Table App::get_table() {
     case XEM_DIEM:
       strcpy(table.title, "BANG DIEM TONG KET LOP CHINH QUY");
       table.length = database.get_current_dssv()->count();
+      break;
+    default:
       break;
   }
   return table;
@@ -296,6 +300,8 @@ void App::set_buffer() {
     case DSSV:
       current_form.set_buffer_sv(database.get_current_sv()->get_data());
       break;
+    default:
+      break;
   }
 }
 
@@ -312,6 +318,8 @@ void App::process_delete() {
       break;
     case DSSV:
       delete_sv(current_table.current_index);
+      break;
+    default:
       break;
   }
 }
