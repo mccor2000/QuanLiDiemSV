@@ -47,6 +47,7 @@ public:
 	bool isEmpty();
 	void insertLast(LopTC &lop);
 	void insertOrder(LopTC &lop, int pos);
+  void insertSpecial(LopTC *);
 	int search(int malop_tmp);
 	void xuatDS();
 	void themLop(LopTC &lop, int pos);

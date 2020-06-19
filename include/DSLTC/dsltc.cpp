@@ -15,8 +15,8 @@ LopTC::LopTC(){
   dsdk = new DanhSachSinhVienDK();
 }
 
-LopTC* DanhSachLopTC::get_by_id(int i) {
-	return node[i] ;
+LopTC* DanhSachLopTC::get_by_id(int id) {
+  return node[id];
 }
 
 int DanhSachLopTC::get_STT() {
@@ -62,8 +62,12 @@ void DanhSachLopTC::insertLast(LopTC &lop) {
 	n++;
 	node[n-1] = new LopTC();
 	*node[n-1] = lop;
-  lop.malop = stt;
   stt++;
+}
+
+void DanhSachLopTC::insertSpecial(LopTC * lop) {
+	n++;
+	node[n-1] = lop;
 }
 
 int DanhSachLopTC::search(int malop_tmp) {
@@ -80,7 +84,10 @@ void DanhSachLopTC::themLop(LopTC &lop, int pos) {
 		return;
 	}
 	for (int i=0; i<n; i++) {
-		if (node[i]->nhom==lop.nhom) {
+		if (strcmp(node[i]->maMH, lop.maMH) == 0 &&
+        strcmp(node[i]->nienkhoa, lop.nienkhoa) == 0 &&
+        node[i]->hocki == lop.hocki &&
+        node[i]->nhom == lop.nhom) {
 			return;
 		}
 	}
