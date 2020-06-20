@@ -5,6 +5,7 @@
 #include <string.h>
 #include <fstream>
 
+#include"../../include/templates/LinkedList.h"
 #include"../../include/DSDK/dsdk.h"
 
 
@@ -55,5 +56,7 @@ public:
 	void xoaDS();
 	void save();
 	void load();
+	
+	LinkedList<LopTC> search_by_MAMH(char *MAMH);
 };
 #endif
