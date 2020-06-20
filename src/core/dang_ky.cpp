@@ -19,13 +19,8 @@ bool dang_ky(char * data) {
   if (database.get_current_loptc()->dsdk->count()==database.get_current_loptc()->sv_max) {
     return false;
   }
+  
   database.set_current_dsdk(database.get_current_loptc()->dsdk);
-  Node<SinhVienDK> * curr_node = database.get_current_dsdk()->p_head_;
-  while (curr_node != NULL) {
-    if (strcmp(curr_node->get_data().get_MASV(), data) == 0) return false;
-    curr_node = curr_node->get_next();
-  }
-
   database.get_current_dsdk()->push_back(SinhVienDK(data));
 
   database.set_current_sv(data);
