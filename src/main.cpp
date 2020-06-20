@@ -501,9 +501,7 @@ void App::process_menu() {
       } while (!is_valid);
 
       // Phase 3: Chon LopTC
-      state = DSLTC;
       render_menu(Menu(wins[0], 2));
-      render_table();
       short pick;
       do {
         render_table();
