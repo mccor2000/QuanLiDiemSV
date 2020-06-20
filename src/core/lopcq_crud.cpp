@@ -32,6 +32,7 @@ void update_sv(char ** data) {
       data[4],
       database.get_current_lopcq()->get_data().MALOP
   );
+  sv.DS_LOPTC = process_sv.DS_LOPTC;
   database.get_current_sv()->set_data(sv);
   //****** Handle update data sv in LTC classes *******/
   LinkedList<int> *process_dsmh = process_sv.DS_LOPTC;
