@@ -4,7 +4,11 @@
 void filter_dsltc(char ** data) {
   database.filtered_dsltc = new DanhSachLopTC;
   for (int i = 0; i < database.dsltc.getN(); i++) {
-    if (strcmp(database.dsltc.node[i]->nienkhoa, data[0]) == 0 && database.dsltc.node[i]->hocki == string_to_short(data[1])) {
+    if (
+        strcmp(database.dsltc.node[i]->nienkhoa, data[0]) == 0 && 
+        database.dsltc.node[i]->hocki == string_to_short(data[1]) &&
+        !database.get_current_sv()->get_data().DS_LOPTC->is_exist(database.dsltc.node[i]->malop)
+    ) {
       database.filtered_dsltc->insertSpecial(database.dsltc.node[i]);
     }
   }
