@@ -218,7 +218,7 @@ Table App::get_table() {
       table.length = database.get_current_dsdk()->count();
       break;
     case DANG_KI_2:
-      strcpy(table.title, "BANG DIEM DANH SACH DANG KY");
+      strcpy(table.title, "DANH SACH LOP TIN CHI");
       table.length = database.filtered_dsltc->getN();
       break;
     case XEM_DIEM:

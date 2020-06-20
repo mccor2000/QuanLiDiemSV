@@ -9,7 +9,9 @@ void add_loptc(char ** data) {
         string_to_int(data[4]),
         string_to_int(data[5])
     );
-    database.dsltc.themLop(loptc, database.dsltc.getN());
+    if (database.dsmh.search_code(loptc.maMH)!=NULL) {
+      database.dsltc.themLop(loptc, database.dsltc.getN()); 
+    }
 }
 
 void update_loptc(char ** data) {
