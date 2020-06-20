@@ -77,14 +77,15 @@ void search_sv(char ** data) {
 }
 
 void delete_sv(int index) {
-  // Delete all appearances of SV in DSLTC
+  database.set_current_sv(index);
   SinhVien current_sv_data = database.get_current_sv()->get_data();
-  Node<int> * current_ma_loptc = current_sv_data.DS_LOPTC->head();
-  while (current_ma_loptc != NULL) {
-    DanhSachSinhVienDK * current_dsdk = database.dsltc.get_by_id(database.dsltc.search(current_ma_loptc->get_data()))->dsdk;
 
-    // Get index in DSDK 
-    Node<SinhVienDK> * current_svdk = current_dsdk->head();
+  // Delete all appearances of SV in DSLTC
+  Node<int> * current_ma_loptc = database.get_current_sv()->get_data().DS_LOPTC->head();
+  while (current_ma_loptc != NULL) {
+    database.set_current_loptc(database.dsltc.search(current_ma_loptc->get_data()));
+    // Get index in DSDK
+    Node<SinhVienDK> * current_svdk = database.get_current_dsdk()->head();
     int svdk_index = 0;
     while (current_svdk != NULL) {
       if (strcmp(current_svdk->get_data().get_MASV(), current_sv_data.get_MASV()) == 0) break;
@@ -94,7 +95,7 @@ void delete_sv(int index) {
     }
 
     // Perform delete
-    current_dsdk->remove(svdk_index); 
+    database.get_current_dsdk()->remove(svdk_index);
 
     current_ma_loptc = current_ma_loptc->get_next();
   }

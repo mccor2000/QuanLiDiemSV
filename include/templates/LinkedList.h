@@ -97,17 +97,16 @@ public:
             node = node->get_next();
         }
         Node<T>* tmp = new Node<T>();
-        tmp=node;
+        tmp = node->get_next();
         node->set_next(NULL);
+        p_tail_ = node;
         delete tmp;
     }
     void remove(int pos){
         if(pos >= count()){
-            std::cout << "\nVuot qua danh sach\n";
             return;
         }
         if(p_head_ == NULL){
-              std::cout << "\nDanh sach dang trong\n";
               return;
           }
         if(pos==0){
