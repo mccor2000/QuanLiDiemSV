@@ -32,7 +32,7 @@ void update_sv(char ** data) {
       database.get_current_lopcq()->get_data().MALOP
   );
   database.get_current_sv()->set_data(sv);
-  //****** Handle delete data sv in LTC classes *******/
+  //****** Handle update data sv in LTC classes *******/
   SinhVien process_sv = database.get_current_sv()->get_data();
   LinkedList<int> *process_dsmh = process_sv.DS_LOPTC;
   Node<int> *mh_in_list = process_dsmh->head();
