@@ -14,6 +14,16 @@ void add_mh(char ** data) {
 }
 
 void delete_mh() {
+  //******* handle delete LTC classes which have same code *******.
+  MonHoc process_mh = database.get_current_mh();
+  for(int i=0;i<database.dsltc.getN();i++){
+    LopTC* process_LTC = database.dsltc.node[i];
+    if(! strcmp(process_LTC->maMH,process_mh.MAMH)){
+      database.set_current_loptc(process_LTC);
+      delete_loptc();
+    }
+  }
+  /// End handle
   database.dsmh.remove(database.get_current_mh());
 }
 
