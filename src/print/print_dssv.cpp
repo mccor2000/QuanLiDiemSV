@@ -45,7 +45,5 @@ void print_dssv(WINDOW * current_window, Table &current_table) {
     curr_node = curr_node->get_next();
     i++;
   }
-  mvwprintw(current_window, 1, 1, std::to_string(current_table.current_index).c_str());
-  mvwprintw(current_window, 1, 3, std::to_string(current_table.length).c_str());
   wrefresh(current_window);
 }
