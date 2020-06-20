@@ -32,6 +32,28 @@ void update_sv(char ** data) {
       database.get_current_lopcq()->get_data().MALOP
   );
   database.get_current_sv()->set_data(sv);
+  //****** Handle delete data sv in LTC classes *******/
+  SinhVien process_sv = database.get_current_sv()->get_data();
+  LinkedList<int> *process_dsmh = process_sv.DS_LOPTC;
+  Node<int> *mh_in_list = process_dsmh->head();
+  while(mh_in_list != NULL){
+    LopTC * process_LTC = database.
+                            dsltc.get_by_id(
+                                    database.
+                                      dsltc.
+                                        search(mh_in_list->get_data())
+                                    );
+    DanhSachSinhVienDK * process_dsdk = process_LTC->dsdk;
+    Node<SinhVienDK> * tmp_svdk = process_dsdk->head();
+    while(tmp_svdk != NULL){
+      if(! strcmp(tmp_svdk->get_data().get_MASV(), process_sv.get_MASV())){
+        tmp_svdk->set_data(upper_case_letters(data[0]));
+      }
+      tmp_svdk = tmp_svdk->get_next();
+    }
+    mh_in_list = mh_in_list->get_next();
+  }
+  
 }
 
 void search_sv(char ** data) {
@@ -51,5 +73,21 @@ void search_sv(char ** data) {
 }
 
 void delete_sv(int index) {
+  //****** Handle delete data sv in LTC classes *******/
+  SinhVien process_sv = database.get_current_sv()->get_data();
+  LinkedList<int> *process_dsmh = process_sv.DS_LOPTC;
+  Node<int> *mh_in_list = process_dsmh->head();
+  while(mh_in_list != NULL){
+    LopTC * process_LTC = database.
+                            dsltc.get_by_id(
+                                    database.
+                                      dsltc.
+                                        search(mh_in_list->get_data())
+                                    );
+    DanhSachSinhVienDK * process_dsdk = process_LTC->dsdk;
+    database.set_current_dsdk(process_dsdk);
+    mh_in_list = mh_in_list->get_next();
+  }
+  database.get_current_dsdk()->remove(index);
   database.get_current_dssv()->remove(index);
 }
