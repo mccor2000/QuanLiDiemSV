@@ -16,6 +16,9 @@ Database database;
 // Printing
 #include "./print/print.h"
 
+// Extra libs
+#include <thread>
+#include <chrono>
 
 /************************************************/
 // Chooses's code
@@ -519,6 +522,8 @@ void App::process_menu() {
             if (success) mvwprintw(wins[1], 1, 2, "Dang ki thanh cong!");
             else mvwprintw(wins[1], 1, 2, "Dang ki khong thanh cong!");
             wrefresh(wins[1]);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            pick = 0;
             break;
           }
           case 2:
@@ -584,6 +589,7 @@ void App::process_menu() {
         valid = current_form.process_input();
       } while (!valid);
       
+      current_table = get_table();
       render_table();
       wrefresh(wins[1]);
       break;
