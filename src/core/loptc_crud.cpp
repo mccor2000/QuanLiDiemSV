@@ -26,39 +26,21 @@ void delete_loptc() {
 }
 
 void delete_svdk(int index) {
-  DanhSachSinhVienDK *process_dsdk = database.get_current_loptc()->dsdk;
-  int counter=0; // counter === min index on Your Table
-  Node<SinhVienDK> *process_svdk = process_dsdk->head();
-  // get SVDK on the table by index
-  while(process_svdk != NULL && counter<index){
-    counter++;
-    process_svdk = process_svdk->get_next();
-  }
-  SinhVien process_sv;
-  // From Code SVDK, Search this fuking student
-  Node<LopCQ> *process_lcq = database.dslcq.head();
-  while(process_lcq != NULL){
-    Node<SinhVien> *tmp_sv= process_lcq->get_data().DSSV->head();
-    while(tmp_sv!= NULL ){
-      if(! strcmp(tmp_sv->get_data().get_MASV(),process_svdk->get_data().get_MASV())){
-        tmp_sv= tmp_sv->get_next();
-        break;
-      }
-      tmp_sv= tmp_sv->get_next();
-    }
-    process_sv= tmp_sv->get_data();
-    process_lcq = process_lcq->get_next();
-  }
+  int current_ma_loptc = database.get_current_loptc()->malop;
+  // Set current SV
+  database.set_current_sv(database.get_current_svdk()->get_data().get_MASV());
   
+  // Delete LOPTC in DS_LTC
+  int ma_loptc_index = 0;
+  Node<int> * current_node = database.get_current_sv()->get_data().DS_LOPTC->head();
+  while (current_node != NULL) {
+    if (current_ma_loptc == current_node->get_data()) break; 
 
-  // Remove this LTC in DSLTC's student 
-  LinkedList<int> *process_DSLTC = process_sv.DS_LOPTC;
-  Node<int> *process_code = process_DSLTC->head();
-  int pos=0;
-  while(process_code!=NULL && process_code->get_data() == database.get_current_loptc()->malop ){
-    pos++;
-    process_code = process_code->get_next();
+    ma_loptc_index++;
+    current_node = current_node->get_next();
   }
-  process_DSLTC->remove(pos);
+  database.get_current_sv()->get_data().DS_LOPTC->remove(ma_loptc_index);
+  
+  // Delete SVDK 
   database.get_current_loptc()->dsdk->remove(index);
 }
