@@ -27,7 +27,7 @@ QuanLiDiemSV
 - [x] Project structure 
 - [x] Base classes
 - [x] Core modules
-- [ ] UI/UX
+- [x] UI/UX
 - [ ] Build & deploy
 - [ ] A+
 ### 3.Data flow 
