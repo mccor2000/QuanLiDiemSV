@@ -23,7 +23,9 @@ void add_sv(char ** data) {
 }
 
 void update_sv(char ** data) {
-  SinhVien sv(
+  // Update SV
+  SinhVien old_sv_data = database.get_current_sv()->get_data();
+  SinhVien new_sv_data(
       upper_case_letters(data[0]),
       upper_case_letters(data[1]),
       upper_case_letters(data[2]),
@@ -31,7 +33,31 @@ void update_sv(char ** data) {
       data[4],
       database.get_current_lopcq()->get_data().MALOP
   );
-  database.get_current_sv()->set_data(sv);
+  new_sv_data.DS_LOPTC = old_sv_data.DS_LOPTC;
+  database.get_current_sv()->set_data(new_sv_data);
+  
+  // Update DSLTC
+  Node<int> * current_ma_loptc= old_sv_data.DS_LOPTC->head();
+  while (current_ma_loptc != NULL) {
+    Node<SinhVienDK> * current_svdk = database
+                                        .dsltc
+                                        .get_by_id(database.dsltc.search(current_ma_loptc->get_data()))
+                                        ->dsdk
+                                        ->head();
+    // Loop through DSDK
+    while(current_svdk != NULL){
+      if (strcmp(current_svdk->get_data().get_MASV(), old_sv_data.get_MASV()) == 0) {
+        SinhVienDK new_svdk_data(
+            upper_case_letters(data[0]), 
+            current_svdk->get_data().get_DIEM()
+        );
+        current_svdk->set_data(new_svdk_data);
+      }
+      current_svdk = current_svdk->get_next();
+    }
+    current_ma_loptc = current_ma_loptc->get_next();
+  }
+  
 }
 
 void search_sv(char ** data) {
@@ -51,5 +77,27 @@ void search_sv(char ** data) {
 }
 
 void delete_sv(int index) {
+  database.set_current_sv(index);
+  SinhVien current_sv_data = database.get_current_sv()->get_data();
+
+  // Delete all appearances of SV in DSLTC
+  Node<int> * current_ma_loptc = database.get_current_sv()->get_data().DS_LOPTC->head();
+  while (current_ma_loptc != NULL) {
+    database.set_current_loptc(database.dsltc.search(current_ma_loptc->get_data()));
+    // Get index in DSDK
+    Node<SinhVienDK> * current_svdk = database.get_current_dsdk()->head();
+    int svdk_index = 0;
+    while (current_svdk != NULL) {
+      if (strcmp(current_svdk->get_data().get_MASV(), current_sv_data.get_MASV()) == 0) break;
+
+      svdk_index++;
+      current_svdk = current_svdk->get_next();
+    }
+
+    // Perform delete
+    database.get_current_dsdk()->remove(svdk_index);
+
+    current_ma_loptc = current_ma_loptc->get_next();
+  }
   database.get_current_dssv()->remove(index);
 }

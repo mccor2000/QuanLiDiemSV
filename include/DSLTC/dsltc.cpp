@@ -178,3 +178,13 @@ void DanhSachLopTC::load() {
   // Close file DSLTC
   f.close();
 }
+
+LinkedList<LopTC> DanhSachLopTC::search_by_MAMH(char *MAMH){
+	LinkedList<LopTC> result;
+	for(int i=0;i<getN();i++){
+		if(! strcmp(MAMH,node[i]->maMH)){
+			result.push_back(*node[i]);
+		}
+	}
+	return result;
+}

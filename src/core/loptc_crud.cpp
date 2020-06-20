@@ -26,5 +26,21 @@ void delete_loptc() {
 }
 
 void delete_svdk(int index) {
+  int current_ma_loptc = database.get_current_loptc()->malop;
+  // Set current SV
+  database.set_current_sv(database.get_current_svdk()->get_data().get_MASV());
+  
+  // Delete LOPTC in DS_LTC
+  int ma_loptc_index = 0;
+  Node<int> * current_node = database.get_current_sv()->get_data().DS_LOPTC->head();
+  while (current_node != NULL) {
+    if (current_ma_loptc == current_node->get_data()) break; 
+
+    ma_loptc_index++;
+    current_node = current_node->get_next();
+  }
+  database.get_current_sv()->get_data().DS_LOPTC->remove(ma_loptc_index);
+  
+  // Delete SVDK 
   database.get_current_loptc()->dsdk->remove(index);
 }

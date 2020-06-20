@@ -211,6 +211,10 @@ Table App::get_table() {
       strcpy(table.title, "BANG DIEM DANH SACH DANG KY");
       table.length = database.get_current_dsdk()->count();
       break;
+    case DANG_KI_2:
+      strcpy(table.title, "DANH SACH LOP TIN CHI");
+      table.length = database.filtered_dsltc->getN();
+      break;
     case XEM_DIEM:
       strcpy(table.title, "BANG DIEM TONG KET LOP CHINH QUY");
       table.length = database.get_current_dssv()->count();
@@ -489,7 +493,7 @@ void App::process_menu() {
         mvwprintw(wins[1], 3, 1, "Sinh vien khong ton tai");
         wrefresh(wins[1]);
         break;
-      }
+      } 
 
       // Phase 2: Loc LopTC
       state = DANG_KI_2;
@@ -501,10 +505,8 @@ void App::process_menu() {
       } while (!is_valid);
 
       // Phase 3: Chon LopTC
-      state = DSLTC;
-      render_menu(Menu(wins[0], 2));
-      render_table();
       short pick;
+      current_table = get_table();
       do {
         render_table();
         pick = current_table.get_input();
@@ -512,8 +514,8 @@ void App::process_menu() {
           case 1: {
             set_picked_item();
             bool success = dang_ky(database.get_current_sv()->get_data().get_MASV());
-            
-            wclear(wins[1]); 
+
+            wclear(wins[1]);
             if (success) mvwprintw(wins[1], 1, 2, "Dang ki thanh cong!");
             else mvwprintw(wins[1], 1, 2, "Dang ki khong thanh cong!");
             wrefresh(wins[1]);
