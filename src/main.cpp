@@ -63,7 +63,7 @@ private:
   int input;
 
   // GUI members variables
-  WINDOW * wins[2];
+  WINDOW * wins[3];
   Menu current_menu;
   Table current_table;
   Form current_form;
@@ -86,7 +86,8 @@ private:
   void process_input();
   void process_menu();
   void process_form(FORM *);
-  
+
+  void notificate(char *);
 public:
   App();
   void run();
@@ -108,16 +109,18 @@ App::App() {
   getmaxyx(stdscr, row, column);
 
   //-- Menu window
-  wins[0] = newwin(row, (int)column/4, 0, 0);
+  wins[0] = newwin(row - 1, (int)column/4, 0, 0);
   keypad(wins[0], TRUE);
   box(wins[0], 0, 0);
   wrefresh(wins[0]);
-  //-- Display window
-  wins[1] = newwin(row, (int)(3*column)/4, 0, (int)column/4 + 1);
+  //-- Main window
+  wins[1] = newwin(row - 1, (int)(3*column)/4, 0, (int)column/4 + 1);
   keypad(wins[1], TRUE);
   box(wins[1], 0, 0);
   wrefresh(wins[1]);
-  
+  //-- Notification window
+  wins[2] = newwin(3, (int)(3*column)/4 - 2, row - 5, (int)column/4 + 2);
+
   refresh();
   current_menu = Menu(wins[0], 1);
 }
@@ -472,7 +475,7 @@ void App::process_menu() {
           } while (pick == 0);
         } while (pick != 3);
       } else {
-        mvwprintw(wins[1], 7, 1, "Lop khong ton tai. ");
+        notificate((char *)"Lop khong ton tai!");
         wrefresh(wins[1]);
       }
       break;
@@ -493,7 +496,7 @@ void App::process_menu() {
       } while (!is_valid);
       
       if (strcmp(database.get_current_sv()->get_data().get_MASV(), "") == 0) {
-        mvwprintw(wins[1], 3, 1, "Sinh vien khong ton tai");
+        notificate((char *)"Sinh vien khong ton tai!");
         wrefresh(wins[1]);
         break;
       } 
@@ -517,12 +520,12 @@ void App::process_menu() {
           case 1: {
             set_picked_item();
             bool success = dang_ky(database.get_current_sv()->get_data().get_MASV());
+            
+            if (success) 
+              notificate((char *)"Dang ki thanh cong!");
+            else 
+              notificate((char *)"Dang ki khong thanh cong!");
 
-            wclear(wins[1]);
-            if (success) mvwprintw(wins[1], 1, 2, "Dang ki thanh cong!");
-            else mvwprintw(wins[1], 1, 2, "Dang ki khong thanh cong!");
-            wrefresh(wins[1]);
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             pick = 0;
             break;
           }
@@ -585,10 +588,12 @@ void App::process_menu() {
     case CHOOSE_THEM: {
       render_form();
       bool valid;
-      do {
-        valid = current_form.process_input();
-      } while (!valid);
-      
+      valid = current_form.process_input();
+      if (valid)
+        notificate((char *)"Them thanh cong!");
+      else 
+        notificate((char *)"Them khong thanh cong!");
+
       current_table = get_table();
       render_table();
       wrefresh(wins[1]);
@@ -608,9 +613,10 @@ void App::process_menu() {
             render_form();
             set_buffer();
             bool success = current_form.process_input();
-            if (!success) {
-              mvwprintw(wins[1], 1, 1, "Chinh sua khong thanh cong");
-              return;
+            if (success) {
+              notificate((char *)"Chinh sua thanh cong!");
+            } else {
+              notificate((char *)"Chinh sua khong thanh cong!");
             }
             pick = 0;
             break;
@@ -636,9 +642,7 @@ void App::process_menu() {
             // Picked
             set_picked_item();
             process_delete(); 
-            
-            wclear(wins[1]);
-            mvwprintw(wins[1], 1, 1, "Xoa thanh cong");
+            notificate((char *)"Xoa thanh cong!"); 
             wrefresh(wins[1]);
             pick = 0;
             break;
@@ -658,6 +662,14 @@ void App::process_menu() {
       current_menu.display();
       break;
   }  
+}
+
+void App::notificate(char * message) {
+  box(wins[2], 0, 0);
+  mvwprintw(wins[2], 1, 1, message);
+  wrefresh(wins[2]);
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  wclear(wins[2]);
 }
 
 void App::process_input() {
