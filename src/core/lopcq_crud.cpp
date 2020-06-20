@@ -23,8 +23,9 @@ void add_sv(char ** data) {
 }
 
 void update_sv(char ** data) {
-  SinhVien process_sv = database.get_current_sv()->get_data();
-  SinhVien sv(
+  // Update SV
+  SinhVien old_sv_data = database.get_current_sv()->get_data();
+  SinhVien new_sv_data(
       upper_case_letters(data[0]),
       upper_case_letters(data[1]),
       upper_case_letters(data[2]),
@@ -32,27 +33,29 @@ void update_sv(char ** data) {
       data[4],
       database.get_current_lopcq()->get_data().MALOP
   );
-  sv.DS_LOPTC = process_sv.DS_LOPTC;
-  database.get_current_sv()->set_data(sv);
-  //****** Handle update data sv in LTC classes *******/
-  LinkedList<int> *process_dsmh = process_sv.DS_LOPTC;
-  Node<int> *mh_in_list = process_dsmh->head();
-  while(mh_in_list != NULL){
-    LopTC * process_LTC = database.
-                            dsltc.get_by_id(
-                                    database.
-                                      dsltc.
-                                        search(mh_in_list->get_data())
-                                    );
-    DanhSachSinhVienDK * process_dsdk = process_LTC->dsdk;
-    Node<SinhVienDK> * tmp_svdk = process_dsdk->head();
-    while(tmp_svdk != NULL){
-      if(! strcmp(tmp_svdk->get_data().get_MASV(), process_sv.get_MASV())){
-        tmp_svdk->set_data(upper_case_letters(data[0]));
+  new_sv_data.DS_LOPTC = old_sv_data.DS_LOPTC;
+  database.get_current_sv()->set_data(new_sv_data);
+  
+  // Update DSLTC
+  Node<int> * current_ma_loptc= old_sv_data.DS_LOPTC->head();
+  while (current_ma_loptc != NULL) {
+    Node<SinhVienDK> * current_svdk = database
+                                        .dsltc
+                                        .get_by_id(database.dsltc.search(current_ma_loptc->get_data()))
+                                        ->dsdk
+                                        ->head();
+    // Loop through DSDK
+    while(current_svdk != NULL){
+      if (strcmp(current_svdk->get_data().get_MASV(), old_sv_data.get_MASV()) == 0) {
+        SinhVienDK new_svdk_data(
+            upper_case_letters(data[0]), 
+            current_svdk->get_data().get_DIEM()
+        );
+        current_svdk->set_data(new_svdk_data);
       }
-      tmp_svdk = tmp_svdk->get_next();
+      current_svdk = current_svdk->get_next();
     }
-    mh_in_list = mh_in_list->get_next();
+    current_ma_loptc = current_ma_loptc->get_next();
   }
   
 }
@@ -74,21 +77,26 @@ void search_sv(char ** data) {
 }
 
 void delete_sv(int index) {
-  //****** Handle delete data sv in LTC classes *******/
-  SinhVien process_sv = database.get_current_sv()->get_data();
-  LinkedList<int> *process_dsmh = process_sv.DS_LOPTC;
-  Node<int> *mh_in_list = process_dsmh->head();
-  while(mh_in_list != NULL){
-    LopTC * process_LTC = database.
-                            dsltc.get_by_id(
-                                    database.
-                                      dsltc.
-                                        search(mh_in_list->get_data())
-                                    );
-    DanhSachSinhVienDK * process_dsdk = process_LTC->dsdk;
-    database.set_current_dsdk(process_dsdk);
-    mh_in_list = mh_in_list->get_next();
+  // Delete all appearances of SV in DSLTC
+  SinhVien current_sv_data = database.get_current_sv()->get_data();
+  Node<int> * current_ma_loptc = current_sv_data.DS_LOPTC->head();
+  while (current_ma_loptc != NULL) {
+    DanhSachSinhVienDK * current_dsdk = database.dsltc.get_by_id(database.dsltc.search(current_ma_loptc->get_data()))->dsdk;
+
+    // Get index in DSDK 
+    Node<SinhVienDK> * current_svdk = current_dsdk->head();
+    int svdk_index = 0;
+    while (current_svdk != NULL) {
+      if (strcmp(current_svdk->get_data().get_MASV(), current_sv_data.get_MASV()) == 0) break;
+
+      svdk_index++;
+      current_svdk = current_svdk->get_next();
+    }
+
+    // Perform delete
+    current_dsdk->remove(svdk_index); 
+
+    current_ma_loptc = current_ma_loptc->get_next();
   }
-  database.get_current_dsdk()->remove(index);
   database.get_current_dssv()->remove(index);
 }
