@@ -10,6 +10,10 @@ LopCQ::LopCQ() {
   DSSV = new DanhSachSinhVien();
 }
 
+bool LopCQ::operator == (LopCQ x) {
+  return (strcmp(MALOP, x.MALOP) == 0);
+}
+
 /*********************** DanhSachLopCQ ************************/
 
 LopCQ DanhSachLopCQ::get_lcq(char * malop) {

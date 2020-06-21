@@ -29,6 +29,10 @@ void SinhVienDK::set_DIEM(float diem) {
  DIEM_ = diem;
 }
 
+bool SinhVienDK::operator == (SinhVienDK x) {
+    return (strcmp(MASV_, x.MASV_) == 0);
+}
+
 /**************** DanhSachSinhVienDK ********************/
 
 DanhSachSinhVienDK::DanhSachSinhVienDK() {

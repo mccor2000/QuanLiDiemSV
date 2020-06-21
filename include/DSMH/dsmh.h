@@ -58,10 +58,8 @@ public:
   void remove(MonHoc);
   void update(MonHoc, MonHoc);
 
-  bool is_exist(MonHoc);
-
-  MonHoc * search_name(char *);
-  MonHoc * search_code(char *);
+  bool search_name(char *);
+  bool search_code(char *);
   
   void enumerate(std::function<void(MonHoc)>); 
   
@@ -82,10 +80,7 @@ private:
   node * insert_node(node *, MonHoc);
   node * remove_node(node *, MonHoc);
 
-  MonHoc * search_name_node(node *, char *);
-  MonHoc * search_code_node(node *, char *);
-  
-  bool check_exist(node *, MonHoc);
+  bool search_name_node(node *, char *);
 
   void in_order(node *, std::function<void(MonHoc)>);
   void save_node(node *, std::ofstream &);

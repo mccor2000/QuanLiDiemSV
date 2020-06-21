@@ -1,6 +1,6 @@
 #include "core.h"
 
-void add_lopcq(char ** data) {
+bool add_lopcq(char ** data) {
     LopCQ new_lopcq(data[0]);
     database.dslcq.push_back(new_lopcq);
 }

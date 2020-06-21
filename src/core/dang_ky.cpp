@@ -1,7 +1,7 @@
 #include "core.h"
 
 //loc cac lop theo nien khoa va hoc ki
-void filter_dsltc(char ** data) {
+bool filter_dsltc(char ** data) {
   database.filtered_dsltc = new DanhSachLopTC;
   for (int i = 0; i < database.dsltc.getN(); i++) {
     if (
@@ -12,6 +12,7 @@ void filter_dsltc(char ** data) {
       database.filtered_dsltc->insertSpecial(database.dsltc.node[i]);
     }
   }
+  return true;
 }
 
 //dang ky lop cho SV

@@ -189,38 +189,21 @@ node * DanhSachMonHoc::remove_node(node * n, MonHoc x) {
   return n;  
 }  
 
-MonHoc * DanhSachMonHoc::search_name_node(node * n, char * s) {
+bool DanhSachMonHoc::search_name_node(node * n, char * s) {
   /* *
    * Search node by TENMH 
-   * -> return MonHoc
+   * -> return TRUE if node exists
    */
 
   if (n == NULL) 
-    return NULL;
+    return false;
   
   if (strcmp(s, n->key.TENMH) > 0) 
     return search_name_node(n->right, s);
   else if (strcmp(s, n->key.TENMH) < 0) 
     return search_name_node(n->left, s);
   else 
-    return &n->key;
-}
-
-MonHoc * DanhSachMonHoc::search_code_node(node * n, char * s) {
-  /*
-   * Search node by MAMH
-   * -> return MonHoc
-   */
-
-  if (n == NULL) 
-    return NULL;
-  
-  if (strcmp(s, n->key.MAMH) > 0) 
-    return search_name_node(n->right, s);
-  else if (strcmp(s, n->key.MAMH) < 0) 
-    return search_name_node(n->left, s);
-  else 
-    return &n->key;
+    return true;
 }
 
 void DanhSachMonHoc::in_order(node * n, std::function<void(MonHoc)> f) {
@@ -251,21 +234,6 @@ void DanhSachMonHoc::save_node(node * n, std::ofstream &f) {
   }  
 }
 
-bool DanhSachMonHoc::check_exist(node * n, MonHoc x) {
-  /*
-   * -> Return true if node <n> exists 
-   */
-
-  if (n == NULL) return false;
-  if (x > n->key) 
-    return check_exist(n->right, x);  
-  else if ( x < n->key) 
-    return check_exist(n->left, x);
-  else 
-    return true;
-  
-}
-
 //---- Public methods
 
 void DanhSachMonHoc::insert(MonHoc x) {
@@ -276,16 +244,16 @@ void DanhSachMonHoc::remove(MonHoc x) {
   root = remove_node(root, x);    
 }
 
-bool DanhSachMonHoc::is_exist(MonHoc x) {
-  return check_exist(root, x);
-}
-
-MonHoc * DanhSachMonHoc::search_name(char * s) {
+bool DanhSachMonHoc::search_name(char * s) {
   return search_name_node(root, s);
 }
 
-MonHoc * DanhSachMonHoc::search_code(char * s) {
-  return search_code_node(root, s);
+bool DanhSachMonHoc::search_code(char * s) {
+  enumerate([s](MonHoc x) {
+    if (strcmp(s, x.MAMH) == 0) 
+      return true;
+  });
+  return false;
 }
 
 void DanhSachMonHoc::enumerate(std::function<void(MonHoc)> f) {

@@ -9,15 +9,12 @@ bool add_loptc(char ** data) {
         string_to_int(data[4]),
         string_to_int(data[5])
     );
+    
+    if (!database.dsmh.search_code(upper_case_letters(data[0])))
+      return false;
 
-    database.dsmh.enumerate([data[0]](MonHoc x) {
-      if (strcmp(upper_case_letters(data[0], x.MAMH) == 0)) { 
-        database.dsltc.themLop(loptc, database.dsltc.getN()); 
-        return true;
-      }
-    });
-
-    return false;
+    database.dsltc.themLop(loptc, database.dsltc.getN()); 
+    return true;
 }
 
 bool update_loptc(char ** data) {

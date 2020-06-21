@@ -8,9 +8,11 @@ bool add_mh(char ** data) {
       string_to_int(data[3])
   );
   
-  if(database.dsmh.search_code(new_mh);
-  if (check) return false;
-  
+  if (
+      database.dsmh.search_code(upper_case_letters(data[0])) || 
+      database.dsmh.search_name(upper_case_letters(data[1]))
+  ) return false;
+
   database.dsmh.insert(new_mh);
   return true;
 }
@@ -30,16 +32,24 @@ void delete_mh() {
 }
 
 bool update_mh(char ** data) {
+  MonHoc old_mh = database.get_current_mh();
+  database.dsmh.remove(old_mh);
+
   MonHoc new_mh(
       upper_case_letters(data[0]), 
       upper_case_letters(data[1]), 
       string_to_int(data[2]), 
       string_to_int(data[3])
   );
-  bool check = database.dsmh.is_exist(new_mh);
-  if (check) return false;
 
-  delete_mh();
+  if (
+      database.dsmh.search_code(upper_case_letters(data[0])) || 
+      database.dsmh.search_name(upper_case_letters(data[1]))
+  ) {
+    database.dsmh.insert(old_mh);
+    return false;
+  };
+
   database.dsmh.insert(new_mh);
   return true;
 }

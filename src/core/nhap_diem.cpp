@@ -1,6 +1,6 @@
 #include "core.h"
 
-void find_loptc(char ** data) {
+bool find_loptc(char ** data) {
   for (int i = 0; i < database.dsltc.getN(); i++) {
     LopTC * temp_loptc = database.dsltc.node[i];
     
@@ -11,13 +11,16 @@ void find_loptc(char ** data) {
         strcmp(upper_case_letters(temp_loptc->maMH), upper_case_letters(data[3])) == 0 
     ) {
       database.set_current_dsdk(database.dsltc.node[i]->dsdk);
-      break;
+      return true;
     }
   }
+
+  return false;
 }
 
-void set_score(char ** data) {
+bool set_score(char ** data) {
   char * ma_sv = database.get_current_svdk()->get_data().get_MASV();
   database.get_current_svdk()->set_data(SinhVienDK(ma_sv, string_to_float(data[0])));
+  return true;
 }
 
