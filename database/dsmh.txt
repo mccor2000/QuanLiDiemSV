@@ -1,9 +1,9 @@
-Ctdl
-Cau Truc Du Lieu
+CTDL
+CAU TRUC DU LIEU
 1	1
-Trr
-Toan Roi Rac 1
-1	1
-Trr2
-Toan Roi Rac 2
+TRR
+TOAN ROI RAC
+1	2
+TRR2
+TOAN ROI RAC 2
 1	1

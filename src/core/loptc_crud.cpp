@@ -28,12 +28,26 @@ bool add_loptc(char ** data) {
 }
 
 bool update_loptc(char ** data) {
+
+  LopTC loptc(
+      upper_case_letters(data[0]),
+      upper_case_letters(data[1]),
+      string_to_short(data[2]),
+      string_to_short(data[3]),
+      string_to_int(data[4]),
+      string_to_int(data[5])
+  );
   for (int i = 0; i < database.dsltc.getN(); i++) {
-    if (strcmp(database.dsltc.node[i]->maMH, data[0]) == 0 &&
-        strcmp(database.dsltc.node[i]->nienkhoa, data[1]) == 0 &&
-        database.dsltc.node[i]->hocki == string_to_short(data[2]) &&
-        database.dsltc.node[i]->nhom == string_to_short(data[3])
+    if (strcmp(database.dsltc.node[i]->maMH, loptc.maMH) == 0 &&
+        strcmp(database.dsltc.node[i]->nienkhoa, loptc.nienkhoa) == 0 &&
+        database.dsltc.node[i]->hocki == loptc.hocki &&
+        database.dsltc.node[i]->nhom == loptc.nhom
     ) {
+      if (database.get_current_loptc()->malop == database.dsltc.getN()) {
+        database.get_current_loptc()->sv_min = string_to_int(data[4]);
+        database.get_current_loptc()->sv_max = string_to_int(data[5]);
+        return true;
+      }
       return false;
     }
   }

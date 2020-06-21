@@ -20,6 +20,8 @@ void Database::set_current_lopcq(int index) {
     i++;
   }
   current_dssv = current_lopcq->get_data().DSSV;
+  if (current_dssv->count() != 0) 
+    current_dssv->sort();
 }
 
 void Database::set_current_lopcq(char * ma_lopcq) {

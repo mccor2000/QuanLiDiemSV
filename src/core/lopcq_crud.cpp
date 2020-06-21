@@ -1,7 +1,7 @@
 #include "core.h"
 
 bool add_lopcq(char ** data) {
-    LopCQ new_lopcq(data[0]);
+    LopCQ new_lopcq(upper_case_letters(data[0]));
     database.dslcq.push_back(new_lopcq);
 }
 

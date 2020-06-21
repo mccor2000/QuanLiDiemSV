@@ -538,8 +538,11 @@ void App::process_menu() {
           case 1:
             // Picked
             set_picked_item();
+            if (database.get_current_dssv()->count() == 0) {
+              notificate((char *)"Lop khong co sinh vien!");
+              break;
+            }
             state = XEM_DIEM;
-            if (database.get_current_dssv() == NULL) break;
             current_table = get_table();
             do {
               wclear(wins[1]);
