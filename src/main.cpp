@@ -485,14 +485,11 @@ void App::process_menu() {
       database.set_current_sv(new Node<SinhVien>);
 
       render_form();
-      bool is_valid;
-      do {
-        is_valid = current_form.process_input();
-      } while (!is_valid);
+      bool found;
+      found = current_form.process_input();
       
-      if (strcmp(database.get_current_sv()->get_data().get_MASV(), "") == 0) {
+      if (!found) {
         notificate((char *)"Sinh vien khong ton tai!");
-        wrefresh(wins[1]);
         break;
       } 
 
@@ -501,9 +498,7 @@ void App::process_menu() {
       render_form();
       print_sv_info(wins[1], 1, 5, database.get_current_sv()->get_data());
       wrefresh(wins[1]);
-      do {
-        is_valid = current_form.process_input();
-      } while (!is_valid);
+      found = current_form.process_input();
 
       // Phase 3: Chon LopTC
       short pick;
@@ -723,4 +718,15 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
+  // database.set_current_mh(1);
+  // std::cout << database.get_current_mh().MAMH << " " << database.get_current_mh().TENMH << " " << database.get_current_mh().STCLT << " " << database.get_current_mh().STCTH << std::endl;
+
+  // char * data[] = {
+    // "A&B",
+    // "TEST",
+    // "10",
+    // "10",
+  // };
+
+  // std::cout << update_mh(data) << std::endl;
 }

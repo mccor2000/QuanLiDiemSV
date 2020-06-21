@@ -10,7 +10,12 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
     // ......
     Node<int> * curr_malop = current_sv->get_data().DS_LOPTC->p_head_;
     while (curr_malop != NULL) {
-      LopTC * curr_ltc = database.dsltc.node[database.dsltc.search(curr_malop->get_data())];
+      int index = database.dsltc.search(curr_malop->get_data());
+      if (index < 0) {
+        curr_malop = curr_malop->get_next();
+        continue;
+      }
+      LopTC * curr_ltc = database.dsltc.node[index];
       if (!list_ma_mh.is_exist(curr_ltc->maMH))
         list_ma_mh.push_back(curr_ltc->maMH);
       

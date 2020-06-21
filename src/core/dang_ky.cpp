@@ -31,5 +31,6 @@ bool dang_ky(char * data) {
   if (database.get_current_loptc()->dsdk->count()>=database.get_current_loptc()->sv_min) {
     database.get_current_loptc()->huylop = false;
   }
+
   return true;
 }

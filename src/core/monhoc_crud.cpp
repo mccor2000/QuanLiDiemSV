@@ -35,20 +35,21 @@ bool update_mh(char ** data) {
   MonHoc old_mh = database.get_current_mh();
   database.dsmh.remove(old_mh);
 
+  if (
+      database.dsmh.search_code(upper_case_letters(data[0])) || 
+      database.dsmh.search_name(upper_case_letters(data[1]))
+  ) {
+    std::cout << "im here" << std::endl;
+    database.dsmh.insert(old_mh);
+    return false;
+  };
+
   MonHoc new_mh(
       upper_case_letters(data[0]), 
       upper_case_letters(data[1]), 
       string_to_int(data[2]), 
       string_to_int(data[3])
   );
-
-  if (
-      database.dsmh.search_code(upper_case_letters(data[0])) || 
-      database.dsmh.search_name(upper_case_letters(data[1]))
-  ) {
-    database.dsmh.insert(old_mh);
-    return false;
-  };
 
   database.dsmh.insert(new_mh);
   return true;
