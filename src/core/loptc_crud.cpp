@@ -43,7 +43,7 @@ bool update_loptc(char ** data) {
         database.dsltc.node[i]->hocki == loptc.hocki &&
         database.dsltc.node[i]->nhom == loptc.nhom
     ) {
-      if (database.get_current_loptc()->malop == database.dsltc.getN()) {
+      if (database.get_current_loptc()->malop == database.dsltc.node[i]->malop) {
         database.get_current_loptc()->sv_min = string_to_int(data[4]);
         database.get_current_loptc()->sv_max = string_to_int(data[5]);
         return true;
