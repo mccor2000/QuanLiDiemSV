@@ -179,11 +179,6 @@ Form App::get_form() {
       form.set_submit(filter_dsltc);
       form.set_validate(validate_dang_ki_2);
       break;
-    case XEM_DIEM:
-      form.set_type(9);
-      form.set_len(1);
-      form.set_submit(find_lopcq);
-      break;
     default:
       break;
   }
@@ -218,7 +213,7 @@ Table App::get_table() {
       table.length = database.get_current_dsdk()->count();
       break;
     case DANG_KI_2:
-      strcpy(table.title, "DANH SACH LOP TIN CHI");
+      strcpy(table.title, "BANG DIEM DANH SACH DANG KY");
       table.length = database.filtered_dsltc->getN();
       break;
     case XEM_DIEM:
@@ -593,7 +588,6 @@ void App::process_menu() {
         notificate((char *)"Them thanh cong!");
       else 
         notificate((char *)"Them khong thanh cong!");
-
       current_table = get_table();
       render_table();
       wrefresh(wins[1]);

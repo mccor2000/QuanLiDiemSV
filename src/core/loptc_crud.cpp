@@ -1,6 +1,6 @@
 #include "core.h"
 
-void add_loptc(char ** data) {
+bool add_loptc(char ** data) {
     LopTC loptc(
         upper_case_letters(data[0]),
         upper_case_letters(data[1]),
@@ -9,18 +9,26 @@ void add_loptc(char ** data) {
         string_to_int(data[4]),
         string_to_int(data[5])
     );
-    if (database.dsmh.search_code(loptc.maMH)!=NULL) {
-      database.dsltc.themLop(loptc, database.dsltc.getN()); 
-    }
+
+    database.dsmh.enumerate([data[0]](MonHoc x) {
+      if (strcmp(upper_case_letters(data[0], x.MAMH) == 0)) { 
+        database.dsltc.themLop(loptc, database.dsltc.getN()); 
+        return true;
+      }
+    });
+
+    return false;
 }
 
-void update_loptc(char ** data) {
+bool update_loptc(char ** data) {
   strcpy(database.get_current_loptc()->maMH, upper_case_letters(data[0]));
   strcpy(database.get_current_loptc()->nienkhoa, data[1]);
   database.get_current_loptc()->hocki = string_to_short(data[2]);
   database.get_current_loptc()->nhom= string_to_short(data[3]);
   database.get_current_loptc()->sv_min = string_to_int(data[4]);
   database.get_current_loptc()->sv_max = string_to_int(data[5]);
+
+  return true;
 }
 
 void delete_loptc() {

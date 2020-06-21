@@ -5,11 +5,11 @@ void add_lopcq(char ** data) {
     database.dslcq.push_back(new_lopcq);
 }
 
-void find_lopcq(char ** data) {
-  database.set_current_lopcq(upper_case_letters(data[0]));
-}
+// void find_lopcq(char ** data) {
+  // database.set_current_lopcq(upper_case_letters(data[0]));
+// }
 
-void add_sv(char ** data) {
+bool add_sv(char ** data) {
   // Tao sinh vien
   SinhVien sv(
       upper_case_letters(data[0]),
@@ -19,10 +19,14 @@ void add_sv(char ** data) {
       data[4],
       database.get_current_lopcq()->get_data().MALOP
   );
-  database.get_current_dssv()->push_back(sv);
+  if (!database.get_current_dssv()->is_exist(sv)) {
+    database.get_current_dssv()->push_back(sv);
+    return true;
+  }
+  return false;
 }
 
-void update_sv(char ** data) {
+bool update_sv(char ** data) {
   // Update SV
   SinhVien old_sv_data = database.get_current_sv()->get_data();
   SinhVien new_sv_data(
@@ -33,6 +37,11 @@ void update_sv(char ** data) {
       data[4],
       database.get_current_lopcq()->get_data().MALOP
   );
+
+  if (database.get_current_dssv()->is_exist(new_sv_data)) {
+    return false;
+  }
+
   new_sv_data.DS_LOPTC = old_sv_data.DS_LOPTC;
   database.get_current_sv()->set_data(new_sv_data);
   
@@ -57,10 +66,10 @@ void update_sv(char ** data) {
     }
     current_ma_loptc = current_ma_loptc->get_next();
   }
-  
+  return true; 
 }
 
-void search_sv(char ** data) {
+bool search_sv(char ** data) {
   Node<LopCQ> * curr_lopcq = database.dslcq.head();
 
   while (curr_lopcq != NULL) {
@@ -68,12 +77,13 @@ void search_sv(char ** data) {
     while(temp_sv != NULL) {
       if (strcmp(upper_case_letters(temp_sv->get_data().get_MASV()), upper_case_letters(data[0])) == 0) {
         database.set_current_sv(temp_sv);
-        return;
+        return true;
       }
       temp_sv = temp_sv->get_next();
     } 
     curr_lopcq = curr_lopcq->get_next();
   }
+  return false;
 }
 
 void delete_sv(int index) {

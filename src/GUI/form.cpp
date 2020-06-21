@@ -144,9 +144,8 @@ bool Form::process_input() {
       	  form_driver(form, REQ_PREV_FIELD);
       	  form_data[i] = Trim(field_buffer(fields[i], 0));
         }
-        // if(validate(form_data)) submit(form_data);
-        submit(form_data);
-        return true;
+        if (validate(form_data)) return submit(form_data);
+        return false;
       }
       case 27: 
         cancel = true;
