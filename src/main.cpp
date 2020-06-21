@@ -344,8 +344,8 @@ void App::process_menu() {
       current_table = get_table();
       do {
         render_table();
+        if (database.dslcq.count() == 0) break;
         pick = current_table.get_input();
-        
         switch (pick) {
           case 1:
             // Picked
@@ -383,8 +383,8 @@ void App::process_menu() {
       current_table = get_table();
       do {
         render_table();
+        if (database.dslcq.count() == 0) break;
         pick = current_table.get_input();
-
         switch (pick) {
           case 1:
             // Picked
@@ -440,16 +440,14 @@ void App::process_menu() {
       render_form();
       
       // Phase 1: Get LopTC
-      bool is_valid;
+      bool success;
       database.set_current_dsdk(NULL);
-      do {
-        is_valid = current_form.process_input();
-      } while (!is_valid);
+      success = current_form.process_input();
       
       // Phase 2: Nhap diem
       state = NHAP_DIEM_2;
       short pick; 
-      if (database.get_current_dsdk() != NULL) {
+      if (success) {
         do {
           current_table = get_table();
           do {
@@ -459,9 +457,9 @@ void App::process_menu() {
               case 1:
                 set_picked_item();
                 render_form();
-                do {
-                  is_valid = current_form.process_input();
-                } while (!is_valid);
+                success = current_form.process_input();
+                if (success) notificate((char *)"Nhap diem thanh cong!");
+                else notificate((char *)"Nhap diem khong thanh cong!");
                 break;
               case 2:
               case 3:
@@ -541,6 +539,7 @@ void App::process_menu() {
             // Picked
             set_picked_item();
             state = XEM_DIEM;
+            if (database.get_current_dssv() == NULL) break;
             current_table = get_table();
             do {
               wclear(wins[1]);
@@ -632,6 +631,7 @@ void App::process_menu() {
             set_picked_item();
             process_delete(); 
             notificate((char *)"Xoa thanh cong!"); 
+            current_table = get_table();
             wrefresh(wins[1]);
             pick = 0;
             break;
@@ -718,15 +718,6 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
-  // database.set_current_mh(1);
-  // std::cout << database.get_current_mh().MAMH << " " << database.get_current_mh().TENMH << " " << database.get_current_mh().STCLT << " " << database.get_current_mh().STCTH << std::endl;
-
-  // char * data[] = {
-    // "A&B",
-    // "TEST",
-    // "10",
-    // "10",
-  // };
-
-  // std::cout << update_mh(data) << std::endl;
+  // std::cout << database.dsltc.search(2) << std::endl;
+  // std::cout << database.dsltc.search(1) << std::endl;
 }

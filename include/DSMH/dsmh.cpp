@@ -249,11 +249,11 @@ bool DanhSachMonHoc::search_name(char * s) {
 }
 
 bool DanhSachMonHoc::search_code(char * s) {
-  enumerate([s](MonHoc x) {
-    if (strcmp(s, x.MAMH) == 0) 
-      return true;
+  bool found = false;
+  enumerate([s, &found](MonHoc x) {
+    if (strcmp(s, x.MAMH) == 0) found = true;
   });
-  return false;
+  return found;
 }
 
 void DanhSachMonHoc::enumerate(std::function<void(MonHoc)> f) {

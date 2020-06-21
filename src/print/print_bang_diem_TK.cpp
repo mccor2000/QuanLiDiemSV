@@ -13,13 +13,13 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
       int index = database.dsltc.search(curr_malop->get_data());
       if (index < 0) {
         curr_malop = curr_malop->get_next();
-        continue;
+      } else {
+        LopTC * curr_ltc = database.dsltc.node[index];
+        if (!list_ma_mh.is_exist(curr_ltc->maMH))
+          list_ma_mh.push_back(curr_ltc->maMH);
+        
+        curr_malop = curr_malop->get_next();
       }
-      LopTC * curr_ltc = database.dsltc.node[index];
-      if (!list_ma_mh.is_exist(curr_ltc->maMH))
-        list_ma_mh.push_back(curr_ltc->maMH);
-      
-      curr_malop = curr_malop->get_next();
     }
     current_sv = current_sv->get_next();
   }
@@ -110,9 +110,16 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
     
     // Print DIEM MON HOC
     float total_score = 0;
+    int total_mh = 0;
     Node<int> * current_ma_loptc = current_sv_data.DS_LOPTC->head();
-
+    
     while (current_ma_loptc != NULL) {
+      int index = database.dsltc.search(current_ma_loptc->get_data());
+      if (index < 0) {
+        current_ma_loptc = current_ma_loptc->get_next();
+        continue;
+      }
+      total_mh++;
       LopTC * current_loptc = database.dsltc.get_by_id(database.dsltc.search(current_ma_loptc->get_data()));
 
       // Get X coord
@@ -141,7 +148,7 @@ void print_bang_diem_TK(WINDOW * current_window, Table &current_table) {
     }
 
     // Print DIEM TRUNG BINH
-    float average_score = total_score / current_sv_data.DS_LOPTC->count();
+    float average_score = total_score / total_mh;
     std::string average_score_str = std::to_string(average_score);
     average_score_str.resize(4);
     mvwprintw(current_window, current_ycoord, 59 + average_width * list_ma_mh.count(), average_score_str.c_str());
