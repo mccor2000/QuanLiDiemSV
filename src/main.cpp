@@ -121,6 +121,8 @@ App::App() {
   //-- Notification window
   wins[2] = newwin(3, (int)(3*column)/4 - 2, row - 5, (int)column/4 + 2);
 
+  mvprintw(row - 1, 1, "ARROW KEY: Di chuyen       ENTER: Chon        ESC: Quay Lai Menu");
+  mvprintw(row - 1, column - 25, "mccor-grimmz-conghau7620");
   refresh();
   current_menu = Menu(wins[0], 1);
 }
@@ -721,6 +723,4 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
-  // std::cout << database.dsltc.search(2) << std::endl;
-  // std::cout << database.dsltc.search(1) << std::endl;
 }
