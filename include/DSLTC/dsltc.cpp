@@ -83,14 +83,7 @@ void DanhSachLopTC::themLop(LopTC &lop, int pos) {
 	if (isFull()) {
 		return;
 	}
-	for (int i=0; i<n; i++) {
-		if (strcmp(node[i]->maMH, lop.maMH) == 0 &&
-        strcmp(node[i]->nienkhoa, lop.nienkhoa) == 0 &&
-        node[i]->hocki == lop.hocki &&
-        node[i]->nhom == lop.nhom) {
-			return;
-		}
-	}
+
 	lop.malop = stt;
 	if (pos>n) {
 		insertLast(lop);
@@ -179,12 +172,3 @@ void DanhSachLopTC::load() {
   f.close();
 }
 
-LinkedList<LopTC> DanhSachLopTC::search_by_MAMH(char *MAMH){
-	LinkedList<LopTC> result;
-	for(int i=0;i<getN();i++){
-		if(! strcmp(MAMH,node[i]->maMH)){
-			result.push_back(*node[i]);
-		}
-	}
-	return result;
-}

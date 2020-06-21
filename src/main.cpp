@@ -179,11 +179,6 @@ Form App::get_form() {
       form.set_submit(filter_dsltc);
       form.set_validate(validate_dang_ki_2);
       break;
-    case XEM_DIEM:
-      form.set_type(9);
-      form.set_len(1);
-      form.set_submit(find_lopcq);
-      break;
     default:
       break;
   }
@@ -218,7 +213,7 @@ Table App::get_table() {
       table.length = database.get_current_dsdk()->count();
       break;
     case DANG_KI_2:
-      strcpy(table.title, "DANH SACH LOP TIN CHI");
+      strcpy(table.title, "BANG DIEM DANH SACH DANG KY");
       table.length = database.filtered_dsltc->getN();
       break;
     case XEM_DIEM:
@@ -349,8 +344,8 @@ void App::process_menu() {
       current_table = get_table();
       do {
         render_table();
+        if (database.dslcq.count() == 0) break;
         pick = current_table.get_input();
-        
         switch (pick) {
           case 1:
             // Picked
@@ -388,8 +383,8 @@ void App::process_menu() {
       current_table = get_table();
       do {
         render_table();
+        if (database.dslcq.count() == 0) break;
         pick = current_table.get_input();
-
         switch (pick) {
           case 1:
             // Picked
@@ -445,16 +440,14 @@ void App::process_menu() {
       render_form();
       
       // Phase 1: Get LopTC
-      bool is_valid;
+      bool success;
       database.set_current_dsdk(NULL);
-      do {
-        is_valid = current_form.process_input();
-      } while (!is_valid);
+      success = current_form.process_input();
       
       // Phase 2: Nhap diem
       state = NHAP_DIEM_2;
       short pick; 
-      if (database.get_current_dsdk() != NULL) {
+      if (success) {
         do {
           current_table = get_table();
           do {
@@ -464,9 +457,9 @@ void App::process_menu() {
               case 1:
                 set_picked_item();
                 render_form();
-                do {
-                  is_valid = current_form.process_input();
-                } while (!is_valid);
+                success = current_form.process_input();
+                if (success) notificate((char *)"Nhap diem thanh cong!");
+                else notificate((char *)"Nhap diem khong thanh cong!");
                 break;
               case 2:
               case 3:
@@ -490,14 +483,11 @@ void App::process_menu() {
       database.set_current_sv(new Node<SinhVien>);
 
       render_form();
-      bool is_valid;
-      do {
-        is_valid = current_form.process_input();
-      } while (!is_valid);
+      bool found;
+      found = current_form.process_input();
       
-      if (strcmp(database.get_current_sv()->get_data().get_MASV(), "") == 0) {
+      if (!found) {
         notificate((char *)"Sinh vien khong ton tai!");
-        wrefresh(wins[1]);
         break;
       } 
 
@@ -506,9 +496,7 @@ void App::process_menu() {
       render_form();
       print_sv_info(wins[1], 1, 5, database.get_current_sv()->get_data());
       wrefresh(wins[1]);
-      do {
-        is_valid = current_form.process_input();
-      } while (!is_valid);
+      found = current_form.process_input();
 
       // Phase 3: Chon LopTC
       short pick;
@@ -550,6 +538,10 @@ void App::process_menu() {
           case 1:
             // Picked
             set_picked_item();
+            if (database.get_current_dssv()->count() == 0) {
+              notificate((char *)"Lop khong co sinh vien!");
+              break;
+            }
             state = XEM_DIEM;
             current_table = get_table();
             do {
@@ -593,7 +585,6 @@ void App::process_menu() {
         notificate((char *)"Them thanh cong!");
       else 
         notificate((char *)"Them khong thanh cong!");
-
       current_table = get_table();
       render_table();
       wrefresh(wins[1]);
@@ -643,6 +634,7 @@ void App::process_menu() {
             set_picked_item();
             process_delete(); 
             notificate((char *)"Xoa thanh cong!"); 
+            current_table = get_table();
             wrefresh(wins[1]);
             pick = 0;
             break;
@@ -729,4 +721,6 @@ void App::exit() {
 int main() {
   App our_app;
   our_app.run();
+  // std::cout << database.dsltc.search(2) << std::endl;
+  // std::cout << database.dsltc.search(1) << std::endl;
 }

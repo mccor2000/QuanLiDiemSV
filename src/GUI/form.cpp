@@ -87,7 +87,7 @@ void Form::display() {
   fields = new FIELD*[len+1];
 
   for (int i = 0; i < len; i++) {
-    fields[i] = new_field(1, 16, i+1, 16, 0, 0);
+    fields[i] = new_field(1, 50, i+1, 50, 0, 0);
     set_field_back(fields[i], A_UNDERLINE);
     field_opts_off(fields[1], O_AUTOSKIP);
   }
@@ -144,9 +144,8 @@ bool Form::process_input() {
       	  form_driver(form, REQ_PREV_FIELD);
       	  form_data[i] = Trim(field_buffer(fields[i], 0));
         }
-        // if(validate(form_data)) submit(form_data);
-        submit(form_data);
-        return true;
+        if (validate(form_data)) return submit(form_data);
+        return false;
       }
       case 27: 
         cancel = true;

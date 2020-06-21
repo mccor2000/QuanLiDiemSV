@@ -17,31 +17,31 @@ extern Database database;
 
 
 // LOPTC__CRUD
-void add_loptc(char ** data);
-void update_loptc(char ** data);
+bool add_loptc(char ** data);
+bool update_loptc(char ** data);
 void delete_loptc();
 void delete_svdk(int index);
 
 //-- LOPCQ__CRUD
-void add_lopcq(char **);
-void find_lopcq(char **);
+bool add_lopcq(char **);
+// void find_lopcq(char **);
 
 //-- SinhVien__CRUD
-void add_sv(char **);
-void update_sv(char **);
-void search_sv(char **);
+bool add_sv(char **);
+bool update_sv(char **);
+bool search_sv(char **);
 void delete_sv(int index);
 
 //-- MONHOC__CRUD 
-void add_mh(char **);
-void update_mh(char **);
+bool add_mh(char **);
+bool update_mh(char **);
 void delete_mh();
 
 //-- DANG_KI
-void filter_dsltc(char **);
+bool filter_dsltc(char **);
 bool dang_ky(char *);
 
 //-- NHAP_DIEM 
-void find_loptc(char **);
-void set_score(char **);
+bool find_loptc(char **);
+bool set_score(char **);
 #endif

@@ -1,7 +1,7 @@
 #include "core.h"
 
 //loc cac lop theo nien khoa va hoc ki
-void filter_dsltc(char ** data) {
+bool filter_dsltc(char ** data) {
   database.filtered_dsltc = new DanhSachLopTC;
   for (int i = 0; i < database.dsltc.getN(); i++) {
     if (
@@ -12,6 +12,7 @@ void filter_dsltc(char ** data) {
       database.filtered_dsltc->insertSpecial(database.dsltc.node[i]);
     }
   }
+  return true;
 }
 
 //dang ky lop cho SV
@@ -21,6 +22,12 @@ bool dang_ky(char * data) {
   }
   
   database.set_current_dsdk(database.get_current_loptc()->dsdk);
+  Node<SinhVienDK> * curr_node = database.get_current_dsdk()->p_head_;
+  while (curr_node != NULL) {
+    if (strcmp(curr_node->get_data().get_MASV(), data) == 0) return false;
+    curr_node = curr_node->get_next();
+  }
+
   database.get_current_dsdk()->push_back(SinhVienDK(data));
 
   database.set_current_sv(data);
@@ -30,5 +37,6 @@ bool dang_ky(char * data) {
   if (database.get_current_loptc()->dsdk->count()>=database.get_current_loptc()->sv_min) {
     database.get_current_loptc()->huylop = false;
   }
+
   return true;
 }

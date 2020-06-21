@@ -56,7 +56,5 @@ public:
 	void xoaDS();
 	void save();
 	void load();
-	
-	LinkedList<LopTC> search_by_MAMH(char *MAMH);
 };
 #endif

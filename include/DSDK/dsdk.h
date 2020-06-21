@@ -23,6 +23,9 @@ public:
   
   void set_MASV(char *);
   void set_DIEM(float);
+  
+  //** Operator
+  bool operator == (SinhVienDK);
 
   //** Methods
   void info();

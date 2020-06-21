@@ -19,7 +19,7 @@ bool validate_lcq(char** data){
     if (is_empty_data(data,1)) return false;
     return is_string(data[0]);
 }
-bool validate_mh(char** data){
+bool validate_mh (char ** data) {
     if (is_empty_data(data,4)) return false;
     return is_string(data[0]) && is_string(data[1]) && is_number(data[2]) && is_number(data[3]);
 }
@@ -31,12 +31,12 @@ bool validate_sv(char** data){
 
 bool validate_nhap_diem_1(char** data){
     if (is_empty_data(data,4)) return false;
-    return is_string(data[0]) && is_number(data[1]) && is_number(data[2]) && is_number(data[3]);
+    return is_string(data[0]) && is_number(data[1]) && is_number(data[2]) && is_string(data[3]);
 }
 
 bool validate_nhap_diem_2(char** data){
-    if (is_empty_data(data,2)) return false;
-    return is_string(data[0]) && is_float(data[1]);
+    if (is_empty_data(data,1)) return false;
+    return is_number(data[0]);
 }
 
 bool validate_dang_ki_1(char** data){

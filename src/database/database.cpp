@@ -1,8 +1,10 @@
 #include "database.h"
 
 void Database::set_current_loptc(int index) {
-  current_loptc = dsltc.node[index];  
-  current_dsdk = current_loptc->dsdk;
+  if (dsltc.node[index] != NULL) {
+    current_loptc = dsltc.node[index];  
+    current_dsdk = current_loptc->dsdk;
+  }
 }
 
 void Database::set_current_lopcq(int index) {
@@ -18,6 +20,8 @@ void Database::set_current_lopcq(int index) {
     i++;
   }
   current_dssv = current_lopcq->get_data().DSSV;
+  if (current_dssv->count() != 0) 
+    current_dssv->sort();
 }
 
 void Database::set_current_lopcq(char * ma_lopcq) {

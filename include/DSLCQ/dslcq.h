@@ -12,6 +12,9 @@ public:
   //** Constructor 
   LopCQ(char *);
   LopCQ();
+
+  //** Operator overloading
+  bool operator == (LopCQ);
 };
 
 class DanhSachLopCQ: public LinkedList<LopCQ> {

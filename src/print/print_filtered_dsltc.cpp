@@ -13,8 +13,8 @@ void print_filtered_dsltc(WINDOW * current_window, Table &current_table) {
     (char *)"NIEN KHOA",
     (char *)"HOC KI",
     (char *)"NHOM",
-    (char *)"SO SV MIN",
-    (char *)"SO SV MAX",
+    (char *)"DA DANG KY",
+    (char *)"CON LAI",
     (char *)"HUY",
   };
   current_table.fields_len = 8;
@@ -40,8 +40,8 @@ void print_filtered_dsltc(WINDOW * current_window, Table &current_table) {
     mvwprintw(current_window, current_yCoord, 1 + (1 + current_table.average_width)*2, curr_loptc->nienkhoa);
     mvwprintw(current_window, current_yCoord, 1 + (1 + current_table.average_width)*3, std::to_string(curr_loptc->hocki).c_str());
     mvwprintw(current_window, current_yCoord, 1 + (1 + current_table.average_width)*4, std::to_string(curr_loptc->nhom).c_str());
-    mvwprintw(current_window, current_yCoord, 1 + (1 + current_table.average_width)*5, std::to_string(curr_loptc->sv_min).c_str());
-    mvwprintw(current_window, current_yCoord, 1 + (1 + current_table.average_width)*6, std::to_string(curr_loptc->sv_max).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (1 + current_table.average_width)*5, std::to_string(curr_loptc->dsdk->count()).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (1 + current_table.average_width)*6, std::to_string(curr_loptc->sv_max - curr_loptc->dsdk->count()).c_str());
     mvwprintw(current_window, current_yCoord, 1 + (1 + current_table.average_width)*7, curr_loptc->huylop ? "v" : "");
 
     if (current_table.current_index == i)
