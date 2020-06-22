@@ -42,7 +42,7 @@ void print_dsdk(WINDOW * current_window, Table &current_table) {
     if (current_table.current_index == i)
       wattron(current_window, A_BOLD | COLOR_PAIR(1));
 
-    mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*0, std::to_string(i).c_str());
+    mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*0, std::to_string(i+1).c_str());
     mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*1, curr_svdk.get_MASV());
     mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*2, curr_sv.get_HO());
     mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*3, curr_sv.get_TEN());
