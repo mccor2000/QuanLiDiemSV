@@ -26,9 +26,6 @@ public:
   
   //** Operator
   bool operator == (SinhVienDK);
-
-  //** Methods
-  void info();
 };
 
 class DanhSachSinhVienDK: public LinkedList<SinhVienDK> {
