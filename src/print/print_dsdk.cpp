@@ -46,7 +46,10 @@ void print_dsdk(WINDOW * current_window, Table &current_table) {
     mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*1, curr_svdk.get_MASV());
     mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*2, curr_sv.get_HO());
     mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*3, curr_sv.get_TEN());
-    mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*4, (curr_svdk.get_DIEM() == 0) ? "" : std::to_string(curr_svdk.get_DIEM()).c_str());
+
+    std::string diem = std::to_string(curr_svdk.get_DIEM());
+    diem.resize(4);
+    mvwprintw(current_window, current_yCoord, 1 + (current_table.average_width + 1)*4, (curr_svdk.get_DIEM() == 0) ? "" : diem.c_str());
 
     if (current_table.current_index == i)
       wattroff(current_window, A_BOLD | COLOR_PAIR(1));

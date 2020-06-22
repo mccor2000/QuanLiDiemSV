@@ -36,7 +36,7 @@ bool validate_nhap_diem_1(char** data){
 
 bool validate_nhap_diem_2(char** data){
     if (is_empty_data(data,1)) return false;
-    return is_number(data[0]);
+    return is_float(data[0]);
 }
 
 bool validate_dang_ki_1(char** data){
